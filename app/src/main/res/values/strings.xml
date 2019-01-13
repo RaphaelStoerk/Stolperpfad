@@ -1,9 +1,3 @@
 <resources>
-    <string name="app_name">ISMM_Stolperpfad</string>
-
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="option_button">OPTION</string>
-    <string name="scanner_button">Steinscanner</string>
-    <string name="next_stone_button">Nächster Stein</string>
+    <string name="app_name">Stolperpfad</string>
 </resources>

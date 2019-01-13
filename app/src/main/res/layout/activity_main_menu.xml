@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    This is the layout file of the main menu.
+    Most of the design things will happen here or in the other .xml layout files.
+    These do not have to be inserted and written by hand, only if you need specific
+    Contents that you want to display in a certain special way.
+
+    For creating a new Activity with it's corresponding layout file, just go to
+    File > New > Activity > Empty Activity
+    And Android Studio will do every step necessary to create the files you want.
+
+    Also if you look at the bottom of this editor you can click on "Design" and won't have
+    to guess what every little line of Code does, but rather see directly what changes it is
+    causing. Also you can edit the Design by just Drag-n-Dropping the Components into the
+    Preview and change the values in the graphical interface to the right
+
+!-->
+
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -15,6 +33,7 @@
         android:layout_marginBottom="100dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:text="@string/exit_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -30,6 +49,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:text="@string/info_button"
         app:layout_constraintBottom_toTopOf="@+id/exit_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

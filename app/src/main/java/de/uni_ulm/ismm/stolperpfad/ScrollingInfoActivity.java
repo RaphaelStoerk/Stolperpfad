@@ -25,7 +25,7 @@ public class ScrollingInfoActivity extends AppCompatActivity {
 
         AQuery aq = new AQuery(this);
 
-        // Lets the button do something, this time with a anonymous class
+        // Lets the button do something, this time with an anonymous class (kinda)
         aq.id(R.id.floatingActionButton).visible().clicked(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

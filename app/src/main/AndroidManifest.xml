@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--
+            Declares the entry point to the app
+        -->
+
         <activity android:name=".MainMenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,6 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--
+            Every used activity has to be listed here, additionally there can be declared what
+            hirarchy the activities are in
+        -->
+
         <activity
             android:name=".ScrollingInfoActivity"
             android:label="@string/title_activity_scrolling_info"

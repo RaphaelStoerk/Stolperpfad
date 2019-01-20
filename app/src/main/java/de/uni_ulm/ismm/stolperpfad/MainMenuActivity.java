@@ -1,10 +1,5 @@
 package de.uni_ulm.ismm.stolperpfad;
 
-/*
-This is a test comment from Ulrike :)
- */
-
-
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +9,7 @@ import com.androidquery.AQuery;
 
 /**
  * This class the current entry point to our activities, this might change with an added
- * splash screen. For now, this is the first activity a user will be able to interact with
+ * splash screen. For now, this is the first activity a user will be able to interact with.
  */
 public class MainMenuActivity extends AppCompatActivity {
 

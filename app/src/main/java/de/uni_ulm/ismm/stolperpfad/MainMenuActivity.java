@@ -36,6 +36,7 @@ public class MainMenuActivity extends AppCompatActivity {
         // add the listener to the buttons on screen and make them visible
         aq.id(R.id.exit_button).visible().clicked(myListener);
         aq.id(R.id.info_button).visible().clicked(myListener);
+        aq.id(R.id.testDB_button).visible().clicked(myListener);
     }
 
     /**
@@ -56,6 +57,10 @@ public class MainMenuActivity extends AppCompatActivity {
                 case R.id.info_button:
                     intent = new Intent(MainMenuActivity.this, ScrollingInfoActivity.class);
                     startActivity(intent);
+                case R.id.testDB_button:
+                    intent = new Intent(MainMenuActivity.this, .class);
+                    startActivity(intent);
+
             }
         }
     }

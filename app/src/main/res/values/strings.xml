@@ -14,6 +14,7 @@
     <string name="route_button">Pfad</string>
     <string name="info_button">Info</string>
     <string name="exit_button">Exit</string>
+    <string name="testdb_button">Test DB</string>
     <string name="test">Test</string>
     <string name="title_activity_scrolling_info">ScrollingInfoActivity</string>
     <string name="action_settings">Test</string>

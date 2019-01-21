@@ -19,7 +19,7 @@ import java.util.List;
 
 public class dbTestActivity extends AppCompatActivity {
     private static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
-    private WordViewModel mWordViewModel;
+    private dbViewModel mDBViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,23 +33,28 @@ public class dbTestActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, NewWordActivity.class);
+                Intent intent = new Intent(dbTestActivity.this, NewWordActivity.class);
                 startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+
+                RecyclerView recyclerView = findViewById(R.id.recyclerview);
+                final PersListAdapter adapter = new PersListAdapter(this);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
             }
         });
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final WordListAdapter adapter = new WordListAdapter(this);
+        final PersListAdapter adapter = new PersListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
+        mDBViewModel = ViewModelProviders.of(this).get(dbViewModel.class);
 
-        mWordViewModel.getAllWords().observe(this, new Observer<List<Word>>() {
+        mDBViewModel.getAllPers().observe(this, new Observer<List<Person>>() {
             @Override
-            public void onChanged(@Nullable final List<Word> words) {
+            public void onChanged(@Nullable final List<Person> pers) {
                 // Update the cached copy of the words in the adapter.
-                adapter.setWords(words);
+                adapter.setWords(pers);
             }
         });
     }

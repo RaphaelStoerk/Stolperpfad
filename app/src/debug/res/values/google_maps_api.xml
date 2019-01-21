@@ -20,5 +20,12 @@
     Once you have your key (it starts with "AIza"), replace the "google_maps_key"
     string in this file.
     -->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDBFjD3lsJBiR88aWXGv8tZq-SVurxxwBE</string>
+
+
+    <!--
+        IMPORTANT: DONT PUSH THE KEY TO GIT, ADD THIS FILE TO THE GITIGNORE!!!!
+
+        PREVIOUS KEY HAS BEEN COMPROMISED, DELETED AND IS NOT USABLE ANYMORE, STAY SAFE!!!
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">ENTER A NEW KEY HERE</string>
 </resources>

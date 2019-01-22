@@ -12,7 +12,7 @@ public class PersRepository {
     private LiveData<List<Person>> allPers;
 
     PersRepository(Application application) {
-        PersonsRoomDatabase db = PersonsRoomDatabase.getDatabase(application);
+        PersRoomDatabase db = PersRoomDatabase.getDatabase(application);
         persDao = db.persDao();
         allPers = persDao.getAllPersons();
     }

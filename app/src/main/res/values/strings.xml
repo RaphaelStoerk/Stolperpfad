@@ -109,4 +109,5 @@
         "Am 19.4.1933 wurden per Verfügung des Staatskommissars für die Verwaltung der Stadt Ulm für die sozial Hilfebedürftigen
         die freie Arztwahl eingeführt. Das bedeutete jedoch gleichzeitig, dass die jüdischen Ärzte von der Versorgung dieses Personenkreises ausgeschlossen waren."
     </string>
+    <string name="title_activity_db">DbActivity</string>
 </resources>

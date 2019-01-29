@@ -8,8 +8,8 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "pers_table")
 public class Person {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey//(autoGenerate = true)
+    //private int id;
 
     @NonNull
     @ColumnInfo(name = "first_name")
@@ -26,4 +26,6 @@ public class Person {
 
     public String getFstName(){return this.mFstName;}
     public String getFamName(){return this.mFamName;}
+    //public int getId(){return this.id;}
+
 }

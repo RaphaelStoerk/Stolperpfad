@@ -15,6 +15,7 @@
     <string name="route_button">Routenplaner</string>
     <string name="info_button">Stein-Infos</string>
     <string name="exit_button">Exit</string>
+    <string name="db_button">Database</string>
     <string name="test">Test</string>
     <string name="title_activity_scrolling_info">ScrollingInfoActivity</string>
     <string name="action_settings">Test</string>
@@ -110,6 +111,7 @@
         "Am 19.4.1933 wurden per Verfügung des Staatskommissars für die Verwaltung der Stadt Ulm für die sozial Hilfebedürftigen
         die freie Arztwahl eingeführt. Das bedeutete jedoch gleichzeitig, dass die jüdischen Ärzte von der Versorgung dieses Personenkreises ausgeschlossen waren."
     </string>
+    <string name="title_activity_db">DbActivity</string>
     <string name="title_activity_scanner">ScannerActivity</string>
     <string name="title_activity_route">Map</string>
 </resources>

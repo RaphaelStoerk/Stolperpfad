@@ -16,6 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".DbActivity"
+            android:label="@string/title_activity_db"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <!--             Declares the entry point to the app -->
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

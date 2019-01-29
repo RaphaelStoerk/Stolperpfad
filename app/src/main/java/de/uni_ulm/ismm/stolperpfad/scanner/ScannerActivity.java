@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad;
+package de.uni_ulm.ismm.stolperpfad.scanner;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.androidquery.AQuery;
+
+import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 
 public class ScannerActivity extends AppCompatActivity implements View.OnClickListener{
 

@@ -17,11 +17,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".DbActivity"
+            android:name=".filter_search.FilterSearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_filter_search"
+            android:theme="@style/FullscreenTheme"></activity>
+        <activity
+            android:name=".database.DbActivity"
             android:label="@string/title_activity_db"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <!--             Declares the entry point to the app -->
-
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- Declares the entry point to the app -->
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -35,10 +38,10 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".RouteActivity"
-            android:label="@string/title_activity_route"></activity>
+            android:name=".map_activities.RouteActivity"
+            android:label="@string/title_activity_route" />
         <activity
-            android:name=".ScannerActivity"
+            android:name=".scanner.ScannerActivity"
             android:label="@string/title_activity_scanner"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- Declares the entry point to the app -->
         <activity android:name=".MainMenuActivity">
@@ -53,7 +56,7 @@
             hirarchy the activities are in
         -->
         <activity
-            android:name=".ScrollingInfoActivity"
+            android:name=".info_display.ScrollingInfoActivity"
             android:label="@string/title_activity_scrolling_info"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

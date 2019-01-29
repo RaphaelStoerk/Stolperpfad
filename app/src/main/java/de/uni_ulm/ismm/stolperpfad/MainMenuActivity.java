@@ -15,6 +15,11 @@ import android.view.View;
 
 import com.androidquery.AQuery;
 
+import de.uni_ulm.ismm.stolperpfad.database.DbActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.RouteActivity;
+import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
+
 /**
  * This class is the current entry point to our activities, this might change with an added
  * splash screen. For now, this is the first activity a user will be able to interact with

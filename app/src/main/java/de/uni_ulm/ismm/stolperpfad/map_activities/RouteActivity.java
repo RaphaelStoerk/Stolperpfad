@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad;
+package de.uni_ulm.ismm.stolperpfad.map_activities;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import de.uni_ulm.ismm.stolperpfad.R;
 
 public class RouteActivity extends FragmentActivity implements OnMapReadyCallback {
 

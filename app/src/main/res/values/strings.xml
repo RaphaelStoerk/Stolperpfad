@@ -18,6 +18,11 @@
     <string name="test">Test</string>
     <string name="title_activity_scrolling_info">ScrollingInfoActivity</string>
     <string name="action_settings">Test</string>
+
+    <string name="hint_person">Person...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Person not saved because it is empty.</string>
+
     <string name="info_text">
         "Wichtige Informationen\n\n"
         \nSie befinden sich in einer Beispiel-Ansicht eines Informations-Screens.

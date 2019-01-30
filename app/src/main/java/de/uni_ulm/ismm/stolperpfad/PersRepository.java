@@ -1,6 +1,7 @@
 package de.uni_ulm.ismm.stolperpfad;
 
 import android.app.Application;
+import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public class PersRepository {
 
     private PersDao mPersDao;
-    private List<Person> mAllPersons;
+    private LiveData<List<Person>> mAllPersons;
 
     PersRepository(Application application){
         PersRoomDatabase db = PersRoomDatabase.getDatabase(application);
@@ -16,7 +17,7 @@ public class PersRepository {
         mAllPersons = mPersDao.getAllPersons();
     }
 
-    List<Person> getAllPersons() {
+    LiveData<List<Person>> getAllPersons() {
         return mAllPersons;
     }
 

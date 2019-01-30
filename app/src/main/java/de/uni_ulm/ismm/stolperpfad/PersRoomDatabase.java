@@ -55,6 +55,8 @@ public abstract class PersRoomDatabase extends RoomDatabase {
             mDao.insert(person);
             person = new Person("Ida","Frenkel");
             mDao.insert(person);
+            person = new Person("Ernst","Dauner");
+            mDao.insert(person);
             return null;
         }
     }

@@ -1,5 +1,6 @@
 package de.uni_ulm.ismm.stolperpfad;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -16,5 +17,5 @@ public interface PersDao {
     void deleteAll();
 
     @Query("SELECT * from pers_table ORDER BY family_name ASC")
-    List<Person> getAllPersons();
+    LiveData<List<Person>> getAllPersons();
 }

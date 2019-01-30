@@ -29,8 +29,7 @@ public class DbActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DbActivity.this, NewPersActivity.class);
-                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+                finish();
             }
         });
 
@@ -51,19 +50,5 @@ public class DbActivity extends AppCompatActivity {
         });
 
     }
-
-    /*public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            Person person = new Person(data.getStringExtra(NewPersActivity.EXTRA_REPLY));
-            mPersViewModel.insert(person);
-        } else {
-            Toast.makeText(
-                    getApplicationContext(),
-                    R.string.empty_not_saved,
-                    Toast.LENGTH_LONG).show();
-        }*/
-
 
 }

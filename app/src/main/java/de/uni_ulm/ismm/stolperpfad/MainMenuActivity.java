@@ -69,6 +69,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 case R.id.info_button:
                     intent = new Intent(MainMenuActivity.this, ScrollingInfoActivity.class);
                     startActivity(intent);
+                    break;
                 case R.id.db_button:
                     intent = new Intent(MainMenuActivity.this, DbActivity.class);
                     startActivity(intent);

@@ -81,6 +81,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 case R.id.menu_to_route_button:
                     intent = new Intent(MainMenuActivity.this, RouteActivity.class);
                     startActivity(intent);
+                    break;
             }
         }
     }

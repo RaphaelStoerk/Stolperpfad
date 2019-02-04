@@ -2,13 +2,14 @@ package de.uni_ulm.ismm.stolperpfad.database;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 
 import java.util.List;
 
 public class PersViewModel extends AndroidViewModel {
 
     private PersRepository mRepo;
-    private List<Person> mAllPersons;
+    private LiveData<List<Person>> mAllPersons;
 
     public PersViewModel (Application application){
         super(application);
@@ -16,7 +17,7 @@ public class PersViewModel extends AndroidViewModel {
         mAllPersons = mRepo.getAllPersons();
     }
 
-    List<Person> getAllPersons(){
+    LiveData<List<Person>> getAllPersons(){
         return mAllPersons;
     }
 

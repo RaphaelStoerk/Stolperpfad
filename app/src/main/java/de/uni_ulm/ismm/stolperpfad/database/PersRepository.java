@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad;
+package de.uni_ulm.ismm.stolperpfad.database;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;

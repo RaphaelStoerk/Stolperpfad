@@ -1,12 +1,10 @@
-package de.uni_ulm.ismm.stolperpfad.info_display;
+package de.uni_ulm.ismm.stolperpfad;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.androidquery.AQuery;
-
-import de.uni_ulm.ismm.stolperpfad.R;
 
 /**
  * This is a simple example activity that displays scrollable text,

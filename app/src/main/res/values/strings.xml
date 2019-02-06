@@ -111,4 +111,5 @@
         die freie Arztwahl eingeführt. Das bedeutete jedoch gleichzeitig, dass die jüdischen Ärzte von der Versorgung dieses Personenkreises ausgeschlossen waren."
     </string>
     <string name="title_activity_db">DbActivity</string>
+    <string name="title_activity_show_list_item">ShowListItem</string>
 </resources>

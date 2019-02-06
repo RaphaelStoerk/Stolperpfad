@@ -38,7 +38,7 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
     public void onBindViewHolder(PersViewHolder holder, int position) {
         if (mPersons != null) {
             Person current = mPersons.get(position);
-            holder.persItemView.setText(current.getFstName() + " " + current.getFamName()); //test
+            holder.persItemView.setText(current.getFstName() + " " + current.getFamName());
         } else{
             // Covers the case of data not being ready yet.
             holder.persItemView.setText("No persons yet");

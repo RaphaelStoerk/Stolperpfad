@@ -10,20 +10,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
 import java.util.List;
 
-public class DbActivity extends AppCompatActivity {
+public class DbActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private PersViewModel mPersViewModel;
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +40,9 @@ public class DbActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        /** try to make list items clickable**/
+        recyclerView.setOnClickListener((View.OnClickListener) this);
+
         //ViewModel
         mPersViewModel = ViewModelProviders.of(this).get(PersViewModel.class);
 
@@ -51,4 +56,16 @@ public class DbActivity extends AppCompatActivity {
 
     }
 
+/** show list item in detail test**/
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        Log.i("TestListView", "You clicked Item: " + id + " at position:" + position);
+        // start new activity
+        Intent intent = new Intent();
+        intent.setClass(this, ShowListItem.class);
+        intent.putExtra("position", position);
+        intent.putExtra("id", id);
+        startActivity(intent);
+
+    }
 }

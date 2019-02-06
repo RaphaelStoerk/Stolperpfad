@@ -10,9 +10,10 @@
 <resources>
     <string name="app_name">Stolperpfad</string>
     <string name="title">Stolperpfad</string>
-    <string name="scan_button">Scan</string>
-    <string name="route_button">Pfad</string>
-    <string name="info_button">Info</string>
+    <string name="next_stone_button">Nächster Stein</string>
+    <string name="scan_button">Stein Scanner</string>
+    <string name="route_button">Routenplaner</string>
+    <string name="info_button">Stein-Infos</string>
     <string name="exit_button">Exit</string>
     <string name="db_button">Database</string>
     <string name="test">Test</string>
@@ -111,4 +112,10 @@
         die freie Arztwahl eingeführt. Das bedeutete jedoch gleichzeitig, dass die jüdischen Ärzte von der Versorgung dieses Personenkreises ausgeschlossen waren."
     </string>
     <string name="title_activity_db">DbActivity</string>
+    <string name="title_activity_scanner">ScannerActivity</string>
+    <string name="title_activity_route">Map</string>
+
+    <string name="title_activity_filter_search">FilterSearchActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

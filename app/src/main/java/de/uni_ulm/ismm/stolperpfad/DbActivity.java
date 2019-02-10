@@ -17,7 +17,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
-public class DbActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class DbActivity extends AppCompatActivity {
 
     private PersViewModel mPersViewModel;
 
@@ -40,9 +40,6 @@ public class DbActivity extends AppCompatActivity implements AdapterView.OnItemC
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        /** try to make list items clickable**/
-        recyclerView.setOnClickListener((View.OnClickListener) this);
-
         //ViewModel
         mPersViewModel = ViewModelProviders.of(this).get(PersViewModel.class);
 
@@ -56,16 +53,4 @@ public class DbActivity extends AppCompatActivity implements AdapterView.OnItemC
 
     }
 
-/** show list item in detail test**/
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        Log.i("TestListView", "You clicked Item: " + id + " at position:" + position);
-        // start new activity
-        Intent intent = new Intent();
-        intent.setClass(this, ShowListItem.class);
-        intent.putExtra("position", position);
-        intent.putExtra("id", id);
-        startActivity(intent);
-
-    }
 }

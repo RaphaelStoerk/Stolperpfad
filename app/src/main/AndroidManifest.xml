@@ -10,10 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ShowListItem"
-            android:label="@string/title_activity_show_list_item"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
             android:name=".DbActivity"
             android:label="@string/title_activity_db"
             android:theme="@style/AppTheme.NoActionBar" /> <!-- Declares the entry point to the app -->

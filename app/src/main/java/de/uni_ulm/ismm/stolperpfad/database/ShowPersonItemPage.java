@@ -1,9 +1,11 @@
-package de.uni_ulm.ismm.stolperpfad;
+package de.uni_ulm.ismm.stolperpfad.database;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import de.uni_ulm.ismm.stolperpfad.R;
 
 public class ShowPersonItemPage extends AppCompatActivity {
 

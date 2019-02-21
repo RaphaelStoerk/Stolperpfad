@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad;
+package de.uni_ulm.ismm.stolperpfad.database;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

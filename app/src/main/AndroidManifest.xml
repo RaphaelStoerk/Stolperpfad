@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="de.uni_ulm.ismm.stolperpfad">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"  />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -15,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <!-- Declares the entry point to the app -->
         <activity android:name=".MainMenuActivity">
             <intent-filter>
@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <!--
             Every used activity has to be listed here, additionally there can be declared what
             hirarchy the activities are in
@@ -35,7 +34,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".map_activities.RoutePlannerActivity"
-            android:label="@string/title_activity_route_planner"/>
+            android:label="@string/title_activity_route_planner" />
         <activity android:name=".database.ShowPersonItemPage" />
         <activity
             android:name=".filter_search.FilterSearchActivity"

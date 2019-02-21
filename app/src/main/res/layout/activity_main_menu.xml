@@ -55,6 +55,7 @@
 
     <Button
         android:id="@+id/menu_to_route_button"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
@@ -72,33 +73,30 @@
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="40dp"
         android:text="@string/next_stone_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toTopOf="@+id/menu_to_route_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/info_button" />
+        tools:text="@string/next_stone_button" />
 
     <Button
         android:id="@+id/db_button"
-        style="@android:style/Widget.Holo.Button.Small"
-        android:layout_width="85dp"
-        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="40dp"
         android:text="@string/db_button"
-        app:layout_constraintBottom_toTopOf="@+id/exit_button"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/menu_to_next_stone_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.206"
         tools:text="@string/db_button" />
         app:layout_constraintVertical_bias="0.946" />
 </android.support.constraint.ConstraintLayout>

@@ -9,26 +9,29 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 
 public class DbActivity extends AppCompatActivity {
 
+    private List<Person> persList = new ArrayList<>();
     private PersViewModel mPersViewModel;
-    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+
+    private static final String TAG = "test item click";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        FloatingActionButton fabBack = findViewById(R.id.fab_back);
+        fabBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -51,6 +54,27 @@ public class DbActivity extends AppCompatActivity {
             }
         });
 
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                //TODO fixen
+                //(hier soll beim Klick eine neue Page aufgehen mit den Infos zu der angeklickten Person)
+
+                /*Intent intent;
+                Person person = persList.get(position);
+                Log.i(TAG,person.getFstName() + person.getFamName() + " is selected!");
+                intent = new Intent(DbActivity.this, ***.class);
+                startActivity(intent);*/
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
     }
+
 
 }

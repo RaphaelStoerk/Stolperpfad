@@ -13,6 +13,9 @@ import de.uni_ulm.ismm.stolperpfad.R;
 
 public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersViewHolder> {
 
+    private final LayoutInflater mInflater;
+    private List<Person> mPersons; //cached copy of persons
+
     class PersViewHolder extends RecyclerView.ViewHolder {
         private final TextView persItemView;
 
@@ -22,9 +25,6 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
         }
 
     }
-
-    private final LayoutInflater mInflater;
-    private List<Person> mPersons; //cached copy of persons
 
     PersListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -40,24 +40,23 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
     public void onBindViewHolder(PersViewHolder holder, int position) {
         if (mPersons != null) {
             Person current = mPersons.get(position);
-            holder.persItemView.setText(current.getFstName() + " " + current.getFamName()); //test
-        } else{
-            // Covers the case of data not being ready yet.
+            holder.persItemView.setText(current.getFstName() + " " + current.getFamName());
+        } else {
+            // if the data is not ready yet
             holder.persItemView.setText("No persons yet");
         }
 
     }
 
-    void setPersons(List<Person> persons){
-        mPersons = persons;
-        notifyDataSetChanged();
+    void setPersons(List<Person> persons) {
+        this.mPersons = persons;
     }
 
     // getItemCount() is called many times, and when it is first called,
     // mWords has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
-        if(mPersons != null)
+        if (mPersons != null)
             return mPersons.size();
         else return 0;
     }

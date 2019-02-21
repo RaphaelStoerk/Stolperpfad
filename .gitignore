@@ -9,3 +9,7 @@
 .externalNativeBuild
 
 app/src/debug/res/values/google_maps_api\.xml
+
+\.idea/caches/gradle_models\.ser
+
+\.idea/caches/build_file_checksums\.ser

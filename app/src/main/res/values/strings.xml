@@ -114,6 +114,7 @@
     <string name="title_activity_db">DbActivity</string>
     <string name="title_activity_scanner">ScannerActivity</string>
     <string name="title_activity_route">Map</string>
+    <string name="title_activity_route_planner">RoutePlannerActivity</string>
 
     <string name="title_activity_filter_search">FilterSearchActivity</string>
     <string name="dummy_button">Dummy Button</string>

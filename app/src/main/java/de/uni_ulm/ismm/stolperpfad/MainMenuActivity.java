@@ -17,7 +17,7 @@ import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.database.DbActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.RouteActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.RoutePlannerActivity;
 import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
 
 /**
@@ -79,7 +79,7 @@ public class MainMenuActivity extends AppCompatActivity {
                     startActivity(intent);
                     break;
                 case R.id.menu_to_route_button:
-                    intent = new Intent(MainMenuActivity.this, RouteActivity.class);
+                    intent = new Intent(MainMenuActivity.this, RoutePlannerActivity.class);
                     startActivity(intent);
                     break;
             }

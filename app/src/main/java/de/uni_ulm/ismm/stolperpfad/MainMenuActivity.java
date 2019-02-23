@@ -17,6 +17,7 @@ import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.database.DbActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.NextStoneActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutePlannerActivity;
 import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
 
@@ -53,6 +54,7 @@ public class MainMenuActivity extends AppCompatActivity {
         aq.id(R.id.db_button).visible().clicked(myListener);
         aq.id(R.id.menu_to_scan_button).visible().clicked(myListener);
         aq.id(R.id.menu_to_route_button).visible().clicked(myListener);
+        aq.id(R.id.menu_to_next_stone_button).visible().clicked(myListener);
     }
 
     /**
@@ -80,6 +82,10 @@ public class MainMenuActivity extends AppCompatActivity {
                     break;
                 case R.id.menu_to_route_button:
                     intent = new Intent(MainMenuActivity.this, RoutePlannerActivity.class);
+                    startActivity(intent);
+                    break;
+                case R.id.menu_to_next_stone_button:
+                    intent = new Intent(MainMenuActivity.this, NextStoneActivity.class);
                     startActivity(intent);
                     break;
             }

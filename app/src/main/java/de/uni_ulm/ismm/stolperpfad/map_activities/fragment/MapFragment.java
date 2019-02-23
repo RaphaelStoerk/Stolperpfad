@@ -3,6 +3,7 @@ package de.uni_ulm.ismm.stolperpfad.map_activities.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -17,10 +18,9 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.MinimapOverlay;
-import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 
-import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingTests;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,8 +33,9 @@ import de.uni_ulm.ismm.stolperpfad.R;
 public class MapFragment extends Fragment {
 
     private RotationGestureOverlay mRotationGestureOverlay;
-    private MapView mMapView;
+    private MapView map;
     private MinimapOverlay mMinimapOverlay;
+    private boolean next;
 
     public MapFragment() {
         // Required empty public constructor
@@ -46,22 +47,25 @@ public class MapFragment extends Fragment {
      * @return A new instance of fragment MapFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MapFragment newInstance() {
+    public static MapFragment newInstance(boolean next) {
         MapFragment fragment = new MapFragment();
+        fragment.next = next;
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mMapView = new MapView(inflater.getContext());
-        return mMapView;
+        map = new MapView(inflater.getContext());
+        return map;
     }
 
     @Override
@@ -76,33 +80,40 @@ public class MapFragment extends Fragment {
         final DisplayMetrics dm = ctx.getResources().getDisplayMetrics();
 
         // MAPNIK is standard "style" for open street maps, other styles and overlays possible
-        mMapView.setTileSource(TileSourceFactory.MAPNIK);
+        map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
 
-        //deprecated:  map.setBuiltInZoomControls(true);
+        IMapController mapController = map.getController();
 
-        IMapController mapController = mMapView.getController();
         GeoPoint startPoint = new GeoPoint(48.4011, 9.9876);
         mapController.setCenter(startPoint);
         mapController.setZoom(14.);
 
         //support for map rotation
-        mRotationGestureOverlay = new RotationGestureOverlay(mMapView);
+        mRotationGestureOverlay = new RotationGestureOverlay(map);
         mRotationGestureOverlay.setEnabled(true);
-        mMapView.getOverlays().add(this.mRotationGestureOverlay);
+        map.getOverlays().add(this.mRotationGestureOverlay);
 
         //needed for pinch zooms
-        mMapView.setMultiTouchControls(true);
+        map.setMultiTouchControls(true);
 
         //scales tiles to the current screen's DPI, helps with readability of labels
-        mMapView.setTilesScaledToDpi(true);
+        map.setTilesScaledToDpi(true);
 
-        mMapView.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
+        map.setMinZoomLevel(5.);
+        map.setMaxZoomLevel(20.);
+
+        map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
 
         //Mini map
-        mMinimapOverlay = new MinimapOverlay(ctx, mMapView.getTileRequestCompleteHandler());
+        mMinimapOverlay = new MinimapOverlay(ctx, map.getTileRequestCompleteHandler());
         mMinimapOverlay.setWidth(dm.widthPixels / 5);
         mMinimapOverlay.setHeight(dm.heightPixels / 5);
-        mMapView.getOverlays().add(this.mMinimapOverlay);
+        map.getOverlays().add(this.mMinimapOverlay);
+
+        RoutingTests.test_routing(this.getActivity(), map,startPoint, next);
+
+        map.invalidate();
+
     }
 
     @Override
@@ -118,7 +129,7 @@ public class MapFragment extends Fragment {
 
     @Override
     public void onPause() {
-        mMapView.onPause();
+        map.onPause();
         super.onPause();
     }
 
@@ -127,14 +138,14 @@ public class MapFragment extends Fragment {
         super.onDestroyView();
         //this part terminates all of the overlays and background threads for osmdroid
         //only needed when you programmatically create the map
-        mMapView.onDetach();
+        map.onDetach();
 
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mMapView.onResume();
+        map.onResume();
     }
 
 

@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad;
+package de.uni_ulm.ismm.stolperpfad.database;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -14,6 +14,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.uni_ulm.ismm.stolperpfad.R;
 
 public class DbActivity extends AppCompatActivity {
 

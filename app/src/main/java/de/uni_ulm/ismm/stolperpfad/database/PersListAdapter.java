@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad;
+package de.uni_ulm.ismm.stolperpfad.database;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+
+import de.uni_ulm.ismm.stolperpfad.R;
 
 public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersViewHolder> {
 

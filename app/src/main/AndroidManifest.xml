@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="de.uni_ulm.ismm.stolperpfad">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -8,12 +14,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".ShowPersonItemPage"></activity>
-        <activity
-            android:name=".DbActivity"
-            android:label="@string/title_activity_db"
-            android:theme="@style/AppTheme.NoActionBar" /> <!-- Declares the entry point to the app -->
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <!-- Declares the entry point to the app -->
         <activity android:name=".MainMenuActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,9 +29,27 @@
             hirarchy the activities are in
         -->
         <activity
-            android:name=".ScrollingInfoActivity"
+            android:name=".info_display.ScrollingInfoActivity"
             android:label="@string/title_activity_scrolling_info"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".map_activities.RoutePlannerActivity"
+            android:label="@string/title_activity_route_planner" />
+        <activity android:name=".database.ShowPersonItemPage" />
+        <activity
+            android:name=".filter_search.FilterSearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_filter_search"
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".database.DbActivity"
+            android:label="@string/title_activity_db" />
+        <activity
+            android:name=".scanner.ScannerActivity"
+            android:label="@string/title_activity_scanner" />
+        <activity
+            android:name=".map_activities.NextStoneActivity"
+            android:label="@string/title_activity_next_stone" />
     </application>
 
 </manifest>

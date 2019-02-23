@@ -28,7 +28,7 @@ public class RoutePlannerActivity extends AppCompatActivity {
         FragmentManager fm = this.getSupportFragmentManager();
 
         if (fm.findFragmentById(R.id.map_container) == null) {
-            myMapFragment = MapFragment.newInstance();
+            myMapFragment = MapFragment.newInstance(false);
             fm.beginTransaction().add(R.id.map_container, myMapFragment, MAP_FRAGMENT_TAG).commit();
         }
 

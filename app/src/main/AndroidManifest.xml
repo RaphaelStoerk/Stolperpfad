@@ -46,7 +46,8 @@
             android:label="@string/title_activity_db" />
         <activity
             android:name=".scanner.ScannerActivity"
-            android:label="@string/title_activity_scanner" />
+            android:label="@string/title_activity_scanner"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".map_activities.NextStoneActivity"
             android:label="@string/title_activity_next_stone" />

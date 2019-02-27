@@ -33,7 +33,7 @@
             android:label="@string/title_activity_scrolling_info"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".map_activities.RoutePlannerActivity"
+            android:name=".map_activities.control.RoutePlannerActivity"
             android:label="@string/title_activity_route_planner" />
         <activity android:name=".database.ShowPersonItemPage" />
         <activity
@@ -49,7 +49,7 @@
             android:label="@string/title_activity_scanner"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".map_activities.NextStoneActivity"
+            android:name=".map_activities.control.NextStoneActivity"
             android:label="@string/title_activity_next_stone" />
     </application>
 

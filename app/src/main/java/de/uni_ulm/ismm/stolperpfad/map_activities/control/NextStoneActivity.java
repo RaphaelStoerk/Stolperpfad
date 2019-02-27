@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad.map_activities;
+package de.uni_ulm.ismm.stolperpfad.map_activities.control;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

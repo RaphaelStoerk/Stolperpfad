@@ -17,8 +17,8 @@ import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.database.DbActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.NextStoneActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.RoutePlannerActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
 
 /**

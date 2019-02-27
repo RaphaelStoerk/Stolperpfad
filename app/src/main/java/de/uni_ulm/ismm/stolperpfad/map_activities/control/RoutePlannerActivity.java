@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad.map_activities;
+package de.uni_ulm.ismm.stolperpfad.map_activities.control;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;

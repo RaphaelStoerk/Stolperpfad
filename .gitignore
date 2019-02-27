@@ -7,3 +7,11 @@
 /build
 /captures
 .externalNativeBuild
+
+app/src/debug/res/values/google_maps_api\.xml
+
+\.idea/caches/gradle_models\.ser
+
+\.idea/caches/build_file_checksums\.ser
+
+app/src/main/res/values/api_key\.xml

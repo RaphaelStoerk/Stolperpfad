@@ -1,15 +1,21 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.fragment;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -31,6 +37,7 @@ import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.MinimapOverlay;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
+import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 
@@ -57,8 +64,10 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
     private MinimapOverlay mMinimapOverlay;
     private boolean next;
     private StoneFactory stone_handler;
+    private LocationManager loc_man;
 
     private Polyline store_current_drawn_path = new Polyline();
+    private Marker curr_user_location;
 
     public MapFragment() {
         // Required empty public constructor
@@ -89,6 +98,17 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
         // Inflate the layout for this fragment
         map = new MapView(inflater.getContext());
         stone_handler = StoneFactory.initialize(this);
+        curr_user_location = new Marker(map);
+        loc_man = (LocationManager)
+                getActivity().getSystemService(Context.LOCATION_SERVICE);
+        LocationListener locationListener = new MyLocationListener();
+        if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+        } else {
+            loc_man.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+        }
         return map;
     }
 
@@ -128,7 +148,21 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
 
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
 
-        // RoutingTests.test_routing(this.getActivity(), map,startPoint, next);
+        if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        Location curr_loc = loc_man.getLastKnownLocation(loc_man.getAllProviders().get(0));
+        curr_user_location.setPosition(new GeoPoint(curr_loc.getLatitude(), curr_loc.getLongitude()));
+        curr_user_location.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        curr_user_location.setTitle("You are here");
+        map.getOverlays().add(curr_user_location);
 
         map.invalidate();
 
@@ -180,6 +214,11 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
 
     public MapView getView() {
         return map;
+    }
+
+    public void updateUserPosition(GeoPoint pos) {
+        curr_user_location.setPosition(pos);
+        map.invalidate();
     }
 
     public void routeToNext(Marker marker) {
@@ -273,6 +312,28 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
         });
         builder.show();
         return false;
+    }
+
+    /*---------- Listener class to get coordinates ------------- */
+    private class MyLocationListener implements LocationListener {
+
+        @Override
+        public void onLocationChanged(Location loc) {
+            double longitude = loc.getLongitude();
+            double latitude = loc.getLatitude();
+
+            updateUserPosition(new GeoPoint(latitude, longitude));
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {}
+
+        @Override
+        public void onProviderEnabled(String provider) {}
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {}
     }
     /**
      * This interface must be implemented by activities that contain this

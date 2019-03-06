@@ -1,12 +1,12 @@
-package de.uni_ulm.ismm.stolperpfad.map_activities.fragment;
+package de.uni_ulm.ismm.stolperpfad.map_activities.view;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -17,7 +17,6 @@ import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,25 +26,19 @@ import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
-import org.osmdroid.bonuspack.routing.RoadNode;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.MinimapOverlay;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
-import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 
-import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingTests;
-import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
 
@@ -61,13 +54,17 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
 
     private RotationGestureOverlay mRotationGestureOverlay;
     private MapView map;
-    private MinimapOverlay mMinimapOverlay;
     private boolean next;
     private StoneFactory stone_handler;
     private LocationManager loc_man;
 
     private Polyline store_current_drawn_path = new Polyline();
     private Marker curr_user_location;
+
+    private final GeoPoint ULM_LOCATION = new GeoPoint(48.4011, 9.9876);
+    private final double START_ZOOM = 14.;
+    private final double MIN_ZOOM = 5.;
+    private final double MAX_ZOOM = 20.;
 
     public MapFragment() {
         // Required empty public constructor
@@ -78,7 +75,6 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
      * this fragment using the provided parameters.
      * @return A new instance of fragment MapFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static MapFragment newInstance(boolean next) {
         MapFragment fragment = new MapFragment();
         fragment.next = next;
@@ -88,6 +84,8 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        stone_handler = StoneFactory.initialize(this);
+        // TODO: Delete these policies and bugfix afterwards
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
     }
@@ -97,14 +95,14 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         map = new MapView(inflater.getContext());
-        stone_handler = StoneFactory.initialize(this);
         curr_user_location = new Marker(map);
+
+        // set up the GPS Tracking of the user
         loc_man = (LocationManager)
                 getActivity().getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new MyLocationListener();
         if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
+            // TODO: Consider calling ActivityCompat#requestPermissions
         } else {
             loc_man.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
@@ -117,20 +115,18 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
 
         super.onActivityCreated(savedInstanceState);
 
-
-        //load/initialize the osmdroid configuration, this can be done
+        //load/initialize the osmdroid configuration
         final Context ctx = this.getActivity();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
-        final DisplayMetrics dm = ctx.getResources().getDisplayMetrics();
+        // final DisplayMetrics dm = ctx.getResources().getDisplayMetrics();
 
         // MAPNIK is standard "style" for open street maps, other styles and overlays possible
         map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
 
         IMapController mapController = map.getController();
 
-        GeoPoint startPoint = new GeoPoint(48.4011, 9.9876);
-        mapController.setCenter(startPoint);
-        mapController.setZoom(14.);
+        mapController.setCenter(ULM_LOCATION);
+        mapController.setZoom(START_ZOOM);
 
         //support for map rotation
         mRotationGestureOverlay = new RotationGestureOverlay(map);
@@ -143,41 +139,15 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
         //scales tiles to the current screen's DPI, helps with readability of labels
         map.setTilesScaledToDpi(true);
 
-        map.setMinZoomLevel(5.);
-        map.setMaxZoomLevel(20.);
+        // lock the possible Zoom levels
+        map.setMinZoomLevel(MIN_ZOOM);
+        map.setMaxZoomLevel(MAX_ZOOM);
 
+        // stop the display of zoom controls
         map.getZoomController().setVisibility(CustomZoomButtonsController.Visibility.NEVER);
 
-        if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Location curr_loc = loc_man.getLastKnownLocation(loc_man.getAllProviders().get(0));
-        curr_user_location.setPosition(new GeoPoint(curr_loc.getLatitude(), curr_loc.getLongitude()));
-        curr_user_location.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        curr_user_location.setTitle("You are here");
-        map.getOverlays().add(curr_user_location);
-
         map.invalidate();
 
-    }
-
-    public void setStones() {
-        if(!stone_handler.isReady()) {
-            return;
-        }
-        for(Marker m : stone_handler.getMarkers()) {
-            m.setIcon(getResources().getDrawable(R.drawable.marker_default, null));
-            m.setOnMarkerClickListener(this);
-            map.getOverlays().add(m);
-        }
-        map.invalidate();
     }
 
     @Override
@@ -193,23 +163,35 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
 
     @Override
     public void onPause() {
-        map.onPause();
         super.onPause();
+        map.onPause();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        //this part terminates all of the overlays and background threads for osmdroid
-        //only needed when you programmatically create the map
         map.onDetach();
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
         map.onResume();
+    }
+
+    /**
+     * Displays the Stone markers on the map, that have been stored in the stone factory
+     */
+    public void setStones() {
+        if(!stone_handler.isReady() || map == null) {
+            return;
+        }
+        for(Marker m : stone_handler.getMarkers()) {
+            m.setIcon(getResources().getDrawable(R.drawable.marker_default, null));
+            m.setOnMarkerClickListener(this);
+            map.getOverlays().add(m);
+        }
+        map.invalidate();
     }
 
     public MapView getView() {
@@ -220,71 +202,6 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
         curr_user_location.setPosition(pos);
         map.invalidate();
     }
-
-    public void routeToNext(Marker marker) {
-        Stone rel_stone = stone_handler.getStoneFromMarker(marker);
-        Stone goal = stone_handler.getNearestTo(rel_stone);
-        if(goal == null) {
-            Log.i("ERROR", "NO STONE FOUND");
-            return;
-        }
-
-        new CreateRouteTask(){
-            @Override
-            public void onPostExecute(Road road) {
-
-                map.getOverlays().remove(store_current_drawn_path);
-
-                store_current_drawn_path = RoadManager.buildRoadOverlay(road);
-
-                map.getOverlays().add(store_current_drawn_path);
-
-                /*
-                for (int i=0; i<road.mNodes.size(); i++){
-                    RoadNode node = road.mNodes.get(i);
-                    Marker nodeMarker = new Marker(map);
-                    nodeMarker.setPosition(node.mLocation);
-                    nodeMarker.setVisible(false);
-                    nodeMarker.setTitle("Step "+ i);
-                    nodeMarker.setSnippet(node.mInstructions);
-                    nodeMarker.setSubDescription(Road.getLengthDurationText(getActivity(), node.mLength, node.mDuration));
-                    nodeMarker.setImage(nodeIcon);
-                    map.getOverlays().add(nodeMarker);
-                }
-                */
-                map.invalidate();
-            }
-        }.execute(rel_stone, goal);
-    }
-
-
-    private class CreateRouteTask extends AsyncTask<Stone, Void, Road> {
-
-        @Override
-        protected Road doInBackground(Stone... stones) {
-
-            if(stones == null || stones.length < 2) {
-                Log.i("ERROR", "NO STONE FOUND");
-                return null;
-            }
-
-            RoadManager roadManager = new MapQuestRoadManager(getResources().getString(R.string.mapquest_api_key));
-
-            roadManager.addRequestOption("routeType=pedestrian");
-
-            ArrayList<GeoPoint> waypoints = new ArrayList<>();
-            for(Stone s : stones) {
-                waypoints.add(s.getLocation());
-            }
-            Log.i("LOGGED INFO", "THIS IS LOCATION 1: " + waypoints.get(0).getLongitude());
-            Log.i("LOGGED INFO", "THIS IS LOCATION 2: " + waypoints.get(1).getLongitude());
-
-            Road road = roadManager.getRoad(waypoints);
-
-            return road;
-        }
-    }
-
 
     @Override
     public boolean onMarkerClick(final Marker marker, MapView mapView) {
@@ -313,6 +230,80 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
         builder.show();
         return false;
     }
+
+    /**
+     * This method calculates and displays the (pedestrian) route from a marker to its
+     * closest neighbour
+     * @param marker the start of the route
+     */
+    @SuppressLint("StaticFieldLeak")
+    public void routeToNext(Marker marker) {
+        Stone rel_stone = stone_handler.getStoneFromMarker(marker);
+        Stone goal = stone_handler.getNearestTo(rel_stone);
+
+        new CreateRouteTask(){
+            @Override
+            public void onPostExecute(Road road) {
+
+                map.getOverlays().remove(store_current_drawn_path);
+
+                store_current_drawn_path = RoadManager.buildRoadOverlay(road);
+
+                map.getOverlays().add(store_current_drawn_path);
+
+
+                // this is for displaying the steps of the route one by one
+                // TODO: maybe add in later
+                /*
+                for (int i=0; i<road.mNodes.size(); i++){
+                    RoadNode node = road.mNodes.get(i);
+                    Marker nodeMarker = new Marker(map);
+                    nodeMarker.setPosition(node.mLocation);
+                    nodeMarker.setVisible(false);
+                    nodeMarker.setTitle("Step "+ i);
+                    nodeMarker.setSnippet(node.mInstructions);
+                    nodeMarker.setSubDescription(Road.getLengthDurationText(getActivity(), node.mLength, node.mDuration));
+                    nodeMarker.setImage(nodeIcon);
+                    map.getOverlays().add(nodeMarker);
+                }
+                */
+                map.invalidate();
+            }
+        }.execute(rel_stone, goal);
+    }
+
+    /**
+     * This class is responsible for creating a network call to get a route
+     * for a collection of - at least - two stones
+     * A MapQuest Key is needed for the call to be succesful
+     */
+    private class CreateRouteTask extends AsyncTask<Stone, Void, Road> {
+
+        @Override
+        protected Road doInBackground(Stone... stones) {
+
+            if(stones == null || stones.length < 2) {
+                Log.i("ERROR", "NO STONE FOUND");
+                return null;
+            }
+
+            RoadManager roadManager = new MapQuestRoadManager(getResources().getString(R.string.mapquest_api_key));
+
+            roadManager.addRequestOption("routeType=pedestrian");
+
+            ArrayList<GeoPoint> waypoints = new ArrayList<>();
+            for(Stone s : stones) {
+                waypoints.add(s.getLocation());
+            }
+            Log.i("LOGGED INFO", "THIS IS LOCATION 1: " + waypoints.get(0).getLongitude());
+            Log.i("LOGGED INFO", "THIS IS LOCATION 2: " + waypoints.get(1).getLongitude());
+
+            Road road = roadManager.getRoad(waypoints);
+
+            return road;
+        }
+    }
+
 
     /*---------- Listener class to get coordinates ------------- */
     private class MyLocationListener implements LocationListener {

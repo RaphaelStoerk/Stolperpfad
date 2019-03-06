@@ -1,17 +1,13 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.control;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.map_activities.fragment.MapFragment;
+import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapFragment;
 
 public class NextStoneActivity extends AppCompatActivity {
 
@@ -26,7 +22,6 @@ public class NextStoneActivity extends AppCompatActivity {
         aq = new AQuery(this);
 
         setContentView(R.layout.activity_next_stone);
-
 
         // The actual map view is now a fragment, for easier reuse and readability
         FragmentManager fm = this.getSupportFragmentManager();

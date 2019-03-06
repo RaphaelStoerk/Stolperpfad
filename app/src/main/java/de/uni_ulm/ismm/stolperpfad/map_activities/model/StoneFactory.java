@@ -1,14 +1,16 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.model;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-
 import org.osmdroid.views.overlay.Marker;
-
 import java.util.ArrayList;
-
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
-import de.uni_ulm.ismm.stolperpfad.map_activities.fragment.MapFragment;
+import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapFragment;
 
+/**
+ * This class is responsible for handling the "Stolpersteine". It creates all Stones
+ * from the database and keeps track of their locations and markers
+ */
 public class StoneFactory {
 
     private ArrayList<Stone> all_stones;
@@ -29,6 +31,7 @@ public class StoneFactory {
         return buff;
     }
 
+    @SuppressLint("StaticFieldLeak")
     private void start_initialization() {
         new InitializeStonesTask() {
             @Override
@@ -47,6 +50,14 @@ public class StoneFactory {
         return is_ready;
     }
 
+    /**
+     * Looks for the stone corresponding to a specific marker
+     * TODO: maybe make this more efficient
+     *
+     * @param marker the marker for which a corresponding stone is returned
+     *
+     * @return the corresponding stone
+     */
     public Stone getStoneFromMarker(Marker marker) {
         for (Stone s : all_stones) {
             if (s.getMarker(map.getView()) == marker) {
@@ -56,6 +67,14 @@ public class StoneFactory {
         return null;
     }
 
+    /**
+     * Calculates which stone is nearest to a given stone, distance wise. It does not yet
+     * account for actual walking distance but rather just straight mathematical distance
+     *
+     * @param rel_stone the stone from which a nearest stone is looked for
+     *
+     * @return the stone that is nearest to rel_stone
+     */
     public Stone getNearestTo(Stone rel_stone) {
         if (all_stones == null || all_stones.size() == 0) {
             return null;
@@ -73,28 +92,36 @@ public class StoneFactory {
         return best;
     }
 
+    /**
+     * This class is responsible for creating an asynchronous task that creates all the stones
+     * from the data in the database, so they can later be displayed on the map
+     */
     private class InitializeStonesTask extends AsyncTask<String, Integer, String> {
 
         @Override
         protected String doInBackground(String... strings) {
             // TODO: grab all stone info from the DataBase
-            Stone s = new Stone(map.getContext(), 48.4011, 9.9876, "Ulm", "Center", "Das ist Ulm");
+            Stone s = new Stone(48.4011, 9.9876, "Ulm", "Center", "Das ist Ulm");
             all_stones.add(s);
             stone_markers.add(s.getMarker(map.getView()));
 
-            s = new Stone(map.getContext(), 48.398638, 9.993720, "Vorname_1", "Nachname_1", "Bitte ersetzen");
+            s = new Stone(48.398638, 9.993720, "Vorname_1", "Nachname_1", "Bitte ersetzen 1");
             all_stones.add(s);
             stone_markers.add(s.getMarker(map.getView()));
 
-            s = new Stone(map.getContext(), 48.39855, 9.99123, "Vorname_2", "Nachname_2", "Bitte ersetzen");
+            s = new Stone( 48.39855, 9.99123, "Vorname_2", "Nachname_2", "Bitte ersetzen 2");
             all_stones.add(s);
             stone_markers.add(s.getMarker(map.getView()));
 
-            s = new Stone(map.getContext(), 48.3893, 9.98924, "Vorname_3", "Nachname_3", "Bitte ersetzen");
+            s = new Stone(48.3893, 9.98924, "Vorname_3", "Nachname_3", "Bitte ersetzen 3");
             all_stones.add(s);
             stone_markers.add(s.getMarker(map.getView()));
 
-            s = new Stone(map.getContext(), 48.40002, 9.99721, "Vorname_3", "Nachname_4", "Bitte ersetzen");
+            s = new Stone(48.40002, 9.99721, "Vorname_4", "Nachname_4", "Bitte ersetzen 4");
+            all_stones.add(s);
+            stone_markers.add(s.getMarker(map.getView()));
+
+            s = new Stone(48.40102, 9.99821, "Vorname_5", "Nachname_5", "Bitte ersetzen 5");
             all_stones.add(s);
             stone_markers.add(s.getMarker(map.getView()));
 

@@ -1,34 +1,34 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.model;
 
-import android.content.Context;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
-import java.util.ArrayList;
-
+/**
+ * This is a model class to represent a "Stolperstein" on the map activities of this application
+ */
 public class Stone {
 
-    private static final int MAX_NEAREST = 5;
-
-    private Context ctx;
-    private double lat, lng;
     private GeoPoint location;
     private String first_name, last_name, short_desc;
-    private ArrayList<Stone> nearest_stones;
     private Marker marker;
 
 
-    public Stone(Context ctx, double lat, double lng, String first_name, String last_name, String short_desc) {
-        this.lat = lat;
-        this.lng = lng;
+    public Stone(double lat, double lng, String first_name, String last_name, String short_desc) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.short_desc = short_desc;
         this.location = new GeoPoint(lat, lng);
-        this.ctx = ctx;
     }
 
+    /**
+     * Creates a new marker for a given MapView with the current values of the Stone
+     * or returns the earlier created Marker
+     *
+     * @param map the Mapview, that will later contain the Marker
+     *
+     * @return a Marker representing this Stone
+     */
     public Marker getMarker(MapView map) {
         if(marker == null) {
             marker= new Marker(map);
@@ -40,15 +40,22 @@ public class Stone {
         return marker;
     }
 
+    /**
+     * Returns the geographical position of this Stone as a GeoPoint
+     * @return the location of this Stone
+     */
     public GeoPoint getLocation() {
         return location;
     }
+
+    @Override
     public boolean equals(Object o) {
         if(!(o instanceof Stone)) {
             return false;
         }
         Stone check = (Stone) o;
-        return (this.lat == check.lat) && (this.lng == check.lng);
+        return (this.location.getLatitude() == check.getLocation().getLatitude()) &&
+                (this.location.getLongitude() == check.getLocation().getLongitude());
     }
 
 }

@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.map_activities.fragment.MapFragment;
+import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapFragment;
 
 public class RoutePlannerActivity extends AppCompatActivity {
 

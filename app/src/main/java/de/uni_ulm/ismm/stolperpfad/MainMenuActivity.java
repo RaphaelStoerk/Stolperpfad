@@ -1,13 +1,5 @@
 package de.uni_ulm.ismm.stolperpfad;
 
-/*
-This is a test comment from Ulrike :)
- */
-
-/*
-Test succesfully operated :D
- */
-
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,8 +9,8 @@ import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.database.DbActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.NextStoneActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.RoutePlannerActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
 
 /**

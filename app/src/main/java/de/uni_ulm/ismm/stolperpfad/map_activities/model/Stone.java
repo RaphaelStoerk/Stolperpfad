@@ -31,11 +31,12 @@ public class Stone {
      */
     public Marker getMarker(MapView map) {
         if(marker == null) {
-            marker= new Marker(map);
+            marker = new Marker(map);
             marker.setPosition(location);
             marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             marker.setTitle(last_name + ", " + first_name);
             marker.setSubDescription(short_desc);
+            marker.setSnippet("A Snippet");
         }
         return marker;
     }

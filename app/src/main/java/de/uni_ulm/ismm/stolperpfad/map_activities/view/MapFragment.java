@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -84,7 +85,6 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        stone_handler = StoneFactory.initialize(this);
         // TODO: Delete these policies and bugfix afterwards
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -95,7 +95,11 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         map = new MapView(inflater.getContext());
+
+        stone_handler = StoneFactory.initialize(this);
+
         curr_user_location = new Marker(map);
+        curr_user_location.setPosition(new GeoPoint(48.3973, 9.99124));
 
         // set up the GPS Tracking of the user
         loc_man = (LocationManager)
@@ -189,7 +193,13 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
         for(Marker m : stone_handler.getMarkers()) {
             m.setIcon(getResources().getDrawable(R.drawable.marker_default, null));
             m.setOnMarkerClickListener(this);
+            if(next) {
+                m.setAlpha(0.5f);
+            }
             map.getOverlays().add(m);
+        }
+        if(next) {
+            stone_handler.getNearestTo(curr_user_location).setAlpha(1f);
         }
         map.invalidate();
     }
@@ -205,10 +215,10 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
 
     @Override
     public boolean onMarkerClick(final Marker marker, MapView mapView) {
-        final String[] options = {"Show Info","Route To Next Stone", "Nothing"};
+        final String[] options = {"Show Info","Route To Nearest Stone", "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(map.getContext());
-        builder.setTitle("What would you like to do?");
+        builder.setTitle(marker.getTitle());
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -218,7 +228,7 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
                         Intent intent = new Intent(map.getContext(), ScrollingInfoActivity.class);
                         startActivity(intent);
                         break;
-                    case "Route To Next Stone":
+                    case "Route To Nearest Stone":
                         routeToNext(marker);
                         break;
                     case "Nothing":
@@ -241,6 +251,8 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
         Stone rel_stone = stone_handler.getStoneFromMarker(marker);
         Stone goal = stone_handler.getNearestTo(rel_stone);
 
+        Log.i("HELPME", "This is what you get: " + rel_stone.getLocation().getLongitude());
+
         new CreateRouteTask(){
             @Override
             public void onPostExecute(Road road) {
@@ -248,6 +260,10 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
                 map.getOverlays().remove(store_current_drawn_path);
 
                 store_current_drawn_path = RoadManager.buildRoadOverlay(road);
+
+                store_current_drawn_path.setColor(Color.RED);
+
+                store_current_drawn_path.setWidth(10f);
 
                 map.getOverlays().add(store_current_drawn_path);
 
@@ -269,7 +285,60 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
                 */
                 map.invalidate();
             }
-        }.execute(rel_stone, goal);
+        }.execute(new Stone[]{rel_stone, goal});
+
+
+        Log.i("HELPME", "This is what you get: " + rel_stone.getLocation().getLongitude());
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void createRoute(String duration, int start) {
+        Marker start_marker = new Marker(map);
+        switch(start) {
+            case 0:
+            case 1:
+            case 2:
+                start_marker.setPosition(new GeoPoint(48.3993, 9.98724));
+        }
+        int time = Integer.parseInt(duration);
+
+        Log.i("ROUTE", "STARTED PLANNING");
+
+
+        // TODO: create a good route through ulm
+
+        ArrayList<Stone> route_points = new ArrayList<>();
+        route_points.addAll(stone_handler.getStones());
+        for(int i = 0; i < 5; i++) {
+            int one = (int) (Math.random() * route_points.size());
+            route_points.add(route_points.remove(one));
+            if(Math.random() < 0.2) {
+                route_points.remove(0);
+            }
+        }
+
+        Log.i("ROUTE", "FINISHED ALL WONKY BUSINESS");
+
+        new CreateRouteTask(){
+            @Override
+            public void onPostExecute(Road road) {
+
+                map.getOverlays().remove(store_current_drawn_path);
+
+                store_current_drawn_path = RoadManager.buildRoadOverlay(road);
+
+                store_current_drawn_path.setColor(Color.RED);
+
+                store_current_drawn_path.setWidth(10f);
+                
+                map.getOverlays().add(store_current_drawn_path);
+
+                map.invalidate();
+            }
+        }.execute(route_points.toArray(new Stone[]{}));
+
+        Log.i("ROUTE", "ALL DONE");
+
     }
 
     /**
@@ -277,12 +346,14 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
      * for a collection of - at least - two stones
      * A MapQuest Key is needed for the call to be succesful
      */
-    private class CreateRouteTask extends AsyncTask<Stone, Void, Road> {
+    private class CreateRouteTask extends AsyncTask<Stone[], Void, Road> {
 
         @Override
-        protected Road doInBackground(Stone... stones) {
+        protected Road doInBackground(Stone[]... stones) {
 
-            if(stones == null || stones.length < 2) {
+            Log.i("HELPME", "This is what you get: " + stones.length);
+
+            if(stones == null || stones.length < 1) {
                 Log.i("ERROR", "NO STONE FOUND");
                 return null;
             }
@@ -292,11 +363,11 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
             roadManager.addRequestOption("routeType=pedestrian");
 
             ArrayList<GeoPoint> waypoints = new ArrayList<>();
-            for(Stone s : stones) {
+            for(Stone s : stones[0]) {
                 waypoints.add(s.getLocation());
             }
-            Log.i("LOGGED INFO", "THIS IS LOCATION 1: " + waypoints.get(0).getLongitude());
-            Log.i("LOGGED INFO", "THIS IS LOCATION 2: " + waypoints.get(1).getLongitude());
+
+            Log.i("HELPME", "This is what you get: " + waypoints.get(0).getLongitude());
 
             Road road = roadManager.getRoad(waypoints);
 
@@ -305,6 +376,7 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
     }
 
 
+    // TODO: Add functionality to the GPS Tracking
     /*---------- Listener class to get coordinates ------------- */
     private class MyLocationListener implements LocationListener {
 
@@ -326,6 +398,7 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {}
     }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated

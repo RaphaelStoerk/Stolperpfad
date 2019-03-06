@@ -46,6 +46,10 @@ public class StoneFactory {
         return stone_markers;
     }
 
+    public ArrayList<Stone> getStones() {
+        return all_stones;
+    }
+
     public boolean isReady() {
         return is_ready;
     }
@@ -87,6 +91,31 @@ public class StoneFactory {
             if (!s.equals(rel_stone) && (best_dist == -1 || curr_dist < best_dist)) {
                 best_dist = curr_dist;
                 best = s;
+            }
+        }
+        return best;
+    }
+
+    /**
+     * Calculates which stone is nearest to a given stone, distance wise. It does not yet
+     * account for actual walking distance but rather just straight mathematical distance
+     *
+     * @param rel_stone the stone from which a nearest stone is looked for
+     *
+     * @return the stone that is nearest to rel_stone
+     */
+    public Marker getNearestTo(Marker rel_stone) {
+        if (stone_markers == null || stone_markers.size() == 0) {
+            return null;
+        }
+        Marker best = stone_markers.get(0);
+        double best_dist = -1;
+        double curr_dist;
+        for (Marker m : stone_markers) {
+            curr_dist = RoutingUtil.getDist(rel_stone, m);
+            if (!m.equals(rel_stone) && (best_dist == -1 || curr_dist < best_dist)) {
+                best_dist = curr_dist;
+                best = m;
             }
         }
         return best;

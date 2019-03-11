@@ -11,20 +11,38 @@ import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 
-public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersViewHolder> {
+public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersViewHolder> implements View.OnClickListener{
 
     private final LayoutInflater mInflater;
     private List<Person> mPersons; //cached copy of persons
 
+
     class PersViewHolder extends RecyclerView.ViewHolder {
         private final TextView persItemView;
+        //for clickable items
+        public TextView txtDescript;
+        private OnItemClickListener itemClickListener;
 
         private PersViewHolder(View itemView) {
             super(itemView);
             persItemView = itemView.findViewById(R.id.textView);
+            txtDescript = (TextView) itemView.findViewById(R.id.txtDescript);
+
+            itemView.setOnClickListener(this);
+        }
+
+        public void setItemClickListener(OnItemClickListener itemClickListener){
+            this.itemClickListener = itemClickListener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            itemClickListener.setItemClickListener.onClick
         }
 
     }
+
+
 
     PersListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -60,6 +78,7 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
             return mPersons.size();
         else return 0;
     }
+
 
 
 }

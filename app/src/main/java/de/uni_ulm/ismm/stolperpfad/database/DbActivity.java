@@ -59,13 +59,11 @@ public class DbActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 //TODO fixen
-                //(hier soll beim Klick eine neue Page aufgehen mit den Infos zu der angeklickten Person)
-
-                /*Intent intent;
+                Intent intent;
                 Person person = persList.get(position);
                 Log.i(TAG,person.getFstName() + person.getFamName() + " is selected!");
-                intent = new Intent(DbActivity.this, ***.class);
-                startActivity(intent);*/
+                intent = new Intent(DbActivity.this, ShowPersonItemPage.class);
+                startActivity(intent);
 
             }
 

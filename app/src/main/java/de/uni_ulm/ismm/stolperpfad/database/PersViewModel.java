@@ -21,8 +21,4 @@ public class PersViewModel extends AndroidViewModel {
         return mAllPersons;
     }
 
-    public void insert(Person person){
-        mRepo.insert(person);
-    }
-
 }

@@ -9,6 +9,8 @@
     tools:showIn="@layout/activity_show_person_item_page">
 
     <!--> TODO Daten irgendwie platzieren (RecyclerView wie bei db?) -->
+
+    <!--> TODO: fix behinderten constraint (in activity?) -->
     <TextView
         android:id="@+id/txtDescript"
         android:layout_width="wrap_content"

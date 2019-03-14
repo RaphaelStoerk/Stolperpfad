@@ -22,8 +22,6 @@ public class DbActivity extends AppCompatActivity {
     private List<Person> persList = new ArrayList<>();
     private PersViewModel mPersViewModel;
 
-    private static final String TAG = "test item click";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +46,9 @@ public class DbActivity extends AppCompatActivity {
 
         mPersViewModel.getAllPersons().observe(this, new Observer<List<Person>>() {
             @Override
-            public void onChanged(@Nullable final List<Person> words) {
+            public void onChanged(@Nullable final List<Person> persons) {
                 // Update the cached copy of the words in the adapter.
-                adapter.setPersons(words);
+                adapter.setPersons(persons);
             }
         });
 
@@ -58,12 +56,8 @@ public class DbActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                //TODO fixen
-                Intent intent;
-                Person person = persList.get(position);
-                Log.i(TAG,person.getFstName() + person.getFamName() + " is selected!");
-                intent = new Intent(DbActivity.this, ShowPersonItemPage.class);
-                startActivity(intent);
+                
+
 
             }
 

@@ -1,6 +1,7 @@
 package de.uni_ulm.ismm.stolperpfad.database;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
 
 public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersViewHolder> {
@@ -40,7 +42,7 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
             holder.setItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    Toast.makeText(context, mPersons.get(position).getFstName() + " " + mPersons.get(position).getFamName() + " has been clicked", Toast.LENGTH_LONG);
+                    Toast.makeText(context,  "something has been clicked", Toast.LENGTH_LONG); //mPersons.get(position).getFstName() + " " + mPersons.get(position).getFamName() +
                 }
             });
 
@@ -71,13 +73,13 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
     class PersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView persItemView;
         //for clickable items
-        public TextView txtDescript;
+        //public TextView txtDescript;
         private OnItemClickListener itemClickListener;
 
         private PersViewHolder(View itemView) {
             super(itemView);
             persItemView = itemView.findViewById(R.id.textView);
-            txtDescript = (TextView) itemView.findViewById(R.id.txtDescript);
+            //txtDescript = (TextView) itemView.findViewById(R.id.txtDescript);
 
             itemView.setOnClickListener(this);
         }
@@ -88,7 +90,10 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
 
         @Override
         public void onClick(View view) {
-            itemClickListener.onItemClick(view, getAdapterPosition());
+            Intent intent;
+            //itemClickListener.onItemClick(view, getAdapterPosition());
+            intent = new Intent(DbActivity.this, ShowPersonItemPage.class);
+            startActivity(intent);
         }
 
     }

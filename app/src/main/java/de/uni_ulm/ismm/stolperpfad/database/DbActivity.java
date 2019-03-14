@@ -19,7 +19,6 @@ import de.uni_ulm.ismm.stolperpfad.R;
 
 public class DbActivity extends AppCompatActivity {
 
-    private List<Person> persList = new ArrayList<>();
     private PersViewModel mPersViewModel;
 
     @Override
@@ -27,7 +26,7 @@ public class DbActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
 
-
+        //button to go back
         FloatingActionButton fabBack = findViewById(R.id.fab_back);
         fabBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +35,7 @@ public class DbActivity extends AppCompatActivity {
             }
         });
 
+        //RecyclerView to get data
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         final PersListAdapter adapter = new PersListAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -52,20 +52,6 @@ public class DbActivity extends AppCompatActivity {
             }
         });
 
-
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                
-
-
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
     }
 
 

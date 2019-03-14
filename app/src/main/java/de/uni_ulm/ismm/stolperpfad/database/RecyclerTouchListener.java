@@ -17,7 +17,7 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
             public boolean onSingleTapUp(MotionEvent e) {
                 return true;
             }
-            
+
         });
     }
 

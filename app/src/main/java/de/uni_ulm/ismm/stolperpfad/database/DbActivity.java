@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,8 @@ import de.uni_ulm.ismm.stolperpfad.R;
 public class DbActivity extends AppCompatActivity {
 
     private PersViewModel mPersViewModel;
+    private List<Person> persList; //cached copy of persons
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,18 @@ public class DbActivity extends AppCompatActivity {
         final PersListAdapter adapter = new PersListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // add TouchListener
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+
+            @Override
+            public void onClick(View view, int position) {
+                Person current = persList.get(position);
+                Toast.makeText(getApplicationContext(), current.getFstName() + " " + current.getFamName() + " is selected!", Toast.LENGTH_SHORT).show();
+            }
+
+        }));
+
 
         //ViewModel
         mPersViewModel = ViewModelProviders.of(this).get(PersViewModel.class);

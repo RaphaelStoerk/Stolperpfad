@@ -36,14 +36,6 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
             Person current = mPersons.get(position);
             holder.persItemView.setText(current.getFstName() + " " + current.getFamName());
 
-            //add ClickListener
-            holder.setItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(View view, int position) {
-                    Toast.makeText(context,  "something has been clicked", Toast.LENGTH_LONG); //mPersons.get(position).getFstName() + " " + mPersons.get(position).getFamName() +
-                }
-            });
-
         } else {
             // if the data is not ready yet
             holder.persItemView.setText("Loading...");
@@ -68,27 +60,12 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
     /**
      * This is the ViewHolder Class
      */
-    class PersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class PersViewHolder extends RecyclerView.ViewHolder {
         private final TextView persItemView;
-        //for clickable items
-        public TextView txtDescript;
-        private OnItemClickListener itemClickListener;
 
         private PersViewHolder(View itemView) {
             super(itemView);
             persItemView = itemView.findViewById(R.id.textView);
-            txtDescript = (TextView) itemView.findViewById(R.id.txtDescript);
-
-            itemView.setOnClickListener(this);
-        }
-
-        public void setItemClickListener(OnItemClickListener itemClickListener) {
-            this.itemClickListener = itemClickListener;
-        }
-
-        @Override
-        public void onClick(View view) {
-            itemClickListener.onItemClick(view, getAdapterPosition());
         }
 
     }

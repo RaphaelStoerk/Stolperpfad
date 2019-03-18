@@ -10,15 +10,15 @@ import java.util.List;
 public class PersRepository {
 
     private PersDao mPersDao;
-    private ArrayList<Person> mAllPersons;
+    private LiveData<List<Person>> mAllPersons;
 
     PersRepository(Application application){
         PersRoomDatabase db = PersRoomDatabase.getDatabase(application);
         mPersDao = db.persDao();
-        mAllPersons = (ArrayList<Person>) mPersDao.getAllPersons();
+        mAllPersons = mPersDao.getAllPersons();
     }
 
-    ArrayList<Person> getAllPersons() {
+    LiveData<List<Person>> getAllPersons() {
         return mAllPersons;
     }
 

@@ -21,8 +21,8 @@ public class DbActivity extends AppCompatActivity implements PersListAdapter.OnP
 
     private static final String TAG = "DbActivity";
 
-    //private PersViewModel mPersViewModel;
-    private ArrayList<Person> mPersList = new ArrayList<>(); //cached copy of persons
+    private PersViewModel mPersViewModel;
+    private List<Person> mPersList; //cached copy of persons
 
 
     @Override
@@ -46,20 +46,20 @@ public class DbActivity extends AppCompatActivity implements PersListAdapter.OnP
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        /* maybe we don't need this because our database won't be changed by the user
+        // maybe we don't need this because our database won't be changed by the user
         //TODO: if this project is published and continued we have to think about a solution
         //TODO: of how we can insert new Stolpersteine and update the data the user has downloaded
         //TODO: maybe this is possible with playstore updates
         //ViewModel
         mPersViewModel = ViewModelProviders.of(this).get(PersViewModel.class);
 
-        mPersViewModel.getAllPersons().observe(this, new Observer<ArrayList<Person>>() {
+        mPersViewModel.getAllPersons().observe(this, new Observer<List<Person>>() {
             @Override
-            public void onChanged(@Nullable final ArrayList<Person> persons) {
+            public void onChanged(@Nullable final List<Person> persons) {
                 // Update the cached copy of the words in the adapter.
                 adapter.setPersons(persons);
             }
-        });*/
+        });
 
     }
 
@@ -70,7 +70,7 @@ public class DbActivity extends AppCompatActivity implements PersListAdapter.OnP
      */
     @Override
     public void onPersClick(int position) {
-        mPersList.get(position);
+        //mPersList.get(position);
         Log.d(TAG, "onPersClick: onPersItemClick: clicked");
         Intent intent = new Intent(this, PersInfoPage.class);
         startActivity(intent);

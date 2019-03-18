@@ -18,5 +18,5 @@ public interface PersDao {
     void deleteAll();
 
     @Query("SELECT * from pers_table ORDER BY family_name ASC")
-    List<Person> getAllPersons();
+    LiveData<List<Person>> getAllPersons();
 }

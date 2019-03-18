@@ -15,7 +15,7 @@ import de.uni_ulm.ismm.stolperpfad.R;
 public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersViewHolder> {
 
     private final LayoutInflater mInflater;
-    private ArrayList<Person> mPersList = new ArrayList<>(); //cached copy of persons
+    private List<Person> mPersList; //cached copy of persons
     private Context mContext;
     private OnPersItemListener mOnPersItemListener;
 
@@ -46,7 +46,7 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
 
     }
 
-    void setPersons(ArrayList<Person> persons) {
+    void setPersons(List<Person> persons) {
         this.mPersList = persons;
     }
 
@@ -63,7 +63,7 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
     /**
      * This is the ViewHolder Class
      */
-    class PersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class PersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView persItemView;
         OnPersItemListener onPersItemListener;
 

@@ -4,23 +4,25 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersRepository {
 
     private PersDao mPersDao;
-    private LiveData<List<Person>> mAllPersons;
+    private ArrayList<Person> mAllPersons;
 
     PersRepository(Application application){
         PersRoomDatabase db = PersRoomDatabase.getDatabase(application);
         mPersDao = db.persDao();
-        mAllPersons = mPersDao.getAllPersons();
+        mAllPersons = (ArrayList<Person>) mPersDao.getAllPersons();
     }
 
-    LiveData<List<Person>> getAllPersons() {
+    ArrayList<Person> getAllPersons() {
         return mAllPersons;
     }
 
+    // we won't need this method later
     public void insert(Person person){
         new insertAsyncTask(mPersDao).execute(person);
     }

@@ -4,12 +4,13 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersViewModel extends AndroidViewModel {
 
     private PersRepository mRepo;
-    private LiveData<List<Person>> mAllPersons;
+    private ArrayList<Person> mAllPersons;
 
     public PersViewModel (Application application){
         super(application);
@@ -17,7 +18,7 @@ public class PersViewModel extends AndroidViewModel {
         mAllPersons = mRepo.getAllPersons();
     }
 
-    LiveData<List<Person>> getAllPersons(){
+    ArrayList<Person> getAllPersons(){
         return mAllPersons;
     }
 

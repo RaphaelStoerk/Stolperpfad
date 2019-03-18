@@ -11,17 +11,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 
-public class DbActivity extends AppCompatActivity {
+public class DbActivity extends AppCompatActivity implements PersListAdapter.OnPersItemListener {
+
+    private static final String TAG = "DbActivity";
 
     private PersViewModel mPersViewModel;
-    private List<Person> persList; //cached copy of persons
+    private ArrayList<Person> mPersList = new ArrayList<>(); //cached copy of persons
 
 
     @Override
@@ -40,28 +41,16 @@ public class DbActivity extends AppCompatActivity {
 
         //RecyclerView to get data
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final PersListAdapter adapter = new PersListAdapter(this);
+        final PersListAdapter adapter = new PersListAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // add TouchListener
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
-
-            @Override
-            public void onClick(View view, int position) {
-                Person current = persList.get(position);
-                Toast.makeText(getApplicationContext(), current.getFstName() + " " + current.getFamName() + " is selected!", Toast.LENGTH_SHORT).show();
-            }
-
-        }));
-
 
         //ViewModel
         mPersViewModel = ViewModelProviders.of(this).get(PersViewModel.class);
 
-        mPersViewModel.getAllPersons().observe(this, new Observer<List<Person>>() {
+        mPersViewModel.getAllPersons().observe(this, new Observer<ArrayList<Person>>() {
             @Override
-            public void onChanged(@Nullable final List<Person> persons) {
+            public void onChanged(@Nullable final ArrayList<Person> persons) {
                 // Update the cached copy of the words in the adapter.
                 adapter.setPersons(persons);
             }
@@ -70,4 +59,15 @@ public class DbActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * this method leads to a new activity, the into page of a person
+     * @param position
+     */
+    @Override
+    public void onPersClick(int position) {
+        mPersList.get(position);
+        Log.d(TAG, "onPersClick: onPersItemClick: clicked");
+        Intent intent = new Intent(this, PersInfoPage.class);
+        startActivity(intent);
+    }
 }

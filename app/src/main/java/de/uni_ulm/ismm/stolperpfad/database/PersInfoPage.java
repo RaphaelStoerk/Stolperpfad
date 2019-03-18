@@ -8,13 +8,12 @@ import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 
-public class ShowPersonItemPage extends AppCompatActivity {
+public class PersInfoPage extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Initialize this view and display the right screen
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_person_item_page);
+        setContentView(R.layout.activity_pers_info_page);
 
         AQuery aq = new AQuery(this);
 
@@ -27,4 +26,6 @@ public class ShowPersonItemPage extends AppCompatActivity {
             }
         });
     }
+
+
 }

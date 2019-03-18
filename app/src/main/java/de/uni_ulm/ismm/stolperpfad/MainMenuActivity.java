@@ -16,7 +16,6 @@ import android.view.View;
 import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.database.DbActivity;
-import de.uni_ulm.ismm.stolperpfad.database.ShowPersonItemPage;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.NextStoneActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutePlannerActivity;

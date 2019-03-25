@@ -5,13 +5,28 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+/**
+ * Overview over the database tables:
+ * Table 1: Persons (here)
+ * Table 2: Marriages (here)
+ * Table 3: Children (here)
+ * Table 4: fled to (here)
+ * Table 5: Places (in Place)
+ * Table 6: moved to (in Place)
+ * Table 7: deported to (in Place)
+ * Table 8: Stolpersteine (in Stolperstein)
+ * Table 9: Institutions in Ulm (in Institution)
+ * Table 10: moved in Ulm (in Institution)
+ * Table 11: Historical Terms (in HistoricTerm)
+ */
+
 
 // TABLE 1:
 // the most important database table, the persons
 @Entity(tableName = "persons")
 public class Person {
 
-    // Id - Vorname - Nachname - Geburtsname - Jahr* - Geburtsort - Jahr† - Geschichte - Stolperstein
+    // id - first name - last name - birth name - year* - place of birth - year† - historical term - Stolperstein
 
     // we have to work with Integer instead of int because an 'int' can't be null,
     // but an 'Integer' can and sometimes the table entries are null
@@ -40,7 +55,7 @@ public class Person {
     @ColumnInfo(name = "death_year")
     private Integer mDeYear;
 
-    @ColumnInfo(name = "historic_term")
+    @ColumnInfo(name = "historical_term")
     private Integer mHisTerm;
 
     @ColumnInfo(name = "stolperstein")
@@ -62,7 +77,7 @@ public class Person {
 
     // these are the getter-methods;
     // we don't have setter-methods because the persons are set by the database
-    public int getId() {
+    public int getPersId() {
         return this.mId;
     }
 
@@ -104,7 +119,6 @@ public class Person {
     // TABLE 2: marriages
     @Entity(tableName = "married")
     class Marriage {
-
         // first person - second person - year
         @NonNull
         @ColumnInfo(name = "id_pers1")
@@ -139,12 +153,11 @@ public class Person {
         }
     }
 
-    // TABLE 3:
-    // children
+    // TABLE 3: children
     @Entity(tableName = "children")
     class Children{
-
         // id parent (normally mother) - id first child - id second child - id third child
+
         @NonNull
         @ColumnInfo(name = "id_parent")
         private int mIdParent;
@@ -184,6 +197,44 @@ public class Person {
             return mIdTrdChild;
         }
     }
+
+    // TABLE 4: flight to the USA, Great Britain or Palestine
+    @Entity(tableName = "flight")
+    class Flight{
+        // id person - country - year
+
+        @NonNull
+        @ColumnInfo(name = "id_person")
+        private int mId;
+
+        @NonNull
+        @ColumnInfo(name = "country")
+        private String mCountry;
+
+        @NonNull
+        @ColumnInfo(name = "year")
+        private int mYear;
+
+        //constructor
+        public Flight(int id, String country, int year){
+            this.mId = id;
+            this.mCountry = country;
+            this.mYear = year;
+        }
+
+        public int getFlightId() {
+            return mId;
+        }
+
+        public String getCountry() {
+            return mCountry;
+        }
+
+        public int getYear() {
+            return mYear;
+        }
+    }
+
 
 }
 

@@ -33,6 +33,12 @@ public class MainMenuActivity extends AppCompatActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        setTheme(R.style.AppTheme);
         // Initialize this view and display the right screen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
@@ -70,9 +71,16 @@ public class RoutePlannerActivity extends AppCompatActivity {
             // a simple switch case statement that checks which button was pressed
             switch (v.getId()) {
                 case R.id.route_option_button:
-                    AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext(), R.style.DialogTheme);
+
+                    // Get the layout inflater
+                    LayoutInflater inflater = myMapFragment.getLayoutInflater();
+
+                    // Inflate and set the layout for the dialog
+                    // Pass null as the parent view because its going in the dialog layout
+                    builder.setView(inflater.inflate(R.layout.route_option_layout, null));
+
                     builder.setTitle("Erstelle eine Route");
-                    //builder.setMessage("Von wo aus soll die Route starten?");
 
                     starting_choice = 0;
                     my_text = "";
@@ -84,18 +92,10 @@ public class RoutePlannerActivity extends AppCompatActivity {
                         }
                     });
 
-                    // Set up the input
-                    final EditText input = new EditText(myMapFragment.getContext());
-                    // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                    input.setInputType(InputType.TYPE_CLASS_TEXT);
-                    input.setText("30");
-                    builder.setView(input);
-
                     // Set up the buttons
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            my_text = input.getText().toString();
                             myMapFragment.createRoute(my_text, starting_choice);
                             Log.d("HERE I AM", my_text);
                         }

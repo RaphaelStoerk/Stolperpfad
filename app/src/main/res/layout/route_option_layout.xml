@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:alpha="0.95">
+    <EditText
+        android:id="@+id/username"
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/colorText"
+        android:textColorHighlight="@color/colorAccent"
+        android:textColorHint="@color/colorPrimary"
+        android:shadowColor="@color/colorText"
+        android:textColorLink="@color/colorAccent"
+        android:hint="@string/username" />
+    <EditText
+        android:id="@+id/otherstring"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="@color/colorText"
+        android:textColorHighlight="@color/colorAccent"
+        android:textColorHint="@color/colorPrimary"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:textColorLink="@color/colorAccent"/>
+</LinearLayout>

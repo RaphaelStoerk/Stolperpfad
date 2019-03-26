@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <!-- Declares the entry point to the app -->
-        <activity android:name=".MainMenuActivity">
+        <activity android:name=".MainMenuActivity"
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

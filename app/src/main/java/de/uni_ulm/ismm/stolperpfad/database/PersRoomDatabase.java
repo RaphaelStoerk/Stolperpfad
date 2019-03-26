@@ -51,11 +51,11 @@ public abstract class PersRoomDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params){
             mDao.deleteAll();
-            Person person = new Person("Jakob", "Frenkel");
+            Person person = new Person(0, "Jakob", "Frenkel", null, null, null, null, null, null);
             mDao.insert(person);
-            person = new Person("Ida","Frenkel");
+            person = new Person(1, "Ida","Frenkel",  null, null, null, null, null, null);
             mDao.insert(person);
-            person = new Person("Ernst","Dauner");
+            person = new Person(2, "Ludwig","Hecht",  null, null, null, null, null, null);
             mDao.insert(person);
             return null;
         }

@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".database.PersInfoPage"></activity>
         <!-- Declares the entry point to the app -->
         <activity android:name=".MainMenuActivity"
             android:theme="@style/AppTheme.Launcher">
@@ -36,7 +37,6 @@
         <activity
             android:name=".map_activities.control.RoutePlannerActivity"
             android:label="@string/title_activity_route_planner" />
-        <activity android:name=".database.ShowPersonItemPage" />
         <activity
             android:name=".filter_search.FilterSearchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

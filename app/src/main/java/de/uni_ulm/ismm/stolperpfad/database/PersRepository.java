@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PersRepository {
@@ -21,6 +22,7 @@ public class PersRepository {
         return mAllPersons;
     }
 
+    // we won't need this method later
     public void insert(Person person){
         new insertAsyncTask(mPersDao).execute(person);
     }

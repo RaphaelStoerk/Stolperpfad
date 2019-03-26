@@ -17,19 +17,20 @@ import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 
-public class DbActivity extends AppCompatActivity {
+public class DbActivity extends AppCompatActivity implements PersListAdapter.OnPersItemListener {
 
-    private List<Person> persList = new ArrayList<>();
+    private static final String TAG = "DbActivity";
+
     private PersViewModel mPersViewModel;
+    private List<Person> mPersList; //cached copy of persons
 
-    private static final String TAG = "test item click";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
 
-
+        //button to go back
         FloatingActionButton fabBack = findViewById(R.id.fab_back);
         fabBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,43 +39,40 @@ public class DbActivity extends AppCompatActivity {
             }
         });
 
+        //RecyclerView to get data
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final PersListAdapter adapter = new PersListAdapter(this);
+        final PersListAdapter adapter = new PersListAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+        // maybe we don't need this because our database won't be changed by the user
+        //TODO: if this project is published and continued we have to think about a solution
+        //TODO: of how we can insert new Stolpersteine and update the data the user has downloaded
+        //TODO: maybe this is possible with playstore updates
         //ViewModel
         mPersViewModel = ViewModelProviders.of(this).get(PersViewModel.class);
 
         mPersViewModel.getAllPersons().observe(this, new Observer<List<Person>>() {
             @Override
-            public void onChanged(@Nullable final List<Person> words) {
+            public void onChanged(@Nullable final List<Person> persons) {
                 // Update the cached copy of the words in the adapter.
-                adapter.setPersons(words);
+                adapter.setPersons(persons);
             }
         });
 
-
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                //TODO fixen
-                //(hier soll beim Klick eine neue Page aufgehen mit den Infos zu der angeklickten Person)
-
-                /*Intent intent;
-                Person person = persList.get(position);
-                Log.i(TAG,person.getFstName() + person.getFamName() + " is selected!");
-                intent = new Intent(DbActivity.this, ***.class);
-                startActivity(intent);*/
-
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
     }
 
 
+    /**
+     * this method leads to a new activity, the into page of a person
+     * @param position
+     */
+    @Override
+    public void onPersClick(int position) {
+        //mPersList.get(position);
+        Log.d(TAG, "onPersClick: onPersItemClick: clicked");
+        Intent intent = new Intent(this, PersInfoPage.class);
+        startActivity(intent);
+    }
 }

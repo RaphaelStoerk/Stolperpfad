@@ -14,12 +14,21 @@ import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 
 public class HistoListAdapter extends RecyclerView.Adapter<HistoListAdapter.HistoViewHolder> {
 
-    class HistoViewHolder extends RecyclerView.ViewHolder {
+    class HistoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final TextView histoItemView;
+        OnHistoItemListener onHistoItemListener;
 
-        private HistoViewHolder(View itemView) {
+        private HistoViewHolder(View itemView, OnHistoItemListener onHistoItemListener) {
             super(itemView);
             histoItemView = itemView.findViewById(R.id.textView);
+            this.onHistoItemListener = onHistoItemListener;
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            onHistoItemListener.onHistoClick(getAdapterPosition());
         }
     }
 
@@ -38,8 +47,9 @@ public class HistoListAdapter extends RecyclerView.Adapter<HistoListAdapter.Hist
     @Override
     public HistoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
-        return new HistoViewHolder(itemView);
+        return new HistoViewHolder(itemView, mOnHistoItemListener);
     }
+
 
     @Override
     public void onBindViewHolder(HistoViewHolder holder, int position) {

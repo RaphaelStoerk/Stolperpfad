@@ -1,7 +1,8 @@
-package de.uni_ulm.ismm.stolperpfad.database;
+package de.uni_ulm.ismm.stolperpfad.database.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 /**
@@ -24,6 +25,7 @@ import android.support.annotation.NonNull;
 public class HistoricalTerm {
     // id - name
 
+    @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
     private int mId;
@@ -40,12 +42,12 @@ public class HistoricalTerm {
     }
 
     //getter
-    public int getHistId() {
+    public int getId() {
         return mId;
     }
 
     @NonNull
-    public String getHistName() {
+    public String getName() {
         return mName;
     }
 }

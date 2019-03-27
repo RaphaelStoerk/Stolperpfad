@@ -1,34 +1,36 @@
-package de.uni_ulm.ismm.stolperpfad.database;
+package de.uni_ulm.ismm.stolperpfad.database.list_of_historical_terms;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
+import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersInfoPage;
+import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersListAdapter;
 
-public class DbActivity extends AppCompatActivity implements PersListAdapter.OnPersItemListener {
+public class HistoryActivity extends AppCompatActivity implements HistoListAdapter.OnHistoItemListener {
 
-    private static final String TAG = "DbActivity";
+    private static final String TAG = "HistoryActivity";
 
-    private PersViewModel mPersViewModel;
-    private List<Person> mPersList; //cached copy of persons
+    private HistoViewModel mHistoViewModel;
+    private List<HistoricalTerm> mTermList; //cached copy of terms
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_db);
+        setContentView(R.layout.activity_list_of_historical_terms);
 
         //button to go back
         FloatingActionButton fabBack = findViewById(R.id.fab_back);
@@ -41,7 +43,7 @@ public class DbActivity extends AppCompatActivity implements PersListAdapter.OnP
 
         //RecyclerView to get data
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final PersListAdapter adapter = new PersListAdapter(this, this);
+        final HistoListAdapter adapter = new HistoListAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -51,13 +53,13 @@ public class DbActivity extends AppCompatActivity implements PersListAdapter.OnP
         //TODO: of how we can insert new Stolpersteine and update the data the user has downloaded
         //TODO: maybe this is possible with playstore updates
         //ViewModel
-        mPersViewModel = ViewModelProviders.of(this).get(PersViewModel.class);
+        mHistoViewModel = ViewModelProviders.of(this).get(HistoViewModel.class);
 
-        mPersViewModel.getAllPersons().observe(this, new Observer<List<Person>>() {
+        mHistoViewModel.getAllTerms().observe(this, new Observer<List<HistoricalTerm>>() {
             @Override
-            public void onChanged(@Nullable final List<Person> persons) {
+            public void onChanged(@Nullable final List<HistoricalTerm> histoTerms) {
                 // Update the cached copy of the words in the adapter.
-                adapter.setPersons(persons);
+                adapter.setTerms(histoTerms);
             }
         });
 
@@ -69,10 +71,10 @@ public class DbActivity extends AppCompatActivity implements PersListAdapter.OnP
      * @param position
      */
     @Override
-    public void onPersClick(int position) {
-        //mPersList.get(position);
-        Log.d(TAG, "onPersClick: onPersItemClick: clicked");
-        Intent intent = new Intent(this, PersInfoPage.class);
+    public void onHistoClick(int position) {
+        //mHistoList.get(position);
+        Log.d(TAG, "onHistoClick: onHistoItemClick: clicked");
+        Intent intent = new Intent(this, HistoInfoPage.class);
         startActivity(intent);
     }
 }

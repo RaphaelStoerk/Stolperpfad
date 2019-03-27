@@ -18,6 +18,7 @@
     <string name="info_button">[Empty] Stein-Infos</string>
     <string name="exit_button">Exit</string>
     <string name="db_button">[Working] Datenbank</string>
+    <string name="history_button">[Testing] Geschichtliche Hintergründe</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 

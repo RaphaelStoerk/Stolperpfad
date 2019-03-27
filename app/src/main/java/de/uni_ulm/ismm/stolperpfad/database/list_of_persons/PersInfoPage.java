@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad.database;
+package de.uni_ulm.ismm.stolperpfad.database.list_of_persons;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

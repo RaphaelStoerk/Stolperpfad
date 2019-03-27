@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".database.DbActivity">
+    tools:context=".database.list_of_historical_terms.HistoryActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_db" />
+    <include layout="@layout/content_list_of_historical_terms" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab-back"

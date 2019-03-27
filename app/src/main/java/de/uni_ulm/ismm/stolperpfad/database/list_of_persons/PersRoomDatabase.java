@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad.database;
+package de.uni_ulm.ismm.stolperpfad.database.list_of_persons;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
@@ -7,6 +7,8 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+
+import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 
 @Database(entities = {Person.class}, version = 1, exportSchema = false)
 public abstract class PersRoomDatabase extends RoomDatabase {
@@ -50,6 +52,7 @@ public abstract class PersRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params){
+            //TODO: add here the reading of the data (parser)
             mDao.deleteAll();
             Person person = new Person(0, "Jakob", "Frenkel", null, null, null, null, null, null);
             mDao.insert(person);

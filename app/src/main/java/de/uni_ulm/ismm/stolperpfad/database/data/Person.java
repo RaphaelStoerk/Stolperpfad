@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad.database;
+package de.uni_ulm.ismm.stolperpfad.database.data;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
@@ -77,7 +77,7 @@ public class Person {
 
     // these are the getter-methods;
     // we don't have setter-methods because the persons are set by the database
-    public int getPersId() {
+    public int getId() {
         return this.mId;
     }
 
@@ -101,7 +101,7 @@ public class Person {
         return this.mBiPlace;
     }
 
-    public Integer getDeaYear() {
+    public Integer getDeYear() {
         return this.mDeYear;
     }
 

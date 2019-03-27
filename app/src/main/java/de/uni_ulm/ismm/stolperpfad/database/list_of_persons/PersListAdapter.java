@@ -29,7 +29,7 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
 
     @Override
     public PersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
+        View itemView = mInflater.inflate(R.layout.recyclerview_item_persons, parent, false);
         return new PersViewHolder(itemView, mOnPersItemListener);
     }
 
@@ -37,11 +37,11 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
     public void onBindViewHolder(PersViewHolder holder, int position) {
         if (mPersList != null) {
             Person current = mPersList.get(position);
-            holder.persItemView.setText(current.getFstName() + " " + current.getFamName() + "\n"); //TODO: add address here (join!)
+            holder.textViewPersons.setText(current.getFstName() + " " + current.getFamName() + "\n"); //TODO: add address here (join!)
 
         } else {
             // if the data is not ready yet
-            holder.persItemView.setText("Loading...");
+            holder.textViewPersons.setText("Loading...");
         }
 
     }
@@ -64,12 +64,12 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
      * This is the ViewHolder Class
      */
     class PersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView persItemView;
+        private final TextView textViewPersons;
         OnPersItemListener onPersItemListener;
 
         private PersViewHolder(View itemView, OnPersItemListener onPersItemListener) {
             super(itemView);
-            persItemView = itemView.findViewById(R.id.textView);
+            textViewPersons = itemView.findViewById(R.id.textView);
             this.onPersItemListener = onPersItemListener;
 
             itemView.setOnClickListener(this);

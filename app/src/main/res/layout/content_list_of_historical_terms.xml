@@ -9,11 +9,11 @@
     tools:showIn="@layout/activity_list_of_historical_terms">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerview"
+        android:id="@+id/recyclerview_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/darker_gray"
-        tools:listitem="@layout/recyclerview_item"/>
+        tools:listitem="@layout/recyclerview_item_history"/>
 
 
 </android.support.constraint.ConstraintLayout>

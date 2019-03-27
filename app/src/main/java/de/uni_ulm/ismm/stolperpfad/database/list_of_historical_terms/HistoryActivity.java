@@ -16,8 +16,6 @@ import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
-import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersInfoPage;
-import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersListAdapter;
 
 public class HistoryActivity extends AppCompatActivity implements HistoListAdapter.OnHistoItemListener {
 
@@ -42,7 +40,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoListAdapt
         });
 
         //RecyclerView to get data
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.recyclerview_history);
         final HistoListAdapter adapter = new HistoListAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

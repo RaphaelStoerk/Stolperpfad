@@ -15,12 +15,12 @@ import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 public class HistoListAdapter extends RecyclerView.Adapter<HistoListAdapter.HistoViewHolder> {
 
     class HistoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private final TextView histoItemView;
+        private final TextView textViewHistory;
         OnHistoItemListener onHistoItemListener;
 
         private HistoViewHolder(View itemView, OnHistoItemListener onHistoItemListener) {
             super(itemView);
-            histoItemView = itemView.findViewById(R.id.textView);
+            textViewHistory = itemView.findViewById(R.id.textView);
             this.onHistoItemListener = onHistoItemListener;
 
             itemView.setOnClickListener(this);
@@ -46,7 +46,7 @@ public class HistoListAdapter extends RecyclerView.Adapter<HistoListAdapter.Hist
 
     @Override
     public HistoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
+        View itemView = mInflater.inflate(R.layout.recyclerview_item_persons, parent, false);
         return new HistoViewHolder(itemView, mOnHistoItemListener);
     }
 
@@ -55,10 +55,10 @@ public class HistoListAdapter extends RecyclerView.Adapter<HistoListAdapter.Hist
     public void onBindViewHolder(HistoViewHolder holder, int position) {
         if (mHistoTerms != null) {
             HistoricalTerm current = mHistoTerms.get(position);
-            holder.histoItemView.setText(current.getName());
+            holder.textViewHistory.setText(current.getName());
         } else {
             // Covers the case of data not being ready yet.
-            holder.histoItemView.setText("No Term");
+            holder.textViewHistory.setText("No Term");
         }
     }
 

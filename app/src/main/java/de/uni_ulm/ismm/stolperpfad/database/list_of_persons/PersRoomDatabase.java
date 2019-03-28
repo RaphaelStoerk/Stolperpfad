@@ -10,6 +10,15 @@ import android.support.annotation.NonNull;
 
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 
+/**
+ * !!! READ ME !!!
+ * If you get this exception
+ * "Room cannot verify the data integrity. Looks like you've changed schema but forgot to update the version number.
+ * You can simply fix this by increasing the version number."
+ * (because you changed something in the data tables),
+ * DO NOT change the version number but uninstall the app on your phone, clean the project and rebuild everything.
+ * Then it should work again.
+ */
 @Database(entities = {Person.class}, version = 1, exportSchema = false)
 public abstract class PersRoomDatabase extends RoomDatabase {
 
@@ -33,10 +42,10 @@ public abstract class PersRoomDatabase extends RoomDatabase {
     }
 
     private static RoomDatabase.Callback sRoomDatabaseCallback =
-            new RoomDatabase.Callback(){
+            new RoomDatabase.Callback() {
 
                 @Override
-                public void onOpen (@NonNull SupportSQLiteDatabase db){
+                public void onOpen(@NonNull SupportSQLiteDatabase db) {
                     super.onOpen(db);
                     new PopulateDbAsync(INSTANCE).execute();
                 }
@@ -46,12 +55,12 @@ public abstract class PersRoomDatabase extends RoomDatabase {
 
         private final PersDao mDao;
 
-        PopulateDbAsync(PersRoomDatabase db){
+        PopulateDbAsync(PersRoomDatabase db) {
             mDao = db.persDao();
         }
 
         @Override
-        protected Void doInBackground(final Void... params){
+        protected Void doInBackground(final Void... params) {
             //TODO: add here the reading of the data (parser)
             mDao.deleteAll();
             Person person = new Person("Jakob", "Frenkel");

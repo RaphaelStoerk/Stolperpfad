@@ -1,14 +1,11 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.model;
 
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.Marker;
-
 /**
  * This is a model class to represent a "Stolperstein" on the map activities of this application
  */
-public class Stone {
 
+public class Stone {
+/*
     private GeoPoint location;
     private String first_name, last_name, short_desc;
     private Marker marker;
@@ -28,7 +25,7 @@ public class Stone {
      * @param map the Mapview, that will later contain the Marker
      *
      * @return a Marker representing this Stone
-     */
+     *
     public Marker getMarker(MapView map) {
         if(marker == null) {
             marker = new Marker(map);
@@ -44,7 +41,7 @@ public class Stone {
     /**
      * Returns the geographical position of this Stone as a GeoPoint
      * @return the location of this Stone
-     */
+     *
     public GeoPoint getLocation() {
         return location;
     }
@@ -59,4 +56,6 @@ public class Stone {
                 (this.location.getLongitude() == check.getLocation().getLongitude());
     }
 
+
+*/
 }

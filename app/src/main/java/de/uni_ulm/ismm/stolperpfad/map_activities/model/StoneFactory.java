@@ -2,7 +2,6 @@ package de.uni_ulm.ismm.stolperpfad.map_activities.model;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import org.osmdroid.views.overlay.Marker;
 import java.util.ArrayList;
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapFragment;
@@ -12,7 +11,7 @@ import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapFragment;
  * from the database and keeps track of their locations and markers
  */
 public class StoneFactory {
-
+/*
     private ArrayList<Stone> all_stones;
     private ArrayList<Marker> stone_markers;
     private MapFragment map;
@@ -61,7 +60,7 @@ public class StoneFactory {
      * @param marker the marker for which a corresponding stone is returned
      *
      * @return the corresponding stone
-     */
+     *
     public Stone getStoneFromMarker(Marker marker) {
         for (Stone s : all_stones) {
             if (s.getMarker(map.getView()) == marker) {
@@ -78,7 +77,7 @@ public class StoneFactory {
      * @param rel_stone the stone from which a nearest stone is looked for
      *
      * @return the stone that is nearest to rel_stone
-     */
+     *
     public Stone getNearestTo(Stone rel_stone) {
         if (all_stones == null || all_stones.size() == 0) {
             return null;
@@ -103,7 +102,7 @@ public class StoneFactory {
      * @param rel_stone the stone from which a nearest stone is looked for
      *
      * @return the stone that is nearest to rel_stone
-     */
+     *
     public Marker getNearestTo(Marker rel_stone) {
         if (stone_markers == null || stone_markers.size() == 0) {
             return null;
@@ -124,7 +123,7 @@ public class StoneFactory {
     /**
      * This class is responsible for creating an asynchronous task that creates all the stones
      * from the data in the database, so they can later be displayed on the map
-     */
+     *
     private class InitializeStonesTask extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -157,4 +156,5 @@ public class StoneFactory {
             return "Finished";
         }
     }
+    */
 }

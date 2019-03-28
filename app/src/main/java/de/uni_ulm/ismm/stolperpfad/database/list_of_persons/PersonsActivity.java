@@ -40,7 +40,7 @@ public class PersonsActivity extends AppCompatActivity implements PersListAdapte
         });
 
         //RecyclerView to get data
-        RecyclerView recyclerView = findViewById(R.id.recyclerview_history);
+        RecyclerView recyclerView = findViewById(R.id.recyclerview_persons);
         final PersListAdapter adapter = new PersListAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

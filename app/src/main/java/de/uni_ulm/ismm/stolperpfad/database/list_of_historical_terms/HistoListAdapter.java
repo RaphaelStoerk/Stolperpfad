@@ -20,7 +20,7 @@ public class HistoListAdapter extends RecyclerView.Adapter<HistoListAdapter.Hist
 
         private HistoViewHolder(View itemView, OnHistoItemListener onHistoItemListener) {
             super(itemView);
-            textViewHistory = itemView.findViewById(R.id.textView);
+            textViewHistory = itemView.findViewById(R.id.textViewH);
             this.onHistoItemListener = onHistoItemListener;
 
             itemView.setOnClickListener(this);

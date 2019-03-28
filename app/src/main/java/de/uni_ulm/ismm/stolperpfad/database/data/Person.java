@@ -31,9 +31,9 @@ public class Person {
     // we have to work with Integer instead of int because an 'int' can't be null,
     // but an 'Integer' can and sometimes the table entries are null
     @PrimaryKey
-    @NonNull
+    /*@NonNull
     @ColumnInfo(name = "id")
-    private int mId;
+    private int mId;*/
 
     @NonNull
     @ColumnInfo(name = "first_name")
@@ -43,7 +43,7 @@ public class Person {
     @ColumnInfo(name = "family_name")
     private String mFamName;
 
-    @ColumnInfo(name = "birth_name")
+    /*@ColumnInfo(name = "birth_name")
     private String mBiName;
 
     @ColumnInfo(name = "birth_year")
@@ -59,27 +59,27 @@ public class Person {
     private Integer mHisTerm;
 
     @ColumnInfo(name = "stolperstein")
-    private Integer mStolperstein;
+    private Integer mStolperstein;*/
 
     // constructor
-    public Person(@NonNull int id, @NonNull String fstName, @NonNull String famName, String biName,
-                  Integer biYear, Integer biPlace, Integer deYear, Integer hisTerm, Integer stolperstein) {
-        this.mId = id;
+    public Person(/*@NonNull int id,*/ @NonNull String fstName, @NonNull String famName/*, String biName,
+                  Integer biYear, Integer biPlace, Integer deYear, Integer hisTerm, Integer stolperstein*/) {
+        //this.mId = id;
         this.mFstName = fstName;
         this.mFamName = famName;
-        this.mBiName = biName;
+        /*this.mBiName = biName;
         this.mBiYear = biYear;
         this.mBiPlace = biPlace;
         this.mDeYear = deYear;
         this.mHisTerm = hisTerm;
-        this.mStolperstein = stolperstein;
+        this.mStolperstein = stolperstein;*/
     }
 
     // these are the getter-methods;
     // we don't have setter-methods because the persons are set by the database
-    public int getId() {
+    /*public int getId() {
         return this.mId;
-    }
+    }*/
 
     public String getFstName() {
         return this.mFstName;
@@ -89,7 +89,7 @@ public class Person {
         return this.mFamName;
     }
 
-    public String getBiName() {
+    /*public String getBiName() {
         return this.mBiName;
     }
 
@@ -111,7 +111,7 @@ public class Person {
 
     public Integer getStolperstein() {
         return this.mStolperstein;
-    }
+    }*/
 
 
     // these are the additional tables we need to store the data

@@ -53,7 +53,9 @@ public abstract class HistoRoomDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             //TODO: add here the reading of the data (parser)
             mDao.deleteAll();
-            HistoricalTerm histoTerm = new HistoricalTerm(0, "Polenaktion");
+            HistoricalTerm histoTerm = new HistoricalTerm("Polenaktion");
+            mDao.insert(histoTerm);
+            /*HistoricalTerm histoTerm = new HistoricalTerm(0, "Polenaktion");
             mDao.insert(histoTerm);
             histoTerm = new HistoricalTerm(1, "Aktion T4/Euthanasie");
             mDao.insert(histoTerm);
@@ -61,10 +63,10 @@ public abstract class HistoRoomDatabase extends RoomDatabase {
             mDao.insert(histoTerm);
             histoTerm = new HistoricalTerm(3, "Kindertransport nach Großbritannien");
             mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm(3, "Zeugen Jehovas");
+            histoTerm = new HistoricalTerm(4, "Zeugen Jehovas");
             mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm(3, "Fabrikation");
-            mDao.insert(histoTerm);
+            histoTerm = new HistoricalTerm(5, "Fabrikation");
+            mDao.insert(histoTerm);*/
             return null;
         }
     }

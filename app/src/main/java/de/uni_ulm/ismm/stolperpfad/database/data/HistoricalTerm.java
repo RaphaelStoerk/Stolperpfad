@@ -26,9 +26,9 @@ public class HistoricalTerm {
     // id - name
 
     @PrimaryKey
-    @NonNull
+    /*@NonNull
     @ColumnInfo(name = "id")
-    private int mId;
+    private int mId;*/
 
     @NonNull
     @ColumnInfo(name = "name")
@@ -36,17 +36,16 @@ public class HistoricalTerm {
 
 
     //constructor
-    public HistoricalTerm(int id, @NonNull String name) {
-        this.mId = id;
+    public HistoricalTerm(/*@NonNull int id,*/ @NonNull String name) {
+        //this.mId = id;
         this.mName = name;
     }
 
     //getter
-    public int getId() {
+    /*public int getId() {
         return mId;
-    }
+    }*/
 
-    @NonNull
     public String getName() {
         return mName;
     }

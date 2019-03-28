@@ -69,7 +69,7 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
 
         private PersViewHolder(View itemView, OnPersItemListener onPersItemListener) {
             super(itemView);
-            textViewPersons = itemView.findViewById(R.id.textView);
+            textViewPersons = itemView.findViewById(R.id.textViewP);
             this.onPersItemListener = onPersItemListener;
 
             itemView.setOnClickListener(this);

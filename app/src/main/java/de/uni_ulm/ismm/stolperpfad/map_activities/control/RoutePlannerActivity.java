@@ -9,7 +9,10 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.androidquery.AQuery;
 
@@ -25,6 +28,7 @@ public class RoutePlannerActivity extends AppCompatActivity {
     private MyClickListener myListener;
     private String my_text;
     private int starting_choice;
+    private String[] categories = new String[]{"Nein", "Jüdische Verfolgte", "Politisch Verfolgte", "Andere"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,28 +80,49 @@ public class RoutePlannerActivity extends AppCompatActivity {
                     // Get the layout inflater
                     LayoutInflater inflater = myMapFragment.getLayoutInflater();
 
+                    View myDialogView = inflater.inflate(R.layout.route_option_layout, null);
+
+
                     // Inflate and set the layout for the dialog
                     // Pass null as the parent view because its going in the dialog layout
-                    builder.setView(inflater.inflate(R.layout.route_option_layout, null));
+                    builder.setView(myDialogView);
 
                     builder.setTitle("Erstelle eine Route");
 
                     starting_choice = 0;
                     my_text = "";
 
-                    builder.setSingleChoiceItems(new String[]{"Meine Position", "Punkt auf Karte", "Bahnhof"}, 1, new DialogInterface.OnClickListener() {
+                    Spinner spin = myDialogView.findViewById(R.id.spinner);
+
+                    spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
                         @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            starting_choice = which;
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
                         }
                     });
+
+                    ArrayAdapter aa = new ArrayAdapter(builder.getContext(), android.R.layout.simple_spinner_item, categories);
+
+                    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                    spin.setAdapter(aa);
+
+                    spin.setSelection(0);
+
 
                     // Set up the buttons
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            myMapFragment.createRoute(my_text, starting_choice);
+                            //myMapFragment.createRoute(my_text, starting_choice);
                             Log.d("HERE I AM", my_text);
+                            dialog.cancel();
                         }
                     });
                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

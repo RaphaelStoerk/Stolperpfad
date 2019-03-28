@@ -32,6 +32,12 @@
     <string name="title_activity_show_list_item">ShowListItem</string>
     <string name="title_activity_next_stone">Nächster Stein</string>
 
+    <!-- placehodler texts -->
+
+    <string name="username">Username</string>
+    <string name="walk_time">Zeit in min</string>
+    <string name="walk_time_title">Wie wie viel Zeit haben Sie für die Route?</string>
+
     <string name="info_text">
         "Wichtige Informationen\n\n"
         \nSie befinden sich in einer Beispiel-Ansicht eines Informations-Screens.
@@ -124,6 +130,8 @@
         "Am 19.4.1933 wurden per Verfügung des Staatskommissars für die Verwaltung der Stadt Ulm für die sozial Hilfebedürftigen
         die freie Arztwahl eingeführt. Das bedeutete jedoch gleichzeitig, dass die jüdischen Ärzte von der Versorgung dieses Personenkreises ausgeschlossen waren."
     </string>
-    <string name="username">Username</string>
+    <string name="start_loc_title">Wo möchten sie die Route beginnen?</string>
+    <string name="category_title">Wollen sie die Route nach einem Thema ausrichten?</string>
+    <string name="end_loc_title">Wo soll die Route enden?</string>
 
 </resources>

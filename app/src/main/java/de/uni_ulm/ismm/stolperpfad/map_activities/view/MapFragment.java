@@ -28,6 +28,7 @@ import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.MapQuestTileSource;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
@@ -125,7 +126,7 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
         // final DisplayMetrics dm = ctx.getResources().getDisplayMetrics();
 
         // MAPNIK is standard "style" for open street maps, other styles and overlays possible
-        map.setTileSource(TileSourceFactory.DEFAULT_TILE_SOURCE);
+        map.setTileSource(new MapQuestTileSource(ctx));
 
         IMapController mapController = map.getController();
 

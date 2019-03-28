@@ -55,4 +55,12 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
+
+    <style name="MyRadioButtonStyle" parent="AppTheme">
+        <item name="android:colorControlNormal">@color/colorText</item>
+        <item name="android:colorControlHighlight">@color/colorText</item>
+        <item name="android:colorControlActivated">@color/colorText</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:color">@color/colorText</item>
+    </style>
 </resources>

@@ -16,7 +16,7 @@ import de.uni_ulm.ismm.stolperpfad.database.data.Person;
  * "Room cannot verify the data integrity. Looks like you've changed schema but forgot to update the version number.
  * You can simply fix this by increasing the version number."
  * (because you changed something in the data tables),
- * DO NOT change the version number but uninstall the app on your phone, clean the project and rebuild everything.
+ * Do NOT change the version number but uninstall the app on your phone, clean the project and rebuild everything.
  * Then it should work again.
  */
 @Database(entities = {Person.class}, version = 1, exportSchema = false)

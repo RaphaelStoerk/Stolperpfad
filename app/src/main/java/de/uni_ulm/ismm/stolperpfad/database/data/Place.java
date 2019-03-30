@@ -62,37 +62,38 @@ public class Place {
     }
 
     // getter-methods
-    public int getPlaceId() {
+    public int getId() {
         return mId;
     }
 
     @NonNull
-    public String getPlaceName() {
+    public String getName() {
         return mName;
     }
 
-    public boolean toPlace() {
+    public boolean getNach() {
         return mNach;
     }
 
-    public boolean toInstDas() {
+    public boolean getInDas() {
         return mInDas;
     }
 
-    public boolean toInstDie() {
+    public boolean getInDie() {
         return mInDie;
     }
 
-    public boolean birthPlace() {
+    public boolean getIn() {
         return mIn;
     }
 
 
     // TABLE 6: moves to other cities
     @Entity(tableName = "moved_to")
-    class Move {
+    public static class Move {
         // id_person - id_place - year
 
+        @PrimaryKey
         @NonNull
         @ColumnInfo(name = "id_person")
         private int mPersId;
@@ -128,9 +129,10 @@ public class Place {
 
     // TABLE 7: deportations
     @Entity(tableName = "deported_to")
-    class Deportation {
+    public static class Deportation {
         // id_person - id_place - year
 
+        @PrimaryKey
         @NonNull
         @ColumnInfo(name = "id_person")
         private int mPersId;

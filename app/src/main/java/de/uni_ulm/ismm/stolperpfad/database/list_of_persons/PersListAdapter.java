@@ -37,7 +37,8 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
     public void onBindViewHolder(PersViewHolder holder, int position) {
         if (mPersList != null) {
             Person current = mPersList.get(position);
-            holder.textViewPersons.setText(position + current.getFstName() + " " + current.getFamName() + "\n"); //TODO: add address here (join!)
+            holder.textViewPersons.setText(current.getFstName() + " " + current.getFamName() + "\n"
+            + PersRoomDatabase.getDatabase(mContext).getAddress(position)); //TODO: fix this
 
         } else {
             // if the data is not ready yet

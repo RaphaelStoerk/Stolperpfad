@@ -56,14 +56,14 @@ public class Person {
     private Integer mDeYear;
 
     @ColumnInfo(name = "historical_term")
-    private Integer mHisTerm;
+    private Integer mHisTerm;*/
 
     @ColumnInfo(name = "stolperstein")
-    private Integer mStolperstein;*/
+    private Integer mStolperstein;
 
     // constructor
     public Person(/*@NonNull int id,*/ @NonNull String fstName, @NonNull String famName/*, String biName,
-                  Integer biYear, Integer biPlace, Integer deYear, Integer hisTerm, Integer stolperstein*/) {
+                  Integer biYear, Integer biPlace, Integer deYear, Integer hisTerm*/, Integer stolperstein) {
         //this.mId = id;
         this.mFstName = fstName;
         this.mFamName = famName;
@@ -71,8 +71,8 @@ public class Person {
         this.mBiYear = biYear;
         this.mBiPlace = biPlace;
         this.mDeYear = deYear;
-        this.mHisTerm = hisTerm;
-        this.mStolperstein = stolperstein;*/
+        this.mHisTerm = hisTerm;*/
+        this.mStolperstein = stolperstein;
     }
 
     // these are the getter-methods;
@@ -107,19 +107,20 @@ public class Person {
 
     public Integer getHisTerm() {
         return this.mHisTerm;
-    }
+    }*/
 
     public Integer getStolperstein() {
         return this.mStolperstein;
-    }*/
+    }
 
 
     // these are the additional tables we need to store the data
 
     // TABLE 2: marriages
     @Entity(tableName = "married")
-    class Marriage {
+    public static class Marriage {
         // first person - second person - year
+        @PrimaryKey
         @NonNull
         @ColumnInfo(name = "id_pers1")
         private int mId1;
@@ -130,10 +131,10 @@ public class Person {
 
         @NonNull
         @ColumnInfo(name = "year")
-        private int mYear;
+        private Integer mYear;
 
         //constructor
-        public Marriage(int id1, int id2, int year) {
+        public Marriage(int id1, int id2, Integer year) {
             this.mId1 = id1;
             this.mId2 = id2;
             this.mYear = year;
@@ -148,16 +149,17 @@ public class Person {
             return mId2;
         }
 
-        public int getYear() {
+        public Integer getYear() {
             return mYear;
         }
     }
 
     // TABLE 3: children
     @Entity(tableName = "children")
-    class Children{
+    public static class Children{
         // id parent (normally mother) - id first child - id second child - id third child
 
+        @PrimaryKey
         @NonNull
         @ColumnInfo(name = "id_parent")
         private int mIdParent;
@@ -200,9 +202,10 @@ public class Person {
 
     // TABLE 4: flight to the USA, Great Britain or Palestine
     @Entity(tableName = "flight")
-    class Flight{
+    public static class Flight{
         // id person - country - year
 
+        @PrimaryKey
         @NonNull
         @ColumnInfo(name = "id_person")
         private int mId;
@@ -222,7 +225,7 @@ public class Person {
             this.mYear = year;
         }
 
-        public int getFlightId() {
+        public int getId() {
             return mId;
         }
 

@@ -8,7 +8,11 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
+import de.uni_ulm.ismm.stolperpfad.database.data.Institution;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
+import de.uni_ulm.ismm.stolperpfad.database.data.Place;
+import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 
 /**
  * !!! READ ME !!!
@@ -19,7 +23,9 @@ import de.uni_ulm.ismm.stolperpfad.database.data.Person;
  * Do NOT change the version number but uninstall the app on your phone, clean the project and rebuild everything.
  * Then it should work again.
  */
-@Database(entities = {Person.class}, version = 1, exportSchema = false)
+@Database(entities = {Person.class, Person.Marriage.class, Person.Children.class, Person.Flight.class,
+        HistoricalTerm.class, Institution.class, Institution.MoveInUlm.class, Place.class, Place.Move.class,
+        Place.Deportation.class, Stolperstein.class}, version = 1, exportSchema = false)
 public abstract class PersRoomDatabase extends RoomDatabase {
 
     public abstract PersDao persDao();
@@ -63,8 +69,21 @@ public abstract class PersRoomDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             //TODO: add here the reading of the data (parser)
             mDao.deleteAll();
-            Person person = new Person("Jakob", "Frenkel");
+            Person person = new Person("Jakob", "Frenkel", 0);
             mDao.insert(person);
+            person = new Person("Ida", "Frenkel", 0);
+            mDao.insert(person);
+            person = new Person("Karl", "Rueff", 1);
+            mDao.insert(person);
+
+            Stolperstein stolperstein = new Stolperstein(0, "Olgastraße 114", 48.402106, 9.994395);
+            mDao.insert(stolperstein);
+            stolperstein = new Stolperstein(1, "Frauenstraße 28", 48.399455, 9.996718);
+            mDao.insert(stolperstein);
+
+            Person.Marriage marriage = new Person.Marriage(0, 1, null);
+            mDao.insert(marriage);
+
             /*Person person = new Person(0, "Jakob", "Frenkel", null, null, null, null, null, null);
             mDao.insert(person);
             person = new Person(1, "Ida","Frenkel",  null, null, null, null, null, null);
@@ -73,5 +92,12 @@ public abstract class PersRoomDatabase extends RoomDatabase {
             mDao.insert(person);*/
             return null;
         }
+
     }
+
+    public String getAddress(int id) {
+        return persDao().getAddress(id);
+    }
+
+
 }

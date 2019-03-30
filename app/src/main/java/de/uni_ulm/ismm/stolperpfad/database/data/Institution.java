@@ -41,21 +41,22 @@ public class Institution {
     }
 
     //getter
-    public int getInstId() {
+    public int getId() {
         return mId;
     }
 
     @NonNull
-    public String getIstName() {
+    public String getName() {
         return mName;
     }
 
 
     // TABLE 10: moved in Ulm
     @Entity(tableName = "moves_in_ulm")
-    class MoveInUlm{
+    public static class MoveInUlm{
         // id person - id institution - year
 
+        @PrimaryKey
         @NonNull
         @ColumnInfo(name = "person_id")
         private int mPersId;

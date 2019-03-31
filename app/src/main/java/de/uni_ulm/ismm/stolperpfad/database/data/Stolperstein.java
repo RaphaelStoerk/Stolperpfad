@@ -26,9 +26,9 @@ public class Stolperstein {
     // stone id - street/location - latitude (Breitangrad) - longitude (Längengrad)
 
     @PrimaryKey
-    @NonNull
+    /*@NonNull
     @ColumnInfo(name = "id")
-    private int mId;
+    private int mId;*/
 
     @NonNull
     @ColumnInfo(name = "street_and_number")
@@ -45,17 +45,17 @@ public class Stolperstein {
 
 
     //constructor
-    public Stolperstein(int id, String street, double latitude, double longitude){
-        this.mId = id;
+    public Stolperstein(/*int id,*/ String street, double latitude, double longitude){
+        //this.mId = id;
         this.mStreet = street;
         this.mLatitude = latitude;
         this.mLongitude = longitude;
     }
 
     //getter
-    public int getId() {
+    /*public int getId() {
         return mId;
-    }
+    }*/
 
     public String getStreet() {
         return mStreet;

@@ -34,6 +34,6 @@ public interface PersDao {
     @Insert
     void insert(Person.Marriage marriage);
 
-    @Query("SELECT street_and_number from stolpersteine WHERE id = :idPerson")
-    String getAddress(int idPerson);
+    @Query("SELECT street_and_number from stolpersteine WHERE  = :persId") //TODO: fix this
+    String getAddress(int persId);
 }

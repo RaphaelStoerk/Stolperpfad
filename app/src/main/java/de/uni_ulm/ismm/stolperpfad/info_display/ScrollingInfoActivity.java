@@ -35,6 +35,13 @@ public class ScrollingInfoActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        String test = getIntent().getAction();
+
+        aq.id(R.id.info_title).text(test);
+
+        // TODO: add Info
+        aq.id(R.id.info_text).text("--- Hier bitte Info einfuegen ---");
     }
 
 }

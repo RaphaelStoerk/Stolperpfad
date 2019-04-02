@@ -80,8 +80,10 @@ dependencies {
     implementation('com.mapquest:navigation:3.4.0')            // the MapQuest Navigation SDK
     implementation "com.google.android.gms:play-services-location:15.0.1"
 
-    implementation('com.mapquest:mapping-android-sdk:2.0.10') { // for Mapping SDK MapView; displays route to navigate
-        exclude group: 'com.android.support'            // (note: in your app, you might omit this 'exclude')
+    implementation('com.mapquest:mapping-android-sdk:2.0.10') {
+        // for Mapping SDK MapView; displays route to navigate
+        exclude group: 'com.android.support'
+        // (note: in your app, you might omit this 'exclude')
     }
 
 }

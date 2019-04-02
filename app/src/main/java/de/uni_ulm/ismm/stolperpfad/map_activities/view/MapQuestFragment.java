@@ -1,6 +1,8 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ import com.mapquest.navigation.dataclient.RouteService;
 import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
 
 /**
@@ -48,6 +51,10 @@ public class MapQuestFragment extends Fragment {
     private Context ctx;
     private boolean next;
     private StoneFactory stone_handler;
+    private LatLng chosen_position_start;
+    private Marker chosen_marker_start;
+    private LatLng chosen_position_end;
+    private Marker chosen_marker_end;
 
     private final String API_KEY = "@string/mapquest_api_key";
 
@@ -90,12 +97,69 @@ public class MapQuestFragment extends Fragment {
             mMapboxMap = mapboxMap;
             map.setStreetMode();
             stone_handler = StoneFactory.initialize(this, mMapboxMap);
-            mMapboxMap.setOnMarkerClickListener(marker -> {
+
+            chosen_position_start = new LatLng(0,0);
+            chosen_marker_start = null;
+            chosen_position_end = new LatLng(0,0);
+            chosen_marker_end = null;
+
+            mMapboxMap.setOnInfoWindowClickListener(marker -> {
+                Stone check = stone_handler.getStoneFromMarker(marker);
+                if(check == null) {
+                    return false;
+                }
                 Intent intent = new Intent(getActivity(), ScrollingInfoActivity.class);
-                intent.setAction(stone_handler.getStoneFromMarker(marker).toString());
+                intent.setAction(check.toString());
                 startActivity(intent);
-                return false;
+                return true;
             });
+
+            mapboxMap.addOnMapLongClickListener(point -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogTheme);
+
+
+                String[] choice = new String[] {"Route von hier", "Route nach hier", "Zurück"};
+
+                builder.setTitle("Auswahl festlegen als:")
+                        .setItems(choice, (dialog, which) -> {
+                            switch(which) {
+                                case 0:
+                                    if(chosen_marker_start != null) {
+                                        chosen_marker_start.setPosition(point);
+                                    } else {
+                                        chosen_position_start = point;
+                                        MarkerOptions chosen_marker_options = new MarkerOptions();
+                                        chosen_marker_options.setPosition(point);
+                                        chosen_marker_options.setTitle("Deine gewählte Start-Position");
+                                        chosen_marker_options.setSnippet("Hier kann deine Route starten");
+                                        chosen_marker_start = mMapboxMap.addMarker(chosen_marker_options);
+                                        mMapboxMap.selectMarker(chosen_marker_start);
+                                    }
+                                    chosen_marker_start.setIcon(IconFactory.getInstance(getContext()).fromAsset("start_icon.json"));
+                                    break;
+                                case 1:
+                                    if(chosen_marker_end != null) {
+                                        chosen_marker_end.setPosition(point);
+                                    } else {
+                                        chosen_position_end = point;
+                                        MarkerOptions chosen_marker_options = new MarkerOptions();
+                                        chosen_marker_options.setPosition(point);
+                                        chosen_marker_options.setTitle("Deine gewählte End-Position");
+                                        chosen_marker_options.setSnippet("Hier kann deine Route enden");
+                                        chosen_marker_end = mMapboxMap.addMarker(chosen_marker_options);
+                                        mMapboxMap.selectMarker(chosen_marker_end);
+                                    }
+                                    break;
+                                default:
+                            }
+                        });
+
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+            });
+
             CameraPosition position = new CameraPosition.Builder()
                     .target(new LatLng(48.4011, 9.9876)) // Sets the new camera position
                     .zoom(16.) // Sets the zoom to level 10

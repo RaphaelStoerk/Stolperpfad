@@ -45,6 +45,7 @@ import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
 
 public class MapFragment extends Fragment {
+
 /*
     private RotationGestureOverlay mRotationGestureOverlay;
     private MapView map;

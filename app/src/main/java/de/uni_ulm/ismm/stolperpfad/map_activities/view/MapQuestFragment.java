@@ -1,21 +1,35 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mapbox.mapboxsdk.annotations.Icon;
+import com.mapbox.mapboxsdk.annotations.IconFactory;
+import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.Polyline;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.camera.CameraUpdate;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
 import com.mapquest.mapping.MapQuest;
 import com.mapquest.mapping.maps.MapView;
+import com.mapquest.navigation.NavigationManager;
+import com.mapquest.navigation.dataclient.RouteService;
+
+import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
+import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,8 +43,13 @@ public class MapQuestFragment extends Fragment {
 
     private MapView map;
     private MapboxMap mMapboxMap;
+    private RouteService mRouteService;
+    private NavigationManager mNavigationManager;
     private Context ctx;
     private boolean next;
+    private StoneFactory stone_handler;
+
+    private final String API_KEY = "@string/mapquest_api_key";
 
     private Polyline store_current_drawn_path;
 
@@ -62,31 +81,29 @@ public class MapQuestFragment extends Fragment {
 
         MapQuest.start(ctx);
 
-        map = new MapView(ctx,null, 0, "@string/mapquest_api_key");
+        map = new MapView(ctx,null, 0, API_KEY);
+
+        mRouteService = new RouteService.Builder().build(this.getContext(),API_KEY);
 
         map.onCreate(savedInstanceState);
         map.getMapAsync(mapboxMap -> {
             mMapboxMap = mapboxMap;
             map.setStreetMode();
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(new LatLng(48.4011, 9.9876));
-            markerOptions.title("Test1");
-            markerOptions.snippet("Test Text 1");
-            mapboxMap.addMarker(markerOptions);
-            markerOptions.position(new LatLng(48.39855, 9.99123));
-            markerOptions.title("Test2");
-            markerOptions.snippet("Test Text 2");
-            mapboxMap.addMarker(markerOptions);
+            stone_handler = StoneFactory.initialize(this, mMapboxMap);
+            mMapboxMap.setOnMarkerClickListener(marker -> {
+                Intent intent = new Intent(getActivity(), ScrollingInfoActivity.class);
+                intent.setAction(stone_handler.getStoneFromMarker(marker).toString());
+                startActivity(intent);
+                return false;
+            });
+            CameraPosition position = new CameraPosition.Builder()
+                    .target(new LatLng(48.4011, 9.9876)) // Sets the new camera position
+                    .zoom(16.) // Sets the zoom to level 10
+                    .tilt(45) // Set the camera tilt to 20 degrees
+                    .build(); // Builds the CameraPosition object from the builder
+
+            mMapboxMap.easeCamera(mapboxMap1 -> position, 1000);
         });
-
-
-        CameraPosition position = new CameraPosition.Builder()
-                .target(new LatLng(48.4011, 9.9876)) // Sets the new camera position
-                .zoom(20) // Sets the zoom to level 10
-                .tilt(20) // Set the camera tilt to 20 degrees
-                .build(); // Builds the CameraPosition object from the builder
-
-
 
         return map;
     }
@@ -106,6 +123,27 @@ public class MapQuestFragment extends Fragment {
     @Override
     public void onPause()
     { super.onPause(); map.onPause(); }
+
+    /**
+     * Displays the Stone markers on the map, that have been stored in the stone factory
+     */
+    public void setStones() {
+        if(!stone_handler.isReady() || map == null) {
+            return;
+        }
+        for(Marker m : stone_handler.getMarkers()) {
+            m.setIcon(IconFactory.getInstance(getContext()).defaultMarker());
+            if(next) {
+                m.setIcon(IconFactory.getInstance(getContext()).fromFile("drawable/ic_menu_share.xml"));
+            }
+        }
+        if(next) {
+         //   stone_handler.getNearestTo(curr_user_location).setAlpha(1f);
+        }
+        map.invalidate();
+    }
+
+
 
     /**
      * This interface must be implemented by activities that contain this

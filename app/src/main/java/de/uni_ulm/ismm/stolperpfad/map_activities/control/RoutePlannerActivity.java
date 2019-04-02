@@ -18,13 +18,14 @@ import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapFragment;
+import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
 
 public class RoutePlannerActivity extends AppCompatActivity {
 
     private AQuery aq;
 
-    private static final String MAP_FRAGMENT_TAG = "org.osmdroid.MAP_FRAGMENT_TAG";
-    private MapFragment myMapFragment;
+    private static final String MAP_FRAGMENT_TAG = "MAPQUEST_MAP_FRAGMENT";
+    private MapQuestFragment myMapFragment;
     private MyClickListener myListener;
     private String my_text;
     private int starting_choice;
@@ -43,7 +44,7 @@ public class RoutePlannerActivity extends AppCompatActivity {
         FragmentManager fm = this.getSupportFragmentManager();
 
         if (fm.findFragmentById(R.id.map_container) == null) {
-            myMapFragment = MapFragment.newInstance(false);
+            myMapFragment = MapQuestFragment.newInstance(false);
             fm.beginTransaction().add(R.id.map_container, myMapFragment, MAP_FRAGMENT_TAG).commit();
         }
 

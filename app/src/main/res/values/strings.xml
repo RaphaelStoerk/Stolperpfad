@@ -21,6 +21,10 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
+    <!-- texts for map activities -->
+    <string name="start_loc_title">Wo möchten sie die Route beginnen?</string>
+    <string name="category_title">Wollen sie die Route nach einem Thema ausrichten?</string>
+    <string name="end_loc_title">Wo soll die Route enden?</string>
 
     <!-- activity titles -->
     <string name="title_activity_scrolling_info">ScrollingInfoActivity</string>
@@ -31,89 +35,22 @@
     <string name="title_activity_filter_search">FilterSearchActivity</string>
     <string name="title_activity_show_list_item">ShowListItem</string>
     <string name="title_activity_next_stone">Nächster Stein</string>
+    <string name="title_activity_history_info">Historisches</string>
+    <string name="title_activity_impressum">Impressum</string>
+    <string name="title_activity_privacy">Datenschutz</string>
+    <string name="title_activity_artist_info">Künstler</string>
+    <string name="title_activity_project_info">Projekt</string>
 
     <!-- placehodler texts -->
-
     <string name="username">Username</string>
     <string name="walk_time">Zeit in min</string>
     <string name="walk_time_title">Wie wie viel Zeit haben Sie für die Route?</string>
+    <string name="test_string">This is a Test</string>
 
     <string name="info_text">
-        "Wichtige Informationen\n\n"
-        \nSie befinden sich in einer Beispiel-Ansicht eines Informations-Screens.
-        \nUm nachzuvollziehen wie sie hierher gekommen
-        sind, wenden sie sich bitte an den entsprechenden Code. Die wichtigsten für Sie relevanten Orte bei ihrer Recherche
-        sind
-        \n\napp > java > de.uni_ulm.ismm.stolperpfad.MainMenuActivity.java,
-        \n\napp > res > layout > activity_main_menu.xml
-        \n\n und app > res > values > strings.xml
-        \n\nBeginnen Sie ihre Suche bitte dort. Es sollte alles weitere Grundlegende an Informationen
-        dann dort zu finden sein. \nSollten Sie trotz allem vor der geballten Ladung an komplexem Code und unverständlichen
-        Kommentaren zu Grunde gehen, wenden Sie sich bitte an den Erzeuger dieser Nachricht, Raphael Störk. Mit etwas
-        Glück schafft er es selber aus diesem Wirrwarr schlau zu werden und ihnen die entsprechenden Probleme zu erklären.
-       \n Falls sonst noch Fragen oder Probleme offen sind lassen sie diese bitte in Form von Git-Issues oder Java-TODOs
-        an den entsprechenden Stellen liegen und warten auf Rettung.\n\n
-
-        Da Sie anscheinend gerne noch weiter lesen möchten hier ein Auszug aus Faust von Goethe:\n\n
-        Habe nun, ach! Philosophie,\n
-        Juristerei und Medizin,\n
-        Und leider auch Theologie\n
-        Durchaus studiert, mit heißem Bemühn.\n
-        Da steh ich nun, ich armer Tor!\n
-        Und bin so klug als wie zuvor;\n
-        Heiße Magister, heiße Doktor gar\n
-        Und ziehe schon an die zehen Jahr\n
-        Herauf, herab und quer und krumm\n
-        Meine Schüler an der Nase herum –\n
-        Und sehe, daß wir nichts wissen können!\n
-        Das will mir schier das Herz verbrennen.\n
-        Zwar bin ich gescheiter als all die Laffen,\n
-        Doktoren, Magister, Schreiber und Pfaffen;\n
-        Mich plagen keine Skrupel noch Zweifel,\n
-        Fürchte mich weder vor Hölle noch Teufel –\n
-        Dafür ist mir auch alle Freud entrissen,\n
-        Bilde mir nicht ein, was Rechts zu wissen,\n
-        Bilde mir nicht ein, ich könnte was lehren,\n
-        Die Menschen zu bessern und zu bekehren.\n
-        Auch hab ich weder Gut noch Geld,\n
-        Noch Ehr und Herrlichkeit der Welt;\n
-        Es möchte kein Hund so länger leben!\n
-        Drum hab ich mich der Magie ergeben,\n
-        Ob mir durch Geistes Kraft und Mund\n
-        Nicht manch Geheimnis würde kund;\n
-        Daß ich nicht mehr mit saurem Schweiß\n
-        Zu sagen brauche, was ich nicht weiß;\n
-        Daß ich erkenne, was die Welt\n
-        Im Innersten zusammenhält,\n
-        Schau alle Wirkenskraft und Samen,\n
-        Und tu nicht mehr in Worten kramen.\n
-        \n\n
-        O sähst du, voller Mondenschein,\n
-        Zum letzenmal auf meine Pein,\n
-        Den ich so manche Mitternacht\n
-        An diesem Pult herangewacht:\n
-        Dann über Büchern und Papier,\n
-        Trübselger Freund, erschienst du mir!\n
-        Ach! könnt ich doch auf Bergeshöhn\n
-        In deinem lieben Lichte gehn,\n
-        Um Bergeshöhle mit Geistern schweben,\n
-        Auf Wiesen in deinem Dämmer weben,\n
-        Von allem Wissensqualm entladen,\n
-        In deinem Tau gesund mich baden!\n
-        \n\n
-        Weh! steck ich in dem Kerker noch?\n
-        Verfluchtes dumpfes Mauerloch,\n
-        Wo selbst das liebe Himmelslicht\n
-        Trüb durch gemalte Scheiben bricht!\n
-        Beschränkt mit diesem Bücherhauf,\n
-        den Würme nagen, Staub bedeckt,\n
-        Den bis ans hohe Gewölb hinauf\n
-        Ein angeraucht Papier umsteckt;\n
-        Mit Gläsern, Büchsen rings umstellt,\n
-        Mit Instrumenten vollgepfropft,\n
-        Urväter Hausrat drein gestopft –\n
-        Das ist deine Welt! das heißt eine Welt!\n\n
+        "Nur ein Beispiel für einen Informationstext."
     </string>
+
     <string name="info_person">
         "Ludwig Hecht wurde am 14. Oktober 1866 in Bonnland geboren (der Ort musste 1937 von seinen Bewohnern aufgegeben werden,
         weil dort der Truppenübungsplatz Hammelburg eingerichtet wurde). Er war der 3. Sohn von Pauline Hecht geb.
@@ -130,8 +67,5 @@
         "Am 19.4.1933 wurden per Verfügung des Staatskommissars für die Verwaltung der Stadt Ulm für die sozial Hilfebedürftigen
         die freie Arztwahl eingeführt. Das bedeutete jedoch gleichzeitig, dass die jüdischen Ärzte von der Versorgung dieses Personenkreises ausgeschlossen waren."
     </string>
-    <string name="start_loc_title">Wo möchten sie die Route beginnen?</string>
-    <string name="category_title">Wollen sie die Route nach einem Thema ausrichten?</string>
-    <string name="end_loc_title">Wo soll die Route enden?</string>
 
 </resources>

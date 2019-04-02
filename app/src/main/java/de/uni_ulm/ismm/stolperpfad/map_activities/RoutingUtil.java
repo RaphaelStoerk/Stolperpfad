@@ -1,7 +1,7 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities;
 
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.overlay.Marker;
+import com.mapbox.mapboxsdk.annotations.Marker;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
 
@@ -9,6 +9,7 @@ import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
  * A Utility class for common routing calculations
  */
 public class RoutingUtil {
+
 
     /**
      * calculate the (direct) distance between two markers
@@ -42,11 +43,10 @@ public class RoutingUtil {
      *
      * @return the distance between g1 and g2
      */
-    public static double getDist(GeoPoint g1, GeoPoint g2) {
+    public static double getDist(LatLng g1, LatLng g2) {
         //TODO: Do not use direct distance but rather path distance
         double lat_dif = g1.getLatitude() - g2.getLatitude();
         double lng_diff = g1.getLongitude() - g2.getLongitude();
         return lat_dif * lat_dif + lng_diff * lng_diff;
     }
-
 }

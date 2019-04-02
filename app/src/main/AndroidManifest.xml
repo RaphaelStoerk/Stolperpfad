@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <!-- Declares the entry point to the app -->
-        <activity android:name=".MainMenuActivity"
+        <activity
+            android:name=".MainMenuActivity"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,10 +49,25 @@
         <activity
             android:name=".scanner.ScannerActivity"
             android:label="@string/title_activity_scanner"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".map_activities.control.NextStoneActivity"
             android:label="@string/title_activity_next_stone" />
+        <activity
+            android:name=".info_display.history.HistoryInfoBasicActivity"
+            android:label="@string/title_activity_history_info" />
+        <activity
+            android:name=".info_display.impressum.ImpressumViewActivity"
+            android:label="@string/title_activity_impressum" />
+        <activity
+            android:name=".info_display.impressum.PrivacyInfoActivity"
+            android:label="@string/title_activity_privacy" />
+        <activity
+            android:name=".info_display.project_and_artist.ArtistInfoActivity"
+            android:label="@string/title_activity_artist_info" />
+        <activity
+            android:name=".info_display.project_and_artist.ProjectInfoActivity"
+            android:label="@string/title_activity_project_info" />
     </application>
 
 </manifest>

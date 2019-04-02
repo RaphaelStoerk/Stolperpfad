@@ -22,7 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+/*
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
@@ -36,7 +36,7 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
 import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
-
+*/
 import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.R;
@@ -44,16 +44,9 @@ import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MapFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MapFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class MapFragment extends Fragment implements Marker.OnMarkerClickListener {
+public class MapFragment extends Fragment {
 
+/*
     private RotationGestureOverlay mRotationGestureOverlay;
     private MapView map;
     private boolean next;
@@ -76,7 +69,7 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      * @return A new instance of fragment MapFragment.
-     */
+     *
     public static MapFragment newInstance(boolean next) {
         MapFragment fragment = new MapFragment();
         fragment.next = next;
@@ -186,7 +179,7 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
 
     /**
      * Displays the Stone markers on the map, that have been stored in the stone factory
-     */
+     *
     public void setStones() {
         if(!stone_handler.isReady() || map == null) {
             return;
@@ -245,8 +238,8 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
     /**
      * This method calculates and displays the (pedestrian) route from a marker to its
      * closest neighbour
-     * @param marker the start of the route
-     */
+     * @pram marker the start of the route
+     *
     @SuppressLint("StaticFieldLeak")
     public void routeToNext(Marker marker) {
         Stone rel_stone = stone_handler.getStoneFromMarker(marker);
@@ -283,7 +276,7 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
                     nodeMarker.setImage(nodeIcon);
                     map.getOverlays().add(nodeMarker);
                 }
-                */
+                *
                 map.invalidate();
             }
         }.execute(new Stone[]{rel_stone, goal});
@@ -346,7 +339,7 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
      * This class is responsible for creating a network call to get a route
      * for a collection of - at least - two stones
      * A MapQuest Key is needed for the call to be succesful
-     */
+     *
     private class CreateRouteTask extends AsyncTask<Stone[], Void, Road> {
 
         @Override
@@ -378,7 +371,7 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
 
 
     // TODO: Add functionality to the GPS Tracking
-    /*---------- Listener class to get coordinates ------------- */
+    /*---------- Listener class to get coordinates ------------- *
     private class MyLocationListener implements LocationListener {
 
         @Override
@@ -409,9 +402,10 @@ public class MapFragment extends Fragment implements Marker.OnMarkerClickListene
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
-     */
+     *
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+    */
 }

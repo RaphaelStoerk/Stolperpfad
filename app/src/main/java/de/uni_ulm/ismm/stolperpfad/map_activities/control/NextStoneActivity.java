@@ -8,13 +8,14 @@ import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapFragment;
+import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
 
 public class NextStoneActivity extends AppCompatActivity {
 
     AQuery aq;
 
     private static final String MAP_FRAGMENT_TAG = "org.osmdroid.MAP_FRAGMENT_TAG";
-    private MapFragment myMapFragment;
+    private MapQuestFragment myMapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class NextStoneActivity extends AppCompatActivity {
         FragmentManager fm = this.getSupportFragmentManager();
 
         if (fm.findFragmentById(R.id.map_container) == null) {
-            myMapFragment = MapFragment.newInstance(true);
+            myMapFragment = MapQuestFragment.newInstance(true);
             fm.beginTransaction().add(R.id.map_container, myMapFragment, MAP_FRAGMENT_TAG).commit();
         }
 

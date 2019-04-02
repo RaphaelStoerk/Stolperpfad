@@ -6,13 +6,33 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity"
-    tools:showIn="@layout/activity_scrolling_info">
+    tools:showIn="@layout/activity_scrolling_info"
+    android:background="@color/colorPrimaryDark">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/info_text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/info_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/test_string"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textColor="@color/colorText" />
+
+        <TextView
+            android:id="@+id/info_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/test_string"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textColor="@color/colorText" />
+
+    </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

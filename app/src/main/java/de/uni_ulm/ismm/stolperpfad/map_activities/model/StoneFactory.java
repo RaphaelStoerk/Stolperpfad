@@ -1,11 +1,15 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.model;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.AsyncTask;
-import org.osmdroid.views.overlay.Marker;
+
+import com.mapbox.mapboxsdk.annotations.Marker;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
+
 import java.util.ArrayList;
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
-import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapFragment;
+import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
 
 /**
  * This class is responsible for handling the "Stolpersteine". It creates all Stones
@@ -15,31 +19,34 @@ public class StoneFactory {
 
     private ArrayList<Stone> all_stones;
     private ArrayList<Marker> stone_markers;
-    private MapFragment map;
+    private MapQuestFragment map;
+    private MapboxMap mapboxMap;
     private boolean is_ready;
 
-    public StoneFactory(MapFragment map) {
+    public StoneFactory(MapQuestFragment map, MapboxMap mapboxMap) {
         this.map = map;
+        this.mapboxMap = mapboxMap;
         all_stones = new ArrayList<>();
         stone_markers = new ArrayList<>();
 
     }
 
-    public static StoneFactory initialize(MapFragment map) {
-        StoneFactory buff = new StoneFactory(map);
+    public static StoneFactory initialize(MapQuestFragment map, MapboxMap mapboxMap) {
+        StoneFactory buff = new StoneFactory(map, mapboxMap);
         buff.start_initialization();
         return buff;
     }
 
     @SuppressLint("StaticFieldLeak")
     private void start_initialization() {
+
         new InitializeStonesTask() {
             @Override
             public void onPostExecute(String res) {
                 is_ready = true;
                 map.setStones();
             }
-        }.execute("");
+        }.execute();
     }
 
     public ArrayList<Marker> getMarkers() {
@@ -64,7 +71,7 @@ public class StoneFactory {
      */
     public Stone getStoneFromMarker(Marker marker) {
         for (Stone s : all_stones) {
-            if (s.getMarker(map.getView()) == marker) {
+            if (s.getMarker(mapboxMap) == marker) {
                 return s;
             }
         }
@@ -129,31 +136,34 @@ public class StoneFactory {
 
         @Override
         protected String doInBackground(String... strings) {
-            // TODO: grab all stone info from the DataBase
-            Stone s = new Stone(48.4011, 9.9876, "Ulm", "Center", "Das ist Ulm");
-            all_stones.add(s);
-            stone_markers.add(s.getMarker(map.getView()));
 
-            s = new Stone(48.398638, 9.993720, "Vorname_1", "Nachname_1", "Bitte ersetzen 1");
-            all_stones.add(s);
-            stone_markers.add(s.getMarker(map.getView()));
+            map.getActivity().runOnUiThread(() -> {
+                // TODO: grab all stone info from the DataBase
+                Stone s = new Stone(48.4011, 9.9876, "Ulm", "Center", "Das ist Ulm");
+                all_stones.add(s);
+                stone_markers.add(s.getMarker(mapboxMap));
 
-            s = new Stone( 48.39855, 9.99123, "Vorname_2", "Nachname_2", "Bitte ersetzen 2");
-            all_stones.add(s);
-            stone_markers.add(s.getMarker(map.getView()));
+                s = new Stone(48.398638, 9.993720, "Vorname_1", "Nachname_1", "Bitte ersetzen 1");
+                all_stones.add(s);
+                stone_markers.add(s.getMarker(mapboxMap));
 
-            s = new Stone(48.3893, 9.98924, "Vorname_3", "Nachname_3", "Bitte ersetzen 3");
-            all_stones.add(s);
-            stone_markers.add(s.getMarker(map.getView()));
+                s = new Stone( 48.39855, 9.99123, "Vorname_2", "Nachname_2", "Bitte ersetzen 2");
+                all_stones.add(s);
+                stone_markers.add(s.getMarker(mapboxMap));
 
-            s = new Stone(48.40002, 9.99721, "Vorname_4", "Nachname_4", "Bitte ersetzen 4");
-            all_stones.add(s);
-            stone_markers.add(s.getMarker(map.getView()));
+                s = new Stone(48.3893, 9.98924, "Vorname_3", "Nachname_3", "Bitte ersetzen 3");
+                all_stones.add(s);
+                stone_markers.add(s.getMarker(mapboxMap));
 
-            s = new Stone(48.40102, 9.99821, "Vorname_5", "Nachname_5", "Bitte ersetzen 5");
-            all_stones.add(s);
-            stone_markers.add(s.getMarker(map.getView()));
+                s = new Stone(48.40002, 9.99721, "Vorname_4", "Nachname_4", "Bitte ersetzen 4");
+                all_stones.add(s);
+                stone_markers.add(s.getMarker(mapboxMap));
 
+                s = new Stone(48.40102, 9.99821, "Vorname_5", "Nachname_5", "Bitte ersetzen 5");
+                all_stones.add(s);
+                stone_markers.add(s.getMarker(mapboxMap));
+
+            });
             return "Finished";
         }
     }

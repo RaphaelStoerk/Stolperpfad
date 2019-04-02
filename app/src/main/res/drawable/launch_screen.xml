@@ -8,11 +8,9 @@
 
     <!-- Your product logo - 144dp color version of your app icon -->
     <item>
-
         <bitmap
-            android:src="@drawable/logo_neu"
-            android:gravity="center"/>
-
+            android:gravity="fill_horizontal|fill_vertical"
+            android:src="@drawable/splash_screen" />
     </item>
 
 </layer-list>

@@ -121,7 +121,7 @@ public class RoutePlannerActivity extends AppCompatActivity {
                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //myMapFragment.createRoute(my_text, starting_choice);
+                            myMapFragment.createRoute();
                             Log.d("HERE I AM", my_text);
                             dialog.cancel();
                         }

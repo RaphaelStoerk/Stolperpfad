@@ -27,6 +27,18 @@ import com.mapquest.mapping.MapQuest;
 import com.mapquest.mapping.maps.MapView;
 import com.mapquest.navigation.NavigationManager;
 import com.mapquest.navigation.dataclient.RouteService;
+import com.mapquest.navigation.dataclient.listener.RoutesResponseListener;
+import com.mapquest.navigation.model.Route;
+import com.mapquest.navigation.model.RouteOptionType;
+import com.mapquest.navigation.model.RouteOptions;
+import com.mapquest.navigation.model.SystemOfMeasurement;
+import com.mapquest.navigation.model.location.Coordinate;
+import com.mapquest.navigation.model.location.Destination;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
@@ -135,7 +147,6 @@ public class MapQuestFragment extends Fragment {
                                         chosen_marker_start = mMapboxMap.addMarker(chosen_marker_options);
                                         mMapboxMap.selectMarker(chosen_marker_start);
                                     }
-                                    chosen_marker_start.setIcon(IconFactory.getInstance(getContext()).fromAsset("start_icon.json"));
                                     break;
                                 case 1:
                                     if(chosen_marker_end != null) {
@@ -207,6 +218,39 @@ public class MapQuestFragment extends Fragment {
         map.invalidate();
     }
 
+    public void createRoute() {
+// Set up start and destination for the route
+        Coordinate ulm = new Coordinate(48.4011, 9.9876);
+
+        List<Destination> goal = Arrays.asList(new Destination(new Coordinate(48.40002, 9.99721), ""));
+
+// Set up route options
+        RouteOptions routeOptions = new RouteOptions.Builder()
+                .maxRoutes(1)
+                .systemOfMeasurementForDisplayText(SystemOfMeasurement.METRIC) // or specify METRIC
+                .language("de") // NOTE: alternately, specify "es_US" for Spanish in the US
+                .highways(RouteOptionType.DISALLOW)
+                .tolls(RouteOptionType.ALLOW)
+                .ferries(RouteOptionType.DISALLOW)
+                .internationalBorders(RouteOptionType.DISALLOW)
+                .unpaved(RouteOptionType.ALLOW)
+                .seasonalClosures(RouteOptionType.AVOID)
+                .build();
+
+        mRouteService.requestRoutes(ulm, goal, routeOptions, new RoutesResponseListener() {
+            @Override
+            public void onRoutesRetrieved(List<Route> routes) {
+
+            }
+
+            @Override
+            public void onRequestFailed(@Nullable Integer httpStatusCode, @Nullable IOException exception) {}
+
+            @Override
+            public void onRequestMade() {}
+        });
+
+    }
 
 
     /**

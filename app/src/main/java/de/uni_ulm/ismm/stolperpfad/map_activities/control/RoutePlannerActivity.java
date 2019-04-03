@@ -76,7 +76,7 @@ public class RoutePlannerActivity extends AppCompatActivity {
             // a simple switch case statement that checks which button was pressed
             switch (v.getId()) {
                 case R.id.route_option_button:
-                    AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext(), R.style.DialogTheme);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext());
 
                     // Get the layout inflater
                     LayoutInflater inflater = myMapFragment.getLayoutInflater();

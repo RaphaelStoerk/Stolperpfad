@@ -16,12 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".info_display.project_and_artist.ProjectAndArtistOverviewActivity"></activity>
         <!-- Declares the entry point to the app -->
         <activity
             android:name=".MainMenuActivity"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,41 +34,49 @@
         <activity
             android:name=".info_display.ScrollingInfoActivity"
             android:label="@string/title_activity_scrolling_info"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".map_activities.control.RoutePlannerActivity"
-            android:label="@string/title_activity_route_planner" />
+            android:label="@string/title_activity_route_planner"
+            android:theme="@style/AppTheme" />
         <activity android:name=".database.ShowPersonItemPage" />
         <activity
             android:name=".filter_search.FilterSearchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_filter_search"
-            android:theme="@style/FullscreenTheme" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".database.DbActivity"
-            android:label="@string/title_activity_db" />
+            android:label="@string/title_activity_db"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".scanner.ScannerActivity"
             android:label="@string/title_activity_scanner"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".map_activities.control.NextStoneActivity"
-            android:label="@string/title_activity_next_stone" />
+            android:label="@string/title_activity_next_stone"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".info_display.history.HistoryInfoBasicActivity"
-            android:label="@string/title_activity_history_info" />
+            android:label="@string/title_activity_history_info"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".info_display.impressum.ImpressumViewActivity"
-            android:label="@string/title_activity_impressum" />
+            android:label="@string/title_activity_impressum"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".info_display.impressum.PrivacyInfoActivity"
-            android:label="@string/title_activity_privacy" />
+            android:label="@string/title_activity_privacy"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".info_display.project_and_artist.ArtistInfoActivity"
-            android:label="@string/title_activity_artist_info" />
+            android:label="@string/title_activity_artist_info"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".info_display.project_and_artist.ProjectInfoActivity"
-            android:label="@string/title_activity_project_info" />
+            android:label="@string/title_activity_project_info"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

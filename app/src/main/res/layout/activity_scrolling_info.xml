@@ -14,7 +14,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimary">
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"

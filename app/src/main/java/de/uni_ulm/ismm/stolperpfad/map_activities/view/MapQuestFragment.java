@@ -118,6 +118,35 @@ public class MapQuestFragment extends Fragment {
             mMapboxMap.setOnInfoWindowClickListener(marker -> {
                 Stone check = stone_handler.getStoneFromMarker(marker);
                 if(check == null) {
+                    if(marker.equals(chosen_marker_start)) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+
+                        builder.setTitle("Start Markierung löschen?");
+
+                        builder.setPositiveButton("Ja", (dialogInterface, i) -> {
+                            mMapboxMap.removeMarker(chosen_marker_start);
+                            chosen_marker_start = null;
+                        });
+                        builder.setNegativeButton("Nein", (dialogInterface, i) -> {});
+
+                        // Create the AlertDialog
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    } else if(marker.equals(chosen_marker_end)) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                        builder.setTitle("End Markierung löschen?");
+
+                        builder.setPositiveButton("Ja", (dialogInterface, i) -> {
+                            mMapboxMap.removeMarker(chosen_marker_end);
+                            chosen_marker_end = null;
+                        });
+                        builder.setNegativeButton("Nein", (dialogInterface, i) -> {});
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
                     return false;
                 }
                 Intent intent = new Intent(getActivity(), ScrollingInfoActivity.class);
@@ -127,7 +156,7 @@ public class MapQuestFragment extends Fragment {
             });
 
             mapboxMap.addOnMapLongClickListener(point -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogTheme);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
 
                 String[] choice = new String[] {"Route von hier", "Route nach hier", "Zurück"};
@@ -142,8 +171,8 @@ public class MapQuestFragment extends Fragment {
                                         chosen_position_start = point;
                                         MarkerOptions chosen_marker_options = new MarkerOptions();
                                         chosen_marker_options.setPosition(point);
-                                        chosen_marker_options.setTitle("Deine gewählte Start-Position");
-                                        chosen_marker_options.setSnippet("Hier kann deine Route starten");
+                                        chosen_marker_options.setTitle("Gewählte Start-Position");
+                                        chosen_marker_options.setSnippet("< Zum löschen hier drücken >");
                                         chosen_marker_start = mMapboxMap.addMarker(chosen_marker_options);
                                         mMapboxMap.selectMarker(chosen_marker_start);
                                     }
@@ -155,8 +184,8 @@ public class MapQuestFragment extends Fragment {
                                         chosen_position_end = point;
                                         MarkerOptions chosen_marker_options = new MarkerOptions();
                                         chosen_marker_options.setPosition(point);
-                                        chosen_marker_options.setTitle("Deine gewählte End-Position");
-                                        chosen_marker_options.setSnippet("Hier kann deine Route enden");
+                                        chosen_marker_options.setTitle("Gewählte End-Position");
+                                        chosen_marker_options.setSnippet("< Zum löschen hier drücken >");
                                         chosen_marker_end = mMapboxMap.addMarker(chosen_marker_options);
                                         mMapboxMap.selectMarker(chosen_marker_end);
                                     }
@@ -209,7 +238,7 @@ public class MapQuestFragment extends Fragment {
         for(Marker m : stone_handler.getMarkers()) {
             m.setIcon(IconFactory.getInstance(getContext()).defaultMarker());
             if(next) {
-                m.setIcon(IconFactory.getInstance(getContext()).fromFile("drawable/ic_menu_share.xml"));
+                //   m.setIcon(IconFactory.getInstance(getContext()).fromFile("drawable/ic_menu_share.xml"));
             }
         }
         if(next) {
@@ -219,12 +248,12 @@ public class MapQuestFragment extends Fragment {
     }
 
     public void createRoute() {
-// Set up start and destination for the route
+        // Set up start and destination for the route
         Coordinate ulm = new Coordinate(48.4011, 9.9876);
 
         List<Destination> goal = Arrays.asList(new Destination(new Coordinate(48.40002, 9.99721), ""));
 
-// Set up route options
+        // Set up route options
         RouteOptions routeOptions = new RouteOptions.Builder()
                 .maxRoutes(1)
                 .systemOfMeasurementForDisplayText(SystemOfMeasurement.METRIC) // or specify METRIC
@@ -249,7 +278,6 @@ public class MapQuestFragment extends Fragment {
             @Override
             public void onRequestMade() {}
         });
-
     }
 
 

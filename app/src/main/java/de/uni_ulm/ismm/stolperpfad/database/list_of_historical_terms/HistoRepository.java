@@ -16,7 +16,7 @@ public class HistoRepository {
     HistoRepository(Application application) {
         HistoRoomDatabase db = HistoRoomDatabase.getDatabase(application);
         mHistoDao = db.histoDao();
-        mAllTerms = mHistoDao.getAllWords();
+        mAllTerms = mHistoDao.getAllTerms();
     }
 
     LiveData<List<HistoricalTerm>> getAllTerms() {

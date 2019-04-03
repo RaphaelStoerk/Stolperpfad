@@ -53,9 +53,9 @@ public abstract class HistoRoomDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             //TODO: add here the reading of the data (parser)
             mDao.deleteAll();
-            HistoricalTerm histoTerm = new HistoricalTerm("Polenaktion");
+            HistoricalTerm histoTerm = new HistoricalTerm("Polenaktion", "Lorem ipsum");
             mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm("Aktion T4/Euthanasie");
+            histoTerm = new HistoricalTerm("Aktion T4/Euthanasie", "Lorem ipsum");
             mDao.insert(histoTerm);
             /*HistoricalTerm histoTerm = new HistoricalTerm(0, "Polenaktion");
             mDao.insert(histoTerm);

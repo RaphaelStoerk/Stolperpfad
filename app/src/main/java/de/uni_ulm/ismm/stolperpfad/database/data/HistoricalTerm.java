@@ -34,11 +34,16 @@ public class HistoricalTerm {
     @ColumnInfo(name = "name")
     private String mName;
 
+    @NonNull
+    @ColumnInfo(name = "explication")
+    private String mExplication;
+
 
     //constructor
-    public HistoricalTerm(/*@NonNull int id,*/ @NonNull String name) {
+    public HistoricalTerm(/*@NonNull int id,*/ @NonNull String name, @NonNull String explication) {
         //this.mId = id;
         this.mName = name;
+        this.mExplication = explication;
     }
 
     //getter
@@ -49,4 +54,6 @@ public class HistoricalTerm {
     public String getName() {
         return mName;
     }
+
+    public String getExplication(){return mExplication;}
 }

@@ -18,5 +18,9 @@ public interface HistoDao {
     void deleteAll();
 
     @Query("SELECT * from historical_terms ORDER BY name ASC")
-    LiveData<List<HistoricalTerm>> getAllWords();
+    LiveData<List<HistoricalTerm>> getAllTerms();
+
+    @Query("SELECT explication from historical_terms WHERE name = :termName")
+    String getExplication(String termName);
+
 }

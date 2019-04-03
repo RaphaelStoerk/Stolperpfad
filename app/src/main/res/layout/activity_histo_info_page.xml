@@ -6,4 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".database.list_of_historical_terms.HistoInfoPage">
 
+    <include
+        layout="@layout/content_histo_info_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab-back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
 </android.support.constraint.ConstraintLayout>

@@ -55,6 +55,8 @@ public abstract class HistoRoomDatabase extends RoomDatabase {
             mDao.deleteAll();
             HistoricalTerm histoTerm = new HistoricalTerm("Polenaktion");
             mDao.insert(histoTerm);
+            histoTerm = new HistoricalTerm("Aktion T4/Euthanasie");
+            mDao.insert(histoTerm);
             /*HistoricalTerm histoTerm = new HistoricalTerm(0, "Polenaktion");
             mDao.insert(histoTerm);
             histoTerm = new HistoricalTerm(1, "Aktion T4/Euthanasie");

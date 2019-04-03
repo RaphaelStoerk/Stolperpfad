@@ -95,9 +95,9 @@ public abstract class PersRoomDatabase extends RoomDatabase {
 
     }
 
-    public String getAddress(int persId, int stoneId) {
+    /*public String getAddress(int persId, int stoneId) {
         return persDao().getAddress(persId, stoneId);
-    }
+    }*/
 
 
 }

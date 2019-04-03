@@ -129,7 +129,6 @@ public class Person {
         @ColumnInfo(name = "id_pers2")
         private int mId2;
 
-        @NonNull
         @ColumnInfo(name = "year")
         private Integer mYear;
 

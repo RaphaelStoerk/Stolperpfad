@@ -41,7 +41,7 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
         if (mPersList != null) {
             Person current = mPersList.get(persPosition);
             holder.textViewPersons.setText(current.getFstName() + " " + current.getFamName() + "\n"
-                    + PersRoomDatabase.getDatabase(mContext).getAddress(current.getStolperstein()));
+                    /*+ PersRoomDatabase.getDatabase(mContext).getAddress(current.getStolperstein())*/);
         } else {
             // if the data is not ready yet
             holder.textViewPersons.setText("Loading...");

@@ -14,6 +14,53 @@ import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 
 public class HistoListAdapter extends RecyclerView.Adapter<HistoListAdapter.HistoViewHolder> {
 
+    private final LayoutInflater mInflater;
+    private List<HistoricalTerm> mHistoTerms; // Cached copy of terms
+    private Context mContext;
+    private OnHistoItemListener mOnHistoItemListener;
+
+
+    HistoListAdapter(Context context, OnHistoItemListener onHistoItemListener) {
+        mInflater = LayoutInflater.from(context);
+        this.mContext = context;
+        this.mOnHistoItemListener = onHistoItemListener;
+    }
+
+    @Override
+    public HistoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView = mInflater.inflate(R.layout.recyclerview_item_history, parent, false);
+        return new HistoViewHolder(itemView, mOnHistoItemListener);
+    }
+
+
+    @Override
+    public void onBindViewHolder(HistoViewHolder holder, int position) {
+        if (mHistoTerms != null) {
+            HistoricalTerm current = mHistoTerms.get(position);
+            holder.textViewHistory.setText(current.getName());
+        } else {
+            // Covers the case of data not being ready yet.
+            holder.textViewHistory.setText("Loading...");
+        }
+    }
+
+    void setTerms(List<HistoricalTerm> histoTerms){
+        mHistoTerms = histoTerms;
+        notifyDataSetChanged();
+    }
+
+    // getItemCount() is called many times, and when it is first called,
+    // mHistoTerms has not been updated (means initially, it's null, and we can't return null).
+    @Override
+    public int getItemCount() {
+        if (mHistoTerms != null)
+            return mHistoTerms.size();
+        else return 0;
+    }
+
+    /**
+     * This is the ViewHolder Class
+     */
     class HistoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final TextView textViewHistory;
         OnHistoItemListener onHistoItemListener;
@@ -30,50 +77,6 @@ public class HistoListAdapter extends RecyclerView.Adapter<HistoListAdapter.Hist
         public void onClick(View view) {
             onHistoItemListener.onHistoClick(getAdapterPosition());
         }
-    }
-
-    private final LayoutInflater mInflater;
-    private List<HistoricalTerm> mHistoTerms; // Cached copy of terms
-    private Context mContext;
-    private OnHistoItemListener mOnHistoItemListener;
-
-
-    HistoListAdapter(Context context, OnHistoItemListener onHistoItemListener) {
-        mInflater = LayoutInflater.from(context);
-        this.mContext = context;
-        this.mOnHistoItemListener = onHistoItemListener;
-    }
-
-    @Override
-    public HistoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.recyclerview_item_persons, parent, false);
-        return new HistoViewHolder(itemView, mOnHistoItemListener);
-    }
-
-
-    @Override
-    public void onBindViewHolder(HistoViewHolder holder, int position) {
-        if (mHistoTerms != null) {
-            HistoricalTerm current = mHistoTerms.get(position);
-            holder.textViewHistory.setText(current.getName());
-        } else {
-            // Covers the case of data not being ready yet.
-            holder.textViewHistory.setText("No Term");
-        }
-    }
-
-    void setTerms(List<HistoricalTerm> histoTerms){
-        mHistoTerms = histoTerms;
-        notifyDataSetChanged();
-    }
-
-    // getItemCount() is called many times, and when it is first called,
-    // mHistoTerms has not been updated (means initially, it's null, and we can't return null).
-    @Override
-    public int getItemCount() {
-        if (mHistoTerms != null)
-            return mHistoTerms.size();
-        else return 0;
     }
 
     /**

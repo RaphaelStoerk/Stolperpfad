@@ -1,15 +1,11 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.control;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.method.KeyListener;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,10 +26,8 @@ public class RoutePlannerActivity extends AppCompatActivity {
     private static final String MAP_FRAGMENT_TAG = "MAPQUEST_MAP_FRAGMENT";
     private MapQuestFragment myMapFragment;
     private MyClickListener myListener;
-    private String my_text;
     private int starting_choice;
     private int ending_choice;
-    private int end_choice;
     private String[] categories = new String[]{"Nein", "Jüdische Verfolgte", "Politisch Verfolgte", "Andere"};
     private String time_string;
     private String selected_category;
@@ -70,15 +64,12 @@ public class RoutePlannerActivity extends AppCompatActivity {
 
     /**
      * This is an internal class that handles the Clicks of buttons on the main menu
+     * Here the route creation options are build and displayed
      */
     class MyClickListener implements View.OnClickListener {
 
-        // TODO: Create an extra xml file to add more input possibilities for all the things
-        // a users could want to input for their route
         @Override
         public void onClick(View v) {
-
-            Log.i("BUTTON", "THE BUTTON HAS BEEN PRESSED");
 
             // a simple switch case statement that checks which button was pressed
             switch (v.getId()) {
@@ -93,13 +84,11 @@ public class RoutePlannerActivity extends AppCompatActivity {
                     // Inflate and set the layout for the dialog
                     // Pass null as the parent view because its going in the dialog layout
                     builder.setView(myDialogView);
-
                     builder.setTitle("Erstelle eine Route");
 
-                    my_text = "";
 
+                    // build the category choices
                     Spinner spin = myDialogView.findViewById(R.id.spinner);
-
                     spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
                         @Override
@@ -113,15 +102,12 @@ public class RoutePlannerActivity extends AppCompatActivity {
                         }
                     });
 
-                    ArrayAdapter aa = new ArrayAdapter(builder.getContext(), android.R.layout.simple_spinner_item, categories);
-
+                    ArrayAdapter<String> aa = new ArrayAdapter<>(builder.getContext(), android.R.layout.simple_spinner_item, categories);
                     aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
                     spin.setAdapter(aa);
-
                     spin.setSelection(0);
 
-
+                    // build the time input test field
                     time_string = "";
                     EditText time_input = myDialogView.findViewById(R.id.time_input);
 
@@ -143,6 +129,7 @@ public class RoutePlannerActivity extends AppCompatActivity {
                         }
                     });
 
+                    // build the start and end position options
                     starting_choice = -1;
                     RadioGroup start_choice = myDialogView.findViewById(R.id.start_of_route_choice);
                     start_choice.setOnCheckedChangeListener((radioGroup, i) -> {
@@ -166,11 +153,10 @@ public class RoutePlannerActivity extends AppCompatActivity {
                         }
 
                         myMapFragment.createRoute(selected_category, time_in_minutes, starting_choice, ending_choice);
-                        Log.d("HERE I AM", time_string);
                         dialog.cancel();
                     });
-                    builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
+                    builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
                     builder.show();
                     break;
             }

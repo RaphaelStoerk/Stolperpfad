@@ -1,22 +1,28 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.uni_ulm.ismm.stolperpfad.BuildConfig;
+import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
+import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
@@ -31,44 +37,43 @@ import com.mapquest.mapping.maps.MapView;
 import com.mapquest.navigation.NavigationManager;
 import com.mapquest.navigation.dataclient.RouteService;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import de.uni_ulm.ismm.stolperpfad.BuildConfig;
-import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
-import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
-
 import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.util.GeoPoint;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MapQuestFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MapQuestFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A Fragment class representing all our map visualizations.
+ * We are using the mapquest mapping and navigation sdk together with pieces
+ * of the osmdroid bonus pack to create routes and show imortant places on the map
+ *
+ * @author Raphael
  */
-public class MapQuestFragment extends Fragment {
+public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindowClickListener, MapboxMap.OnMapLongClickListener {
 
+    // the map visual
     private MapView map;
+    //the map controller
     private MapboxMap mMapboxMap;
+    // activity context
+    private Context ctx;
+
+    // The mapquest api key needed for transactions
+    private final String API_KEY = BuildConfig.API_KEY;
+
+    // routing and navigation services
     private RouteService mRouteService;
     private NavigationManager mNavigationManager;
-    private Context ctx;
-    private boolean next;
+
+    // flag, for wether the calling Activity is the next_stone_activity
+    private boolean NEXT;
+
+    // App specific values storing preferences for the routing
     private StoneFactory stone_handler;
     private LatLng chosen_position_start;
     private Marker chosen_marker_start;
     private LatLng chosen_position_end;
     private Marker chosen_marker_end;
-
-    private final String API_KEY = BuildConfig.API_KEY;
-
     private Polyline store_current_drawn_path;
 
     public MapQuestFragment() {
@@ -78,33 +83,34 @@ public class MapQuestFragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     * @return A new instance of fragment MapFragment.
+     * @return A new instance of fragment MapQuestFragment.
      */
     public static MapQuestFragment newInstance(boolean next) {
         MapQuestFragment fragment = new MapQuestFragment();
-        fragment.next = next;
+        fragment.NEXT = next;
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: Delete these policies and bugfix afterwards
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         ctx = inflater.getContext();
 
+        // Important Mapquest Initialization
         MapQuest.start(ctx);
 
         map = new MapView(ctx,null, 0, API_KEY);
 
+        // TODO: Leave if necessary, check if disposable
         mRouteService = new RouteService.Builder().build(this.getContext(),API_KEY);
 
+        // Initialize the map visuals
         map.onCreate(savedInstanceState);
         map.getMapAsync(mapboxMap -> {
             mMapboxMap = mapboxMap;
@@ -116,90 +122,9 @@ public class MapQuestFragment extends Fragment {
             chosen_position_end = new LatLng(0,0);
             chosen_marker_end = null;
 
-            mMapboxMap.setOnInfoWindowClickListener(marker -> {
-                Stone check = stone_handler.getStoneFromMarker(marker);
-                if(check == null) {
-                    if(marker.equals(chosen_marker_start)) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            mMapboxMap.setOnInfoWindowClickListener(this);
 
-
-                        builder.setTitle("Start Markierung löschen?");
-
-                        builder.setPositiveButton("Ja", (dialogInterface, i) -> {
-                            mMapboxMap.removeMarker(chosen_marker_start);
-                            chosen_marker_start = null;
-                        });
-                        builder.setNegativeButton("Nein", (dialogInterface, i) -> {});
-
-                        // Create the AlertDialog
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                    } else if(marker.equals(chosen_marker_end)) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                        builder.setTitle("End Markierung löschen?");
-
-                        builder.setPositiveButton("Ja", (dialogInterface, i) -> {
-                            mMapboxMap.removeMarker(chosen_marker_end);
-                            chosen_marker_end = null;
-                        });
-                        builder.setNegativeButton("Nein", (dialogInterface, i) -> {});
-
-                        AlertDialog dialog = builder.create();
-                        dialog.show();
-                    }
-                    return false;
-                }
-                Intent intent = new Intent(getActivity(), ScrollingInfoActivity.class);
-                intent.setAction(check.toString());
-                startActivity(intent);
-                return true;
-            });
-
-            mapboxMap.addOnMapLongClickListener(point -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-
-                String[] choice = new String[] {"Route von hier", "Route nach hier", "Zurück"};
-
-                builder.setTitle("Auswahl festlegen als:")
-                        .setItems(choice, (dialog, which) -> {
-                            switch(which) {
-                                case 0:
-                                    if(chosen_marker_start != null) {
-                                        chosen_marker_start.setPosition(point);
-                                    } else {
-                                        chosen_position_start = point;
-                                        MarkerOptions chosen_marker_options = new MarkerOptions();
-                                        chosen_marker_options.setPosition(point);
-                                        chosen_marker_options.setTitle("Gewählte Start-Position");
-                                        chosen_marker_options.setSnippet("< Zum löschen hier drücken >");
-                                        chosen_marker_start = mMapboxMap.addMarker(chosen_marker_options);
-                                        mMapboxMap.selectMarker(chosen_marker_start);
-                                    }
-                                    break;
-                                case 1:
-                                    if(chosen_marker_end != null) {
-                                        chosen_marker_end.setPosition(point);
-                                    } else {
-                                        chosen_position_end = point;
-                                        MarkerOptions chosen_marker_options = new MarkerOptions();
-                                        chosen_marker_options.setPosition(point);
-                                        chosen_marker_options.setTitle("Gewählte End-Position");
-                                        chosen_marker_options.setSnippet("< Zum löschen hier drücken >");
-                                        chosen_marker_end = mMapboxMap.addMarker(chosen_marker_options);
-                                        mMapboxMap.selectMarker(chosen_marker_end);
-                                    }
-                                    break;
-                                default:
-                            }
-                        });
-
-                // Create the AlertDialog
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-            });
+            mapboxMap.addOnMapLongClickListener(this);
 
             CameraPosition position = new CameraPosition.Builder()
                     .target(new LatLng(48.4011, 9.9876)) // Sets the new camera position
@@ -215,9 +140,7 @@ public class MapQuestFragment extends Fragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-
         super.onActivityCreated(savedInstanceState);
-
     }
 
 
@@ -238,18 +161,26 @@ public class MapQuestFragment extends Fragment {
         }
         for(Marker m : stone_handler.getMarkers()) {
             m.setIcon(IconFactory.getInstance(getContext()).defaultMarker());
-            if(next) {
+            if(NEXT) {
                 // TODO: use a individual marker to define the stones on the map
                 //   m.setIcon(IconFactory.getInstance(getContext()).fromFile("drawable/ic_menu_share.xml"));
             }
         }
-        if(next) {
+        if(NEXT) {
             // TODO: use another marker to stylize the nearest Stone on the map
             //   stone_handler.getNearestTo(curr_user_location).setAlpha(1f);
         }
         map.invalidate();
     }
-    
+
+    /**
+     * Creates a route from the user specified values for category, travel length, start and end positions
+     *
+     * @param category_selected A Category for the Route
+     * @param time_in_minutes The length the user has time for walking a route
+     * @param start_choice The place the user wants to start at
+     * @param end_choice The place the user wants to end at
+     */
     @SuppressLint("StaticFieldLeak")
     public void createRoute(String category_selected, int time_in_minutes, int start_choice, int end_choice) {
 
@@ -276,6 +207,106 @@ public class MapQuestFragment extends Fragment {
             }
         }.execute(route_points.toArray(new Stone[]{}));
 
+    }
+
+    /**
+     * From OnInfoWindowClickListener Interface, handles click on the info window
+     * of the markers
+     * @param marker The marker from which the info window has been clicked on
+     * @return true, if the marker represents a stone, else return false
+     */
+    @Override
+    public boolean onInfoWindowClick(@NonNull Marker marker) {
+        Stone check = stone_handler.getStoneFromMarker(marker);
+        if(check == null) {
+            if(marker.equals(chosen_marker_start)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+
+                builder.setTitle("Start Markierung löschen?");
+
+                builder.setPositiveButton("Ja", (dialogInterface, i) -> {
+                    mMapboxMap.removeMarker(chosen_marker_start);
+                    chosen_marker_start = null;
+                });
+                builder.setNegativeButton("Nein", (dialogInterface, i) -> {});
+
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else if(marker.equals(chosen_marker_end)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                builder.setTitle("End Markierung löschen?");
+
+                builder.setPositiveButton("Ja", (dialogInterface, i) -> {
+                    mMapboxMap.removeMarker(chosen_marker_end);
+                    chosen_marker_end = null;
+                });
+                builder.setNegativeButton("Nein", (dialogInterface, i) -> {});
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+            return false;
+        }
+        Intent intent = new Intent(getActivity(), ScrollingInfoActivity.class);
+        intent.setAction(check.toString());
+        startActivity(intent);
+        return true;
+    }
+
+    /**
+     * From OnMapLongClick Interface, if the user clicks long on the map
+     * a dialog will be presented letting the user chose if a new marker should be placed
+     * at this position
+     *
+     * @param point the position where the user can place a marker
+     */
+    @Override
+    public void onMapLongClick(@NonNull LatLng point) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+
+        String[] choice = new String[] {"Route von hier", "Route nach hier", "Zurück"};
+
+        builder.setTitle("Auswahl festlegen als:")
+                .setItems(choice, (dialog, which) -> {
+                    switch(which) {
+                        case 0:
+                            if(chosen_marker_start != null) {
+                                chosen_marker_start.setPosition(point);
+                            } else {
+                                chosen_position_start = point;
+                                MarkerOptions chosen_marker_options = new MarkerOptions();
+                                chosen_marker_options.setPosition(point);
+                                chosen_marker_options.setTitle("Gewählte Start-Position");
+                                chosen_marker_options.setSnippet("< Zum löschen hier drücken >");
+                                chosen_marker_start = mMapboxMap.addMarker(chosen_marker_options);
+                                mMapboxMap.selectMarker(chosen_marker_start);
+                            }
+                            break;
+                        case 1:
+                            if(chosen_marker_end != null) {
+                                chosen_marker_end.setPosition(point);
+                            } else {
+                                chosen_position_end = point;
+                                MarkerOptions chosen_marker_options = new MarkerOptions();
+                                chosen_marker_options.setPosition(point);
+                                chosen_marker_options.setTitle("Gewählte End-Position");
+                                chosen_marker_options.setSnippet("< Zum löschen hier drücken >");
+                                chosen_marker_end = mMapboxMap.addMarker(chosen_marker_options);
+                                mMapboxMap.selectMarker(chosen_marker_end);
+                            }
+                            break;
+                        default:
+                    }
+                });
+
+        // Create the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     /**

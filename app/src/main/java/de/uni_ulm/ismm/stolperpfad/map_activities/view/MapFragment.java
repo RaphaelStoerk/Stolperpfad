@@ -339,7 +339,7 @@ public class MapFragment extends Fragment {
      * This class is responsible for creating a network call to get a route
      * for a collection of - at least - two stones
      * A MapQuest Key is needed for the call to be succesful
-     *
+
     private class CreateRouteTask extends AsyncTask<Stone[], Void, Road> {
 
         @Override

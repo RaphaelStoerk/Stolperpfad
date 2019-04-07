@@ -73,16 +73,17 @@
         android:textSize="18sp" />
 
     <RadioGroup
+        android:id="@+id/start_of_route_choice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="4dp"
-        android:checkedButton="@+id/radioButton">
+        android:checkedButton="@+id/start_at_marker">
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/start_at_station"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -91,7 +92,7 @@
             android:textColor="@color/colorText"/>
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/start_at_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -100,7 +101,7 @@
             android:textColor="@color/colorText"/>
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/start_at_marker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -123,16 +124,17 @@
         android:textSize="18sp" />
 
     <RadioGroup
+        android:id="@+id/end_of_route_choice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="4dp"
-        android:checkedButton="@+id/radioButton5">
+        android:checkedButton="@+id/end_at_stone">
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/end_at_station"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -142,7 +144,7 @@
             android:textColor="@color/colorText" />
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/end_at_stone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -152,7 +154,7 @@
             android:textColor="@color/colorText" />
 
         <RadioButton
-            android:id="@+id/radioButton6"
+            android:id="@+id/end_at_marker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

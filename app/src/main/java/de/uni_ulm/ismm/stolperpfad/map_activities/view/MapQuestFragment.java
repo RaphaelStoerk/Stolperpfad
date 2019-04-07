@@ -1,25 +1,28 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.view;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.Polyline;
+import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.camera.CameraUpdate;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
@@ -27,24 +30,20 @@ import com.mapquest.mapping.MapQuest;
 import com.mapquest.mapping.maps.MapView;
 import com.mapquest.navigation.NavigationManager;
 import com.mapquest.navigation.dataclient.RouteService;
-import com.mapquest.navigation.dataclient.listener.RoutesResponseListener;
-import com.mapquest.navigation.model.Route;
-import com.mapquest.navigation.model.RouteOptionType;
-import com.mapquest.navigation.model.RouteOptions;
-import com.mapquest.navigation.model.SystemOfMeasurement;
-import com.mapquest.navigation.model.location.Coordinate;
-import com.mapquest.navigation.model.location.Destination;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
+import de.uni_ulm.ismm.stolperpfad.BuildConfig;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
+
+import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
+import org.osmdroid.bonuspack.routing.Road;
+import org.osmdroid.bonuspack.routing.RoadManager;
+import org.osmdroid.util.GeoPoint;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,7 +67,7 @@ public class MapQuestFragment extends Fragment {
     private LatLng chosen_position_end;
     private Marker chosen_marker_end;
 
-    private final String API_KEY = "@string/mapquest_api_key";
+    private final String API_KEY = BuildConfig.API_KEY;
 
     private Polyline store_current_drawn_path;
 
@@ -90,8 +89,10 @@ public class MapQuestFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TODO: Delete these policies and bugfix afterwards
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -202,8 +203,8 @@ public class MapQuestFragment extends Fragment {
 
             CameraPosition position = new CameraPosition.Builder()
                     .target(new LatLng(48.4011, 9.9876)) // Sets the new camera position
-                    .zoom(16.) // Sets the zoom to level 10
-                    .tilt(45) // Set the camera tilt to 20 degrees
+                    .zoom(14.) // Sets the zoom to level 14
+                    .tilt(45) // Set the camera tilt to 45 degrees
                     .build(); // Builds the CameraPosition object from the builder
 
             mMapboxMap.easeCamera(mapboxMap1 -> position, 1000);
@@ -238,46 +239,68 @@ public class MapQuestFragment extends Fragment {
         for(Marker m : stone_handler.getMarkers()) {
             m.setIcon(IconFactory.getInstance(getContext()).defaultMarker());
             if(next) {
+                // TODO: use a individual marker to define the stones on the map
                 //   m.setIcon(IconFactory.getInstance(getContext()).fromFile("drawable/ic_menu_share.xml"));
             }
         }
         if(next) {
-         //   stone_handler.getNearestTo(curr_user_location).setAlpha(1f);
+            // TODO: use another marker to stylize the nearest Stone on the map
+            //   stone_handler.getNearestTo(curr_user_location).setAlpha(1f);
         }
         map.invalidate();
     }
+    
+    @SuppressLint("StaticFieldLeak")
+    public void createRoute(String category_selected, int time_in_minutes, int start_choice, int end_choice) {
 
-    public void createRoute() {
-        // Set up start and destination for the route
-        Coordinate ulm = new Coordinate(48.4011, 9.9876);
+        // TODO: create a good route through ulm
 
-        List<Destination> goal = Arrays.asList(new Destination(new Coordinate(48.40002, 9.99721), ""));
+        ArrayList<Stone> route_points = new ArrayList<>();
 
-        // Set up route options
-        RouteOptions routeOptions = new RouteOptions.Builder()
-                .maxRoutes(1)
-                .systemOfMeasurementForDisplayText(SystemOfMeasurement.METRIC) // or specify METRIC
-                .language("de") // NOTE: alternately, specify "es_US" for Spanish in the US
-                .highways(RouteOptionType.DISALLOW)
-                .tolls(RouteOptionType.ALLOW)
-                .ferries(RouteOptionType.DISALLOW)
-                .internationalBorders(RouteOptionType.DISALLOW)
-                .unpaved(RouteOptionType.ALLOW)
-                .seasonalClosures(RouteOptionType.AVOID)
-                .build();
-
-        mRouteService.requestRoutes(ulm, goal, routeOptions, new RoutesResponseListener() {
+        new CreateRouteTask(){
             @Override
-            public void onRoutesRetrieved(List<Route> routes) {
+            public void onPostExecute(Road road) {
+                ArrayList<GeoPoint> coords = road.mRouteHigh;
+                List<LatLng> coordinates = new ArrayList<>();
 
+                PolylineOptions polyline = new PolylineOptions();
+
+                for(GeoPoint g : coords) {
+                    coordinates.add(new LatLng(g.getLatitude(),g.getLongitude()));
+
+                }
+                polyline.addAll(coordinates);
+                polyline.width(3);
+                polyline.color(Color.BLUE);
+                mMapboxMap.addPolyline(polyline);
             }
+        }.execute(route_points.toArray(new Stone[]{}));
 
-            @Override
-            public void onRequestFailed(@Nullable Integer httpStatusCode, @Nullable IOException exception) {}
+    }
 
-            @Override
-            public void onRequestMade() {}
-        });
+    /**
+     * This class is responsible for creating a network call to get a route
+     * for a collection of - at least - two stones
+     * A MapQuest Key is needed for the call to be succesful
+     */
+    private class CreateRouteTask extends AsyncTask<Stone[], Void, Road> {
+
+        @Override
+        protected Road doInBackground(Stone[]... stones) {
+
+            RoadManager roadManager = new MapQuestRoadManager(getResources().getString(R.string.mapquest_api_key));
+
+            roadManager.addRequestOption("routeType=pedestrian");
+
+            ArrayList<GeoPoint> waypoints = new ArrayList<>();
+
+            waypoints.add(new GeoPoint(48.4011, 9.9876));
+            waypoints.add(new GeoPoint(48.40002, 9.99721));
+
+            Road road = roadManager.getRoad(waypoints);
+
+            return road;
+        }
     }
 
 

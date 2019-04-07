@@ -27,6 +27,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    applicationVariants.all { variant ->
+        variant.buildConfigField "String", "API_KEY", getApiKey() // Provides key for the Navigation SDK
+        variant.resValue "string", "API_KEY", getApiKey()         // Provides key for the MapView used in app layouts
+    }
+}
+
+def getApiKey() {
+    def props = new Properties()
+    file("mapquest.properties").withInputStream { props.load(it) }
+    return "\"" + props.getProperty("api_key") + "\""
 }
 
 repositories {
@@ -59,8 +70,8 @@ dependencies {
     implementation files('libs/android-query-full.0.26.7.jar')
 
     // Open Street Maps
-    //implementation 'org.osmdroid:osmdroid-android:6.0.3'
-    // implementation 'com.github.MKergall:osmbonuspack:6.5.2'
+    implementation 'org.osmdroid:osmdroid-android:6.0.3'
+    implementation 'com.github.MKergall:osmbonuspack:6.5.2'
 
     /**database**/
     // Room components

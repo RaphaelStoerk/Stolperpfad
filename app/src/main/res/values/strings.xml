@@ -20,6 +20,9 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="project_info_button_text">Projekt und Künstler</string>
+    <string name="project_and_artist_button_text">Projekt und Künstler</string>
+    <string name="overview_to_project_info_button">Mehr Informationen zum Projekt</string>
+    <string name="overview_to_artist_info_button">Mehr Informationen zum Künstler</string>
 
     <!-- texts for map activities -->
     <string name="start_loc_title">Wo möchten sie die Route beginnen?</string>
@@ -38,14 +41,20 @@
     <string name="title_activity_history_info">Historisches</string>
     <string name="title_activity_impressum">Impressum</string>
     <string name="title_activity_privacy">Datenschutz</string>
-    <string name="title_activity_artist_info">Künstler</string>
+    <string name="title_activity_artist_info">Der Künstler</string>
     <string name="title_activity_project_info">Das Projekt</string>
+    <string name="title_activity_project_and_artist_overview">Übersicht Projekt und Künstler</string>
 
     <!-- placehodler texts -->
     <string name="username">Username</string>
     <string name="walk_time">Zeit in min</string>
     <string name="walk_time_title">Wie wie viel Zeit haben Sie für die Route?</string>
-    <string name="test_string">This is a Test</string>
+    <string name="test_title">This is a Test Title</string>
+    <string name="my_test_text">This is a Test.
+        This also is only a placeholder activity that should never and not ever be
+        viewed and handled as an activity that would be kept in the final product.
+        Please remember to implement a specific activity for the place where this string
+        appears. Have a nice day.</string>
     <string name="impressum_text">Hier steht nacher das ganze Impressum drin, bitte noch nachtragen und formatieren!</string>
     <string name="privacy_text">Hier steht nacher alles zum Thema Datenschutz drin, bitte noch nachtragen und formatieren!</string>
 
@@ -69,14 +78,10 @@
         "Am 19.4.1933 wurden per Verfügung des Staatskommissars für die Verwaltung der Stadt Ulm für die sozial Hilfebedürftigen
         die freie Arztwahl eingeführt. Das bedeutete jedoch gleichzeitig, dass die jüdischen Ärzte von der Versorgung dieses Personenkreises ausgeschlossen waren."
     </string>
-    <string name="project_and_artist_button_text">Projekt und Künstler</string>
-    <string name="title_activity_artist">Der Künstler</string>
-    <string name="project_info_overview">Hier steht später eine kurze Beschreibung des Projektes, und ein Hinweis darauf, dass mehr Informationen durch einen Klick da unten aufgemacht werden (oder swipe oder sonstiges), vlt auch ein Bild einfügen?</string>
-    <string name="overview_to_project_info_button">Mehr Informationen zum Projekt</string>
-    <string name="overview_to_artist_info_button">Mehr Informationen zum Künstler</string>
-    <string name="artist_info_overview">Hier steht später eine kurze Beschreibung des Künstlers und ein Hinweis darauf, dass mehr Informationen mit einem gezielten Klick auf den underen Button abgerufen werden können (auch hier vlt ein Bild einfügen?)</string>
     <string name="header_content_desc">Header of the app with a small logo and the title</string>
-    <string name="text_arist_info">Hier stehen nacher genaue Informationen zum Künstler hinter dem Projekt Stolpersteine, auch eventuelle Bilder und Zitate können hier eingebaut werden</string>
+    <string name="text_artist_info">Hier stehen nacher genaue Informationen zum Künstler hinter dem Projekt Stolpersteine, auch eventuelle Bilder und Zitate können hier eingebaut werden</string>
     <string name="text_project_info">Hier steht später alles wichtige zum Projekt. Alle interessanten Hintergründe, Orte, etc und auch evtl noch Links und Bilder und Zitate könnten hier eingebuat werden</string>
+    <string name="text_artist_overview">Hier stehen nacher genaue Informationen zum Künstler hinter dem Projekt Stolpersteine, auch eventuelle Bilder und Zitate können hier eingebaut werden</string>
+    <string name="text_project_overview">Hier steht später alles wichtige zum Projekt. Alle interessanten Hintergründe, Orte, etc und auch evtl noch Links und Bilder und Zitate könnten hier eingebuat werden</string>
 
 </resources>

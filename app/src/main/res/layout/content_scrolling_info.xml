@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
             android:fontFamily="sans-serif-black"
-            android:text="@string/test_string"
+            android:text="@string/test_title"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
             android:textColor="@color/colorText" />
 
@@ -29,7 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:text="@string/test_string"
+            android:text="@string/my_test_text"
+            android:textAlignment="textStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
             android:textColor="@color/colorText" />
 

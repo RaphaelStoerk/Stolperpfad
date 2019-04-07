@@ -38,10 +38,11 @@ public class ScrollingInfoActivity extends AppCompatActivity {
 
         String test = getIntent().getAction();
 
-        aq.id(R.id.info_title).text(test);
+        if(test != null && test.length() > 0) {
+            aq.id(R.id.info_title).text(test);
 
-        // TODO: add Info
-        aq.id(R.id.info_text).text("--- Hier bitte Info einfuegen ---");
+            // TODO: add Info
+            aq.id(R.id.info_text).text("--- Hier bitte Info einfuegen ---");
+        }
     }
-
 }

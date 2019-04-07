@@ -27,27 +27,58 @@
     tools:background="@color/colorPrimary"
     tools:context="de.uni_ulm.ismm.stolperpfad.MainMenuActivity">
 
-    <ImageView
+    <android.support.design.widget.AppBarLayout
         android:id="@+id/header_main_menu"
-        android:layout_width="319dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_schrift"
-        android:contentDescription="@string/header_content_desc" />
+        >
 
-    <View
-        android:id="@+id/header_line_main_menu"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintTop_toBottomOf="@+id/header_main_menu"
-        tools:layout_editor_absoluteX="0dp" />
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_main_menu"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/header_image_impressum"
+                    android:layout_width="256dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/header_content_desc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/logo_schrift" />
+
+                <Button
+                    android:id="@+id/header_button_main_menu"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@android:drawable/ic_menu_sort_by_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
 
     <Button
         android:id="@+id/menu_to_scan_button"
@@ -70,7 +101,7 @@
     <View
         android:id="@+id/line_one_main_menu"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
@@ -102,7 +133,7 @@
     <View
         android:id="@+id/line_two_main_menu"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
@@ -134,7 +165,7 @@
     <View
         android:id="@+id/line_three_main_menu"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
@@ -167,7 +198,7 @@
     <View
         android:id="@+id/line_four_main_menu"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
@@ -200,7 +231,7 @@
     <View
         android:id="@+id/line_five_main_menu"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
@@ -258,9 +289,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:background="#00000000"
+            android:background="@color/colorPrimaryDark"
             android:focusable="true"
-            android:text="@string/title_activity_privacy" />
+            android:text="@string/title_activity_privacy"
+            android:textColor="@color/colorPrimary" />
     </LinearLayout>
     app:layout_constraintVertical_bias="0.946" />
 </android.support.constraint.ConstraintLayout>

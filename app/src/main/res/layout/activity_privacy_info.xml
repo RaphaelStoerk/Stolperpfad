@@ -6,28 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".info_display.impressum.PrivacyInfoActivity">
 
-    <ImageView
-        android:id="@+id/header_privacy_info"
-        android:layout_width="319dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/header_privacy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_schrift"
-        android:contentDescription="@string/header_content_desc" />
+        app:layout_constraintTop_toTopOf="parent">
 
 
-    <View
-        android:id="@+id/header_line_privacy_info"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintTop_toBottomOf="@+id/header_privacy_info"
-        tools:layout_editor_absoluteX="16dp" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_privacy"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/header_image_privacy"
+                    android:layout_width="256dp"
+                    android:layout_height="64dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="@string/header_content_desc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/logo_schrift" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
 
     <TextView
         android:id="@+id/title_privacy_info"
@@ -41,7 +60,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_line_privacy_info" />
+        app:layout_constraintTop_toBottomOf="@+id/header_privacy" />
 
     <TextView
         android:id="@+id/text_privacy_info"

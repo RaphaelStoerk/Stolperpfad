@@ -59,7 +59,8 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     private Context ctx;
 
     // The mapquest api key needed for transactions
-    private final String API_KEY = BuildConfig.API_KEY;
+    private final String API_KEY_2 = BuildConfig.API_KEY;
+    private final String API_KEY;
 
     // routing and navigation services
     private RouteService mRouteService;
@@ -78,6 +79,7 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
 
     public MapQuestFragment() {
         // Required empty public constructor
+        API_KEY = String.valueOf(R.string.mapquest_api_key);
     }
 
     /**
@@ -127,12 +129,12 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
             mapboxMap.addOnMapLongClickListener(this);
 
             CameraPosition position = new CameraPosition.Builder()
-                    .target(new LatLng(48.4011, 9.9876)) // Sets the new camera position
-                    .zoom(14.) // Sets the zoom to level 14
-                    .tilt(45) // Set the camera tilt to 45 degrees
+                    .target(new LatLng(48.398638, 9.993720)) // Sets the new camera position
+                    .zoom(13.5) // Sets the zoom to level 14
+                    .tilt(60) // Set the camera tilt to 45 degrees
                     .build(); // Builds the CameraPosition object from the builder
 
-            mMapboxMap.easeCamera(mapboxMap1 -> position, 1000);
+            mMapboxMap.easeCamera(mapboxMap1 -> position, 2000);
         });
 
         return map;
@@ -198,7 +200,6 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
 
                 for(GeoPoint g : coords) {
                     coordinates.add(new LatLng(g.getLatitude(),g.getLongitude()));
-
                 }
                 polyline.addAll(coordinates);
                 polyline.width(3);

@@ -1,5 +1,6 @@
 package de.uni_ulm.ismm.stolperpfad.info_display;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,7 +14,7 @@ import de.uni_ulm.ismm.stolperpfad.R;
  * this class is only important to actually get the app to show the right screen,
  * the content and interface things are in the corresponding xml layout file
  */
-public class ScrollingInfoActivity extends AppCompatActivity {
+public class ScrollingInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * This is what happens when this activity is first started
@@ -44,5 +45,13 @@ public class ScrollingInfoActivity extends AppCompatActivity {
             // TODO: add Info
             aq.id(R.id.info_text).text("--- Hier bitte Info einfuegen ---");
         }
+
+        aq.id(R.id.info_test_button).clicked(this).visible();
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent myIntent = new Intent(ScrollingInfoActivity.this, BiographyExampleActivity.class);
+        startActivity(myIntent);
     }
 }

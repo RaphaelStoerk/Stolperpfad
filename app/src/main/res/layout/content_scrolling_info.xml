@@ -35,6 +35,15 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
             android:textColor="@color/colorText" />
 
+        <Button
+            android:id="@+id/info_test_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Push Me"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_gravity="right"
+            android:textAlignment="center" />
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

@@ -1,7 +1,9 @@
 package de.uni_ulm.ismm.stolperpfad;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -62,6 +64,7 @@ public class MainMenuActivity extends AppCompatActivity {
         aq.id(R.id.project_and_artist_overview_button).visible().clicked(myListener);
         aq.id(R.id.impressum_button).visible().clicked(myListener);
         aq.id(R.id.privacy_button).visible().clicked(myListener);
+        aq.id(R.id.header_button_main_menu).visible().clicked(myListener);
     }
 
     /**
@@ -107,6 +110,23 @@ public class MainMenuActivity extends AppCompatActivity {
                 case R.id.privacy_button:
                     intent = new Intent(MainMenuActivity.this, PrivacyInfoActivity.class);
                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
+                    break;
+                case R.id.header_button_main_menu:
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainMenuActivity.this);
+
+
+                    builder.setTitle("Soll das Hauptmenu hierher ziehen?");
+
+                    builder.setPositiveButton("Ja", (dialogInterface, i) -> {
+                        aq.id(R.id.header_button_main_menu).backgroundColor(Color.RED);
+                    });
+                    builder.setNegativeButton("Nein", (dialogInterface, i) -> {
+                        aq.id(R.id.header_button_main_menu).backgroundColor(Color.argb(0,0,0,0));
+                    });
+
+                    // Create the AlertDialog
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                     break;
             }
         }

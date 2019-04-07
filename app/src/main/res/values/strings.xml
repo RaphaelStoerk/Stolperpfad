@@ -84,4 +84,10 @@
     <string name="text_artist_overview">Hier stehen nacher genaue Informationen zum Künstler hinter dem Projekt Stolpersteine, auch eventuelle Bilder und Zitate können hier eingebaut werden</string>
     <string name="text_project_overview">Hier steht später alles wichtige zum Projekt. Alle interessanten Hintergründe, Orte, etc und auch evtl noch Links und Bilder und Zitate könnten hier eingebuat werden</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="def_content_description">This is a default content description</string>
+    <string name="title_biography_example">Biographie</string>
+    <string name="title_bio_two">Biography</string>
+
 </resources>

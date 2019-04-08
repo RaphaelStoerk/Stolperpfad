@@ -26,6 +26,7 @@ import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 @Database(entities = {Person.class, Person.Marriage.class, Person.Children.class, Person.Flight.class,
         HistoricalTerm.class, Institution.class, Institution.MoveInUlm.class, Place.class, Place.Move.class,
         Place.Deportation.class, Stolperstein.class}, version = 1, exportSchema = false)
+
 public abstract class PersRoomDatabase extends RoomDatabase {
 
     public abstract PersDao persDao();
@@ -57,6 +58,27 @@ public abstract class PersRoomDatabase extends RoomDatabase {
                 }
             };
 
+
+    /**
+     * CLEAR OLDER DATABASE ENTRIES
+     */
+    private static void clearDatabase(PersDao dao){
+        dao.deleteAllPersons();
+        dao.deleteAllMarriages();
+        dao.deleteAllChildren();
+        dao.deleteAllFlights();
+        dao.deleteAllPlaces();
+        dao.deleteAllMovesAround();
+        dao.deleteAllDeportations();
+        dao.deleteAllStolpersteine();
+        dao.deleteAllInstitutions();
+        dao.deleteAllMovesInUlm();
+    }
+
+
+    /**
+     * POPULATE DATABASE
+     */
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final PersDao mDao;
@@ -68,7 +90,7 @@ public abstract class PersRoomDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
             //TODO: add here the reading of the data (parser)
-            mDao.deleteAll();
+           clearDatabase(mDao);
             Person person = new Person(0,"Jakob", "Frenkel", 0);
             mDao.insert(person);
             person = new Person(1,"Ida", "Frenkel", 0);
@@ -98,6 +120,8 @@ public abstract class PersRoomDatabase extends RoomDatabase {
     /*public String getAddress(int persId) {
         return persDao().getAddress(persId);
     }*/
+
+
 
 
 }

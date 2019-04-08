@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -72,6 +73,8 @@ public class HistoryActivity extends AppCompatActivity implements HistoListAdapt
     public void onHistoClick(int position) {
         //mTermList.get(position);
         Log.d(TAG, "onHistoClick: onHistoItemClick: clicked");
+        /*TextView textView = findViewById(R.id.txtHistoDescript);
+        textView.setText(mHistoViewModel.getExplanation(position));*/
         Intent intent = new Intent(this, HistoInfoPage.class);
         startActivity(intent);
     }

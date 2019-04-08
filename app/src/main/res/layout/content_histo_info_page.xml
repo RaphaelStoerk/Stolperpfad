@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-        android:text="Lorem ipsum"
+
         android:textAppearance="@style/TextAppearance.AppCompat.Menu" />
 
 

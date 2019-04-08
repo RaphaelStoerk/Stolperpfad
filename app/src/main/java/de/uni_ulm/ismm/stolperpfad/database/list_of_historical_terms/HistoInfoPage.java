@@ -33,7 +33,7 @@ public class HistoInfoPage extends AppCompatActivity {
         //txtHistoDescript
         mHistoViewModel = ViewModelProviders.of(this).get(HistoViewModel.class);
 
-        TextView textView = findViewById(R.id.txtHistoDescript);
+        //TextView textView = findViewById(R.id.txtHistoDescript);
         // TODO: fix this
         // textView = mHistoViewModel.getExplanation();
 

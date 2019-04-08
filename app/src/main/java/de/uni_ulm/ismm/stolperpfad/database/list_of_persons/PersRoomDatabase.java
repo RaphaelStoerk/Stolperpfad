@@ -117,11 +117,6 @@ public abstract class PersRoomDatabase extends RoomDatabase {
 
     }
 
-    /*public String getAddress(int persId) {
-        return persDao().getAddress(persId);
-    }*/
-
-
 
 
 }

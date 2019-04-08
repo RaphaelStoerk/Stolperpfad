@@ -17,7 +17,6 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
 
     private final LayoutInflater mInflater;
     private List<Person> mPersList; //cached copy of persons
-    private List<Stolperstein> mStoneList;
     private Context mContext;
     private OnPersItemListener mOnPersItemListener;
 
@@ -41,7 +40,7 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
         if (mPersList != null) {
             Person current = mPersList.get(persPosition);
             holder.textViewPersons.setText(current.getFstName() + " " + current.getFamName() + "\n"
-                    /*+ PersRoomDatabase.getDatabase(mContext).getAddress(current.getStolperstein())*/);
+                    + "[insert street and number]");
         } else {
             // if the data is not ready yet
             holder.textViewPersons.setText("Loading...");
@@ -53,7 +52,6 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
         this.mPersList = persons;
     }
 
-    // TODO: check if we need to do the same with the StoneList
     // getItemCount() is called many times, and when it is first called,
     // mWords has not been updated (means initially, it's null, and we can't return null).
     @Override

@@ -23,4 +23,13 @@ public class PersViewModel extends AndroidViewModel {
         return mAllPersons;
     }
 
+    /**
+     * To get the street and number of the Stolperstein of a given person
+     * @param stoneId
+     * @return street and number
+     */
+    public String getAddress(int stoneId) {
+        return mRepo.getAddress(stoneId);
+    }
+
 }

@@ -101,8 +101,8 @@ public interface PersDao {
     @Query("DELETE FROM stolpersteine")
     void deleteAllStolpersteine();
 
-    @Query("SELECT street_and_number from stolpersteine WHERE stone_id = :persId")
-    String getAddress(int persId);
+    @Query("SELECT street_and_number from stolpersteine WHERE stone_id = :stoneId")
+    String getAddress(int stoneId);
 
 
     //INSTITUTIONS

@@ -70,7 +70,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoListAdapt
      */
     @Override
     public void onHistoClick(int position) {
-        //mHistoList.get(position);
+        //mTermList.get(position);
         Log.d(TAG, "onHistoClick: onHistoItemClick: clicked");
         Intent intent = new Intent(this, HistoInfoPage.class);
         startActivity(intent);

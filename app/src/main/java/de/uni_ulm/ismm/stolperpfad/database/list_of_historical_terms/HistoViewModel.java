@@ -23,4 +23,8 @@ public class HistoViewModel extends AndroidViewModel {
     LiveData<List<HistoricalTerm>> getAllTerms() { return mAllTerms; }
 
     public void insert(HistoricalTerm histoTerm) { mRepository.insert(histoTerm); }
+
+    public String getExplanation(int termId){
+        return mRepository.getExplanation(termId);
+    }
 }

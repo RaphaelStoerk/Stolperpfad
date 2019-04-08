@@ -27,6 +27,10 @@ public class HistoRepository {
         new insertAsyncTask(mHistoDao).execute(histoTerm);
     }
 
+    public String getExplanation(int termId){
+        return mHistoDao.getExplanation(termId);
+    }
+
     private static class insertAsyncTask extends AsyncTask<HistoricalTerm, Void, Void> {
 
         private HistoDao mAsyncTaskDao;

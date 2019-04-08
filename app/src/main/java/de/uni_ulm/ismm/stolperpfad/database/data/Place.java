@@ -28,8 +28,8 @@ public class Place {
 
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "id")
-    private int mId;
+    @ColumnInfo(name = "place_id")
+    private int mPlaceId;
 
     @NonNull
     @ColumnInfo(name = "name")
@@ -52,8 +52,8 @@ public class Place {
     private boolean mIn;
 
     // constructor
-    public Place(@NonNull int id, @NonNull String name, @NonNull boolean nach, @NonNull boolean inDas, @NonNull boolean inDie, @NonNull boolean in) {
-        this.mId = id;
+    public Place(@NonNull int placeId, @NonNull String name, @NonNull boolean nach, @NonNull boolean inDas, @NonNull boolean inDie, @NonNull boolean in) {
+        this.mPlaceId = placeId;
         this.mName = name;
         this.mNach = nach;
         this.mInDas = inDas;
@@ -62,8 +62,8 @@ public class Place {
     }
 
     // getter-methods
-    public int getId() {
-        return mId;
+    public int getPlaceId() {
+        return mPlaceId;
     }
 
     @NonNull

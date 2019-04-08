@@ -23,16 +23,16 @@ import android.support.annotation.NonNull;
 // TABLE 8: Stolpersteine
 @Entity(tableName = "Stolpersteine")
 public class Stolperstein {
-    // stone id - street/location - latitude (Breitangrad) - longitude (Längengrad)
+    // stone id - address - latitude (Breitangrad) - longitude (Längengrad)
 
     @PrimaryKey
-    /*@NonNull
-    @ColumnInfo(name = "id")
-    private int mId;*/
+    @NonNull
+    @ColumnInfo(name = "stone_id")
+    private int mStoneId;
 
     @NonNull
     @ColumnInfo(name = "street_and_number")
-    private String mStreet;
+    private String mAddress;
 
     @NonNull
     @ColumnInfo(name = "latitude")
@@ -45,20 +45,20 @@ public class Stolperstein {
 
 
     //constructor
-    public Stolperstein(/*int id,*/ String street, double latitude, double longitude){
-        //this.mId = id;
-        this.mStreet = street;
+    public Stolperstein(int stoneId, String address, double latitude, double longitude){
+        this.mStoneId = stoneId;
+        this.mAddress = address;
         this.mLatitude = latitude;
         this.mLongitude = longitude;
     }
 
     //getter
-    /*public int getId() {
-        return mId;
-    }*/
+    public int getStoneId() {
+        return mStoneId;
+    }
 
-    public String getStreet() {
-        return mStreet;
+    public String getAddress() {
+        return mAddress;
     }
 
     public double getLatitude(){

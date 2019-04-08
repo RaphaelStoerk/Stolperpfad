@@ -23,37 +23,39 @@ import android.support.annotation.NonNull;
 // TABLE 11: historical terms
 @Entity(tableName = "historical_terms")
 public class HistoricalTerm {
-    // id - name
+    // id - name - explanation
 
     @PrimaryKey
-    /*@NonNull
-    @ColumnInfo(name = "id")
-    private int mId;*/
+    @NonNull
+    @ColumnInfo(name = "histo_id")
+    private int mHistoId;
 
     @NonNull
     @ColumnInfo(name = "name")
     private String mName;
 
     @NonNull
-    @ColumnInfo(name = "explication")
-    private String mExplication;
+    @ColumnInfo(name = "explanation")
+    private String mExplanation;
 
 
     //constructor
-    public HistoricalTerm(/*@NonNull int id,*/ @NonNull String name, @NonNull String explication) {
-        //this.mId = id;
+    public HistoricalTerm(@NonNull int histoId, @NonNull String name, @NonNull String explanation) {
+        this.mHistoId = histoId;
         this.mName = name;
-        this.mExplication = explication;
+        this.mExplanation = explanation;
     }
 
     //getter
-    /*public int getId() {
-        return mId;
-    }*/
+    public int getHistoId() {
+        return mHistoId;
+    }
 
     public String getName() {
         return mName;
     }
 
-    public String getExplication(){return mExplication;}
+    public String getExplanation() {
+        return mExplanation;
+    }
 }

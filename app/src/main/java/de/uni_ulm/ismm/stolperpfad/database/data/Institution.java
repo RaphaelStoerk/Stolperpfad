@@ -27,22 +27,22 @@ public class Institution {
 
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "id")
-    private int mId;
+    @ColumnInfo(name = "institution_id")
+    private int mInstId;
 
     @NonNull
     @ColumnInfo(name = "name")
     private String mName;
 
     //constructor
-    public Institution(int id, @NonNull String name) {
-        this.mId = id;
+    public Institution(int instId, @NonNull String name) {
+        this.mInstId = instId;
         this.mName = name;
     }
 
     //getter
-    public int getId() {
-        return mId;
+    public int getInstId() {
+        return mInstId;
     }
 
     @NonNull
@@ -53,7 +53,7 @@ public class Institution {
 
     // TABLE 10: moved in Ulm
     @Entity(tableName = "moves_in_ulm")
-    public static class MoveInUlm{
+    public static class MoveInUlm {
         // id person - id institution - year
 
         @PrimaryKey

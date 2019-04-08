@@ -53,22 +53,18 @@ public abstract class HistoRoomDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             //TODO: add here the reading of the data (parser)
             mDao.deleteAll();
-            HistoricalTerm histoTerm = new HistoricalTerm("Polenaktion", "Lorem ipsum");
+            HistoricalTerm histoTerm = new HistoricalTerm(0, "Polenaktion", "@string/info_polenaktion");
             mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm("Aktion T4/Euthanasie", "Lorem ipsum");
+            histoTerm = new HistoricalTerm(1, "Aktion T4/Euthanasie", "Aktion T4");
             mDao.insert(histoTerm);
-            /*HistoricalTerm histoTerm = new HistoricalTerm(0, "Polenaktion");
+            histoTerm = new HistoricalTerm(2, "Pogromnacht", "Pogromnacht");
             mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm(1, "Aktion T4/Euthanasie");
+            histoTerm = new HistoricalTerm(3, "Kindertransport nach Großbritannien", "Kindertransport nach Großbritannien");
             mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm(2, "Pogromnacht");
+            histoTerm = new HistoricalTerm(4, "Zeugen Jehovas", "Zeugen Jehovas");
             mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm(3, "Kindertransport nach Großbritannien");
+            histoTerm = new HistoricalTerm(5, "Fabrikation", "Fabrikation");
             mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm(4, "Zeugen Jehovas");
-            mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm(5, "Fabrikation");
-            mDao.insert(histoTerm);*/
             return null;
         }
     }

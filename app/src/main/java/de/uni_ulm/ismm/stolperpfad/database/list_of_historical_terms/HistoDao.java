@@ -20,7 +20,7 @@ public interface HistoDao {
     @Query("SELECT * from historical_terms ORDER BY name ASC")
     LiveData<List<HistoricalTerm>> getAllTerms();
 
-    @Query("SELECT explication from historical_terms WHERE name = :termName")
-    String getExplication(String termName);
+    @Query("SELECT explanation from historical_terms WHERE name = :termName")
+    String getExplanation(String termName);
 
 }

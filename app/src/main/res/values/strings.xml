@@ -127,4 +127,31 @@
         die freie Arztwahl eingeführt. Das bedeutete jedoch gleichzeitig, dass die jüdischen Ärzte von der Versorgung dieses Personenkreises ausgeschlossen waren."
     </string>
 
+    <string name="info_polenaktion">
+        Am 28. Oktober 1938 wurden 17.000 Juden ohne deutsche Staatsbürgerschaft in sonderzügen zur polnischen Grenze gebracht und mit Waffengewalt abgeschoben.
+        Wie die 17 betroffenen Personen aus Ulm, lebten viele von ihnen seit Jahrzehnten in Deutschland.
+    </string>
+
+    <string name="info_aktionT4">
+        T4 steht für die Adresse „Tiergarten 4“ der Berliner Behörde, die 1938 zur Koordination der Krankenmorde geschaffen wurde.
+        Nach Sichtung von Ärzten ausgefüllten Krankenfragebögen wurde dort entschieden, wer getötet werden sollte.
+    </string>
+
+    <string name="info_pogromnacht">
+        [hier Text einfügen]
+    </string>
+
+    <string name="info_kindertransport">
+        [hier Text einfügen]
+    </string>
+
+    <string name="info_zeugen">
+        Die 30.000 „Zeugen“ (ca. 60 in Ulm) verweigerten Kriegsdienst und Hitlergruß und wurden vom NS-Regime schon 1933 verboten.
+        Sie trafen sich aber weiter in privaten Räumen. Etwa 11.000 Mitglieder wurden inhaftiert und 1940 ermordet.
+    </string>
+
+    <string name="info_fabrikation">
+        Juden, die bis dahin in Rüstungsfabriken Zwangsarbeit hatten leisten müssen, wurden im Februar 1943 unmittelbar aus den Werkshallen verhaftet und deportiert.
+    </string>
+
 </resources>

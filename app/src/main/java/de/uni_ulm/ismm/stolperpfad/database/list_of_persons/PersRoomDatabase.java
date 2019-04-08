@@ -69,16 +69,16 @@ public abstract class PersRoomDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             //TODO: add here the reading of the data (parser)
             mDao.deleteAll();
-            Person person = new Person("Jakob", "Frenkel", 0);
+            Person person = new Person(0,"Jakob", "Frenkel", 0);
             mDao.insert(person);
-            person = new Person("Ida", "Frenkel", 0);
+            person = new Person(1,"Ida", "Frenkel", 0);
             mDao.insert(person);
-            person = new Person("Karl", "Rueff", 1);
+            person = new Person(2,"Karl", "Rueff", 1);
             mDao.insert(person);
 
-            Stolperstein stolperstein = new Stolperstein("Olgastraße 114", 48.402106, 9.994395);
+            Stolperstein stolperstein = new Stolperstein(0,"Olgastraße 114", 48.402106, 9.994395);
             mDao.insert(stolperstein);
-            stolperstein = new Stolperstein("Frauenstraße 28", 48.399455, 9.996718);
+            stolperstein = new Stolperstein(1,"Frauenstraße 28", 48.399455, 9.996718);
             mDao.insert(stolperstein);
 
             Person.Marriage marriage = new Person.Marriage(0, 1, null);
@@ -95,8 +95,8 @@ public abstract class PersRoomDatabase extends RoomDatabase {
 
     }
 
-    /*public String getAddress(int persId, int stoneId) {
-        return persDao().getAddress(persId, stoneId);
+    /*public String getAddress(int persId) {
+        return persDao().getAddress(persId);
     }*/
 
 

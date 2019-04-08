@@ -35,7 +35,7 @@ public class PersListAdapter extends RecyclerView.Adapter<PersListAdapter.PersVi
         return new PersViewHolder(itemView, mOnPersItemListener);
     }
 
-    //TODO: fix this, probably we have to
+    //TODO: fix this
     @Override
     public void onBindViewHolder(PersViewHolder holder, int persPosition) {
         if (mPersList != null) {

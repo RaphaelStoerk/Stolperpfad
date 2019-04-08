@@ -31,9 +31,9 @@ public class Person {
     // we have to work with Integer instead of int because an 'int' can't be null,
     // but an 'Integer' can and sometimes the table entries are null
     @PrimaryKey
-    /*@NonNull
-    @ColumnInfo(name = "id")
-    private int mId;*/
+    @NonNull
+    @ColumnInfo(name = "pers_id")
+    private int mPersId;
 
     @NonNull
     @ColumnInfo(name = "first_name")
@@ -62,9 +62,9 @@ public class Person {
     private Integer mStolperstein;
 
     // constructor
-    public Person(/*@NonNull int id,*/ @NonNull String fstName, @NonNull String famName/*, String biName,
+    public Person(@NonNull int persId, @NonNull String fstName, @NonNull String famName/*, String biName,
                   Integer biYear, Integer biPlace, Integer deYear, Integer hisTerm*/, Integer stolperstein) {
-        //this.mId = id;
+        this.mPersId = persId;
         this.mFstName = fstName;
         this.mFamName = famName;
         /*this.mBiName = biName;
@@ -77,9 +77,10 @@ public class Person {
 
     // these are the getter-methods;
     // we don't have setter-methods because the persons are set by the database
-    /*public int getId() {
-        return this.mId;
-    }*/
+
+    public int getPersId() {
+        return this.mPersId;
+    }
 
     public String getFstName() {
         return this.mFstName;
@@ -207,7 +208,7 @@ public class Person {
         @PrimaryKey
         @NonNull
         @ColumnInfo(name = "id_person")
-        private int mId;
+        private int mPersId;
 
         @NonNull
         @ColumnInfo(name = "country")
@@ -218,14 +219,14 @@ public class Person {
         private int mYear;
 
         //constructor
-        public Flight(int id, String country, int year){
-            this.mId = id;
+        public Flight(int persId, String country, int year){
+            this.mPersId = persId;
             this.mCountry = country;
             this.mYear = year;
         }
 
-        public int getId() {
-            return mId;
+        public int getPersId() {
+            return mPersId;
         }
 
         public String getCountry() {

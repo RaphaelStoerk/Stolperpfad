@@ -38,16 +38,6 @@
             android:name=".map_activities.control.RoutePlannerActivity"
             android:label="@string/title_activity_route_planner"
             android:theme="@style/AppTheme" />
-        <activity android:name=".database.ShowPersonItemPage" />
-        <activity
-            android:name=".filter_search.FilterSearchActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_filter_search"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".database.DbActivity"
-            android:label="@string/title_activity_db"
-            android:theme="@style/AppTheme" />
         <activity
             android:name=".scanner.ScannerActivity"
             android:label="@string/title_activity_scanner"
@@ -84,6 +74,20 @@
             android:name=".info_display.BiographyExampleActivity"
             android:label="@string/title_biography_example"
             android:theme="@style/AppTheme" />
+
+        <activity android:name=".database.list_of_persons.PersonsActivity"
+            android:label="@string/title_activity_db" />
+
+        <activity
+            android:name=".filter_search.FilterSearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_filter_search"
+            android:theme="@style/AppTheme" />
+
+        <activity android:name=".database.list_of_historical_terms.HistoInfoPage"/>
+        <activity android:name=".database.list_of_historical_terms.HistoryActivity" />
+        <activity android:name=".database.list_of_persons.PersInfoPage" />
+        <!-- Declares the entry point to the app -->
 
     </application>
 

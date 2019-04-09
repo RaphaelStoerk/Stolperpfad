@@ -59,7 +59,6 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     private Context ctx;
 
     // The mapquest api key needed for transactions
-    private final String API_KEY_2 = BuildConfig.API_KEY;
     private final String API_KEY;
 
     // routing and navigation services

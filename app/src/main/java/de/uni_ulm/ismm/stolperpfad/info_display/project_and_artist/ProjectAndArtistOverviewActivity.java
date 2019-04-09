@@ -9,10 +9,7 @@ import android.view.View;
 
 import com.androidquery.AQuery;
 
-import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.database.DbActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 
 public class ProjectAndArtistOverviewActivity extends AppCompatActivity {
 

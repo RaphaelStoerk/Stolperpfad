@@ -1,10 +1,12 @@
-package de.uni_ulm.ismm.stolperpfad.database;
+package de.uni_ulm.ismm.stolperpfad.database.list_of_persons;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 import java.util.List;
+
+import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 
 public class PersRepository {
 
@@ -21,6 +23,17 @@ public class PersRepository {
         return mAllPersons;
     }
 
+    /**
+     * To get the street and number of the Stolperstein of a given person
+     * @param stoneId
+     * @return street and number
+     */
+    public String getAddress(int stoneId) {
+        return mPersDao.getAddress(stoneId);
+    }
+
+
+    // maybe we won't need these methods later
     public void insert(Person person){
         new insertAsyncTask(mPersDao).execute(person);
     }

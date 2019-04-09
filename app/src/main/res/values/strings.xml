@@ -45,6 +45,7 @@
     <string name="title_activity_artist_info">Der Künstler</string>
     <string name="title_activity_project_info">Das Projekt</string>
     <string name="title_activity_project_and_artist_overview">Übersicht Projekt und Künstler</string>
+    <string name="title_biography_example">Biografie</string>
 
     <!-- placehodler texts -->
     <string name="username">Username</string>
@@ -85,5 +86,17 @@
     <string name="text_project_info">Hier steht später alles wichtige zum Projekt. Alle interessanten Hintergründe, Orte, etc und auch evtl noch Links und Bilder und Zitate könnten hier eingebuat werden</string>
     <string name="text_artist_overview">Hier stehen nacher genaue Informationen zum Künstler hinter dem Projekt Stolpersteine, auch eventuelle Bilder und Zitate können hier eingebaut werden</string>
     <string name="text_project_overview">Hier steht später alles wichtige zum Projekt. Alle interessanten Hintergründe, Orte, etc und auch evtl noch Links und Bilder und Zitate könnten hier eingebuat werden</string>
+
+    <string name="def_content_description">This is a content description</string>
+
+    <string name="lorem_ipsum">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit amet lobortis augue. Curabitur nec elementum quam. Fusce rhoncus lobortis mi, et dictum dolor interdum vitae. Sed congue, nunc sed lobortis laoreet, diam nunc aliquet nibh, nec cursus nisl neque vel diam. Cras a pharetra ipsum, vitae scelerisque tellus. Praesent id ullamcorper nunc. Aenean tristique est diam, id convallis urna sagittis sit amet. Phasellus auctor orci at nibh pretium tempus. Nulla dictum ante sed libero ultricies pellentesque. Vivamus at imperdiet magna.
+    \n
+    In pretium leo non diam eleifend sollicitudin. Mauris maximus, urna non ullamcorper molestie, turpis orci cursus augue, sed laoreet massa eros at eros. Fusce eu blandit metus. Donec porta magna eros, eu pharetra risus pellentesque in. Aliquam erat volutpat. Sed ac leo pulvinar, aliquet massa a, rhoncus augue. Nunc sapien arcu, auctor eget porta vitae, lobortis at risus. Integer et feugiat nibh, et varius lacus. Integer luctus laoreet nibh fermentum blandit. Suspendisse lobortis malesuada tristique. In scelerisque sodales ex, ut auctor ipsum sagittis vel.
+    \n
+    Suspendisse lacinia nulla vitae turpis molestie imperdiet. Phasellus consequat eros sit amet dignissim fermentum. Nulla non efficitur urna. Curabitur laoreet, mi in ultrices varius, felis nisi rhoncus augue, et blandit quam massa blandit neque. Morbi tincidunt ipsum nec est tincidunt, mattis tempus elit pulvinar. Curabitur ut elementum lectus. Etiam egestas tellus leo, ut malesuada felis vestibulum at. Vestibulum suscipit pellentesque sapien, nec pharetra elit varius eu. Suspendisse potenti. Etiam nec porta nisl. Etiam vel nunc augue. Vivamus sed lobortis urna. Maecenas tempor blandit nunc et scelerisque.
+    \n
+    Suspendisse hendrerit nibh sit amet sollicitudin vulputate. Cras malesuada feugiat augue, a auctor nulla pharetra ut. Cras bibendum laoreet commodo. Quisque sed dui suscipit velit consectetur consequat. Morbi sed convallis nisl. Donec eget urna tortor. Cras et dignissim sem.
+    </string>
 
 </resources>

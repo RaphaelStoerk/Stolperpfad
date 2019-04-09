@@ -58,7 +58,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
         // add the listener to the buttons on screen and make them visible
         aq.id(R.id.info_button).visible().clicked(myListener);
-        aq.id(R.id.db_button).visible().clicked(myListener);
         aq.id(R.id.menu_to_scan_button).visible().clicked(myListener);
         aq.id(R.id.menu_to_route_button).visible().clicked(myListener);
         aq.id(R.id.menu_to_next_stone_button).visible().clicked(myListener);
@@ -81,17 +80,10 @@ public class MainMenuActivity extends AppCompatActivity {
             // a simple switch case statement that checks which button was pressed
             switch (v.getId()) {
                 case R.id.info_button:
-                    intent = new Intent(MainMenuActivity.this, ScrollingInfoActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
-                    break;
-                case R.id.db_button: //TODO: update to "geschichtliches"
-                    intent = new Intent(MainMenuActivity.this, DbActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
-                case R.id.db_button:
                     intent = new Intent(MainMenuActivity.this, PersonsActivity.class);
-                    startActivity(intent);
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
                     break;
-                case R.id.menu_to_scan_button:
+               case R.id.menu_to_scan_button:
                     intent = new Intent(MainMenuActivity.this, ScannerActivity.class);
                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
                     break;

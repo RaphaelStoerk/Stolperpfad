@@ -11,7 +11,8 @@ import android.view.View;
 
 import com.androidquery.AQuery;
 
-import de.uni_ulm.ismm.stolperpfad.database.DbActivity;
+import de.uni_ulm.ismm.stolperpfad.database.list_of_historical_terms.HistoryActivity;
+import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersonsActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumViewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
@@ -65,6 +66,7 @@ public class MainMenuActivity extends AppCompatActivity {
         aq.id(R.id.impressum_button).visible().clicked(myListener);
         aq.id(R.id.privacy_button).visible().clicked(myListener);
         aq.id(R.id.header_button_main_menu).visible().clicked(myListener);
+        aq.id(R.id.history_button).visible().clicked(myListener);
     }
 
     /**
@@ -85,6 +87,9 @@ public class MainMenuActivity extends AppCompatActivity {
                 case R.id.db_button: //TODO: update to "geschichtliches"
                     intent = new Intent(MainMenuActivity.this, DbActivity.class);
                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
+                case R.id.db_button:
+                    intent = new Intent(MainMenuActivity.this, PersonsActivity.class);
+                    startActivity(intent);
                     break;
                 case R.id.menu_to_scan_button:
                     intent = new Intent(MainMenuActivity.this, ScannerActivity.class);
@@ -127,6 +132,10 @@ public class MainMenuActivity extends AppCompatActivity {
                     // Create the AlertDialog
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                    break;
+                case R.id.history_button:
+                    intent = new Intent(MainMenuActivity.this, HistoryActivity.class);
+                    startActivity(intent);
                     break;
             }
         }

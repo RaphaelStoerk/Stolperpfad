@@ -24,7 +24,6 @@ public class HistoViewModel extends AndroidViewModel {
 
     public void insert(HistoricalTerm histoTerm) { mRepository.insert(histoTerm); }
 
-    public String getExplanation(int termId){
-        return mRepository.getExplanation(termId);
-    }
+    public int getHistoId(String name){return mRepository.getHistoId(name);}
+    public String getExplanation(int termId){return mRepository.getExplanation(termId);}
 }

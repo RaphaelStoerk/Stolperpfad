@@ -22,12 +22,15 @@ public class HistoRepository {
     LiveData<List<HistoricalTerm>> getAllTerms() {
         return mAllTerms;
     }
+    int getHistoId(String name) {return mHistoDao.getHistoId(name);}
 
-    public void insert (HistoricalTerm histoTerm) {
+
+    public void insert(HistoricalTerm histoTerm) {
         new insertAsyncTask(mHistoDao).execute(histoTerm);
     }
 
-    public String getExplanation(int termId){
+    //TODO fix this maybe with AsyncTask...?
+    public String getExplanation(int termId) {
         return mHistoDao.getExplanation(termId);
     }
 
@@ -45,4 +48,5 @@ public class HistoRepository {
             return null;
         }
     }
+
 }

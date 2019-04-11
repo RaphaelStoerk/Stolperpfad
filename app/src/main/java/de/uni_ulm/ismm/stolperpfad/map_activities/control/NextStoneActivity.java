@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.general.MyButtonClickListener;
+import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapFragment;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
 
-public class NextStoneActivity extends AppCompatActivity {
+public class NextStoneActivity extends StolperpfadeAppActivity {
 
     AQuery aq;
 
@@ -20,7 +22,16 @@ public class NextStoneActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Initialize important helper-Objects
         aq = new AQuery(this);
+
+        // Initialize the Listener for the clickable items
+        myClickListener = new MyButtonClickListener<>();
+        myClickListener.setMyActivity(this);
+
+        // add the listener to the items
+        aq.id(R.id.quick_access_button).visible().clicked(myClickListener);
 
         setContentView(R.layout.activity_next_stone);
 

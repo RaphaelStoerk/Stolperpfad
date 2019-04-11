@@ -12,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.general.MyButtonClickListener;
+import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 
-public class BiographyExampleActivity extends AppCompatActivity {
+public class BiographyExampleActivity extends StolperpfadeAppActivity {
 
     /**
      * The number of pages (wizard steps) to show in this demo.
@@ -31,8 +33,6 @@ public class BiographyExampleActivity extends AppCompatActivity {
      */
     private PagerAdapter pagerAdapter;
 
-    private AQuery aq;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +41,15 @@ public class BiographyExampleActivity extends AppCompatActivity {
         // TODO: Use this when a click on the side bar happens
         //mPager.setCurrentItem(mPager.getCurrentItem() - 1);
 
+        // Initialize important helper-Objects
         aq = new AQuery(this);
+
+        // Initialize the Listener for the clickable items
+        myClickListener = new MyButtonClickListener<>();
+        myClickListener.setMyActivity(this);
+
+        // add the listener to the items
+        aq.id(R.id.quick_access_button).visible().clicked(myClickListener);
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.pager);

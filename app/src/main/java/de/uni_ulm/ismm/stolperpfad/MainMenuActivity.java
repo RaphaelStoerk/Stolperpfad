@@ -13,6 +13,8 @@ import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.database.list_of_historical_terms.HistoryActivity;
 import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersonsActivity;
+import de.uni_ulm.ismm.stolperpfad.general.MyButtonClickListener;
+import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumViewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
@@ -26,15 +28,7 @@ import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
  * This class is the current entry point to our activities, this might change with an added
  * splash screen. For now, this is the first activity a user will be able to interact with
  */
-public class MainMenuActivity extends AppCompatActivity {
-
-    // TODO: add splash screen
-
-    // The AQuery framework lets us write short understandable code, see further down
-    private AQuery aq;
-
-    // Buttons and similar Components need Listeners to do stuff when they are pressed
-    private MyClickListener myListener;
+public class MainMenuActivity extends StolperpfadeAppActivity {
 
     /**
      * This is what happens when this activity is first started
@@ -54,82 +48,20 @@ public class MainMenuActivity extends AppCompatActivity {
 
         // Initialize important helper-Objects
         aq = new AQuery(this);
-        myListener = new MyClickListener();
+
+        // Initialize the Listener for the clickable items
+        myClickListener = new MyButtonClickListener<>();
+        myClickListener.setMyActivity(this);
 
         // add the listener to the buttons on screen and make them visible
-        aq.id(R.id.info_button).visible().clicked(myListener);
-        aq.id(R.id.menu_to_scan_button).visible().clicked(myListener);
-        aq.id(R.id.menu_to_route_button).visible().clicked(myListener);
-        aq.id(R.id.menu_to_next_stone_button).visible().clicked(myListener);
-        aq.id(R.id.project_and_artist_overview_button).visible().clicked(myListener);
-        aq.id(R.id.impressum_button).visible().clicked(myListener);
-        aq.id(R.id.privacy_button).visible().clicked(myListener);
-        aq.id(R.id.header_button_main_menu).visible().clicked(myListener);
-        aq.id(R.id.history_button).visible().clicked(myListener);
-    }
-
-    /**
-     * This is an internal class that handles the Clicks of buttons on the main menu
-     */
-    class MyClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-            Intent intent;
-            Log.i("MY_ACTION", "Something was pressed: " + v.getId());
-            // a simple switch case statement that checks which button was pressed
-            switch (v.getId()) {
-                case R.id.info_button:
-                    intent = new Intent(MainMenuActivity.this, PersonsActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
-                    break;
-               case R.id.menu_to_scan_button:
-                    intent = new Intent(MainMenuActivity.this, ScannerActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
-                    break;
-                case R.id.menu_to_route_button:
-                    intent = new Intent(MainMenuActivity.this, RoutePlannerActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
-                    break;
-                case R.id.menu_to_next_stone_button:
-                    intent = new Intent(MainMenuActivity.this, NextStoneActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
-                    break;
-                case R.id.project_and_artist_overview_button:
-                    intent = new Intent(MainMenuActivity.this, ProjectAndArtistOverviewActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
-                    break;
-                case R.id.impressum_button:
-                    Log.i("MY_ACTION", "Go to Impressum");
-                    intent = new Intent(MainMenuActivity.this, ImpressumViewActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
-                    break;
-                case R.id.privacy_button:
-                    intent = new Intent(MainMenuActivity.this, PrivacyInfoActivity.class);
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(MainMenuActivity.this).toBundle());
-                    break;
-                case R.id.header_button_main_menu:
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainMenuActivity.this);
-
-
-                    builder.setTitle("Soll das Hauptmenu hierher ziehen?");
-
-                    builder.setPositiveButton("Ja", (dialogInterface, i) -> {
-                        aq.id(R.id.header_button_main_menu).backgroundColor(Color.RED);
-                    });
-                    builder.setNegativeButton("Nein", (dialogInterface, i) -> {
-                        aq.id(R.id.header_button_main_menu).backgroundColor(Color.argb(0,0,0,0));
-                    });
-
-                    // Create the AlertDialog
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                    break;
-                case R.id.history_button:
-                    intent = new Intent(MainMenuActivity.this, HistoryActivity.class);
-                    startActivity(intent);
-                    break;
-            }
-        }
+        aq.id(R.id.info_button).visible().clicked(myClickListener);
+        aq.id(R.id.menu_to_scan_button).visible().clicked(myClickListener);
+        aq.id(R.id.menu_to_route_button).visible().clicked(myClickListener);
+        aq.id(R.id.menu_to_next_stone_button).visible().clicked(myClickListener);
+        aq.id(R.id.project_and_artist_overview_button).visible().clicked(myClickListener);
+        aq.id(R.id.impressum_button).visible().clicked(myClickListener);
+        aq.id(R.id.privacy_button).visible().clicked(myClickListener);
+        aq.id(R.id.quick_access_button).visible().clicked(myClickListener);
+        aq.id(R.id.history_button).visible().clicked(myClickListener);
     }
 }

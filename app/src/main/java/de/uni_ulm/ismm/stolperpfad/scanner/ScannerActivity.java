@@ -19,8 +19,6 @@ public class ScannerActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
-        Toolbar toolbar = findViewById(R.id.toolbar_scanner);
-        setSupportActionBar(toolbar);
         aq = new AQuery(this);
         aq.id(R.id.scan_button).visible().clicked(this);
         aq.id(R.id.scan_to_info_button).visible().clicked(this);

@@ -35,6 +35,36 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
             android:textColor="@color/colorText" />
 
+        <TextView
+            android:id="@+id/info_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/my_test_text"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textColor="@color/colorText" />
+
+        <TextView
+            android:id="@+id/info_text3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/my_test_text"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textColor="@color/colorText" />
+
+        <TextView
+            android:id="@+id/info_text4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/my_test_text"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+            android:textColor="@color/colorText" />
+
         <Button
             android:id="@+id/info_test_button"
             android:layout_width="wrap_content"

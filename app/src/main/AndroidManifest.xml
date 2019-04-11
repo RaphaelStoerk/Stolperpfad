@@ -87,6 +87,10 @@
         <activity android:name=".database.list_of_historical_terms.HistoInfoPage"/>
         <activity android:name=".database.list_of_historical_terms.HistoryActivity" />
         <activity android:name=".database.list_of_persons.PersInfoPage" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
         <!-- Declares the entry point to the app -->
 
     </application>

@@ -116,6 +116,7 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
         map.getMapAsync(mapboxMap -> {
             mMapboxMap = mapboxMap;
             map.setStreetMode();
+
             stone_handler = StoneFactory.initialize(this, mMapboxMap);
 
             chosen_position_start = new LatLng(0,0);

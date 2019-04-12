@@ -1,18 +1,12 @@
 package de.uni_ulm.ismm.stolperpfad.info_display;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
-import android.support.v7.app.AppCompatActivity;
-
-import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.general.MyButtonClickListener;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 
 public class BiographyExampleActivity extends StolperpfadeAppActivity {
@@ -28,32 +22,21 @@ public class BiographyExampleActivity extends StolperpfadeAppActivity {
      */
     private VerticalViewPager mPager;
 
-    /**
-     * The pager adapter, which provides the pages to the view pager widget.
-     */
-    private PagerAdapter pagerAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_biography_example);
+
+        initializeGeneralControls(R.layout.activity_biography_example);
 
         // TODO: Use this when a click on the side bar happens
         //mPager.setCurrentItem(mPager.getCurrentItem() - 1);
 
-        // Initialize important helper-Objects
-        aq = new AQuery(this);
-
-        // Initialize the Listener for the clickable items
-        myClickListener = new MyButtonClickListener<>();
-        myClickListener.setMyActivity(this);
-
-        // add the listener to the items
-        aq.id(R.id.quick_access_button).visible().clicked(myClickListener);
-
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.pager);
-        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        /**
+         * The pager adapter, which provides the pages to the view pager widget.
+         */
+        PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
     }
 
@@ -75,7 +58,7 @@ public class BiographyExampleActivity extends StolperpfadeAppActivity {
      * sequence.
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
+        ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -89,5 +72,4 @@ public class BiographyExampleActivity extends StolperpfadeAppActivity {
             return NUM_PAGES;
         }
     }
-
 }

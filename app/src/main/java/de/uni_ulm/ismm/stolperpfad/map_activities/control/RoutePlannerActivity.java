@@ -2,7 +2,6 @@ package de.uni_ulm.ismm.stolperpfad.map_activities.control;
 
 import android.app.AlertDialog;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,10 +13,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-import com.androidquery.AQuery;
-
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.general.MyButtonClickListener;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
 
@@ -35,18 +31,9 @@ public class RoutePlannerActivity extends StolperpfadeAppActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initialize important helper-Objects
-        aq = new AQuery(this);
+        initializeGeneralControls(R.layout.activity_route_planner);
 
-        // Initialize the Listener for the clickable items
-        myClickListener = new MyButtonClickListener<>();
-        myClickListener.setMyActivity(this);
-
-        // add the listener to the items
-        aq.id(R.id.quick_access_button).visible().clicked(myClickListener);
-
-        setContentView(R.layout.activity_route_planner);
-
+        aq.id(R.id.header_route_planner).getView().setTranslationZ(HEADER_TRANSLATION_Z / 2);
 
         // The actual map view is now a fragment, for easier reuse and readability
         FragmentManager fm = this.getSupportFragmentManager();

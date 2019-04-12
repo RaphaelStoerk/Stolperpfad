@@ -23,7 +23,7 @@ public class StoneFactory {
     private MapboxMap mapboxMap;
     private boolean is_ready;
 
-    public StoneFactory(MapQuestFragment map, MapboxMap mapboxMap) {
+    private StoneFactory(MapQuestFragment map, MapboxMap mapboxMap) {
         this.map = map;
         this.mapboxMap = mapboxMap;
         all_stones = new ArrayList<>();
@@ -132,6 +132,7 @@ public class StoneFactory {
      * This class is responsible for creating an asynchronous task that creates all the stones
      * from the data in the database, so they can later be displayed on the map
      */
+    @SuppressLint("StaticFieldLeak")
     private class InitializeStonesTask extends AsyncTask<String, Integer, String> {
 
         @Override

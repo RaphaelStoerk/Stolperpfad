@@ -11,7 +11,7 @@
         layout="@layout/header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/header_route_planner"
@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header">
@@ -75,16 +74,13 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.mapquest.mapping.maps.MapView
-        android:id="@+id/map_container"
+    <include
+        layout="@layout/map_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_route_planner"
-        app:mapquest_app_key="@string/mapquest_api_key">
-
-    </com.mapquest.mapping.maps.MapView>
+        app:layout_constraintTop_toBottomOf="@id/header_route_planner" />
 
 </android.support.constraint.ConstraintLayout>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/AppTheme.AppBarOverlay"
+    android:background="?attr/colorAppPrimary"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
@@ -14,14 +15,15 @@
         android:id="@+id/header_toolbar"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorAppPrimary"
         android:translationZ="8dp"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="?attr/colorAppPrimary">
 
             <ImageView
                 android:id="@+id/header_image"
@@ -44,7 +46,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/sharp_add_black_36"
-                android:backgroundTint="@color/colorPrimaryDark"
+                android:backgroundTint="?attr/colorAppPrimaryContrast"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -3,9 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
@@ -13,7 +10,28 @@
         <item name="android:windowExitTransition">@android:transition/fade</item>
         <item name="android:windowEnterTransition">@android:transition/fade</item>
         <item name="android:fontFamily">@font/fira_sans</item>
-        <item name="android:textColor">@color/colorText</item>
+    </style>
+
+    <!-- Light mode activity theme -->
+    <style name="AppTheme.Light" parent="AppTheme">
+        <item name="colorAppTextPrimary">@color/colorTextPrimaryLightMode</item>
+        <item name="colorAppTextSecondary">@color/colorTextSecondaryLightMode</item>
+        <item name="colorAppPrimary">@color/colorPrimaryLightMode</item>
+        <item name="colorAppPrimaryContrast">@color/colorPrimaryContrastLightMode</item>
+        <item name="colorAppAccent">@color/colorAccentLightMode</item>
+        <item name="colorAppTitle">@color/colorTitleLightMode</item>
+        <item name="colorAppSubTitle">@color/colorSubTitleLightMode</item>
+    </style>
+
+    <!-- Dark mode activity theme -->
+    <style name="AppTheme.Dark" parent="AppTheme">
+        <item name="colorAppTextPrimary">@color/colorTextPrimaryDarkMode</item>
+        <item name="colorAppTextSecondary">@color/colorTextSecondaryDarkMode</item>
+        <item name="colorAppPrimary">@color/colorPrimaryDarkMode</item>
+        <item name="colorAppPrimaryContrast">@color/colorPrimaryContrastDarkMode</item>
+        <item name="colorAppAccent">@color/colorAccentDarkMode</item>
+        <item name="colorAppTitle">@color/colorTitleDarkMode</item>
+        <item name="colorAppSubTitle">@color/colorSubTitleDarkMode</item>
     </style>
 
     <style name="AppTheme.Launcher">
@@ -59,10 +77,10 @@
     </style>
 
     <style name="MyRadioButtonStyle" parent="AppTheme">
-        <item name="android:colorControlNormal">@color/colorText</item>
-        <item name="android:colorControlHighlight">@color/colorText</item>
-        <item name="android:colorControlActivated">@color/colorAccent</item>
-        <item name="android:colorAccent">@color/colorAccent</item>
-        <item name="android:color">@color/colorText</item>
+        <item name="android:colorControlNormal">@color/colorTextPrimaryLightMode</item>
+        <item name="android:colorControlHighlight">@color/colorTextPrimaryLightMode</item>
+        <item name="android:colorControlActivated">@color/colorAccentLightMode</item>
+        <item name="android:colorAccent">@color/colorAccentLightMode</item>
+        <item name="android:color">@color/colorTextPrimaryLightMode</item>
     </style>
 </resources>

@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#333333</color>
-    <color name="colorAccent">#FBB03B</color>
     <color name="black_overlay">#83000000</color>
-    <color name="colorText">#333333</color>
+
+
+    <color name="colorPrimaryDarkMode">#222222</color>
+    <color name="colorPrimaryLightMode">#FFFFFF</color>
+
+    <color name="colorPrimaryContrastDarkMode">#DDDDDD</color>
+    <color name="colorPrimaryContrastLightMode">#333333</color>
+
+    <color name="colorAccentDarkMode">#DF942A</color>
+    <color name="colorAccentLightMode">#DF942A</color>
+
+    <color name="colorTextPrimaryDarkMode">#EEEEEE</color>
+    <color name="colorTextPrimaryLightMode">#222222</color>
+
+    <color name="colorTextSecondaryDarkMode">#DDDDDD</color>
+    <color name="colorTextSecondaryLightMode">#111111</color>
+
+    <color name="colorTitleDarkMode">#DDDDDD</color>
+    <color name="colorTitleLightMode">#111111</color>
+
+    <color name="colorSubTitleDarkMode">#DDDDDD</color>
+    <color name="colorSubTitleLightMode">#111111</color>
+
 </resources>

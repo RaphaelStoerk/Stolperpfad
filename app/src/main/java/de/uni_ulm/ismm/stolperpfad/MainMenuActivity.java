@@ -1,6 +1,10 @@
 package de.uni_ulm.ismm.stolperpfad;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 
 /**
@@ -15,12 +19,16 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+        if(StolperpfadApplication.getInstance().isFirstCall()) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            StolperpfadApplication.getInstance().setFirstCall(false);
         }
-        setTheme(R.style.AppTheme);
         // Initialize this view and display the right screen
         super.onCreate(savedInstanceState);
 

@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity"
     tools:showIn="@layout/activity_scrolling_info"
-    android:background="@color/colorPrimary">
+    android:background="?attr/colorAppPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:text="@string/test_title"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-            android:textColor="@color/colorText" />
+            android:textColor="?attr/colorAppTextPrimary" />
 
         <TextView
             android:id="@+id/info_text"
@@ -33,7 +33,7 @@
             android:text="@string/my_test_text"
             android:textAlignment="textStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-            android:textColor="@color/colorText" />
+            android:textColor="?attr/colorAppTextPrimary"/>
 
         <TextView
             android:id="@+id/info_text2"
@@ -43,7 +43,7 @@
             android:text="@string/my_test_text"
             android:textAlignment="textStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-            android:textColor="@color/colorText" />
+            android:textColor="?attr/colorAppTextPrimary"/>
 
         <TextView
             android:id="@+id/info_text3"
@@ -53,7 +53,7 @@
             android:text="@string/my_test_text"
             android:textAlignment="textStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-            android:textColor="@color/colorText" />
+            android:textColor="?attr/colorAppTextPrimary"/>
 
         <TextView
             android:id="@+id/info_text4"
@@ -63,7 +63,7 @@
             android:text="@string/my_test_text"
             android:textAlignment="textStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-            android:textColor="@color/colorText" />
+            android:textColor="?attr/colorAppTextPrimary"/>
 
         <Button
             android:id="@+id/info_test_button"

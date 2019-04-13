@@ -41,6 +41,8 @@ public class RoutePlannerActivity extends StolperpfadeAppActivity {
         if (fm.findFragmentById(R.id.map_container) == null) {
             myMapFragment = MapQuestFragment.newInstance(false);
             fm.beginTransaction().add(R.id.map_container, myMapFragment, MAP_FRAGMENT_TAG).commit();
+        } else {
+            myMapFragment = (MapQuestFragment) fm.findFragmentByTag(MAP_FRAGMENT_TAG);
         }
 
         aq.id(R.id.route_option_button).visible().clicked(myClickListener);

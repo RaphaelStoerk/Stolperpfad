@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".info_display.impressum.ImpressumViewActivity">
+    tools:context=".info_display.impressum.ImpressumViewActivity"
+    android:background="?attr/colorAppSecondary">
 
     <include
         layout="@layout/header"

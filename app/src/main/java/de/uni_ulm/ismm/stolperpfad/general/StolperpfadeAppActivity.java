@@ -30,11 +30,13 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
 
     public final float HEADER_TRANSLATION_Z = 8;
 
+    protected boolean currently_in_dark_mode = false;
+
     public void showQuickAccesMenu() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         // set the contents of the dialog
-        builder.setTitle("Dark Mode? Application will restart");
+        builder.setTitle("Möchten Sie Dark Mode??");
         builder.setPositiveButton("Ja", (dialogInterface, i) -> {
             SharedPreferences prefs = this.getSharedPreferences(
                     "de.uni_ulm.ismm.stolperpfad", Context.MODE_PRIVATE);
@@ -60,20 +62,28 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         if(StolperpfadApplication.getInstance().isDarkMode()) {
             setTheme(R.style.AppTheme_Dark);
+            currently_in_dark_mode = true;
         } else {
             setTheme(R.style.AppTheme_Light);
+            currently_in_dark_mode = false;
         }
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if(StolperpfadApplication.getInstance().modeHasBeenChanged()) {
+        if(StolperpfadApplication.getInstance().isDarkMode() != currently_in_dark_mode) {
+            currently_in_dark_mode = !currently_in_dark_mode;
             recreate();
-            StolperpfadApplication.getInstance().setModeChanged(false);
         }
+        setVisible(true);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        setVisible(false);
     }
 
     protected void initializeGeneralControls(@LayoutRes int currentLayout) {

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorAppSecondary"
     tools:context=".info_display.project_and_artist.ProjectAndArtistOverviewActivity">
 
     <include
@@ -52,7 +53,7 @@
         android:text="@string/overview_to_project_info_button"
         android:textAlignment="textEnd"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textColor="?attr/colorAppAccent"
+        android:textColor="?attr/colorAppTextLink"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +98,7 @@
         android:text="@string/overview_to_artist_info_button"
         android:textAlignment="textEnd"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textColor="?attr/colorAppAccent"
+        android:textColor="?attr/colorAppTextLink"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

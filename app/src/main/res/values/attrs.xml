@@ -15,8 +15,14 @@
         <attr name="colorAppTextSecondary" format="color"/>
         <attr name="colorAppTitle" format="color"/>
         <attr name="colorAppSubTitle" format="color"/>
+        <attr name="colorAppTextLink" format="color"/>
+        <attr name="colorAppTextButton" format="color"/>
+        <attr name="colorAppTextButtonContrast" format="color"/>
+        <attr name="colorAppTextButtonAccent" format="color"/>
         <attr name="colorAppPrimary" format="color"/>
         <attr name="colorAppPrimaryContrast" format="color"/>
+        <attr name="colorAppSecondary" format="color"/>
+        <attr name="colorAppSecondaryContrast" format="color"/>
         <attr name="colorAppAccent" format="integer"/>
     </declare-styleable>
 

@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity"
     tools:showIn="@layout/activity_scrolling_info"
-    android:background="?attr/colorAppPrimary">
+    android:background="?attr/colorAppSecondary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,11 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/fira_sans_condensed_semibold"
             android:text="@string/test_title"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
-            android:textColor="?attr/colorAppTextPrimary" />
+            android:textColor="?attr/colorAppTitle"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/info_text"
@@ -32,7 +32,6 @@
             android:layout_margin="@dimen/text_margin"
             android:text="@string/my_test_text"
             android:textAlignment="textStart"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
             android:textColor="?attr/colorAppTextPrimary"/>
 
         <TextView
@@ -42,7 +41,6 @@
             android:layout_margin="@dimen/text_margin"
             android:text="@string/my_test_text"
             android:textAlignment="textStart"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
             android:textColor="?attr/colorAppTextPrimary"/>
 
         <TextView
@@ -52,7 +50,6 @@
             android:layout_margin="@dimen/text_margin"
             android:text="@string/my_test_text"
             android:textAlignment="textStart"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
             android:textColor="?attr/colorAppTextPrimary"/>
 
         <TextView
@@ -62,8 +59,34 @@
             android:layout_margin="@dimen/text_margin"
             android:text="@string/my_test_text"
             android:textAlignment="textStart"
-            android:textAppearance="@style/TextAppearance.AppCompat.Menu"
             android:textColor="?attr/colorAppTextPrimary"/>
+
+        <TextView
+            android:id="@+id/info_text5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/my_test_text"
+            android:textAlignment="textStart"
+            android:textColor="?attr/colorAppTextPrimary" />
+
+        <TextView
+            android:id="@+id/info_text6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/my_test_text"
+            android:textAlignment="textStart"
+            android:textColor="?attr/colorAppTextPrimary" />
+
+        <TextView
+            android:id="@+id/info_text7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:text="@string/my_test_text"
+            android:textAlignment="textStart"
+            android:textColor="?attr/colorAppTextPrimary" />
 
         <Button
             android:id="@+id/info_test_button"

@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/AppTheme.Light"
     android:background="?attr/colorAppPrimary"
     android:orientation="vertical">
 
@@ -58,7 +59,7 @@
         android:textColorHighlight="?attr/colorAppAccent"
         android:textColorHint="?attr/colorAppPrimaryContrast"
         android:textColorLink="?attr/colorAppAccent"
-        />
+        android:autofillHints=""/>
 
     <TextView
         android:layout_width="match_parent"

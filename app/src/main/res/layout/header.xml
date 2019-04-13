@@ -15,15 +15,13 @@
         android:id="@+id/header_toolbar"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="?attr/colorAppPrimary"
         android:translationZ="8dp"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorAppPrimary">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/header_image"

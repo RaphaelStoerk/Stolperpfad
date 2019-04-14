@@ -7,6 +7,24 @@
     <declare-styleable name="ButtonBarContainerTheme">
         <attr name="metaButtonBarStyle" format="reference" />
         <attr name="metaButtonBarButtonStyle" format="reference" />
+
+    </declare-styleable>
+
+    <declare-styleable name="StolperpfadAppTheme">
+        <attr name="colorAppTextPrimary" format="color"/>
+        <attr name="colorAppTextSecondary" format="color"/>
+        <attr name="colorAppTitle" format="color"/>
+        <attr name="colorAppSubTitle" format="color"/>
+        <attr name="colorAppTextLink" format="color"/>
+        <attr name="colorAppTextButton" format="color"/>
+        <attr name="colorAppTextButtonContrast" format="color"/>
+        <attr name="colorAppTextButtonAccent" format="color"/>
+        <attr name="colorAppPrimary" format="color"/>
+        <attr name="colorAppPrimaryContrast" format="color"/>
+        <attr name="colorAppSecondary" format="color"/>
+        <attr name="colorAppSecondaryContrast" format="color"/>
+        <attr name="colorAppAccent" format="color"/>
+        <attr name="logoAppHeader" format="integer"/>
     </declare-styleable>
 
 </resources>

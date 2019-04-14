@@ -18,6 +18,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/scan_button"
+        android:textColor="?attr/colorAppTextButton"
+        android:background="?attr/colorAppAccent"
         app:layout_constraintBottom_toTopOf="@+id/scan_to_info_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +34,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="176dp"
         android:text="@string/info_button"
+        android:textColor="?attr/colorAppTextButton"
+        android:background="?attr/colorAppAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -44,6 +48,7 @@
         android:layout_marginTop="52dp"
         android:layout_marginEnd="8dp"
         android:text="hier gehört irgendwann ein scanner hin"
+        android:textColor="?attr/colorAppTextPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

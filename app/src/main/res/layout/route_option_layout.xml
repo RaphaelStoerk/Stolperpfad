@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:theme="@style/AppTheme.Light"
+    android:background="?attr/colorAppPrimary"
     android:orientation="vertical">
 
     <TextView
@@ -13,7 +14,7 @@
         android:layout_marginBottom="4dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/category_title"
-        android:textColor="@color/colorText"
+        android:textColor="?attr/colorAppTextPrimary"
         android:textSize="18sp" />
 
     <Spinner
@@ -24,7 +25,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="4dp"
-        android:backgroundTint="@color/colorText"
+        android:backgroundTint="?attr/colorAppTextPrimary"
         android:spinnerMode="dropdown" />
 
     <TextView
@@ -36,7 +37,7 @@
         android:layout_marginBottom="4dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/walk_time_title"
-        android:textColor="@color/colorText"
+        android:textColor="?attr/colorAppTextPrimary"
         android:textSize="18sp" />
 
     <EditText
@@ -51,14 +52,14 @@
         android:hint="@string/walk_time"
         android:inputType="number"
         android:selectAllOnFocus="true"
-        android:shadowColor="@color/colorText"
-        android:backgroundTint="@color/colorText"
+        android:shadowColor="?attr/colorAppTextPrimary"
+        android:backgroundTint="?attr/colorAppTextPrimary"
         android:singleLine="true"
-        android:textColor="@color/colorText"
-        android:textColorHighlight="@color/colorAccent"
-        android:textColorHint="@color/colorPrimaryDark"
-        android:textColorLink="@color/colorAccent"
-        />
+        android:textColor="?attr/colorAppTextPrimary"
+        android:textColorHighlight="?attr/colorAppAccent"
+        android:textColorHint="?attr/colorAppPrimaryContrast"
+        android:textColorLink="?attr/colorAppAccent"
+        android:autofillHints=""/>
 
     <TextView
         android:layout_width="match_parent"
@@ -69,7 +70,7 @@
         android:layout_marginBottom="4dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/start_loc_title"
-        android:textColor="@color/colorText"
+        android:textColor="?attr/colorAppTextPrimary"
         android:textSize="18sp" />
 
     <RadioGroup
@@ -87,28 +88,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/colorText"
+            android:buttonTint="?attr/colorAppTextPrimary"
             android:text="Bahnhof"
-            android:textColor="@color/colorText"/>
+            android:textColor="?attr/colorAppTextPrimary" />
 
         <RadioButton
             android:id="@+id/start_at_position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/colorText"
+            android:buttonTint="?attr/colorAppTextPrimary"
             android:text="Aktuelle Position"
-            android:textColor="@color/colorText"/>
+            android:textColor="?attr/colorAppTextPrimary" />
 
         <RadioButton
             android:id="@+id/start_at_marker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:buttonTint="@color/colorText"
+            android:buttonTint="?attr/colorAppTextPrimary"
             android:checked="true"
             android:text="Wahl auf Karte"
-            android:textColor="@color/colorText"/>
+            android:textColor="?attr/colorAppTextPrimary" />
     </RadioGroup>
 
     <TextView
@@ -120,7 +121,7 @@
         android:layout_marginBottom="4dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/end_loc_title"
-        android:textColor="@color/colorText"
+        android:textColor="?attr/colorAppTextPrimary"
         android:textSize="18sp" />
 
     <RadioGroup
@@ -138,30 +139,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorText"
-            android:buttonTint="@color/colorText"
+            android:backgroundTint="?attr/colorAppTextPrimary"
+            android:buttonTint="?attr/colorAppTextPrimary"
             android:text="Bahnhof"
-            android:textColor="@color/colorText" />
+            android:textColor="?attr/colorAppTextPrimary" />
 
         <RadioButton
             android:id="@+id/end_at_stone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorText"
-            android:buttonTint="@color/colorText"
+            android:backgroundTint="?attr/colorAppTextPrimary"
+            android:buttonTint="?attr/colorAppTextPrimary"
             android:text="Letzter Stein der Route"
-            android:textColor="@color/colorText" />
+            android:textColor="?attr/colorAppTextPrimary"  />
 
         <RadioButton
             android:id="@+id/end_at_marker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/colorText"
-            android:buttonTint="@color/colorText"
+            android:backgroundTint="?attr/colorAppTextPrimary"
+            android:buttonTint="?attr/colorAppTextPrimary"
             android:text="Wahl auf Karte"
-            android:textColor="@color/colorText" />
+            android:textColor="?attr/colorAppTextPrimary" />
     </RadioGroup>
 
 </LinearLayout>

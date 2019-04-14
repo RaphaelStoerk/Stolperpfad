@@ -1,8 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FAFAFA</color>
-    <color name="colorPrimaryDark">#333333</color>
-    <color name="colorAccent">#DF972B</color>
     <color name="black_overlay">#83000000</color>
-    <color name="colorText">#141414</color>
+
+
+    <color name="colorPrimaryDarkMode">#222222</color>
+    <color name="colorPrimaryLightMode">#FFFFFF</color>
+
+    <color name="colorPrimaryContrastDarkMode">#DDDDDD</color>
+    <color name="colorPrimaryContrastLightMode">#404040</color>
+
+    <color name="colorSecondaryDarkMode">#111111</color>
+    <color name="colorSecondaryLightMode">#EEEEEE</color>
+
+    <color name="colorSecondaryContrastDarkMode">#BBBBBB</color>
+    <color name="colorSecondaryContrastLightMode">#111111</color>
+
+    <color name="colorAccentDarkMode">#EC9D2B</color>
+    <color name="colorAccentLightMode">#D68A26</color>
+
+    <color name="colorTextButtonDarkMode">#BBBBBB</color>
+    <color name="colorTextButtonLightMode">#111111</color>
+
+    <color name="colorTextButtonContrastDarkMode">#222222</color>
+    <color name="colorTextButtonContrastLightMode">#FFFFFF</color>
+
+    <color name="colorTextButtonAccentDarkMode">#111111</color>
+    <color name="colorTextButtonAccentLightMode">#111111</color>
+
+    <color name="colorTextLinkDarkMode">#327EF1</color>
+    <color name="colorTextLinkLightMode">#CC7E1E</color>
+
+    <color name="colorTextPrimaryDarkMode">#EEEEEE</color>
+    <color name="colorTextPrimaryLightMode">#222222</color>
+
+    <color name="colorTextSecondaryDarkMode">#DDDDDD</color>
+    <color name="colorTextSecondaryLightMode">#111111</color>
+
+    <color name="colorTitleDarkMode">#DDDDDD</color>
+    <color name="colorTitleLightMode">#111111</color>
+
+    <color name="colorSubTitleDarkMode">#DDDDDD</color>
+    <color name="colorSubTitleLightMode">#111111</color>
+
 </resources>

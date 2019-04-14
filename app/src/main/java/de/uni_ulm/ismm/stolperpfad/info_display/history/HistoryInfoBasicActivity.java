@@ -1,15 +1,16 @@
 package de.uni_ulm.ismm.stolperpfad.info_display.history;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 
-public class HistoryInfoBasicActivity extends AppCompatActivity {
+public class HistoryInfoBasicActivity extends StolperpfadeAppActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history_info_basic);
+
+        initializeGeneralControls(R.layout.activity_history_info_basic);
     }
 }

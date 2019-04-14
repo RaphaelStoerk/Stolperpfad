@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.uni_ulm.ismm.stolperpfad">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,6 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:name=".StolperpfadApplication"
         tools:ignore="GoogleAppIndexingWarning">
         <!-- Declares the entry point to the app -->
         <activity
@@ -33,47 +35,47 @@
         <activity
             android:name=".info_display.ScrollingInfoActivity"
             android:label="@string/title_activity_scrolling_info"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".map_activities.control.RoutePlannerActivity"
             android:label="@string/title_activity_route_planner"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".scanner.ScannerActivity"
             android:label="@string/title_activity_scanner"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".map_activities.control.NextStoneActivity"
             android:label="@string/title_activity_next_stone"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".info_display.history.HistoryInfoBasicActivity"
             android:label="@string/title_activity_history_info"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".info_display.impressum.ImpressumViewActivity"
             android:label="@string/title_activity_impressum"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".info_display.impressum.PrivacyInfoActivity"
             android:label="@string/title_activity_privacy"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".info_display.project_and_artist.ArtistInfoActivity"
             android:label="@string/title_activity_artist_info"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".info_display.project_and_artist.ProjectInfoActivity"
             android:label="@string/title_activity_project_info"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".info_display.project_and_artist.ProjectAndArtistOverviewActivity"
             android:label="@string/title_activity_project_and_artist_overview"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".info_display.BiographyExampleActivity"
             android:label="@string/title_biography_example"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Light" />
 
         <activity android:name=".database.list_of_persons.PersonsActivity"
             android:label="@string/title_activity_db" />
@@ -82,11 +84,15 @@
             android:name=".filter_search.FilterSearchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_filter_search"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AppTheme.Light" />
 
         <activity android:name=".database.list_of_historical_terms.HistoInfoPage"/>
         <activity android:name=".database.list_of_historical_terms.HistoryActivity" />
         <activity android:name=".database.list_of_persons.PersInfoPage" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
         <!-- Declares the entry point to the app -->
 
     </application>

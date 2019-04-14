@@ -3,26 +3,36 @@ package de.uni_ulm.ismm.stolperpfad.map_activities.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.uni_ulm.ismm.stolperpfad.BuildConfig;
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.StolperpfadApplication;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.mapbox.android.core.location.LocationEngine;
+import com.mapbox.android.core.location.LocationEngineListener;
+import com.mapbox.android.core.location.LocationEnginePriority;
+import com.mapbox.android.core.location.LocationEngineProvider;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
@@ -34,6 +44,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 
 import com.mapquest.mapping.MapQuest;
 import com.mapquest.mapping.maps.MapView;
+import com.mapquest.mapping.maps.MyLocationPresenter;
 import com.mapquest.navigation.NavigationManager;
 import com.mapquest.navigation.dataclient.RouteService;
 
@@ -49,7 +60,7 @@ import org.osmdroid.util.GeoPoint;
  *
  * @author Raphael
  */
-public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindowClickListener, MapboxMap.OnMapLongClickListener {
+public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindowClickListener, MapboxMap.OnMapLongClickListener, LocationEngineListener {
 
     // the map visual
     private MapView map;
@@ -75,6 +86,9 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     private LatLng chosen_position_end;
     private Marker chosen_marker_end;
     private Polyline store_current_drawn_path;
+    private MyLocationPresenter locationPresenter;
+    protected LocationEngine locationEngine;
+    private Location lastLocation;
 
     public MapQuestFragment() {
         // Required empty public constructor
@@ -106,10 +120,10 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
         // Important Mapquest Initialization
         MapQuest.start(ctx);
 
-        map = new MapView(ctx,null, 0, API_KEY);
+        map = new MapView(ctx, null, 0, API_KEY);
 
         // TODO: Leave if necessary, check if disposable
-        mRouteService = new RouteService.Builder().build(this.getContext(),API_KEY);
+        mRouteService = new RouteService.Builder().build(this.getContext(), API_KEY);
 
         // Initialize the map visuals
         map.onCreate(savedInstanceState);
@@ -119,9 +133,9 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
 
             stone_handler = StoneFactory.initialize(this, mMapboxMap);
 
-            chosen_position_start = new LatLng(0,0);
+            chosen_position_start = new LatLng(0, 0);
             chosen_marker_start = null;
-            chosen_position_end = new LatLng(0,0);
+            chosen_position_end = new LatLng(0, 0);
             chosen_marker_end = null;
 
             mMapboxMap.setOnInfoWindowClickListener(this);
@@ -137,6 +151,12 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
             mMapboxMap.easeCamera(mapboxMap1 -> position, 2000);
         });
 
+        if (StolperpfadApplication.getInstance().isDarkMode()) {
+            map.setNightMode();
+        } else {
+            map.setStreetMode();
+        }
+
         return map;
     }
 
@@ -147,28 +167,32 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
 
 
     @Override
-    public void onResume()
-    { super.onResume(); map.onResume(); }
+    public void onResume() {
+        super.onResume();
+        map.onResume();
+    }
 
     @Override
-    public void onPause()
-    { super.onPause(); map.onPause(); }
+    public void onPause() {
+        super.onPause();
+        map.onPause();
+    }
 
     /**
      * Displays the Stone markers on the map, that have been stored in the stone factory
      */
     public void setStones() {
-        if(!stone_handler.isReady() || map == null) {
+        if (!stone_handler.isReady() || map == null) {
             return;
         }
-        for(Marker m : stone_handler.getMarkers()) {
+        for (Marker m : stone_handler.getMarkers()) {
             m.setIcon(IconFactory.getInstance(getContext()).defaultMarker());
-            if(NEXT) {
+            if (NEXT) {
                 // TODO: use a individual marker to define the stones on the map
                 //   m.setIcon(IconFactory.getInstance(getContext()).fromFile("drawable/ic_menu_share.xml"));
             }
         }
-        if(NEXT) {
+        if (NEXT) {
             // TODO: use another marker to stylize the nearest Stone on the map
             //   stone_handler.getNearestTo(curr_user_location).setAlpha(1f);
         }
@@ -190,7 +214,7 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
 
         ArrayList<Stone> route_points = new ArrayList<>();
 
-        new CreateRouteTask(){
+        new CreateRouteTask() {
             @Override
             public void onPostExecute(Road road) {
                 ArrayList<GeoPoint> coords = road.mRouteHigh;
@@ -198,8 +222,8 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
 
                 PolylineOptions polyline = new PolylineOptions();
 
-                for(GeoPoint g : coords) {
-                    coordinates.add(new LatLng(g.getLatitude(),g.getLongitude()));
+                for (GeoPoint g : coords) {
+                    coordinates.add(new LatLng(g.getLatitude(), g.getLongitude()));
                 }
                 polyline.addAll(coordinates);
                 polyline.width(3);
@@ -207,6 +231,37 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
                 mMapboxMap.addPolyline(polyline);
             }
         }.execute(route_points.toArray(new Stone[]{}));
+
+        enterFollowMode();
+
+    }
+
+
+    private static final double FOLLOW_MODE_TILT_VALUE_DEGREES = 50;
+    private static final double CENTER_ON_USER_ZOOM_LEVEL = 18;
+
+    protected synchronized void enterFollowMode() {
+        locationPresenter = new MyLocationPresenter(map, mMapboxMap, locationEngine);
+        locationPresenter.setInitialZoomLevel(CENTER_ON_USER_ZOOM_LEVEL);
+        locationPresenter.setFollowCameraAngle(FOLLOW_MODE_TILT_VALUE_DEGREES);
+        locationPresenter.setLockNorthUp(false);
+        locationPresenter.setFollow(true);
+        locationPresenter.onStart();
+    }
+
+    @SuppressWarnings({"MissingPermission"})
+    public void initializeLocationEngine() {
+        locationEngine = (new LocationEngineProvider(getActivity().getApplicationContext())).obtainBestLocationEngineAvailable();
+        locationEngine.setPriority(LocationEnginePriority.BALANCED_POWER_ACCURACY);
+        locationEngine.setInterval(1000);
+        locationEngine.setFastestInterval(500);
+        locationEngine.addLocationEngineListener(this);
+        locationEngine.activate();
+        locationEngine.requestLocationUpdates();
+
+        lastLocation = locationEngine.getLastLocation();
+
+        Log.i("MY_LOCATION", "HERE: " + lastLocation);
 
     }
 
@@ -219,8 +274,8 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     @Override
     public boolean onInfoWindowClick(@NonNull Marker marker) {
         Stone check = stone_handler.getStoneFromMarker(marker);
-        if(check == null) {
-            if(marker.equals(chosen_marker_start)) {
+        if (check == null) {
+            if (marker.equals(chosen_marker_start)) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
 
@@ -230,12 +285,13 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
                     mMapboxMap.removeMarker(chosen_marker_start);
                     chosen_marker_start = null;
                 });
-                builder.setNegativeButton("Nein", (dialogInterface, i) -> {});
+                builder.setNegativeButton("Nein", (dialogInterface, i) -> {
+                });
 
                 // Create the AlertDialog
                 AlertDialog dialog = builder.create();
                 dialog.show();
-            } else if(marker.equals(chosen_marker_end)) {
+            } else if (marker.equals(chosen_marker_end)) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
                 builder.setTitle("End Markierung löschen?");
@@ -244,7 +300,8 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
                     mMapboxMap.removeMarker(chosen_marker_end);
                     chosen_marker_end = null;
                 });
-                builder.setNegativeButton("Nein", (dialogInterface, i) -> {});
+                builder.setNegativeButton("Nein", (dialogInterface, i) -> {
+                });
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
@@ -270,13 +327,13 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
 
-        String[] choice = new String[] {"Route von hier", "Route nach hier", "Zurück"};
+        String[] choice = new String[]{"Route von hier", "Route nach hier", "Zurück"};
 
         builder.setTitle("Auswahl festlegen als:")
                 .setItems(choice, (dialog, which) -> {
-                    switch(which) {
+                    switch (which) {
                         case 0:
-                            if(chosen_marker_start != null) {
+                            if (chosen_marker_start != null) {
                                 chosen_marker_start.setPosition(point);
                             } else {
                                 chosen_position_start = point;
@@ -289,7 +346,7 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
                             }
                             break;
                         case 1:
-                            if(chosen_marker_end != null) {
+                            if (chosen_marker_end != null) {
                                 chosen_marker_end.setPosition(point);
                             } else {
                                 chosen_position_end = point;
@@ -308,6 +365,21 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
         // Create the AlertDialog
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onConnected() {
+
+        lastLocation = locationEngine.getLastLocation();
+
+        Log.i("MY_LOCATION", "HERE: " + lastLocation);
+    }
+
+    @SuppressLint("MissingPermission")
+    @Override
+    public void onLocationChanged(Location location) {
+        lastLocation = locationEngine.getLastLocation();
     }
 
     /**

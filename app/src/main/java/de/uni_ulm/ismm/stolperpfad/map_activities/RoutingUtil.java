@@ -1,5 +1,7 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities;
 
+import android.location.Location;
+
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
@@ -48,5 +50,9 @@ public class RoutingUtil {
         double lat_dif = g1.getLatitude() - g2.getLatitude();
         double lng_diff = g1.getLongitude() - g2.getLongitude();
         return lat_dif * lat_dif + lng_diff * lng_diff;
+    }
+
+    public static LatLng convertLocationToLatLng(Location loc) {
+        return new LatLng(loc.getLatitude(), loc.getLongitude());
     }
 }

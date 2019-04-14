@@ -15,12 +15,11 @@ import android.widget.Spinner;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.StolperpfadAppMapActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
 
-public class RoutePlannerActivity extends StolperpfadeAppActivity {
+public class RoutePlannerActivity extends StolperpfadAppMapActivity {
 
-    private static final String MAP_FRAGMENT_TAG = "MAPQUEST_MAP_FRAGMENT";
-    private MapQuestFragment myMapFragment;
     private int starting_choice;
     private int ending_choice;
     private String[] categories = new String[]{"Nein", "Jüdische Verfolgte", "Politisch Verfolgte", "Andere"};
@@ -30,24 +29,19 @@ public class RoutePlannerActivity extends StolperpfadeAppActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initializeGeneralControls(R.layout.activity_route_planner);
+        initializeMapQuestFragment();
 
+
+        // Route Planner specific setups
         aq.id(R.id.header_route_planner).getView().setTranslationZ(HEADER_TRANSLATION_Z / 2);
-
-        // The actual map view is now a fragment, for easier reuse and readability
-        FragmentManager fm = this.getSupportFragmentManager();
-
-        if (fm.findFragmentById(R.id.map_container) == null) {
-            myMapFragment = MapQuestFragment.newInstance(false);
-            fm.beginTransaction().add(R.id.map_container, myMapFragment, MAP_FRAGMENT_TAG).commit();
-        } else {
-            myMapFragment = (MapQuestFragment) fm.findFragmentByTag(MAP_FRAGMENT_TAG);
-        }
-
         aq.id(R.id.route_option_button).visible().clicked(myClickListener);
 
     }
+
+    @Override
+
+
 
     public void onResume(){
         super.onResume();

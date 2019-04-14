@@ -1,9 +1,15 @@
 package de.uni_ulm.ismm.stolperpfad;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
+
+import com.mapbox.android.core.location.LocationEngine;
+import com.mapbox.android.core.location.LocationEnginePriority;
+import com.mapbox.android.core.location.LocationEngineProvider;
+import com.mapbox.android.core.permissions.PermissionsListener;
+import com.mapbox.android.core.permissions.PermissionsManager;
+
+import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 

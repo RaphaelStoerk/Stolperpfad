@@ -23,7 +23,8 @@
         <attr name="colorAppPrimaryContrast" format="color"/>
         <attr name="colorAppSecondary" format="color"/>
         <attr name="colorAppSecondaryContrast" format="color"/>
-        <attr name="colorAppAccent" format="integer"/>
+        <attr name="colorAppAccent" format="color"/>
+        <attr name="logoAppHeader" format="integer"/>
     </declare-styleable>
 
 </resources>

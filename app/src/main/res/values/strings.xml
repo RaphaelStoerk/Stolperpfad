@@ -98,5 +98,7 @@
     \n
     Suspendisse hendrerit nibh sit amet sollicitudin vulputate. Cras malesuada feugiat augue, a auctor nulla pharetra ut. Cras bibendum laoreet commodo. Quisque sed dui suscipit velit consectetur consequat. Morbi sed convallis nisl. Donec eget urna tortor. Cras et dignissim sem.
     </string>
+    <string name="app_name_big">STOLPERPFADE</string>
+    <string name="todo">TODO</string>
 
 </resources>

@@ -27,6 +27,7 @@
         <item name="colorAppTextButton">@color/colorTextButtonLightMode</item>
         <item name="colorAppTextButtonAccent">@color/colorTextButtonAccentLightMode</item>
         <item name="colorAppTextButtonContrast">@color/colorTextButtonContrastLightMode</item>
+        <item name="logoAppHeader">@drawable/ic_logo_stolperpfade</item>
     </style>
 
     <!-- Dark mode activity theme -->
@@ -44,6 +45,7 @@
         <item name="colorAppTextButton">@color/colorTextButtonDarkMode</item>
         <item name="colorAppTextButtonAccent">@color/colorTextButtonAccentDarkMode</item>
         <item name="colorAppTextButtonContrast">@color/colorTextButtonContrastDarkMode</item>
+        <item name="logoAppHeader">@drawable/ic_logo_stolperpfade_white</item>
     </style>
 
     <style name="AppTheme.Launcher">

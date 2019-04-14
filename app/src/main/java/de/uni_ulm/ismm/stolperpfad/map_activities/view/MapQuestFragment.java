@@ -2,6 +2,7 @@ package de.uni_ulm.ismm.stolperpfad.map_activities.view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadApplication;
@@ -9,6 +10,7 @@ import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
+import timber.log.Timber;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -22,6 +24,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -39,6 +43,7 @@ import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.Polyline;
 import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.camera.CameraUpdate;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
@@ -85,6 +90,9 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     private Marker chosen_marker_start;
     private LatLng chosen_position_end;
     private Marker chosen_marker_end;
+
+    private Marker user_position_marker;
+
     private Polyline store_current_drawn_path;
     private MyLocationPresenter locationPresenter;
     protected LocationEngine locationEngine;
@@ -207,6 +215,7 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
      * @param start_choice The place the user wants to start at
      * @param end_choice The place the user wants to end at
      */
+    @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     @SuppressLint("StaticFieldLeak")
     public void createRoute(String category_selected, int time_in_minutes, int start_choice, int end_choice) {
 
@@ -229,40 +238,42 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
                 polyline.width(3);
                 polyline.color(Color.BLUE);
                 mMapboxMap.addPolyline(polyline);
+
+                if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                enterFollowMode();
             }
         }.execute(route_points.toArray(new Stone[]{}));
-
-        enterFollowMode();
-
     }
 
 
     private static final double FOLLOW_MODE_TILT_VALUE_DEGREES = 50;
     private static final double CENTER_ON_USER_ZOOM_LEVEL = 18;
 
+    @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     protected synchronized void enterFollowMode() {
+        mMapboxMap.removeMarker(user_position_marker);
         locationPresenter = new MyLocationPresenter(map, mMapboxMap, locationEngine);
         locationPresenter.setInitialZoomLevel(CENTER_ON_USER_ZOOM_LEVEL);
         locationPresenter.setFollowCameraAngle(FOLLOW_MODE_TILT_VALUE_DEGREES);
         locationPresenter.setLockNorthUp(false);
         locationPresenter.setFollow(true);
+        locationPresenter.forceLocationChange(lastLocation);
         locationPresenter.onStart();
     }
 
-    @SuppressWarnings({"MissingPermission"})
+    @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     public void initializeLocationEngine() {
-        locationEngine = (new LocationEngineProvider(getActivity().getApplicationContext())).obtainBestLocationEngineAvailable();
-        locationEngine.setPriority(LocationEnginePriority.BALANCED_POWER_ACCURACY);
-        locationEngine.setInterval(1000);
-        locationEngine.setFastestInterval(500);
+        locationEngine = (new LocationEngineProvider(Objects.requireNonNull(getActivity()).getApplicationContext())).obtainBestLocationEngineAvailable();
+        locationEngine.setInterval(500);
+        locationEngine.setFastestInterval(100);
+        locationEngine.setSmallestDisplacement(0);
+        locationEngine.setPriority(LocationEnginePriority.HIGH_ACCURACY);
         locationEngine.addLocationEngineListener(this);
         locationEngine.activate();
         locationEngine.requestLocationUpdates();
-
         lastLocation = locationEngine.getLastLocation();
-
-        Log.i("MY_LOCATION", "HERE: " + lastLocation);
-
     }
 
     /**
@@ -367,19 +378,53 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
         dialog.show();
     }
 
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     @Override
     public void onConnected() {
 
         lastLocation = locationEngine.getLastLocation();
-
-        Log.i("MY_LOCATION", "HERE: " + lastLocation);
+        lastLocation = locationEngine.getLastLocation();
+        Log.i("MY_LOCATION","Location is set to: " + RoutingUtil.convertLocationToLatLng(lastLocation));
+        if (user_position_marker != null) {
+            user_position_marker.setPosition(RoutingUtil.convertLocationToLatLng(lastLocation));
+        } else {
+            MarkerOptions user_position_marker_options = new MarkerOptions();
+            user_position_marker_options.setPosition(RoutingUtil.convertLocationToLatLng(lastLocation));
+            user_position_marker_options.setTitle("Sie sind hier");
+            user_position_marker_options.setSnippet("keine Aktion möglich");
+            user_position_marker = mMapboxMap.addMarker(user_position_marker_options);
+            CameraPosition position = new CameraPosition.Builder()
+                    .target(RoutingUtil.convertLocationToLatLng(lastLocation)) // Sets the new camera position
+                    .zoom(15) // Sets the zoom to level 14
+                    .tilt(60) // Set the camera tilt to 45 degrees
+                    .build(); // Builds the CameraPosition object from the builder
+        }
     }
 
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     @Override
     public void onLocationChanged(Location location) {
         lastLocation = locationEngine.getLastLocation();
+        Log.i("MY_LOCATION","Location has changed to: " + RoutingUtil.convertLocationToLatLng(lastLocation));
+        if (user_position_marker != null) {
+            user_position_marker.setPosition(RoutingUtil.convertLocationToLatLng(lastLocation));
+        } else {
+            MarkerOptions user_position_marker_options = new MarkerOptions();
+            user_position_marker_options.setPosition(RoutingUtil.convertLocationToLatLng(lastLocation));
+            user_position_marker_options.setTitle("Sie sind hier");
+            user_position_marker_options.setSnippet("keine Aktion möglich");
+            user_position_marker = mMapboxMap.addMarker(user_position_marker_options);
+            CameraPosition position = new CameraPosition.Builder()
+                    .target(RoutingUtil.convertLocationToLatLng(lastLocation)) // Sets the new camera position
+                    .zoom(15) // Sets the zoom to level 14
+                    .tilt(60) // Set the camera tilt to 45 degrees
+                    .build(); // Builds the CameraPosition object from the builder
+        }
+    }
+
+    @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
+    public void test() {
+
     }
 
     /**

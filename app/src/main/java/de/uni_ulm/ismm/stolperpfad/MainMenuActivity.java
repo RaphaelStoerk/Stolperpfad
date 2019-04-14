@@ -12,6 +12,7 @@ import com.mapbox.android.core.permissions.PermissionsManager;
 import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
+import timber.log.Timber;
 
 /**
  * This class is the current entry point to our activities, this might change with an added

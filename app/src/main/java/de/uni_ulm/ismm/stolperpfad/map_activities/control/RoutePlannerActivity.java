@@ -1,6 +1,10 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.control;
 
+import android.Manifest;
 import android.app.AlertDialog;
+import android.content.pm.PackageManager;
+import android.support.annotation.RequiresPermission;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.text.Editable;
@@ -36,18 +40,18 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         // Route Planner specific setups
         aq.id(R.id.header_route_planner).getView().setTranslationZ(HEADER_TRANSLATION_Z / 2);
         aq.id(R.id.route_option_button).visible().clicked(myClickListener);
+        aq.id(R.id.save_route_button).visible().clicked(myClickListener);
 
     }
 
     @Override
 
 
-
-    public void onResume(){
+    public void onResume() {
         super.onResume();
     }
 
-    public void onPause(){
+    public void onPause() {
         super.onPause();
     }
 
@@ -126,10 +130,13 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             int time_in_minutes;
             try {
                 time_in_minutes = Integer.parseInt(time_string);
-            }catch(NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 time_in_minutes = -1;
             }
 
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
             myMapFragment.createRoute(selected_category, time_in_minutes, starting_choice, ending_choice);
             dialog.cancel();
         });

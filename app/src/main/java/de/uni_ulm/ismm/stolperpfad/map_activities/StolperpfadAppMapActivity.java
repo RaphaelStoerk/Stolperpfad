@@ -2,6 +2,7 @@ package de.uni_ulm.ismm.stolperpfad.map_activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
@@ -11,6 +12,7 @@ import java.util.List;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
+import timber.log.Timber;
 
 public class StolperpfadAppMapActivity extends StolperpfadeAppActivity {
 
@@ -57,6 +59,7 @@ public class StolperpfadAppMapActivity extends StolperpfadeAppActivity {
         if (PermissionsManager.areLocationPermissionsGranted(this)) {
             // Create a location engine instance
             myMapFragment.initializeLocationEngine();
+            Log.i("MY_LOCATION","Permission already requested, location engine initialized");
         } else {
             permissionsManager = new PermissionsManager(new PermissionsListener() {
 
@@ -69,7 +72,9 @@ public class StolperpfadAppMapActivity extends StolperpfadeAppActivity {
                 public void onPermissionResult(boolean granted) {
                     if (granted) {
                         myMapFragment.initializeLocationEngine();
+                        Log.i("MY_LOCATION","Permission now granted, location engine initialized");
                     }
+                    Log.i("MY_LOCATION","Permission not granted, location engine initialized");
                 }
 
             });

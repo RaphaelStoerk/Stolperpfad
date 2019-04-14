@@ -1,8 +1,11 @@
 package de.uni_ulm.ismm.stolperpfad.general;
 
+import android.Manifest;
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 
 import de.uni_ulm.ismm.stolperpfad.R;
@@ -31,9 +34,9 @@ import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
  * @param <T> A StolperpfAppActivity that acts as the context for the interactive item.
  */
 public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements View.OnClickListener {
-    
+
     private T myActivity;
-    
+
     public void setMyActivity(T myActivity) {
         this.myActivity = myActivity;
     }
@@ -85,8 +88,18 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 myActivity.startActivity(intent);
                 break;
             case R.id.route_option_button:
-                if(myActivity instanceof RoutePlannerActivity)
+                if (myActivity instanceof RoutePlannerActivity)
                     ((RoutePlannerActivity) myActivity).routeOptionDialog();
+                break;
+            case R.id.save_route_button:
+                if (myActivity instanceof RoutePlannerActivity)
+                    if (ActivityCompat.checkSelfPermission(myActivity.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(myActivity.getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        return;
+                    }
+                    // TODO: Save the Route
+                break;
+            case R.id.info_map_options_button:
+                // TODO: Some nice Dialog
                 break;
             case R.id.overview_to_project_info_button:
                 intent = new Intent(myActivity, ProjectInfoActivity.class);

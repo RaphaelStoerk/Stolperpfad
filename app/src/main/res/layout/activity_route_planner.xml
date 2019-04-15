@@ -85,7 +85,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
-        layout="@layout/map_container"
+        layout="@layout/fragment_map_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -73,37 +73,29 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
             case R.id.quick_access_button:
                 myActivity.showQuickAccesMenu();
                 break;
-            case R.id.quick_acces_scanner_button:
-                intent = new Intent(myActivity, ScannerActivity.class);
-                myActivity.endQuickAccesDialog();
+            case R.id.quick_access_scanner_button:
+                intent = intentFromQuickAccess(ScannerActivity.class);
                 break;
             case R.id.quick_access_stone_info:
-                intent = new Intent(myActivity, PersonsActivity.class);
-                myActivity.endQuickAccesDialog();
+                intent = intentFromQuickAccess(PersonsActivity.class);
                 break;
-            case R.id.quick_acces_next_stone_button:
-                intent = new Intent(myActivity, NextStoneActivity.class);
-                myActivity.endQuickAccesDialog();
+            case R.id.quick_access_next_stone_button:
+                intent = intentFromQuickAccess(NextStoneActivity.class);
                 break;
-            case R.id.quick_acces_route_planner:
-                intent = new Intent(myActivity, RoutePlannerActivity.class);
-                myActivity.endQuickAccesDialog();
+            case R.id.quick_access_route_planner:
+                intent = intentFromQuickAccess(RoutePlannerActivity.class);
                 break;
             case R.id.quick_access_historical_info:
-                intent = new Intent(myActivity, HistoryActivity.class);
-                myActivity.endQuickAccesDialog();
+                intent = intentFromQuickAccess(HistoryActivity.class);
                 break;
-            case R.id.quick_acces_project_artist:
-                intent = new Intent(myActivity, ProjectAndArtistOverviewActivity.class);
-                myActivity.endQuickAccesDialog();
+            case R.id.quick_access_project_artist:
+                intent = intentFromQuickAccess(ProjectAndArtistOverviewActivity.class);
                 break;
-            case R.id.quick_access_impresum:
-                intent = new Intent(myActivity, ImpressumViewActivity.class);
-                myActivity.endQuickAccesDialog();
+            case R.id.quick_access_impressum:
+                intent = intentFromQuickAccess(ImpressumViewActivity.class);
                 break;
-            case R.id.quick_acces_privacy:
-                intent = new Intent(myActivity, PrivacyInfoActivity.class);
-                myActivity.endQuickAccesDialog();
+            case R.id.quick_access_privacy:
+                intent = intentFromQuickAccess(PrivacyInfoActivity.class);
                 break;
             case R.id.header_quick_access_cancel_button:
                 myActivity.endQuickAccesDialog();
@@ -118,13 +110,11 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 break;
             case R.id.save_route_button:
                 if (myActivity instanceof RoutePlannerActivity)
-                    if (ActivityCompat.checkSelfPermission(myActivity.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(myActivity.getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    // TODO: Save the Route
+                    ((RoutePlannerActivity) myActivity).saveOrLoadRouteDialog();
                 break;
             case R.id.info_map_options_button:
-                // TODO: Some nice Dialog
+                if (myActivity instanceof RoutePlannerActivity)
+                    ((RoutePlannerActivity) myActivity).informationDialog();
                 break;
             case R.id.overview_to_project_info_button:
                 intent = new Intent(myActivity, ProjectInfoActivity.class);
@@ -139,5 +129,10 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
         if(intent != null) {
             myActivity.startActivity(intent, transitionOptions);
         }
+    }
+
+    private Intent intentFromQuickAccess(Class toOpen) {
+        myActivity.endQuickAccesDialog();
+        return new Intent(myActivity.getApplicationContext(), toOpen);
     }
 }

@@ -1,24 +1,15 @@
 package de.uni_ulm.ismm.stolperpfad.general;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Switch;
 
 import com.androidquery.AQuery;
-
-import java.lang.reflect.Field;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadApplication;
@@ -44,7 +35,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
         // Get the layout inflater
         LayoutInflater inflater = getLayoutInflater();
 
-        View myDialogView = inflater.inflate(R.layout.quick_acces_menu, null);
+        View myDialogView = inflater.inflate(R.layout.dialog_quick_access_menu, null);
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -52,15 +43,15 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
 
         toggleDarkMode(myDialogView.findViewById(R.id.dark_mode_switch), false, StolperpfadApplication.getInstance().isDarkMode());
 
-        myDialogView.findViewById(R.id.quick_acces_route_planner).setOnClickListener(myClickListener);
-        myDialogView.findViewById(R.id.quick_acces_next_stone_button).setOnClickListener(myClickListener);
+        myDialogView.findViewById(R.id.quick_access_route_planner).setOnClickListener(myClickListener);
+        myDialogView.findViewById(R.id.quick_access_next_stone_button).setOnClickListener(myClickListener);
         myDialogView.findViewById(R.id.quick_access_historical_info).setOnClickListener(myClickListener);
         myDialogView.findViewById(R.id.quick_access_stone_info).setOnClickListener(myClickListener);
-        myDialogView.findViewById(R.id.quick_acces_privacy).setOnClickListener(myClickListener);
-        myDialogView.findViewById(R.id.quick_acces_scanner_button).setOnClickListener(myClickListener);
-        myDialogView.findViewById(R.id.quick_access_impresum).setOnClickListener(myClickListener);
+        myDialogView.findViewById(R.id.quick_access_privacy).setOnClickListener(myClickListener);
+        myDialogView.findViewById(R.id.quick_access_scanner_button).setOnClickListener(myClickListener);
+        myDialogView.findViewById(R.id.quick_access_impressum).setOnClickListener(myClickListener);
         myDialogView.findViewById(R.id.dark_mode_switch).setOnClickListener(myClickListener);
-        myDialogView.findViewById(R.id.quick_acces_project_artist).setOnClickListener(myClickListener);
+        myDialogView.findViewById(R.id.quick_access_project_artist).setOnClickListener(myClickListener);
         myDialogView.setFocusable(true);
         myDialogView.requestFocus();
         // Create the AlertDialog

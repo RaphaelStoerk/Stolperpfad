@@ -81,16 +81,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="4dp"
-        android:checkedButton="@+id/start_at_marker">
-
-        <RadioButton
-            android:id="@+id/start_at_station"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="?attr/colorAppTextPrimary"
-            android:text="Bahnhof"
-            android:textColor="?attr/colorAppTextPrimary" />
+        android:checkedButton="@+id/start_at_position">
 
         <RadioButton
             android:id="@+id/start_at_position"
@@ -98,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:buttonTint="?attr/colorAppTextPrimary"
-            android:text="Aktuelle Position"
+            android:text="@string/start_choice_gps"
             android:textColor="?attr/colorAppTextPrimary" />
 
         <RadioButton
@@ -107,8 +98,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:buttonTint="?attr/colorAppTextPrimary"
-            android:checked="true"
-            android:text="Wahl auf Karte"
+            android:text="@string/start_choice_marker"
+            android:textColor="?attr/colorAppTextPrimary" />
+
+        <RadioButton
+            android:id="@+id/start_at_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="?attr/colorAppTextPrimary"
+            android:text="@string/start_choice_center"
             android:textColor="?attr/colorAppTextPrimary" />
     </RadioGroup>
 
@@ -135,23 +134,13 @@
         android:checkedButton="@+id/end_at_stone">
 
         <RadioButton
-            android:id="@+id/end_at_station"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="?attr/colorAppTextPrimary"
-            android:buttonTint="?attr/colorAppTextPrimary"
-            android:text="Bahnhof"
-            android:textColor="?attr/colorAppTextPrimary" />
-
-        <RadioButton
             android:id="@+id/end_at_stone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="?attr/colorAppTextPrimary"
             android:buttonTint="?attr/colorAppTextPrimary"
-            android:text="Letzter Stein der Route"
+            android:text="@string/end_choice_stone"
             android:textColor="?attr/colorAppTextPrimary"  />
 
         <RadioButton
@@ -161,8 +150,19 @@
             android:layout_weight="1"
             android:backgroundTint="?attr/colorAppTextPrimary"
             android:buttonTint="?attr/colorAppTextPrimary"
-            android:text="Wahl auf Karte"
+            android:text="@string/end_choice_marker"
             android:textColor="?attr/colorAppTextPrimary" />
+
+        <RadioButton
+            android:id="@+id/end_at_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="?attr/colorAppTextPrimary"
+            android:buttonTint="?attr/colorAppTextPrimary"
+            android:text="@string/end_choice_center"
+            android:textColor="?attr/colorAppTextPrimary" />
+
     </RadioGroup>
 
 </LinearLayout>

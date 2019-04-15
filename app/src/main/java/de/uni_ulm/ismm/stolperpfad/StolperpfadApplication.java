@@ -1,8 +1,12 @@
 package de.uni_ulm.ismm.stolperpfad;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 
 public class StolperpfadApplication extends Application {
 
@@ -50,5 +54,4 @@ public class StolperpfadApplication extends Application {
     public static StolperpfadApplication getInstance() {
         return instance;
     }
-
 }

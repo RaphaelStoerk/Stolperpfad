@@ -105,5 +105,17 @@
     <string name="welcome_text_title">Willkommen!</string>
     <string name="welcome_text">
         Willkommen, hier ist ein Info-Text. Hier sind sie gerade auf der Startseite unserer App. Wir hoffen sie erweist sich als informativ und gut nutzbar</string>
+    <string name="info_for_route_creation">Neue Route erstellen</string>
+    <string name="info_for_route_save_load">Route speichern/laden</string>
+    <string name="info_for_def_marker">Wichtiger Punkt auf der Karte</string>
+    <string name="info_long_click_title">Hinweis:</string>
+    <string name="info_long_click">Um eine Anfangs- oder End-Markierung für Ihre Route zu setzen drücken sie einfach lange auf die gewünschte Position. Sie können diese Markierung später jederzeit wieder löschen oder umsetzen.</string>
+    <string name="info_route_planner_title">Das sind ihre Funktionen</string>
+    <string name="start_choice_gps">Aktuelle Position</string>
+    <string name="start_choice_marker">Gewählte Markierung</string>
+    <string name="start_choice_center">Am Münsterplatz</string>
+    <string name="end_choice_stone">Letzter Stein der Route</string>
+    <string name="end_choice_marker">Gewählte Markierung</string>
+    <string name="end_choice_center">Am Münsterplatz</string>
 
 </resources>

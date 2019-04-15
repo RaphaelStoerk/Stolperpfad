@@ -6,8 +6,10 @@ import java.util.Objects;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadApplication;
+import de.uni_ulm.ismm.stolperpfad.general.MyMapActionsListener;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
+import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
 import timber.log.Timber;
@@ -65,7 +67,7 @@ import org.osmdroid.util.GeoPoint;
  *
  * @author Raphael
  */
-public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindowClickListener, MapboxMap.OnMapLongClickListener, LocationEngineListener {
+public class MapQuestFragment extends Fragment {
 
     // the map visual
     private MapView map;
@@ -84,6 +86,9 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     // flag, for wether the calling Activity is the next_stone_activity
     private boolean NEXT;
 
+    private static final double FOLLOW_MODE_TILT_VALUE_DEGREES = 50;
+    private static final double CENTER_ON_USER_ZOOM_LEVEL = 18;
+
     // App specific values storing preferences for the routing
     private StoneFactory stone_handler;
     private LatLng chosen_position_start;
@@ -100,6 +105,7 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     protected LocationEngine locationEngine;
     private Location lastLocation;
     private Marker nearest_stone_marker;
+    private MyMapActionsListener myActionListener;
 
     public MapQuestFragment() {
         // Required empty public constructor
@@ -155,9 +161,13 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
             ulm_center_options.setSnippet("Dies ist die Stadt Ulm");
             ulm_center_marker = mMapboxMap.addMarker(ulm_center_options);
 
-            mMapboxMap.setOnInfoWindowClickListener(this);
+            if(myActionListener == null){
+                myActionListener = new MyMapActionsListener(this);
+            }
 
-            mapboxMap.addOnMapLongClickListener(this);
+            mMapboxMap.setOnInfoWindowClickListener(myActionListener);
+
+            mapboxMap.addOnMapLongClickListener(myActionListener);
 
             moveCameraTo(ulm_center, 13.5f, 60);
 
@@ -231,21 +241,50 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     public void createRoute(String category_selected, int time_in_minutes, int start_choice, int end_choice) {
 
         // TODO: create a good route through ulm
+        Marker start_route_from;
+        Marker end_route_at = null;
+
+        switch(start_choice) {
+            case RoutePlannerActivity
+                    .START_CHOICE_CTR:
+                start_route_from = ulm_center_marker;
+                break;
+            case RoutePlannerActivity.START_CHOICE_GPS:
+                start_route_from = user_position_marker;
+                break;
+            case RoutePlannerActivity.START_CHOICE_MAP:
+                start_route_from = chosen_marker_start;
+                break;
+            case RoutePlannerActivity.START_CHOICE_NAN:
+            default:
+                start_route_from = ulm_center_marker;
+        }
+
+        switch(end_choice) {
+            case RoutePlannerActivity.END_CHOICE_CTR:
+                end_route_at = ulm_center_marker;
+                break;
+            case RoutePlannerActivity.END_CHOICE_MAP:
+                end_route_at = chosen_marker_end;
+                break;
+            case RoutePlannerActivity.END_CHOICE_STN:
+                break;
+        }
+
+        Log.i("MY_ROUTE_TAG", "INFO: " + start_choice + ", " + end_choice + ", " + time_in_minutes);
 
         ArrayList<Marker> route_points = new ArrayList<>();
-        route_points.add(stone_handler.getMarkers().get(1));
-        route_points.add(stone_handler.getMarkers().get(2));
-        route_points.add(stone_handler.getMarkers().get(3));
+
+        addStonesToRoute(route_points, start_route_from, end_route_at, category_selected, time_in_minutes * 60);
 
         new CreateRouteTask() {
+            @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
             @Override
             public void onPostExecute(Road road) {
                 if(road == null) {
-                    Log.i("MY_ROUTE_TAG","Something went wrong, no Road created");
                     return;
                 }
                 ArrayList<GeoPoint> coords = road.mRouteHigh;
-                Log.i("MY_ROUTE_TAG","The current Road is this long: " + coords.size());
                 List<LatLng> coordinates = new ArrayList<>();
 
                 PolylineOptions polyline = new PolylineOptions();
@@ -255,20 +294,30 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
                 }
                 polyline.addAll(coordinates);
                 polyline.width(3);
-                polyline.color(Color.BLUE);
-                mMapboxMap.addPolyline(polyline);
-                Log.i("MY_ROUTE_TAG","The Polyline has been added with length: " + polyline.getPoints().size());
-
-                moveCameraTo(coordinates.get(0), 15,45);
-
-                if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
+                if(time_in_minutes > 0 && time_in_minutes * 60 > road.mDuration) {
+                    polyline.color(Color.argb(150,70,255,50));
+                } else {
+                    polyline.color(Color.argb(150,255,50,50));
                 }
-                // enterFollowMode();
+                mMapboxMap.addPolyline(polyline);
+                moveCameraTo(coordinates.get(0), 15,45);
+                enterFollowMode();
             }
         }.execute(route_points.toArray(new Marker[]{}));
     }
 
+    private void addStonesToRoute(ArrayList<Marker> route_points, Marker start_route_from, Marker end_route_at, String category_selected, int time_in_seconds) {
+        route_points.add(start_route_from);
+
+        // TODO: chose some good stones!!!
+        route_points.add(stone_handler.getMarkers().get(0));
+        route_points.add(stone_handler.getMarkers().get(1));
+        route_points.add(stone_handler.getMarkers().get(4));
+
+        if(!(end_route_at == null)) {
+            route_points.add(end_route_at);
+        }
+    }
 
     /**
      * Creates a route from the user location to the nearest stone
@@ -277,25 +326,21 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     @SuppressLint("StaticFieldLeak")
     public void createRouteToNext() {
 
-        // TODO: create a good route through ulm
         if(user_position_marker == null) {
-            Log.i("MY_ROUTE_TAG","Something went wrong, trying to set user marker: " + user_position_marker);
             setUserMarker();
         }
         if(nearest_stone_marker == null) {
-            Log.i("MY_ROUTE_TAG","Something went wrong, no nearest Stone, no road creation " + nearest_stone_marker);
             return;
         }
 
         new CreateRouteTask() {
+            @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
             @Override
             public void onPostExecute(Road road) {
                 if(road == null) {
-                    Log.i("MY_ROUTE_TAG","Something went wrong, no Road created");
                     return;
                 }
                 ArrayList<GeoPoint> coords = road.mRouteHigh;
-                Log.i("MY_ROUTE_TAG","The current Road is this long: " + coords.size());
                 List<LatLng> coordinates = new ArrayList<>();
 
                 PolylineOptions polyline = new PolylineOptions();
@@ -305,16 +350,11 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
                 }
                 polyline.addAll(coordinates);
                 polyline.width(3);
-                polyline.color(Color.RED);
+                polyline.color(Color.argb(150,250,190,50));
                 mMapboxMap.addPolyline(polyline);
-                Log.i("MY_ROUTE_TAG","Polyline added");
 
                 moveCameraTo(user_position_marker.getPosition(), 15, 45);
-
-                if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                // enterFollowMode();
+                enterFollowMode();
             }
         }.execute(new Marker[]{user_position_marker, nearest_stone_marker});
     }
@@ -328,13 +368,11 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
         mMapboxMap.easeCamera(mapboxMap -> position, 1000);
     }
 
-
-    private static final double FOLLOW_MODE_TILT_VALUE_DEGREES = 50;
-    private static final double CENTER_ON_USER_ZOOM_LEVEL = 18;
-
     @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     protected synchronized void enterFollowMode() {
-        mMapboxMap.removeMarker(user_position_marker);
+        if(user_position_marker != null) {
+            mMapboxMap.removeMarker(user_position_marker);
+        }
         locationPresenter = new MyLocationPresenter(map, mMapboxMap, locationEngine);
         locationPresenter.setInitialZoomLevel(CENTER_ON_USER_ZOOM_LEVEL);
         locationPresenter.setFollowCameraAngle(FOLLOW_MODE_TILT_VALUE_DEGREES);
@@ -350,163 +388,14 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
         locationEngine.setInterval(500);
         locationEngine.setFastestInterval(100);
         locationEngine.setSmallestDisplacement(0);
-        locationEngine.setPriority(LocationEnginePriority.HIGH_ACCURACY);
-        locationEngine.addLocationEngineListener(this);
+        locationEngine.setPriority(LocationEnginePriority.BALANCED_POWER_ACCURACY);
+        if(myActionListener == null){
+            myActionListener = new MyMapActionsListener(this);
+        }
+        locationEngine.addLocationEngineListener(myActionListener);
         locationEngine.activate();
         locationEngine.requestLocationUpdates();
         lastLocation = locationEngine.getLastLocation();
-    }
-
-    /**
-     * From OnInfoWindowClickListener Interface, handles click on the info window
-     * of the markers
-     * @param marker The marker from which the info window has been clicked on
-     * @return true, if the marker represents a stone, else return false
-     */
-    @Override
-    public boolean onInfoWindowClick(@NonNull Marker marker) {
-        if (NEXT && marker.equals(nearest_stone_marker) && !marker.equals(ulm_center_marker)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-            builder.setTitle("Zu diesem Stein führen lassen?");
-
-            builder.setPositiveButton("Ja", (dialogInterface, i) -> {
-                if (ActivityCompat.checkSelfPermission(this.getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                createRouteToNext();
-                dialogInterface.cancel();
-            });
-            builder.setNegativeButton("Nein", (dialogInterface, i) -> {
-                dialogInterface.cancel();
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(getContext());
-
-                builder2.setTitle("Informationen zu diesem Stein anzeigen?");
-
-                builder2.setPositiveButton("Ja", (dialogInterface1, i1) -> {
-                    mMapboxMap.deselectMarker(marker);
-                    dialogInterface1.cancel();
-                    Intent intent = new Intent(getActivity(), ScrollingInfoActivity.class);
-                    intent.setAction(stone_handler.getStoneFromMarker(marker).toString());
-                    startActivity(intent);
-                });
-                builder2.setNegativeButton("Nein", (dialogInterface1, i1) -> {
-                    dialogInterface1.cancel();
-                });
-
-                // Create the AlertDialog
-                AlertDialog dialog = builder2.create();
-                dialog.show();
-            });
-
-            // Create the AlertDialog
-            AlertDialog dialog = builder.create();
-            dialog.show();
-            return true;
-        }
-        Stone check = stone_handler.getStoneFromMarker(marker);
-        if (check == null) {
-            if (marker.equals(chosen_marker_start)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-
-                builder.setTitle("Start Markierung löschen?");
-
-                builder.setPositiveButton("Ja", (dialogInterface, i) -> {
-                    mMapboxMap.removeMarker(chosen_marker_start);
-                    chosen_marker_start = null;
-                });
-                builder.setNegativeButton("Nein", (dialogInterface, i) -> {
-                });
-
-                // Create the AlertDialog
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            } else if (marker.equals(chosen_marker_end)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-                builder.setTitle("End Markierung löschen?");
-
-                builder.setPositiveButton("Ja", (dialogInterface, i) -> {
-                    mMapboxMap.removeMarker(chosen_marker_end);
-                    chosen_marker_end = null;
-                });
-                builder.setNegativeButton("Nein", (dialogInterface, i) -> {
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-            }
-            return false;
-        }
-        Intent intent = new Intent(getActivity(), ScrollingInfoActivity.class);
-        intent.setAction(check.toString());
-        startActivity(intent);
-        return true;
-    }
-
-    /**
-     * From OnMapLongClick Interface, if the user clicks long on the map
-     * a dialog will be presented letting the user chose if a new marker should be placed
-     * at this position
-     *
-     * @param point the position where the user can place a marker
-     */
-    @Override
-    public void onMapLongClick(@NonNull LatLng point) {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-
-        String[] choice = new String[]{"Route von hier", "Route nach hier", "Zurück"};
-
-        builder.setTitle("Auswahl festlegen als:")
-                .setItems(choice, (dialog, which) -> {
-                    switch (which) {
-                        case 0:
-                            if (chosen_marker_start != null) {
-                                chosen_marker_start.setPosition(point);
-                            } else {
-                                chosen_position_start = point;
-                                MarkerOptions chosen_marker_options = new MarkerOptions();
-                                chosen_marker_options.setPosition(point);
-                                chosen_marker_options.setTitle("Gewählte Start-Position");
-                                chosen_marker_options.setSnippet("< Zum löschen hier drücken >");
-                                chosen_marker_start = mMapboxMap.addMarker(chosen_marker_options);
-                                mMapboxMap.selectMarker(chosen_marker_start);
-                            }
-                            break;
-                        case 1:
-                            if (chosen_marker_end != null) {
-                                chosen_marker_end.setPosition(point);
-                            } else {
-                                chosen_position_end = point;
-                                MarkerOptions chosen_marker_options = new MarkerOptions();
-                                chosen_marker_options.setPosition(point);
-                                chosen_marker_options.setTitle("Gewählte End-Position");
-                                chosen_marker_options.setSnippet("< Zum löschen hier drücken >");
-                                chosen_marker_end = mMapboxMap.addMarker(chosen_marker_options);
-                                mMapboxMap.selectMarker(chosen_marker_end);
-                            }
-                            break;
-                        default:
-                    }
-                });
-
-        // Create the AlertDialog
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
-    @Override
-    public void onConnected() {
-        lastLocation = locationEngine.getLastLocation();
-
-        if(mMapboxMap == null) {
-            return;
-        }
-        setUserMarker();
     }
 
     public void setUserMarker() {
@@ -521,19 +410,70 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
         }
     }
 
-    @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
-    @Override
-    public void onLocationChanged(Location location) {
-        lastLocation = locationEngine.getLastLocation();
-        if(mMapboxMap == null) {
-            return;
+    public void setUserLocation(Location location) {
+        lastLocation = location;
+        if(locationPresenter == null || !locationPresenter.isFollowing()) {
+            setUserMarker();
         }
-        setUserMarker();
     }
 
     @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
-    public void test() {
+    public void forceUserLocationUpdate() {
+        lastLocation = locationEngine.getLastLocation();
+        setUserLocation(lastLocation);
+    }
 
+    public void setStartOrEndMarker(LatLng point, boolean asStart) {
+        if(asStart) {
+            setStartOrEndMarker(chosen_position_start = point, chosen_marker_start, true);
+        } else {
+            setStartOrEndMarker(chosen_position_end = point, chosen_marker_end, false);
+        }
+    }
+
+    private void setStartOrEndMarker(LatLng point, Marker marker, boolean asStart) {
+        if (marker != null) {
+            marker.setPosition(point);
+        } else {
+            MarkerOptions chosen_marker_options = new MarkerOptions();
+            chosen_marker_options.setPosition(point);
+            chosen_marker_options.setTitle((asStart ? "Beginn" : "Ende") + " der nächsten Route");
+            if(asStart){
+                chosen_marker_start = mMapboxMap.addMarker(chosen_marker_options);
+            } else {
+                chosen_marker_end = mMapboxMap.addMarker(chosen_marker_options);
+            }
+        }
+    }
+
+    public boolean isNearestMarkerToUser(Marker marker) {
+        return NEXT && marker.equals(nearest_stone_marker) && !marker.equals(ulm_center_marker);
+    }
+
+    public MapboxMap getMapboxMap() {
+        return mMapboxMap;
+    }
+
+    public StoneFactory getStoneHandler() {
+        return stone_handler;
+    }
+
+    public boolean isStartMarker(Marker marker) {
+        return marker.equals(chosen_marker_start);
+    }
+
+    public boolean isEndMarker(Marker marker) {
+        return marker.equals(chosen_marker_end);
+    }
+
+    public void removeStartMarker() {
+        mMapboxMap.removeMarker(chosen_marker_start);
+        chosen_marker_start = null;
+    }
+
+    public void removeEndMarker() {
+        mMapboxMap.removeMarker(chosen_marker_end);
+        chosen_marker_end = null;
     }
 
     /**
@@ -576,12 +516,7 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * to the activity
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name

@@ -157,6 +157,10 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
                     .build(); // Builds the CameraPosition object from the builder
 
             mMapboxMap.easeCamera(mapboxMap1 -> position, 2000);
+
+            if(locationEngine != null && locationEngine.isConnected()) {
+                setUserMarker();
+            }
         });
 
         if (StolperpfadApplication.getInstance().isDarkMode()) {
@@ -381,10 +385,15 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     @Override
     public void onConnected() {
+        lastLocation = locationEngine.getLastLocation();
 
-        lastLocation = locationEngine.getLastLocation();
-        lastLocation = locationEngine.getLastLocation();
-        Log.i("MY_LOCATION","Location is set to: " + RoutingUtil.convertLocationToLatLng(lastLocation));
+        if(mMapboxMap == null) {
+            return;
+        }
+        setUserMarker();
+    }
+
+    public void setUserMarker() {
         if (user_position_marker != null) {
             user_position_marker.setPosition(RoutingUtil.convertLocationToLatLng(lastLocation));
         } else {

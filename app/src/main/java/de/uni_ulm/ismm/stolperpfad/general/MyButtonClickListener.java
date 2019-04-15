@@ -2,13 +2,18 @@ package de.uni_ulm.ismm.stolperpfad.general;
 
 import android.Manifest;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
+import android.widget.Switch;
 
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.StolperpfadApplication;
 import de.uni_ulm.ismm.stolperpfad.database.list_of_historical_terms.HistoryActivity;
 import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersonsActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.BiographyExampleActivity;
@@ -48,44 +53,64 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
      */
     @Override
     public void onClick(View v) {
-        Intent intent;
+        Intent intent = null;
         Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(myActivity).toBundle();
+        Log.i("MY_CLICK_LISTENER","BUTTON CLICKED " + v.getId());
         // a "simple" switch case statement that checks which button was pressed
         switch (v.getId()) {
             case R.id.info_button:
                 intent = new Intent(myActivity, PersonsActivity.class);
-                myActivity.startActivity(intent, transitionOptions);
                 break;
             case R.id.menu_to_scan_button:
                 intent = new Intent(myActivity, ScannerActivity.class);
-                myActivity.startActivity(intent, transitionOptions);
                 break;
             case R.id.menu_to_route_button:
                 intent = new Intent(myActivity, RoutePlannerActivity.class);
-                myActivity.startActivity(intent, transitionOptions);
                 break;
             case R.id.menu_to_next_stone_button:
                 intent = new Intent(myActivity, NextStoneActivity.class);
-                myActivity.startActivity(intent, transitionOptions);
-                break;
-            case R.id.project_and_artist_overview_button:
-                intent = new Intent(myActivity, ProjectAndArtistOverviewActivity.class);
-                myActivity.startActivity(intent, transitionOptions);
-                break;
-            case R.id.impressum_button:
-                intent = new Intent(myActivity, ImpressumViewActivity.class);
-                myActivity.startActivity(intent, transitionOptions);
-                break;
-            case R.id.privacy_button:
-                intent = new Intent(myActivity, PrivacyInfoActivity.class);
-                myActivity.startActivity(intent, transitionOptions);
                 break;
             case R.id.quick_access_button:
                 myActivity.showQuickAccesMenu();
                 break;
-            case R.id.history_button:
+            case R.id.quick_acces_scanner_button:
+                intent = new Intent(myActivity, ScannerActivity.class);
+                myActivity.endQuickAccesDialog();
+                break;
+            case R.id.quick_access_stone_info:
+                intent = new Intent(myActivity, PersonsActivity.class);
+                myActivity.endQuickAccesDialog();
+                break;
+            case R.id.quick_acces_next_stone_button:
+                intent = new Intent(myActivity, NextStoneActivity.class);
+                myActivity.endQuickAccesDialog();
+                break;
+            case R.id.quick_acces_route_planner:
+                intent = new Intent(myActivity, RoutePlannerActivity.class);
+                myActivity.endQuickAccesDialog();
+                break;
+            case R.id.quick_access_historical_info:
                 intent = new Intent(myActivity, HistoryActivity.class);
-                myActivity.startActivity(intent);
+                myActivity.endQuickAccesDialog();
+                break;
+            case R.id.quick_acces_project_artist:
+                intent = new Intent(myActivity, ProjectAndArtistOverviewActivity.class);
+                myActivity.endQuickAccesDialog();
+                break;
+            case R.id.quick_access_impresum:
+                intent = new Intent(myActivity, ImpressumViewActivity.class);
+                myActivity.endQuickAccesDialog();
+                break;
+            case R.id.quick_acces_privacy:
+                intent = new Intent(myActivity, PrivacyInfoActivity.class);
+                myActivity.endQuickAccesDialog();
+                break;
+            case R.id.header_quick_access_cancel_button:
+                myActivity.endQuickAccesDialog();
+                break;
+            case R.id.dark_mode_switch:
+                myActivity.toggleDarkMode((Switch) v, true);
+                myActivity.endQuickAccesDialog();
                 break;
             case R.id.route_option_button:
                 if (myActivity instanceof RoutePlannerActivity)
@@ -103,16 +128,16 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 break;
             case R.id.overview_to_project_info_button:
                 intent = new Intent(myActivity, ProjectInfoActivity.class);
-                myActivity.startActivity(intent, transitionOptions);
                 break;
             case R.id.overview_to_artist_info_button:
                 intent = new Intent(myActivity, ArtistInfoActivity.class);
-                myActivity.startActivity(intent, transitionOptions);
                 break;
             case R.id.info_test_button:
-                Intent myIntent = new Intent(myActivity, BiographyExampleActivity.class);
-                myActivity.startActivity(myIntent);
+                intent = new Intent(myActivity, BiographyExampleActivity.class);
                 break;
+        }
+        if(intent != null) {
+            myActivity.startActivity(intent, transitionOptions);
         }
     }
 }

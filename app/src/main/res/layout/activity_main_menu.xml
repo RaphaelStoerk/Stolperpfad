@@ -34,33 +34,52 @@
 
     <Button
         android:id="@+id/menu_to_scan_button"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="#00000000"
+        android:background="@drawable/ic_scanner_icon"
+        android:drawableTop="@drawable/ic_scanner_icon"
         android:fontFamily="@font/fira_sans_condensed_semibold"
-        android:text="@string/scan_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="?attr/colorAppTextButton"
         android:textSize="24sp"
         android:typeface="normal"
-        app:layout_constraintBottom_toTopOf="@+id/line_one_main_menu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
 
-    <View
-        android:id="@+id/line_one_main_menu"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:background="?attr/colorAppSecondaryContrast"
-        app:layout_constraintBottom_toTopOf="@+id/menu_to_next_stone_button"
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:text="@string/welcome_text_title"
+        android:textColor="?attr/colorAppTitle"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_to_scan_button" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/welcome_text"
+        android:textAlignment="center"
+        android:textColor="?attr/colorAppTextPrimary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
         android:id="@+id/menu_to_next_stone_button"
@@ -69,7 +88,7 @@
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:background="#00000000"
         android:fontFamily="@font/fira_sans_condensed_semibold"
         android:text="@string/next_stone_button"
@@ -87,7 +106,7 @@
         android:layout_height="0.5dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:background="?attr/colorAppPrimaryContrast"
         app:layout_constraintBottom_toTopOf="@+id/info_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +119,7 @@
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:background="#00000000"
         android:fontFamily="@font/fira_sans_condensed_semibold"
         android:text="@string/info_button"
@@ -118,7 +137,7 @@
         android:layout_height="0.5dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:background="?attr/colorAppPrimaryContrast"
         app:layout_constraintBottom_toTopOf="@+id/menu_to_route_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -139,109 +158,9 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="?attr/colorAppTextButton"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/line_four_main_menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <View
-        android:id="@+id/line_four_main_menu"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:background="?attr/colorAppPrimaryContrast"
-        app:layout_constraintBottom_toTopOf="@+id/history_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/history_button"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="#00000000"
-        android:fontFamily="@font/fira_sans_condensed_semibold"
-        android:text="@string/db_button"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="?attr/colorAppTextButton"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/line_five_main_menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <View
-        android:id="@+id/line_five_main_menu"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:background="?attr/colorAppPrimaryContrast"
-        app:layout_constraintBottom_toTopOf="@+id/project_and_artist_overview_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/project_and_artist_overview_button"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="0dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="#00000000"
-        android:focusable="auto"
-        android:fontFamily="@font/fira_sans_condensed_semibold"
-        android:text="@string/project_and_artist_button_text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="?attr/colorAppTextButton"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorAppAccent"
-        android:orientation="horizontal"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/impressum_button"
-            style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:background="?attr/colorAppAccent"
-            android:focusable="true"
-            android:text="@string/title_activity_impressum"
-            android:textSize="14sp"
-            android:textColor="?attr/colorAppTextButton"/>
-
-        <Button
-            android:id="@+id/privacy_button"
-            style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:background="?attr/colorAppSecondaryContrast"
-            android:focusable="true"
-            android:text="@string/title_activity_privacy"
-            android:textColor="?attr/colorAppTextButtonContrast"
-            android:textSize="14sp" />
-    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

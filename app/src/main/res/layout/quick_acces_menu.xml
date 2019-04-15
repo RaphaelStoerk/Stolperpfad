@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorPrimaryDarkMode"
+    android:orientation="vertical">
+
+    <Switch
+        android:id="@+id/dark_mode_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:paddingTop="@dimen/text_margin"
+        android:paddingBottom="@dimen/text_margin"
+        android:text="@string/dark_mode_switch"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryContrastDarkMode"
+        android:textSize="24sp" />
+
+    <View
+        android:id="@+id/line_one_quick_access"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimaryContrastDarkMode" />
+
+    <Button
+        android:id="@+id/quick_acces_scanner_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#0000"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:text="@string/quick_acces_scanner_button"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorPrimaryContrastDarkMode"
+        android:textSize="24sp" />
+
+    <View
+        android:id="@+id/line_one_quick_access2"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimaryContrastDarkMode" />
+
+    <Button
+        android:id="@+id/quick_acces_next_stone_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#0000"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:text="@string/next_stone_button"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorPrimaryContrastDarkMode"
+        android:textSize="24sp" />
+
+    <View
+        android:id="@+id/line_one_quick_access3"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimaryContrastDarkMode" />
+
+    <Button
+        android:id="@+id/quick_acces_route_planner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#0000"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:text="@string/route_button"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorPrimaryContrastDarkMode"
+        android:textSize="24sp" />
+
+    <View
+        android:id="@+id/line_one_quick_access4"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimaryContrastDarkMode" />
+
+    <Button
+        android:id="@+id/quick_access_stone_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#0000"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:text="@string/info_button"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorPrimaryContrastDarkMode"
+        android:textSize="24sp" />
+
+    <View
+        android:id="@+id/line_one_quick_access5"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimaryContrastDarkMode" />
+
+    <Button
+        android:id="@+id/quick_access_historical_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#0000"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:text="@string/history_button"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorPrimaryContrastDarkMode"
+        android:textSize="24sp" />
+
+    <View
+        android:id="@+id/line_one_quick_access6"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimaryContrastDarkMode" />
+
+    <Button
+        android:id="@+id/quick_acces_project_artist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#0000"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:text="@string/project_and_artist_button_text"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorPrimaryContrastDarkMode"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/quick_access_impresum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#0000"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:paddingTop="@android:dimen/notification_large_icon_height"
+        android:text="@string/title_activity_impressum"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorPrimaryContrastDarkMode"
+        android:textSize="24sp" />
+
+    <View
+        android:id="@+id/line_one_quick_access7"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimaryContrastDarkMode" />
+
+    <Button
+        android:id="@+id/quick_acces_privacy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#0000"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:text="@string/title_activity_privacy"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@color/colorPrimaryContrastDarkMode"
+        android:textSize="24sp" />
+
+</LinearLayout>

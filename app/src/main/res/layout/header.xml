@@ -33,7 +33,7 @@
                 android:background="#0000"
                 android:backgroundTint="?attr/colorAppPrimaryContrast"
                 android:foreground="@drawable/ic_more_horiz_black_24dp"
-                android:foregroundTint="@color/colorPrimaryContrastLightMode"
+                android:foregroundTint="?attr/colorAppPrimaryContrast"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

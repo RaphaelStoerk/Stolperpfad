@@ -22,7 +22,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorAppPrimary"
+    android:background="?attr/colorAppSecondary"
     android:orientation="vertical"
     tools:context="de.uni_ulm.ismm.stolperpfad.MainMenuActivity">
 

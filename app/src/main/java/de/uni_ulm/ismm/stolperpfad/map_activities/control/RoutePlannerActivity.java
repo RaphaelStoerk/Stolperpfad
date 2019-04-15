@@ -34,7 +34,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeGeneralControls(R.layout.activity_route_planner);
-        initializeMapQuestFragment();
+        initializeMapQuestFragment(false);
 
 
         // Route Planner specific setups

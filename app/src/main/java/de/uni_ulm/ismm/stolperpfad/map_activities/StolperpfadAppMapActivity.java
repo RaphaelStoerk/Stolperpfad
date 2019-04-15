@@ -16,7 +16,8 @@ import timber.log.Timber;
 
 public class StolperpfadAppMapActivity extends StolperpfadeAppActivity {
 
-    protected static final String MAP_FRAGMENT_TAG = "MAPQUEST_MAP_FRAGMENT";
+    protected static final String MAP_FRAGMENT_TAG_ROUTE = "MAPQUEST_MAP_FRAGMENT_ROUTE";
+    protected static final String MAP_FRAGMENT_TAG_NEXT = "MAPQUEST_MAP_FRAGMENT_NEXT";
     protected MapQuestFragment myMapFragment;
     protected PermissionsManager permissionsManager;
     protected boolean is_first_call;
@@ -40,15 +41,15 @@ public class StolperpfadAppMapActivity extends StolperpfadeAppActivity {
         super.onPause();
     }
 
-    protected void initializeMapQuestFragment() {
+    protected void initializeMapQuestFragment(boolean next) {
         // The actual map view is now a fragment, for easier reuse and readability
         FragmentManager fm = this.getSupportFragmentManager();
 
         if (fm.findFragmentById(R.id.map_container) == null) {
-            myMapFragment = MapQuestFragment.newInstance(false);
-            fm.beginTransaction().add(R.id.map_container, myMapFragment, MAP_FRAGMENT_TAG).commit();
+            myMapFragment = MapQuestFragment.newInstance(next);
+            fm.beginTransaction().add(R.id.map_container, myMapFragment, next ? MAP_FRAGMENT_TAG_NEXT : MAP_FRAGMENT_TAG_ROUTE).commit();
         } else {
-            myMapFragment = (MapQuestFragment) fm.findFragmentByTag(MAP_FRAGMENT_TAG);
+            myMapFragment = (MapQuestFragment) fm.findFragmentByTag(next ? MAP_FRAGMENT_TAG_NEXT : MAP_FRAGMENT_TAG_ROUTE);
         }
     }
 

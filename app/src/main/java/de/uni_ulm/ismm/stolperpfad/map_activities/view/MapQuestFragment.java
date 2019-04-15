@@ -90,6 +90,8 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     private Marker chosen_marker_start;
     private LatLng chosen_position_end;
     private Marker chosen_marker_end;
+    private LatLng ulm_center;
+    private Marker ulm_center_marker;
 
     private Marker user_position_marker;
 
@@ -97,6 +99,7 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     private MyLocationPresenter locationPresenter;
     protected LocationEngine locationEngine;
     private Location lastLocation;
+    private Marker nearest_stone_marker;
 
     public MapQuestFragment() {
         // Required empty public constructor
@@ -145,20 +148,20 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
             chosen_marker_start = null;
             chosen_position_end = new LatLng(0, 0);
             chosen_marker_end = null;
+            ulm_center = new LatLng(48.398638, 9.993720);
+            MarkerOptions ulm_center_options = new MarkerOptions();
+            ulm_center_options.setPosition(ulm_center);
+            ulm_center_options.setTitle("Stadt Ulm");
+            ulm_center_options.setSnippet("Dies ist die Stadt Ulm");
+            ulm_center_marker = mMapboxMap.addMarker(ulm_center_options);
 
             mMapboxMap.setOnInfoWindowClickListener(this);
 
             mapboxMap.addOnMapLongClickListener(this);
 
-            CameraPosition position = new CameraPosition.Builder()
-                    .target(new LatLng(48.398638, 9.993720)) // Sets the new camera position
-                    .zoom(13.5) // Sets the zoom to level 14
-                    .tilt(60) // Set the camera tilt to 45 degrees
-                    .build(); // Builds the CameraPosition object from the builder
+            moveCameraTo(ulm_center, 13.5f, 60);
 
-            mMapboxMap.easeCamera(mapboxMap1 -> position, 2000);
-
-            if(locationEngine != null && locationEngine.isConnected()) {
+            if (locationEngine != null && locationEngine.isConnected()) {
                 setUserMarker();
             }
         });
@@ -198,15 +201,19 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
             return;
         }
         for (Marker m : stone_handler.getMarkers()) {
-            m.setIcon(IconFactory.getInstance(getContext()).defaultMarker());
-            if (NEXT) {
-                // TODO: use a individual marker to define the stones on the map
-                //   m.setIcon(IconFactory.getInstance(getContext()).fromFile("drawable/ic_menu_share.xml"));
-            }
+            m.setIcon(IconFactory.getInstance(Objects.requireNonNull(getActivity()).getApplicationContext()).defaultMarker());
         }
         if (NEXT) {
-            // TODO: use another marker to stylize the nearest Stone on the map
-            //   stone_handler.getNearestTo(curr_user_location).setAlpha(1f);
+            nearest_stone_marker = stone_handler.getNearestTo(user_position_marker);
+            if (nearest_stone_marker == null) {
+                nearest_stone_marker = ulm_center_marker;
+                nearest_stone_marker.setTitle("Fehler");
+                nearest_stone_marker.setSnippet("Es konnte kein Stein gefunden werden");
+            } else {
+                nearest_stone_marker.setSnippet("Bring mich zu diesem Stein");
+            }
+            moveCameraTo(nearest_stone_marker.getPosition(), 15,45);
+            mMapboxMap.selectMarker(nearest_stone_marker);
         }
         map.invalidate();
     }
@@ -225,12 +232,20 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
 
         // TODO: create a good route through ulm
 
-        ArrayList<Stone> route_points = new ArrayList<>();
+        ArrayList<Marker> route_points = new ArrayList<>();
+        route_points.add(stone_handler.getMarkers().get(1));
+        route_points.add(stone_handler.getMarkers().get(2));
+        route_points.add(stone_handler.getMarkers().get(3));
 
         new CreateRouteTask() {
             @Override
             public void onPostExecute(Road road) {
+                if(road == null) {
+                    Log.i("MY_ROUTE_TAG","Something went wrong, no Road created");
+                    return;
+                }
                 ArrayList<GeoPoint> coords = road.mRouteHigh;
+                Log.i("MY_ROUTE_TAG","The current Road is this long: " + coords.size());
                 List<LatLng> coordinates = new ArrayList<>();
 
                 PolylineOptions polyline = new PolylineOptions();
@@ -242,13 +257,75 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
                 polyline.width(3);
                 polyline.color(Color.BLUE);
                 mMapboxMap.addPolyline(polyline);
+                Log.i("MY_ROUTE_TAG","The Polyline has been added with length: " + polyline.getPoints().size());
+
+                moveCameraTo(coordinates.get(0), 15,45);
 
                 if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                enterFollowMode();
+                // enterFollowMode();
             }
-        }.execute(route_points.toArray(new Stone[]{}));
+        }.execute(route_points.toArray(new Marker[]{}));
+    }
+
+
+    /**
+     * Creates a route from the user location to the nearest stone
+     */
+    @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
+    @SuppressLint("StaticFieldLeak")
+    public void createRouteToNext() {
+
+        // TODO: create a good route through ulm
+        if(user_position_marker == null) {
+            Log.i("MY_ROUTE_TAG","Something went wrong, trying to set user marker: " + user_position_marker);
+            setUserMarker();
+        }
+        if(nearest_stone_marker == null) {
+            Log.i("MY_ROUTE_TAG","Something went wrong, no nearest Stone, no road creation " + nearest_stone_marker);
+            return;
+        }
+
+        new CreateRouteTask() {
+            @Override
+            public void onPostExecute(Road road) {
+                if(road == null) {
+                    Log.i("MY_ROUTE_TAG","Something went wrong, no Road created");
+                    return;
+                }
+                ArrayList<GeoPoint> coords = road.mRouteHigh;
+                Log.i("MY_ROUTE_TAG","The current Road is this long: " + coords.size());
+                List<LatLng> coordinates = new ArrayList<>();
+
+                PolylineOptions polyline = new PolylineOptions();
+
+                for (GeoPoint g : coords) {
+                    coordinates.add(new LatLng(g.getLatitude(), g.getLongitude()));
+                }
+                polyline.addAll(coordinates);
+                polyline.width(3);
+                polyline.color(Color.RED);
+                mMapboxMap.addPolyline(polyline);
+                Log.i("MY_ROUTE_TAG","Polyline added");
+
+                moveCameraTo(user_position_marker.getPosition(), 15, 45);
+
+                if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                // enterFollowMode();
+            }
+        }.execute(new Marker[]{user_position_marker, nearest_stone_marker});
+    }
+
+    public void moveCameraTo(LatLng newPosition, float zoom, float tilt) {
+        CameraPosition position = new CameraPosition.Builder()
+                .target(newPosition) // Sets the new camera position
+                .zoom(zoom) // Sets the zoom to level 14
+                .tilt(tilt) // Set the camera tilt to 45 degrees
+                .build(); // Builds the CameraPosition object from the builder
+        mMapboxMap.easeCamera(mapboxMap -> position, 1000);
     }
 
 
@@ -288,6 +365,45 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
      */
     @Override
     public boolean onInfoWindowClick(@NonNull Marker marker) {
+        if (NEXT && marker.equals(nearest_stone_marker) && !marker.equals(ulm_center_marker)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+            builder.setTitle("Zu diesem Stein führen lassen?");
+
+            builder.setPositiveButton("Ja", (dialogInterface, i) -> {
+                if (ActivityCompat.checkSelfPermission(this.getActivity().getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this.getActivity().getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                createRouteToNext();
+                dialogInterface.cancel();
+            });
+            builder.setNegativeButton("Nein", (dialogInterface, i) -> {
+                dialogInterface.cancel();
+                AlertDialog.Builder builder2 = new AlertDialog.Builder(getContext());
+
+                builder2.setTitle("Informationen zu diesem Stein anzeigen?");
+
+                builder2.setPositiveButton("Ja", (dialogInterface1, i1) -> {
+                    mMapboxMap.deselectMarker(marker);
+                    dialogInterface1.cancel();
+                    Intent intent = new Intent(getActivity(), ScrollingInfoActivity.class);
+                    intent.setAction(stone_handler.getStoneFromMarker(marker).toString());
+                    startActivity(intent);
+                });
+                builder2.setNegativeButton("Nein", (dialogInterface1, i1) -> {
+                    dialogInterface1.cancel();
+                });
+
+                // Create the AlertDialog
+                AlertDialog dialog = builder2.create();
+                dialog.show();
+            });
+
+            // Create the AlertDialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            return true;
+        }
         Stone check = stone_handler.getStoneFromMarker(marker);
         if (check == null) {
             if (marker.equals(chosen_marker_start)) {
@@ -400,13 +516,8 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
             MarkerOptions user_position_marker_options = new MarkerOptions();
             user_position_marker_options.setPosition(RoutingUtil.convertLocationToLatLng(lastLocation));
             user_position_marker_options.setTitle("Sie sind hier");
-            user_position_marker_options.setSnippet("keine Aktion möglich");
+            user_position_marker_options.setSnippet("");
             user_position_marker = mMapboxMap.addMarker(user_position_marker_options);
-            CameraPosition position = new CameraPosition.Builder()
-                    .target(RoutingUtil.convertLocationToLatLng(lastLocation)) // Sets the new camera position
-                    .zoom(15) // Sets the zoom to level 14
-                    .tilt(60) // Set the camera tilt to 45 degrees
-                    .build(); // Builds the CameraPosition object from the builder
         }
     }
 
@@ -414,21 +525,10 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
     @Override
     public void onLocationChanged(Location location) {
         lastLocation = locationEngine.getLastLocation();
-        Log.i("MY_LOCATION","Location has changed to: " + RoutingUtil.convertLocationToLatLng(lastLocation));
-        if (user_position_marker != null) {
-            user_position_marker.setPosition(RoutingUtil.convertLocationToLatLng(lastLocation));
-        } else {
-            MarkerOptions user_position_marker_options = new MarkerOptions();
-            user_position_marker_options.setPosition(RoutingUtil.convertLocationToLatLng(lastLocation));
-            user_position_marker_options.setTitle("Sie sind hier");
-            user_position_marker_options.setSnippet("keine Aktion möglich");
-            user_position_marker = mMapboxMap.addMarker(user_position_marker_options);
-            CameraPosition position = new CameraPosition.Builder()
-                    .target(RoutingUtil.convertLocationToLatLng(lastLocation)) // Sets the new camera position
-                    .zoom(15) // Sets the zoom to level 14
-                    .tilt(60) // Set the camera tilt to 45 degrees
-                    .build(); // Builds the CameraPosition object from the builder
+        if(mMapboxMap == null) {
+            return;
         }
+        setUserMarker();
     }
 
     @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
@@ -441,10 +541,14 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
      * for a collection of - at least - two stones
      * A MapQuest Key is needed for the call to be succesful
      */
-    private class CreateRouteTask extends AsyncTask<Stone[], Void, Road> {
+    private class CreateRouteTask extends AsyncTask<Marker[], Void, Road> {
 
         @Override
-        protected Road doInBackground(Stone[]... stones) {
+        protected Road doInBackground(Marker[]... markers) {
+
+            if(markers == null || markers.length < 1 || markers[0].length < 2) {
+                return null;
+            }
 
             RoadManager roadManager = new MapQuestRoadManager(getResources().getString(R.string.mapquest_api_key));
 
@@ -452,8 +556,15 @@ public class MapQuestFragment extends Fragment implements MapboxMap.OnInfoWindow
 
             ArrayList<GeoPoint> waypoints = new ArrayList<>();
 
-            waypoints.add(new GeoPoint(48.4011, 9.9876));
-            waypoints.add(new GeoPoint(48.40002, 9.99721));
+            LatLng marker_position;
+            for(Marker m : markers[0]) {
+                Log.i("MY_ROUTE_TAG", "This is a new marker in the array: " + m);
+                if(m == null) {
+                    return null;
+                }
+                marker_position = m.getPosition();
+                waypoints.add(new GeoPoint(marker_position.getLatitude(), marker_position.getLongitude()));
+            }
 
             Road road = roadManager.getRoad(waypoints);
 

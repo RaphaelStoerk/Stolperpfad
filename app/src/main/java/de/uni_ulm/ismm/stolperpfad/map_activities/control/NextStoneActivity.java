@@ -10,6 +10,6 @@ public class NextStoneActivity extends StolperpfadAppMapActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeGeneralControls(R.layout.activity_next_stone);
-        initializeMapQuestFragment();
+        initializeMapQuestFragment(true);
     }
 }

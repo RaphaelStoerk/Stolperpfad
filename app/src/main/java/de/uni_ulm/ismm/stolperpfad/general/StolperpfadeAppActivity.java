@@ -52,7 +52,6 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
 
         toggleDarkMode(myDialogView.findViewById(R.id.dark_mode_switch), false, StolperpfadApplication.getInstance().isDarkMode());
 
-        myDialogView.findViewById(R.id.header_quick_access_cancel_button).setOnClickListener(myClickListener);
         myDialogView.findViewById(R.id.quick_acces_route_planner).setOnClickListener(myClickListener);
         myDialogView.findViewById(R.id.quick_acces_next_stone_button).setOnClickListener(myClickListener);
         myDialogView.findViewById(R.id.quick_access_historical_info).setOnClickListener(myClickListener);

@@ -140,11 +140,7 @@ public class StoneFactory {
 
             map.getActivity().runOnUiThread(() -> {
                 // TODO: grab all stone info from the DataBase
-                Stone s = new Stone(48.398638, 9.993720, "Ulm", "Center", "Das ist Ulm");
-                all_stones.add(s);
-                stone_markers.add(s.getMarker(mapboxMap));
-
-                s = new Stone(48.4011, 9.9876, "Vorname_1", "Nachname_1", "Bitte ersetzen 1");
+                Stone s = new Stone(48.4011, 9.9876, "Vorname_1", "Nachname_1", "Bitte ersetzen 1");
                 all_stones.add(s);
                 stone_markers.add(s.getMarker(mapboxMap));
 

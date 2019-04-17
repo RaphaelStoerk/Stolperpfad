@@ -1,6 +1,8 @@
 package de.uni_ulm.ismm.stolperpfad.general;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -30,8 +32,12 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
     private AlertDialog dialog;
 
     public void showQuickAccesMenu() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
+        AlertDialog.Builder builder;
+        if(currently_in_dark_mode) {
+            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Dark);
+        } else {
+            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
+        }
         // Get the layout inflater
         LayoutInflater inflater = getLayoutInflater();
 
@@ -51,6 +57,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
         myDialogView.findViewById(R.id.quick_access_scanner_button).setOnClickListener(myClickListener);
         myDialogView.findViewById(R.id.quick_access_impressum).setOnClickListener(myClickListener);
         myDialogView.findViewById(R.id.dark_mode_switch).setOnClickListener(myClickListener);
+        myDialogView.findViewById(R.id.dark_mode_text).setOnClickListener(myClickListener);
         myDialogView.findViewById(R.id.quick_access_project_artist).setOnClickListener(myClickListener);
         myDialogView.setFocusable(true);
         myDialogView.requestFocus();
@@ -60,23 +67,30 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
     }
 
     private void toggleDarkMode(Switch mySwitch, boolean toggle, boolean isNowDarkMode) {
+        int[] attr = {R.attr.colorAppPrimary, R.attr.colorAppAccent};
+        TypedArray ta = this.obtainStyledAttributes(attr);
         if(isNowDarkMode){
-            mySwitch.getThumbDrawable().setTint(getResources().getColor(R.color.colorAccentLightMode, null));
-            mySwitch.getTrackDrawable().setTint(getResources().getColor(R.color.colorAccentLightMode, null));
+            @SuppressLint("ResourceType")
+            int color = ta.getResourceId(1, android.R.color.black);
+            mySwitch.getThumbDrawable().setTint(getResources().getColor(color, getTheme()));
+            mySwitch.getTrackDrawable().setTint(getResources().getColor(color, getTheme()));
             mySwitch.setChecked(true);
             StolperpfadApplication.getInstance().setDarkMode(true);
             if(toggle) {
                 recreate();
             }
         } else {
-            mySwitch.getThumbDrawable().setTint(getResources().getColor(R.color.colorPrimaryContrastDarkMode, null));
-            mySwitch.getTrackDrawable().setTint(getResources().getColor(R.color.colorPrimaryContrastDarkMode, null));
+            int color = ta.getResourceId(0, android.R.color.black);
+            mySwitch.getThumbDrawable().setTint(getResources().getColor(color, getTheme()));
+            mySwitch.getTrackDrawable().setTint(getResources().getColor(color, getTheme()));
             StolperpfadApplication.getInstance().setDarkMode(false);
             mySwitch.setChecked(false);
             if(toggle) {
                 recreate();
             }
         }
+        currently_in_dark_mode = isNowDarkMode;
+        ta.recycle();
     }
 
     public void toggleDarkMode(Switch mySwitch, boolean toggle) {

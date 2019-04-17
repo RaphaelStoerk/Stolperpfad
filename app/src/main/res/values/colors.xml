@@ -2,44 +2,43 @@
 <resources>
     <color name="black_overlay">#83000000</color>
 
-
-    <color name="colorPrimaryDarkMode">#333333</color>
+    <color name="colorPrimaryDarkMode">#555555</color>
     <color name="colorPrimaryLightMode">#FFFFFF</color>
 
-    <color name="colorPrimaryContrastDarkMode">#F0F0F0</color>
+    <color name="colorPrimaryContrastDarkMode">#FFFFFF</color>
     <color name="colorPrimaryContrastLightMode">#555555</color>
 
-    <color name="colorSecondaryDarkMode">#111111</color>
-    <color name="colorSecondaryLightMode">#FAFAFA</color>
+    <color name="colorSecondaryDarkMode">#333333</color>
+    <color name="colorSecondaryLightMode">#F7F7F7</color>
 
-    <color name="colorSecondaryContrastDarkMode">#D2D2D2</color>
+    <color name="colorSecondaryContrastDarkMode">#FFFFFF</color>
     <color name="colorSecondaryContrastLightMode">#333333</color>
 
     <color name="colorAccentDarkMode">#FBB03B</color>
     <color name="colorAccentLightMode">#FBB03B</color>
 
-    <color name="colorTextButtonDarkMode">#FAFAFA</color>
+    <color name="colorTextButtonDarkMode">#FFFFFF</color>
     <color name="colorTextButtonLightMode">#555555</color>
 
-    <color name="colorTextButtonContrastDarkMode">#333333</color>
+    <color name="colorTextButtonContrastDarkMode">#555555</color>
     <color name="colorTextButtonContrastLightMode">#FFFFFF</color>
 
-    <color name="colorTextButtonAccentDarkMode">#333333</color>
-    <color name="colorTextButtonAccentLightMode">#333333</color>
+    <color name="colorTextButtonAccentDarkMode">#555555</color>
+    <color name="colorTextButtonAccentLightMode">#555555</color>
 
     <color name="colorTextLinkDarkMode">#FBB03B</color>
     <color name="colorTextLinkLightMode">#FBB03B</color>
 
-    <color name="colorTextPrimaryDarkMode">#D2D2D2</color>
+    <color name="colorTextPrimaryDarkMode">#FFFFFF</color>
     <color name="colorTextPrimaryLightMode">#555555</color>
 
     <color name="colorTextSecondaryDarkMode">#DDDDDD</color>
-    <color name="colorTextSecondaryLightMode">#111111</color>
+    <color name="colorTextSecondaryLightMode">#333333</color>
 
-    <color name="colorTitleDarkMode">#DDDDDD</color>
+    <color name="colorTitleDarkMode">#FFFFFF</color>
     <color name="colorTitleLightMode">#555555</color>
 
-    <color name="colorSubTitleDarkMode">#DDDDDD</color>
+    <color name="colorSubTitleDarkMode">#FFFFFF</color>
     <color name="colorSubTitleLightMode">#555555</color>
 
 </resources>

@@ -71,7 +71,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:text="@string/welcome_text"
         android:textAlignment="center"
@@ -87,17 +87,17 @@
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:background="#00000000"
         android:fontFamily="@font/fira_sans_condensed_semibold"
         android:text="@string/next_stone_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="?attr/colorAppTextButton"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/line_two_main_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
         tools:text="@string/next_stone_button" />
 
     <View
@@ -105,44 +105,44 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
         android:background="?attr/colorAppPrimaryContrast"
-        app:layout_constraintBottom_toTopOf="@+id/info_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menu_to_next_stone_button" />
 
     <Button
         android:id="@+id/info_button"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:background="#00000000"
         android:fontFamily="@font/fira_sans_condensed_semibold"
         android:text="@string/info_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="?attr/colorAppTextButton"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/line_three_main_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_two_main_menu" />
 
     <View
         android:id="@+id/line_three_main_menu"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
         android:background="?attr/colorAppPrimaryContrast"
-        app:layout_constraintBottom_toTopOf="@+id/menu_to_route_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/info_button" />
 
     <Button
         android:id="@+id/menu_to_route_button"
@@ -150,17 +150,17 @@
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
         android:background="#00000000"
         android:fontFamily="@font/fira_sans_condensed_semibold"
         android:text="@string/route_button"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="?attr/colorAppTextButton"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_three_main_menu" />
 
 </android.support.constraint.ConstraintLayout>

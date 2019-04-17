@@ -61,8 +61,12 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     }
 
     public void routeOptionDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext());
-
+        AlertDialog.Builder builder;
+        if(currently_in_dark_mode) {
+            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Dark);
+        } else {
+            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
+        }
         // Get the layout inflater
         LayoutInflater inflater = myMapFragment.getLayoutInflater();
 
@@ -170,8 +174,12 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     }
 
     public void informationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext());
-
+        AlertDialog.Builder builder;
+        if(currently_in_dark_mode) {
+            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Dark);
+        } else {
+            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
+        }
         // Get the layout inflater
         LayoutInflater inflater = myMapFragment.getLayoutInflater();
 
@@ -190,8 +198,12 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     }
 
     public void saveOrLoadRouteDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext());
-
+        AlertDialog.Builder builder;
+        if(currently_in_dark_mode) {
+            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Dark);
+        } else {
+            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
+        }
         // Get the layout inflater
         LayoutInflater inflater = myMapFragment.getLayoutInflater();
 

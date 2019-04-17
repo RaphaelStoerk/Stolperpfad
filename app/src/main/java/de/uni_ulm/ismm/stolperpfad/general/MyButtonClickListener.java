@@ -55,7 +55,6 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
     public void onClick(View v) {
         Intent intent = null;
         Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(myActivity).toBundle();
-        Log.i("MY_CLICK_LISTENER","BUTTON CLICKED " + v.getId());
         // a "simple" switch case statement that checks which button was pressed
         switch (v.getId()) {
             case R.id.info_button:
@@ -100,6 +99,8 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
             case R.id.header_quick_access_cancel_button:
                 myActivity.endQuickAccesDialog();
                 break;
+            case R.id.dark_mode_text:
+                v = myActivity.findViewById(R.id.dark_mode_switch);
             case R.id.dark_mode_switch:
                 myActivity.toggleDarkMode((Switch) v, true);
                 myActivity.endQuickAccesDialog();

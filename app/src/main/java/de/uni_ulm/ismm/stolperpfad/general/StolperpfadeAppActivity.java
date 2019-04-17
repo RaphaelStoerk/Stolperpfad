@@ -14,7 +14,7 @@ import android.widget.Switch;
 import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.StolperpfadApplication;
+import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
 
 public abstract class StolperpfadeAppActivity extends AppCompatActivity {
 
@@ -47,7 +47,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
         // Pass null as the parent view because its going in the dialog layout
         builder.setView(myDialogView);
 
-        toggleDarkMode(myDialogView.findViewById(R.id.dark_mode_switch), false, StolperpfadApplication.getInstance().isDarkMode());
+        toggleDarkMode(myDialogView.findViewById(R.id.dark_mode_switch), false, StolperpfadeApplication.getInstance().isDarkMode());
 
         myDialogView.findViewById(R.id.quick_access_route_planner).setOnClickListener(myClickListener);
         myDialogView.findViewById(R.id.quick_access_next_stone_button).setOnClickListener(myClickListener);
@@ -75,7 +75,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
             mySwitch.getThumbDrawable().setTint(getResources().getColor(color, getTheme()));
             mySwitch.getTrackDrawable().setTint(getResources().getColor(color, getTheme()));
             mySwitch.setChecked(true);
-            StolperpfadApplication.getInstance().setDarkMode(true);
+            StolperpfadeApplication.getInstance().setDarkMode(true);
             if(toggle) {
                 recreate();
             }
@@ -83,7 +83,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
             int color = ta.getResourceId(0, android.R.color.black);
             mySwitch.getThumbDrawable().setTint(getResources().getColor(color, getTheme()));
             mySwitch.getTrackDrawable().setTint(getResources().getColor(color, getTheme()));
-            StolperpfadApplication.getInstance().setDarkMode(false);
+            StolperpfadeApplication.getInstance().setDarkMode(false);
             mySwitch.setChecked(false);
             if(toggle) {
                 recreate();
@@ -94,7 +94,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
     }
 
     public void toggleDarkMode(Switch mySwitch, boolean toggle) {
-        toggleDarkMode(mySwitch, toggle, !StolperpfadApplication.getInstance().isDarkMode());
+        toggleDarkMode(mySwitch, toggle, !StolperpfadeApplication.getInstance().isDarkMode());
     }
 
     public void endQuickAccesDialog() {
@@ -106,7 +106,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        if(StolperpfadApplication.getInstance().isDarkMode()) {
+        if(StolperpfadeApplication.getInstance().isDarkMode()) {
             setTheme(R.style.AppTheme_Dark);
             currently_in_dark_mode = true;
         } else {
@@ -119,7 +119,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        if(StolperpfadApplication.getInstance().isDarkMode() != currently_in_dark_mode) {
+        if(StolperpfadeApplication.getInstance().isDarkMode() != currently_in_dark_mode) {
             currently_in_dark_mode = !currently_in_dark_mode;
             recreate();
         }
@@ -145,6 +145,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
 
         // add the listener to the items
         aq.id(R.id.quick_access_button).visible().clicked(myClickListener);
+        aq.id(R.id.header_image).visible().clicked(myClickListener);
         aq.id(R.id.header).getView().setTranslationZ(HEADER_TRANSLATION_Z);
     }
 }

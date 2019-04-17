@@ -1,21 +1,13 @@
 package de.uni_ulm.ismm.stolperpfad.general;
 
-import android.Manifest;
 import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Switch;
 
-import java.util.Scanner;
-
+import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.StolperpfadApplication;
 import de.uni_ulm.ismm.stolperpfad.database.list_of_historical_terms.HistoryActivity;
 import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersonsActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.BiographyExampleActivity;
@@ -77,6 +69,12 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
             case R.id.menu_to_next_stone_button:
                 intent = new Intent(myActivity, NextStoneActivity.class);
                 break;
+            case R.id.header_image:
+                if(myActivity instanceof MainMenuActivity) {
+                    return;
+                }
+                intent = new Intent(myActivity, MainMenuActivity.class);
+                break;
             case R.id.quick_access_button:
                 myActivity.showQuickAccesMenu();
                 break;
@@ -124,6 +122,10 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
             case R.id.info_map_options_button:
                 if (myActivity instanceof RoutePlannerActivity)
                     ((RoutePlannerActivity) myActivity).informationDialog();
+                break;
+            case R.id.start_guide_button:
+                if (myActivity instanceof RoutePlannerActivity)
+                    ((RoutePlannerActivity) myActivity).startGuide();
                 break;
             case R.id.overview_to_project_info_button:
                 intent = new Intent(myActivity, ProjectInfoActivity.class);

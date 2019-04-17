@@ -140,7 +140,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/Programme/Android/Android_Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_more_horiz_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/Programme/Android/Android_Studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_directions_walk_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -150,12 +150,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="400" />
-                            <entry key="outputName" value="ic_logo_dark" />
+                            <entry key="outputName" value="ic_directions_walk_black_24dp" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\rapha\Desktop\svg-files\logo_dark.svg" />
-                            <entry key="width" value="2420" />
                           </map>
                         </option>
                       </PersistentState>

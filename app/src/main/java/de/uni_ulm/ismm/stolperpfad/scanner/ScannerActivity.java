@@ -52,6 +52,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 
@@ -86,16 +87,10 @@ public class ScannerActivity extends StolperpfadeAppActivity {
         initializeGeneralControls(R.layout.activity_scanner);
         aq.id(R.id.scan_button).visible().clicked(myClickListener);
         aq.id(R.id.scan_to_info_button).visible().clicked(myClickListener);
-        // TODO: call the Camera
+
         textureView = (TextureView) aq.id(R.id.camera_preview).getView();
         assert textureView != null;
         textureView.setSurfaceTextureListener(textureListener);
-
-
-        // TODO: make images
-
-        // TODO: process images
-
     }
 
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
@@ -163,19 +158,9 @@ public class ScannerActivity extends StolperpfadeAppActivity {
 
     public void takePicture() {
         if(null == cameraDevice) {
-            Log.i("MY_CAMERA_TAG", "Something went wrong");
             return;
         }
-        Log.i("MY_CAMERA_TAG", "Taking picture");
-        AlertDialog.Builder builder =  new AlertDialog.Builder(this);
-        builder.setTitle("Scanning Image");
-        builder.setMessage("The image you captured is being scanned...");
-        builder.setNegativeButton("Abbrechen", (dialogInterface, i) -> {
-            createCameraPreview();
-            dialogInterface.cancel();
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        AlertDialog dialog = createAndShowScanInfoDialog();
         CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         try {
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraDevice.getId());
@@ -199,38 +184,52 @@ public class ScannerActivity extends StolperpfadeAppActivity {
             // Orientation
             int rotation = getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
-            final File file = new File(Environment.getExternalStorageDirectory()+"/last_scanned_stone.jpg");
+            final File file = new File(StolperpfadeApplication.DATA_FILES_PATH + "/img/last_scanned_stone.jpg");
+
             ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
                 @Override
                 public void onImageAvailable(ImageReader reader) {
-                    Image image = null;
-                    try {
-                        image = reader.acquireLatestImage();
+                    try (Image image = reader.acquireLatestImage()) {
                         ByteBuffer buffer = image.getPlanes()[0].getBuffer();
                         byte[] bytes = new byte[buffer.capacity()];
                         buffer.get(bytes);
                         save(bytes);
+                        scan(bytes);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
-                    } finally {
-                        if (image != null) {
-                            image.close();
-                        }
                     }
                 }
+
                 private void save(byte[] bytes) throws IOException {
-                    OutputStream output = null;
-                    try {
-                        output = new FileOutputStream(file);
+                    try (OutputStream output = new FileOutputStream(file)) {
                         output.write(bytes);
-                        Log.i("MY_CAMERA_TAG", "Image saved");
-                    } finally {
-                        if (null != output) {
-                            output.close();
-                        }
                     }
+                }
+                @SuppressLint("StaticFieldLeak")
+                private void scan(byte[] bytes) {
+                    new AsyncTask<Object, Object, Object>() {
+
+                        @Override
+                        protected Object doInBackground(Object[] objects) {
+                            String result = scanImage();
+
+                            // TODO: try to find a pesron in this text and open their info page
+
+                            dialog.cancel();
+                            AlertDialog.Builder builder =  new AlertDialog.Builder(ScannerActivity.this);
+                            builder.setTitle("This Text has been recognized");
+                            builder.setMessage(result);
+                            builder.setNegativeButton("Okay", (dialogInterface, i) -> {
+                                createCameraPreview();
+                                dialogInterface.cancel();
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                            return null;
+                        }
+                    }.doInBackground(null);
                 }
             };
 
@@ -240,29 +239,7 @@ public class ScannerActivity extends StolperpfadeAppActivity {
                 @Override
                 public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
                     super.onCaptureCompleted(session, request, result);
-                    // Toast.makeText(AndroidCameraApi.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
                     // createCameraPreview();
-
-                    new AsyncTask<Object, Object, Object>() {
-
-                        @Override
-                        protected Object doInBackground(Object[] objects) {
-                            String result = scanImage();
-                            dialog.cancel();
-                            AlertDialog.Builder builder =  new AlertDialog.Builder(ScannerActivity.this);
-                            builder.setTitle("This Text has been recognized");
-                            builder.setMessage(result);
-
-                            builder.setNegativeButton("Okay", (dialogInterface, i) -> {
-                                createCameraPreview();
-                                dialogInterface.cancel();
-                            });
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
-
-                            return null;
-                        }
-                    }.doInBackground(null);
                 }
             };
 
@@ -280,36 +257,33 @@ public class ScannerActivity extends StolperpfadeAppActivity {
                 }
             }, mBackgroundHandler);
         } catch (CameraAccessException e) {
-            Log.i("MY_CAMERA_TAG", "Something went wrong while accessing camera");
+            e.printStackTrace();
         }
     }
 
-    private String scanImage() {
-        Bitmap image_bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory()+"/last_scanned_stone.jpg");
-        File root = Environment.getExternalStorageDirectory();
-        File dir = new File(root.getAbsolutePath() + "/tessdata");
-        // dir.mkdirs();
-        File lang_file = new File(dir, "deu.traineddata");
-        OutputStream out;
-        if (!lang_file.exists() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            try {
-                out = new FileOutputStream(lang_file);
-                InputStream in = getResources().openRawResource(R.raw.traineddata);
-                byte[] buffer = new byte[1024];
-                int len;
-                while((len = in.read(buffer, 0, buffer.length)) != -1) {
-                    out.write(buffer, 0, len);
-                }
-                in.close();
-                out.close();
+    private AlertDialog createAndShowScanInfoDialog() {
+        AlertDialog.Builder builder =  new AlertDialog.Builder(this);
+        builder.setTitle("Scanning Image");
+        builder.setMessage("The image you captured is being scanned...");
+        builder.setNegativeButton("Abbrechen", (dialogInterface, i) -> {
+            createCameraPreview();
+            dialogInterface.cancel();
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        return dialog;
+    }
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+    private String scanImage() {
+        Bitmap image_bitmap = BitmapFactory.decodeFile(StolperpfadeApplication.DATA_FILES_PATH + "/img/last_scanned_stone.jpg");
+
+        if(!StolperpfadeApplication.getInstance().fileTreeIsReady()) {
+            // TODO: inform the user that something is wrong
+            StolperpfadeApplication.getInstance().setupFileTree();
         }
 
         TessBaseAPI baseApi = new TessBaseAPI();
-        baseApi.init(root.getAbsolutePath(), "deu");
+        baseApi.init(StolperpfadeApplication.DATA_FILES_PATH, "deu");
         baseApi.setImage(image_bitmap);
         String recognizedText = baseApi.getUTF8Text();
         baseApi.end();

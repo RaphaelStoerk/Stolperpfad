@@ -46,7 +46,7 @@ public class StolperpfadAppMapActivity extends StolperpfadeAppActivity {
         FragmentManager fm = this.getSupportFragmentManager();
 
         if (fm.findFragmentById(R.id.map_container) == null) {
-            myMapFragment = MapQuestFragment.newInstance(next);
+            myMapFragment = MapQuestFragment.newInstance(next, aq);
             fm.beginTransaction().add(R.id.map_container, myMapFragment, next ? MAP_FRAGMENT_TAG_NEXT : MAP_FRAGMENT_TAG_ROUTE).commit();
         } else {
             myMapFragment = (MapQuestFragment) fm.findFragmentByTag(next ? MAP_FRAGMENT_TAG_NEXT : MAP_FRAGMENT_TAG_ROUTE);

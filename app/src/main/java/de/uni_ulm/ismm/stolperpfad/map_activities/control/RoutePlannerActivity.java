@@ -48,7 +48,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         aq.id(R.id.route_option_button).visible().clicked(myClickListener);
         aq.id(R.id.save_route_button).visible().clicked(myClickListener);
         aq.id(R.id.info_map_options_button).visible().clicked(myClickListener);
-
+        aq.id(R.id.start_guide_button).invisible().clicked(myClickListener);
     }
 
     @Override
@@ -219,6 +219,10 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void startGuide() {
+        myMapFragment.startGuide();
     }
 
 }

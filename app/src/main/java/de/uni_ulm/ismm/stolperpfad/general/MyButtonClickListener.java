@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Switch;
 
+import java.util.Scanner;
+
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadApplication;
 import de.uni_ulm.ismm.stolperpfad.database.list_of_historical_terms.HistoryActivity;
@@ -57,6 +59,12 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
         Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(myActivity).toBundle();
         // a "simple" switch case statement that checks which button was pressed
         switch (v.getId()) {
+            case R.id.scan_button:
+                ((ScannerActivity) myActivity).takePicture();
+                break;
+            case R.id.scan_to_info_button:
+                intent = new Intent(myActivity, ScrollingInfoActivity.class);
+                break;
             case R.id.info_button:
                 intent = new Intent(myActivity, PersonsActivity.class);
                 break;

@@ -14,9 +14,7 @@ import de.uni_ulm.ismm.stolperpfad.info_display.BiographyExampleActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumViewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ArtistInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ProjectAndArtistOverviewActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ProjectInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
@@ -128,13 +126,30 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                     ((RoutePlannerActivity) myActivity).startGuide();
                 break;
             case R.id.overview_to_project_info_button:
-                intent = new Intent(myActivity, ProjectInfoActivity.class);
+                if(myActivity instanceof ProjectAndArtistOverviewActivity) {
+                    ((ProjectAndArtistOverviewActivity) myActivity).setInfoDisplay(0);
+                }
                 break;
             case R.id.overview_to_artist_info_button:
-                intent = new Intent(myActivity, ArtistInfoActivity.class);
+                if(myActivity instanceof ProjectAndArtistOverviewActivity) {
+                    ((ProjectAndArtistOverviewActivity) myActivity).setInfoDisplay(1);
+                }
+                break;
+            case R.id.impressum_to_rights_button:
+                if(myActivity instanceof ImpressumViewActivity) {
+                    ((ImpressumViewActivity) myActivity).setInfoDisplay(0);
+                }
+                break;
+            case R.id.impressum_to_contact_button:
+                if(myActivity instanceof ImpressumViewActivity) {
+                    ((ImpressumViewActivity) myActivity).setInfoDisplay(1);
+                }
                 break;
             case R.id.info_test_button:
                 intent = new Intent(myActivity, BiographyExampleActivity.class);
+                break;
+            case R.id.button_back:
+                myActivity.onBackPressed();
                 break;
         }
         if(intent != null) {

@@ -445,6 +445,9 @@ public class MapQuestFragment extends Fragment {
     }
 
     public void setUserMarker() {
+        if(lastLocation == null) {
+            return;
+        }
         if (user_position_marker != null) {
             user_position_marker.setPosition(RoutingUtil.convertLocationToLatLng(lastLocation));
         } else {

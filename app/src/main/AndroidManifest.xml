@@ -66,11 +66,11 @@
             android:label="@string/title_activity_privacy"
             android:theme="@style/AppTheme.Light" />
         <activity
-            android:name=".info_display.project_and_artist.ArtistInfoActivity"
+            android:name=".info_display.project_and_artist.ArtistInfoFragment"
             android:label="@string/title_activity_artist_info"
             android:theme="@style/AppTheme.Light" />
         <activity
-            android:name=".info_display.project_and_artist.ProjectInfoActivity"
+            android:name=".info_display.project_and_artist.ProjectInfoFragment"
             android:label="@string/title_activity_project_info"
             android:theme="@style/AppTheme.Light" />
         <activity

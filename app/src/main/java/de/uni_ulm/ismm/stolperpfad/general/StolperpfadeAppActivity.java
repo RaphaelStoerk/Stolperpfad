@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 
 import com.androidquery.AQuery;
@@ -147,5 +148,10 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
         aq.id(R.id.quick_access_button).visible().clicked(myClickListener);
         aq.id(R.id.header_image).visible().clicked(myClickListener);
         aq.id(R.id.header).getView().setTranslationZ(HEADER_TRANSLATION_Z);
+
+        Button back_button = aq.id(R.id.button_back).getButton();
+        if(back_button != null) {
+            aq.id(R.id.button_back).visible().clicked(myClickListener);
+        }
     }
 }

@@ -28,27 +28,22 @@ public class StoneInfoPersonFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        aq = new AQuery(this.getActivity());
-        aq.id(R.id.sub_title_stone_info).text("This is tile # " + curr_person.getPersId());
-
-        // add the listener to the buttons on screen and make them visible
-        aq.id(R.id.left_button).visible().clicked(myClickListener);
-        aq.id(R.id.right_button).visible().clicked(myClickListener);
-    }
+    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stone_info, container, false);
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_stone_info, container, false);
+        aq = new AQuery(root);
+        aq.id(R.id.title_stone_info).text(curr_person.getFstName() + " " + curr_person.getFamName());
+        aq.id(R.id.sub_title_stone_info).text("This is person # " + curr_person.getPersId());
+        return root;
     }
 
-    public static Fragment newInstance(Person curr_person, MyButtonClickListener<? extends StolperpfadeAppActivity> myClickListener, AQuery aq) {
+    public static Fragment newInstance(Person curr_person, MyButtonClickListener<? extends StolperpfadeAppActivity> myClickListener) {
         Fragment ret = new StoneInfoPersonFragment();
         ((StoneInfoPersonFragment)ret).curr_person = curr_person;
-        ((StoneInfoPersonFragment)ret).aq = aq;
         ((StoneInfoPersonFragment)ret).myClickListener = myClickListener;
         return ret;
     }

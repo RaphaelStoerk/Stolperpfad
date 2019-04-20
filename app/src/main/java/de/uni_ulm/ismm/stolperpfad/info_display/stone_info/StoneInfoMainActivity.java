@@ -7,10 +7,14 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
+import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 
 /**
@@ -28,8 +32,13 @@ public class StoneInfoMainActivity extends StolperpfadeAppActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stone_info_main);
-        loadPersons();
+        initializeGeneralControls(R.layout.activity_stone_info_main);
+        aq.id(R.id.left_button).clicked(myClickListener);
+        aq.id(R.id.right_button).clicked(myClickListener);
+        loadPersons(); // TODO: das am Anfang machen und hier dafür aus Datenbak lesen
+
+        // TODO: Personen sortieren
+        // TODO: erst die Liste Anzeigen und danach erst die Person anzeigen
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.stone_pager);
@@ -49,23 +58,23 @@ public class StoneInfoMainActivity extends StolperpfadeAppActivity {
     public void left_click() {
         if(current_person_index > 0) {
             current_person_index--;
-            setPersonDisplay(current_person_index);
+            setPersonDisplay(current_person_index, true, false);
         }
     }
 
     public void right_click() {
         if(current_person_index < MAX_PERSONS - 1) {
             current_person_index++;
-            setPersonDisplay(current_person_index);
+            setPersonDisplay(current_person_index, true, false);
         }
     }
 
-    public void setPersonDisplay(int index) {
-        if(index == current_person_index) {
+    public void setPersonDisplay(int index, boolean update, boolean smooth) {
+        if(!update && index == current_person_index) {
             return;
         }
         current_person_index = index;
-        mPager.setCurrentItem(current_person_index, false);
+        mPager.setCurrentItem(current_person_index, smooth);
     }
 
     /**
@@ -79,7 +88,7 @@ public class StoneInfoMainActivity extends StolperpfadeAppActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return StoneInfoPersonFragment.newInstance(persons.get(current_person_index),myClickListener, aq);
+            return StoneInfoPersonFragment.newInstance(persons.get(current_person_index = position), myClickListener);
         }
 
         @Override
@@ -89,12 +98,25 @@ public class StoneInfoMainActivity extends StolperpfadeAppActivity {
     }
     private void loadPersons() {
         persons = new ArrayList<>();
-        persons.add(new Person(0, "","",0));
-        persons.add(new Person(1, "","",1));
-        persons.add(new Person(2, "","",2));
-        persons.add(new Person(3, "","",3));
-        persons.add(new Person(4, "","",4));
-        persons.add(new Person(5, "","",5));
+        ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(this, "personen_daten");
+        Person next;
+        int id;
+        String vorname;
+        String nachname;
+        int stostein;
+        for(JSONObject json : personen) {
+            try {
+                id = json.getInt("id");
+                vorname = json.getString("vorname");
+                nachname = json.getString("nachname");
+                stostein = json.getJSONObject("stein").getInt("id");
+                next = new Person(id,vorname, nachname, stostein);
+                persons.add(next);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
         MAX_PERSONS = persons.size();
     }
 }

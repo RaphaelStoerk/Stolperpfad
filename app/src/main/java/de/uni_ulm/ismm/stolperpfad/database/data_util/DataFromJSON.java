@@ -6,12 +6,29 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class DataFromJSON {
 
-    public static String loadJSONFromAsset(Context context, String filename) {
+    public static ArrayList<JSONObject> loadAllJSONFromDirectory(Context context, String dirName) {
+        ArrayList<JSONObject> ret = new ArrayList<>();
+        try {
+            for (String file : context.getAssets().list(dirName)) {
+                Log.i("MY_JSON_TAG", file);
+                JSONObject person = getDataFromJSON(context, dirName + "/" + file);
+                ret.add(person);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    private static String loadJSONFromAsset(Context context, String filename) {
         String json = null;
         try {
 
@@ -38,28 +55,18 @@ public class DataFromJSON {
 
     }
 
-    public static String getDataFromJSON(Context ctx, String filename) {
+    public static JSONObject getDataFromJSON(Context ctx, String filename) {
 
         String in = loadJSONFromAsset(ctx, filename);
-
-        Log.i("Test","got that file" + in);
-
-        String out = "";
+        JSONObject pers = null;
         try {
-
             // example call to the json object
-            JSONObject pers = new JSONObject(in);
-
-            String name = pers.getJSONObject("maria").getString("name");
-
-            out += name;
+            pers = new JSONObject(in);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        Log.i("Test","got that name: " + out);
-        return out;
+        return pers;
     }
 
 }

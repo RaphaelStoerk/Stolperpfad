@@ -1,15 +1,6 @@
 package de.uni_ulm.ismm.stolperpfad;
 
-import android.location.Location;
 import android.os.Bundle;
-
-import com.mapbox.android.core.location.LocationEngine;
-import com.mapbox.android.core.location.LocationEnginePriority;
-import com.mapbox.android.core.location.LocationEngineProvider;
-import com.mapbox.android.core.permissions.PermissionsListener;
-import com.mapbox.android.core.permissions.PermissionsManager;
-
-import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 
@@ -25,15 +16,14 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        if(StolperpfadApplication.getInstance().isFirstCall()) {
+        if(StolperpfadeApplication.getInstance().isFirstCall()) {
+            StolperpfadeApplication.getInstance().setFirstCall(false);
+            StolperpfadeApplication.getInstance().setupFileTree();
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
-            StolperpfadApplication.getInstance().setFirstCall(false);
         }
         // Initialize this view and display the right screen
         super.onCreate(savedInstanceState);
@@ -45,9 +35,5 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
         aq.id(R.id.menu_to_scan_button).visible().clicked(myClickListener);
         aq.id(R.id.menu_to_route_button).visible().clicked(myClickListener);
         aq.id(R.id.menu_to_next_stone_button).visible().clicked(myClickListener);
-        aq.id(R.id.project_and_artist_overview_button).visible().clicked(myClickListener);
-        aq.id(R.id.impressum_button).visible().clicked(myClickListener);
-        aq.id(R.id.privacy_button).visible().clicked(myClickListener);
-        aq.id(R.id.history_button).visible().clicked(myClickListener);
     }
 }

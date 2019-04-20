@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/button_back"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#0000"
+    android:drawableStart="@drawable/ic_arrow_back_black_24dp"
+    android:drawableTint="?attr/colorAppAccent"
+    android:fontFamily="@font/fira_sans_condensed_semibold"
+    android:textColor="?attr/colorAppAccent"
+    android:text="@string/button_back"
+    android:textAppearance="@style/TextAppearance.AppCompat"
+    android:textSize="18sp" />

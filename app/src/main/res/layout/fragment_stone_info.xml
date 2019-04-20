@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/title_stone_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:text="@string/title_stone_info_default"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="?attr/colorAppTextPrimary"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="@+id/line_one_impressum"
+        tools:layout_editor_absoluteX="104dp" />
+
+
+    <TextView
+        android:id="@+id/sub_title_stone_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:text="@string/sub_title_stone_info_default"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="?attr/colorAppTextPrimary"
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="@+id/title_stone_info"
+        tools:layout_editor_absoluteX="104dp" />
+
+
+    <LinearLayout
+        android:id="@+id/buttons_stone_info"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sub_title_stone_info">
+
+        <Button
+            android:id="@+id/stone_info_to_bio_button"
+            style="@android:style/Widget.Material.Light.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/colorAppAccent"
+            android:fontFamily="@font/fira_sans_condensed"
+            android:gravity="center"
+            android:text="@string/button_bio"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="?attr/colorAppTextButtonAccent"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/stone_info_to_map_button"
+            style="@android:style/Widget.Material.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/colorAppPrimaryContrast"
+            android:fontFamily="@font/fira_sans_condensed"
+            android:gravity="center"
+            android:text="@string/button_stone_info_map"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="?attr/colorAppTextButtonContrast"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/stone_info_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttons_stone_info">
+
+    </android.support.v4.view.ViewPager>
+
+
+</android.support.constraint.ConstraintLayout>

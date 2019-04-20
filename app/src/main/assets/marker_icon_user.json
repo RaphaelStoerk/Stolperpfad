@@ -1,0 +1,26 @@
+{
+  "iconUrl": "http://assets.mapquestapi.com/icon/v2/circle-4d4d4d-4d4d4d-sm.png",
+  "iconRetinaUrl": "http://assets.mapquestapi.com/icon/v2/circle-4d4d4d-4d4d4d-sm@2x.png",
+  "shadowUrl": "http://assets.mapquestapi.com/icon/v2/circle-shadow-4d4d4d-4d4d4d-sm.png",
+  "shadowRetinaUrl": "http://assets.mapquestapi.com/icon/v2/circle-shadow-4d4d4d-4d4d4d-sm@2x.png",
+  "shadowSize": [
+    28,
+    28
+  ],
+  "shadowAnchor": [
+    3,
+    14
+  ],
+  "iconSize": [
+    28,
+    28
+  ],
+  "iconAnchor": [
+    14,
+    14
+  ],
+  "popupAnchor": [
+    1,
+    -14
+  ]
+}

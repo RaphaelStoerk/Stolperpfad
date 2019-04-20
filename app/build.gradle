@@ -56,7 +56,6 @@ dependencies {
     implementation 'com.android.support:design:27.1.1'
     implementation files('libs/android-query-full.0.26.7.jar')
 
-
     /**database**/
     // Room components
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"

@@ -15,14 +15,15 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        android:name=".StolperpfadeApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_stolperpfade_app"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_stolperpfade_app_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".StolperpfadeApplication"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".info_display.stone_info.StoneInfoMainActivity"></activity>
         <!-- Declares the entry point to the app -->
         <activity
             android:name=".MainMenuActivity"
@@ -81,25 +82,21 @@
             android:name=".info_display.BiographyExampleActivity"
             android:label="@string/title_biography_example"
             android:theme="@style/AppTheme.Light" />
-
-        <activity android:name=".database.list_of_persons.PersonsActivity"
+        <activity
+            android:name=".database.list_of_persons.PersonsActivity"
             android:label="@string/title_activity_db" />
-
         <activity
             android:name=".filter_search.FilterSearchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_filter_search"
             android:theme="@style/AppTheme.Light" />
-
-        <activity android:name=".database.list_of_historical_terms.HistoInfoPage"/>
+        <activity android:name=".database.list_of_historical_terms.HistoInfoPage" />
         <activity android:name=".database.list_of_historical_terms.HistoryActivity" />
         <activity android:name=".database.list_of_persons.PersInfoPage" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <!-- Declares the entry point to the app -->
-
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@ import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumViewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ProjectAndArtistOverviewActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
@@ -80,7 +81,8 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 intent = intentFromQuickAccess(ScannerActivity.class);
                 break;
             case R.id.quick_access_stone_info:
-                intent = intentFromQuickAccess(PersonsActivity.class);
+                intent = intentFromQuickAccess(StoneInfoMainActivity.class);
+                intent.setAction("1");
                 break;
             case R.id.quick_access_next_stone_button:
                 intent = intentFromQuickAccess(NextStoneActivity.class);
@@ -147,6 +149,16 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 break;
             case R.id.info_test_button:
                 intent = new Intent(myActivity, BiographyExampleActivity.class);
+                break;
+            case R.id.left_button:
+                if(myActivity instanceof StoneInfoMainActivity) {
+                    ((StoneInfoMainActivity) myActivity).left_click();
+                }
+                break;
+            case R.id.right_button:
+                if(myActivity instanceof StoneInfoMainActivity) {
+                    ((StoneInfoMainActivity) myActivity).right_click();
+                }
                 break;
             case R.id.button_back:
                 myActivity.onBackPressed();

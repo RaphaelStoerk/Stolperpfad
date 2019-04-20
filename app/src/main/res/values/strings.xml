@@ -143,5 +143,9 @@
     <string name="impressum_text_rights">Hier steht alles Rechtliche</string>
     <string name="impressum_text_contact">Kontaktadresse</string>
     <string name="title_dsgvo">Erklärung DSGVO</string>
+    <string name="title_stone_info_default">Nachname, Vorname</string>
+    <string name="button_bio">Lebenslauf</string>
+    <string name="button_stone_info_map">Karte</string>
+    <string name="sub_title_stone_info_default">geb. oder verw. Geburtsname</string>
 
 </resources>

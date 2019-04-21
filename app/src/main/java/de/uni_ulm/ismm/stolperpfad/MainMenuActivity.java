@@ -2,6 +2,8 @@ package de.uni_ulm.ismm.stolperpfad;
 
 import android.os.Bundle;
 
+import com.mapquest.mapping.MapQuest;
+
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 
 /**
@@ -19,8 +21,9 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
         if(StolperpfadeApplication.getInstance().isFirstCall()) {
             StolperpfadeApplication.getInstance().setFirstCall(false);
             StolperpfadeApplication.getInstance().setupFileTree();
+            MapQuest.start(getApplicationContext());
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

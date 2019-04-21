@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="32dp"
+    android:layout_height="32dp"
+    android:width="32dp"
+    android:height="32dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="@+id/bio_view_pager">
+</Button>

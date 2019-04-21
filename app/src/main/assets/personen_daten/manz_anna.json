@@ -1,8 +1,8 @@
 {
-	"id": 1,
-	"vorname": "Vorname 1",
-	"nachname": "Nachname 1",
-	"geburtsname": "Geburtsname",
+	"id": 3,
+	"vorname": "Anna",
+	"nachname": "Manz",
+	"geburtsname": "",
 	"ehegatte": {
 		"vorname": "Vorname Ehegatte",
 		"nachname": "Nachname Ehegatte"
@@ -20,26 +20,42 @@
 	"stein": {
 		"id": 1,
 		"addresse": "Olgastrasse 3",
-		"latitude": 48.1312512,
-		"longitude": 9.02950395
+		"latitude": 48.4011,
+		"longitude": 9.9876
 	},
 	"bio": [
 		{
 			"punkt": "geboren",
 			"jahr": 1900,
 			"datum": "01.05.1900",
-			"ort": "Ulm"
+			"ort": "Ulm",
+			"beschreibung": false,
+			"custom": ""
 		},
 		{
 			"punkt": "umzug",
 			"jahr": 1920,
-			"ort": "Neu-Ulm"
+			"datum": "01.05.1900",
+			"ort": "Neu-Ulm",
+			"beschreibung": false,
+			"custom": ""
+		},
+		{
+			"punkt": "heirat",
+			"jahr": 1920,
+			"ehegatte": "Harald Gruber",
+			"datum": "01.05.1900",
+			"ort": "Neu-Ulm",
+			"beschreibung": false,
+			"custom": ""
 		},
 		{
 			"punkt": "gestorben",
 			"jahr": 1940,
 			"datum": "05.11.1940",
-			"ort": "Ulm"
+			"ort": "Ulm",
+			"beschreibung": false,
+			"custom": ""
 		}
 	]
 }

@@ -147,5 +147,7 @@
     <string name="button_bio">Lebenslauf</string>
     <string name="button_stone_info_map">Karte</string>
     <string name="sub_title_stone_info_default">geb. oder verw. Geburtsname</string>
+    <string name="title_activity_stone_info">Stolpersteine</string>
+    <string name="title_stone_list">Stolpersteine</string>
 
 </resources>

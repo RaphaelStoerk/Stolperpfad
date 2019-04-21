@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".info_display.stone_info.StoneInfoMainActivity"></activity>
+        <activity android:name=".info_display.stone_info.StoneListActivity"></activity>
         <!-- Declares the entry point to the app -->
         <activity
             android:name=".MainMenuActivity"
@@ -38,6 +38,10 @@
             Every used activity has to be listed here, additionally there can be declared what
             hirarchy the activities are in
         -->
+        <activity
+            android:name=".info_display.stone_info.StoneInfoMainActivity"
+            android:label="@string/title_activity_stone_info"
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".info_display.ScrollingInfoActivity"
             android:label="@string/title_activity_scrolling_info"
@@ -67,14 +71,6 @@
             android:label="@string/title_activity_privacy"
             android:theme="@style/AppTheme.Light" />
         <activity
-            android:name=".info_display.project_and_artist.ArtistInfoFragment"
-            android:label="@string/title_activity_artist_info"
-            android:theme="@style/AppTheme.Light" />
-        <activity
-            android:name=".info_display.project_and_artist.ProjectInfoFragment"
-            android:label="@string/title_activity_project_info"
-            android:theme="@style/AppTheme.Light" />
-        <activity
             android:name=".info_display.project_and_artist.ProjectAndArtistOverviewActivity"
             android:label="@string/title_activity_project_and_artist_overview"
             android:theme="@style/AppTheme.Light" />
@@ -93,6 +89,7 @@
         <activity android:name=".database.list_of_historical_terms.HistoInfoPage" />
         <activity android:name=".database.list_of_historical_terms.HistoryActivity" />
         <activity android:name=".database.list_of_persons.PersInfoPage" />
+        <activity android:name=".map_activities.StolperpfadAppMapActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

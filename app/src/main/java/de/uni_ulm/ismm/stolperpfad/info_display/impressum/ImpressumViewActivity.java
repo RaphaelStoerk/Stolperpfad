@@ -41,7 +41,7 @@ public class ImpressumViewActivity extends StolperpfadeAppActivity {
             public void onPageSelected(int position) {
                 current_display = position;
                 updateButtons();
-            }
+        }
         });
         current_display = DISPLAY_RIGHTS;
         updateButtons();

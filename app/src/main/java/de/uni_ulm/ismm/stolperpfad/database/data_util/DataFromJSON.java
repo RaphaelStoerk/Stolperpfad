@@ -14,12 +14,20 @@ import java.util.ArrayList;
 
 public class DataFromJSON {
 
+    /**
+     * Reads in all json files in a given diretory and returns an Arraylist of those
+     * JSONObjets
+     *
+     * @param context the application context
+     * @param dirName the directory with all the json files
+     * @return a list of JSONObjects
+     */
     public static ArrayList<JSONObject> loadAllJSONFromDirectory(Context context, String dirName) {
         ArrayList<JSONObject> ret = new ArrayList<>();
         try {
             for (String file : context.getAssets().list(dirName)) {
                 Log.i("MY_JSON_TAG", file);
-                JSONObject person = getDataFromJSON(context, dirName + "/" + file);
+                JSONObject person = loadJSONFromAssets(context, dirName + "/" + file);
                 ret.add(person);
             }
         } catch (IOException e) {
@@ -28,8 +36,9 @@ public class DataFromJSON {
         return ret;
     }
 
-    private static String loadJSONFromAsset(Context context, String filename) {
-        String json = null;
+    private static JSONObject loadJSONFromAssets(Context context, String filename) {
+        String json = "";
+        JSONObject pers = null;
         try {
 
             // see folder main/assets for json files
@@ -46,27 +55,13 @@ public class DataFromJSON {
 
             json = new String(buffer, "UTF-8");
 
-
+            pers = new JSONObject(json);
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;
-        }
-        return json;
-
-    }
-
-    public static JSONObject getDataFromJSON(Context ctx, String filename) {
-
-        String in = loadJSONFromAsset(ctx, filename);
-        JSONObject pers = null;
-        try {
-            // example call to the json object
-            pers = new JSONObject(in);
-
         } catch (JSONException e) {
-            e.printStackTrace();
+
         }
         return pers;
     }
-
 }

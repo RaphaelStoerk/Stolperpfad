@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager;
 
 public class BiographyExampleActivity extends StolperpfadeAppActivity {
 

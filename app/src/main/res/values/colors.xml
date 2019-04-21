@@ -9,7 +9,7 @@
     <color name="colorPrimaryContrastLightMode">#555555</color>
 
     <color name="colorSecondaryDarkMode">#333333</color>
-    <color name="colorSecondaryLightMode">#F7F7F7</color>
+    <color name="colorSecondaryLightMode">#FFFFFF</color>
 
     <color name="colorSecondaryContrastDarkMode">#FFFFFF</color>
     <color name="colorSecondaryContrastLightMode">#333333</color>

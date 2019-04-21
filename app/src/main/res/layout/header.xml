@@ -40,7 +40,7 @@
                 app:srcCompat="?attr/logoAppHeader"
                 android:contentDescription="@string/def_content_description" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/quick_access_button"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
@@ -48,9 +48,10 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:background="#0000"
-                android:backgroundTint="?attr/colorAppPrimaryContrast"
-                android:foreground="@drawable/ic_more_horiz_black_24dp"
-                android:foregroundTint="?attr/colorAppPrimaryContrast"
+                app:srcCompat="@drawable/ic_burgermenu"
+                android:tint="?attr/colorAppPrimaryContrast"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

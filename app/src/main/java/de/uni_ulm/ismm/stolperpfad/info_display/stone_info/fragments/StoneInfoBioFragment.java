@@ -1,6 +1,5 @@
-package de.uni_ulm.ismm.stolperpfad.info_display.stone_info;
+package de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,11 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.info_display.BiographyTestFragment;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.BioPoint;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager;

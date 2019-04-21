@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad.info_display.stone_info;
+package de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

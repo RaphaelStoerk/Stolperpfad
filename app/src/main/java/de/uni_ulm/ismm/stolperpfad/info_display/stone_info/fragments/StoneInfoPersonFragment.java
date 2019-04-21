@@ -1,13 +1,11 @@
-package de.uni_ulm.ismm.stolperpfad.info_display.stone_info;
+package de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -17,10 +15,7 @@ import android.widget.Button;
 
 import com.androidquery.AQuery;
 
-import java.util.Objects;
-
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.general.MyButtonClickListener;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;

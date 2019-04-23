@@ -26,7 +26,7 @@ public class HistoRepository {
 
 
     //TODO fix this maybe with AsyncTask...?
-    public String getExplanation(int termId) {
+    /*public String getExplanation(int termId) {
         return mHistoDao.getExplanation(termId);
     }
     private static class getExplantionAsyncTask extends AsyncTask<int, Void, Void> {
@@ -41,7 +41,7 @@ public class HistoRepository {
         protected Void doInBackground(int... termId) {
             return mAsyncTaskDao.getExplanation();
         }
-    }
+    }*/
 
 
 

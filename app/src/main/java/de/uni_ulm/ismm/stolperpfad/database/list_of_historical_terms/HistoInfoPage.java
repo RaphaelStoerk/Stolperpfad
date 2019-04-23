@@ -35,7 +35,7 @@ public class HistoInfoPage extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.txtHistoDescript);
         int current = getIntent().getExtras().getInt("termId");
-        textView.setText(mHistoViewModel.getExplanation(current));
+        //textView.setText(mHistoViewModel.getExplanation(current));
 
     }
 

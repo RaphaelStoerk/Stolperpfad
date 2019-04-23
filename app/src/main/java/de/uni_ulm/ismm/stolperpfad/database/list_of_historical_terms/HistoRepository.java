@@ -22,14 +22,23 @@ public class HistoRepository {
     LiveData<List<HistoricalTerm>> getAllTerms() {
         return mAllTerms;
     }
-    int getHistoId(String name) {return mHistoDao.getHistoId(name);}
 
-
-    //TODO fix this maybe with AsyncTask...?
-    /*public String getExplanation(int termId) {
-        return mHistoDao.getExplanation(termId);
+    int getHistoId(String name) {
+        return mHistoDao.getHistoId(name);
     }
-    private static class getExplantionAsyncTask extends AsyncTask<int, Void, Void> {
+
+
+    //TODO fix this
+    public void getExplanation(int termId, HistoInfoPage parent) {
+        new getExplantionAsyncTask(mHistoDao) {
+            @Override
+            protected void onPostExecute(String explanation) {
+                parent.setExplanationText(explanation);
+            }
+        }.execute(new int[]{termId});
+    }
+
+    private static class getExplantionAsyncTask extends AsyncTask<int[], Void, String> {
 
         private HistoDao mAsyncTaskDao;
 
@@ -38,17 +47,17 @@ public class HistoRepository {
         }
 
         @Override
-        protected Void doInBackground(int... termId) {
-            return mAsyncTaskDao.getExplanation();
+        protected String doInBackground(int[]... termId) {
+            String explanation = mAsyncTaskDao.getExplanation(termId[0][0]);
+            return explanation;
         }
-    }*/
-
-
+    }
 
 
     public void insert(HistoricalTerm histoTerm) {
         new insertAsyncTask(mHistoDao).execute(histoTerm);
     }
+
     private static class insertAsyncTask extends AsyncTask<HistoricalTerm, Void, Void> {
 
         private HistoDao mAsyncTaskDao;

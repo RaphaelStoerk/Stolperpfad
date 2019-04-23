@@ -76,6 +76,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoListAdapt
         /*TextView textView = findViewById(R.id.txtHistoDescript);
         textView.setText(mHistoViewModel.getExplanation(position));*/
         Intent intent = new Intent(this, HistoInfoPage.class);
+        intent.putExtra("termId", position);
         startActivity(intent);
     }
 }

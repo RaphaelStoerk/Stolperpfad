@@ -22,15 +22,33 @@ public class HistoRepository {
     LiveData<List<HistoricalTerm>> getAllTerms() {
         return mAllTerms;
     }
+    int getHistoId(String name) {return mHistoDao.getHistoId(name);}
 
-    public void insert (HistoricalTerm histoTerm) {
-        new insertAsyncTask(mHistoDao).execute(histoTerm);
-    }
 
-    public String getExplanation(int termId){
+    //TODO fix this maybe with AsyncTask...?
+    /*public String getExplanation(int termId) {
         return mHistoDao.getExplanation(termId);
     }
+    private static class getExplantionAsyncTask extends AsyncTask<int, Void, Void> {
 
+        private HistoDao mAsyncTaskDao;
+
+        getExplantionAsyncTask(HistoDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(int... termId) {
+            return mAsyncTaskDao.getExplanation();
+        }
+    }*/
+
+
+
+
+    public void insert(HistoricalTerm histoTerm) {
+        new insertAsyncTask(mHistoDao).execute(histoTerm);
+    }
     private static class insertAsyncTask extends AsyncTask<HistoricalTerm, Void, Void> {
 
         private HistoDao mAsyncTaskDao;
@@ -45,4 +63,5 @@ public class HistoRepository {
             return null;
         }
     }
+
 }

@@ -20,7 +20,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/stolpersteine_info" />
+            app:srcCompat="@drawable/stolpersteine_info"
+            android:contentDescription="@string/def_content_description" />
 
         <TextView
             android:id="@+id/textView"

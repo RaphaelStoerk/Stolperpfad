@@ -23,4 +23,7 @@ public interface HistoDao {
     @Query("SELECT explanation from historical_terms WHERE histo_id = :termId")
     String getExplanation(int termId);
 
+    @Query("SELECT histo_id from historical_terms WHERE name = :name")
+    int getHistoId(String name);
+
 }

@@ -6,11 +6,22 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+
+import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
+import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersRepository;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.BioPoint;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.Stolperstein;
 
 public class StolperpfadeApplication extends Application {
 
@@ -21,6 +32,8 @@ public class StolperpfadeApplication extends Application {
     private boolean image_buffer_ready = false;
     private SharedPreferences prefs;
     private static StolperpfadeApplication instance;
+
+    private PersRepository repo;
 
     public static final String DATA_FILES_PATH = Environment.getExternalStorageDirectory() + "/stolperpfade/data";
 
@@ -125,6 +138,35 @@ public class StolperpfadeApplication extends Application {
     }
 
     public void setUpDatabase() {
+        //repo = new PersRepository(this);
+
+//        ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(this, "personen_daten");
+        PersonInfo next;
+        int id;
+        String vorname;
+        String nachname;
+        JSONObject stostein;
+        Stolperstein stolperstein;
+        /*for(JSONObject json : personen) {
+            try {
+                id = json.getInt("id");
+                vorname  =json.getString("vorname");
+
+                stostein = json.getJSONObject("stolperstein");
+
+                // putPesron(id, vorname);
+                JSONArray bio = json.getJSONArray("bio");
+                ArrayList<BioPoint> biography = new ArrayList<>();
+                for(int i = 0; i < bio.length(); i++) {
+                    JSONObject bio_point = bio.getJSONObject(i);
+                    BioPoint next = new BioPoint(vorname + " " + nachname, bio_point);
+                    biography.add(next);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }*/
 
     }
 }

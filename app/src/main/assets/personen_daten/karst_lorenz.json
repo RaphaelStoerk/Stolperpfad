@@ -1,0 +1,69 @@
+{
+	"id": 2,
+	"vorname": "Lorenz",
+	"nachname": "Karst",
+	"geburtsname": "Dante",
+	"ehegatte": {
+		"vorname": "Vorname Ehegatte",
+		"nachname": "Nachname Ehegatte"
+	},
+	"kinder": [
+		{
+			"vorname": "Vorname Kind",
+			"nachname": "Nachname Kind"
+		},
+		{
+			"vorname": "Vorname Kind 1",
+			"nachname": "Nachname Kind 1"
+		}
+	],
+	"stein": {
+		"id": 1,
+		"addresse": "Olgastrasse 3",
+		"latitude": 48.4011,
+		"longitude": 9.9876
+	},
+	"bio": [
+		{
+			"punkt": "geboren",
+			"jahr": 1900,
+			"datum": "01.05.1900",
+			"ort": "Ulm",
+			"beschreibung": false,
+			"custom": ""
+		},
+		{
+			"punkt": "umzug",
+			"jahr": 1910,
+			"datum": "02.05.1900",
+			"ort": "Neu-Ulm",
+			"beschreibung": false,
+			"custom": ""
+		},
+		{
+			"punkt": "umzug",
+			"jahr": 1920,
+			"datum": "03.05.1900",
+			"ort": "Neu-Ulm",
+			"beschreibung": false,
+			"custom": ""
+		},
+		{
+			"punkt": "umzug",
+			"jahr": 1930,
+			"datum": "04.05.1900",
+			"ort": "Neu-Ulm",
+			"beschreibung": false,
+			"custom": ""
+		},
+		{
+			"punkt": "gestorben",
+			"jahr": 1940,
+			"datum": "05.11.1940",
+			"ort": "Ulm",
+			"beschreibung": false,
+			"custom": ""
+		}
+	]
+}
+		

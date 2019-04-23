@@ -23,7 +23,7 @@ public class StoneFactory {
     private MapboxMap mapboxMap;
     private boolean is_ready;
 
-    public StoneFactory(MapQuestFragment map, MapboxMap mapboxMap) {
+    private StoneFactory(MapQuestFragment map, MapboxMap mapboxMap) {
         this.map = map;
         this.mapboxMap = mapboxMap;
         all_stones = new ArrayList<>();
@@ -132,6 +132,7 @@ public class StoneFactory {
      * This class is responsible for creating an asynchronous task that creates all the stones
      * from the data in the database, so they can later be displayed on the map
      */
+    @SuppressLint("StaticFieldLeak")
     private class InitializeStonesTask extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -139,11 +140,7 @@ public class StoneFactory {
 
             map.getActivity().runOnUiThread(() -> {
                 // TODO: grab all stone info from the DataBase
-                Stone s = new Stone(48.398638, 9.993720, "Ulm", "Center", "Das ist Ulm");
-                all_stones.add(s);
-                stone_markers.add(s.getMarker(mapboxMap));
-
-                s = new Stone(48.4011, 9.9876, "Vorname_1", "Nachname_1", "Bitte ersetzen 1");
+                Stone s = new Stone(48.4011, 9.9876, "Vorname_1", "Nachname_1", "Bitte ersetzen 1");
                 all_stones.add(s);
                 stone_markers.add(s.getMarker(mapboxMap));
 

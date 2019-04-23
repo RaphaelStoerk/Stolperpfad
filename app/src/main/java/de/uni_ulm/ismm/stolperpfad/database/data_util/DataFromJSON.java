@@ -6,13 +6,39 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class DataFromJSON {
 
-    public static String loadJSONFromAsset(Context context, String filename) {
-        String json = null;
+    /**
+     * Reads in all json files in a given diretory and returns an Arraylist of those
+     * JSONObjets
+     *
+     * @param context the application context
+     * @param dirName the directory with all the json files
+     * @return a list of JSONObjects
+     */
+    public static ArrayList<JSONObject> loadAllJSONFromDirectory(Context context, String dirName) {
+        ArrayList<JSONObject> ret = new ArrayList<>();
+        try {
+            for (String file : context.getAssets().list(dirName)) {
+                Log.i("MY_JSON_TAG", file);
+                JSONObject person = loadJSONFromAssets(context, dirName + "/" + file);
+                ret.add(person);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return ret;
+    }
+
+    private static JSONObject loadJSONFromAssets(Context context, String filename) {
+        String json = "";
+        JSONObject pers = null;
         try {
 
             // see folder main/assets for json files
@@ -29,37 +55,13 @@ public class DataFromJSON {
 
             json = new String(buffer, "UTF-8");
 
-
+            pers = new JSONObject(json);
         } catch (IOException ex) {
             ex.printStackTrace();
             return null;
-        }
-        return json;
-
-    }
-
-    public static String getDataFromJSON(Context ctx, String filename) {
-
-        String in = loadJSONFromAsset(ctx, filename);
-
-        Log.i("Test","got that file" + in);
-
-        String out = "";
-        try {
-
-            // example call to the json object
-            JSONObject pers = new JSONObject(in);
-
-            String name = pers.getJSONObject("maria").getString("name");
-
-            out += name;
-
         } catch (JSONException e) {
-            e.printStackTrace();
+
         }
-
-        Log.i("Test","got that name: " + out);
-        return out;
+        return pers;
     }
-
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/walk_time_title"
+        android:textColor="?attr/colorAppTextPrimary"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/time_input"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:hint="@string/walk_time"
+        android:inputType="number"
+        android:selectAllOnFocus="true"
+        android:shadowColor="?attr/colorAppTextPrimary"
+        android:backgroundTint="?attr/colorAppTextPrimary"
+        android:singleLine="true"
+        android:textColor="?attr/colorAppTextPrimary"
+        android:textColorHighlight="?attr/colorAppAccent"
+        android:textColorHint="?attr/colorAppPrimaryContrast"
+        android:textColorLink="?attr/colorAppAccent"/>
+</LinearLayout>

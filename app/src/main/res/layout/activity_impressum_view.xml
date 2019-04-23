@@ -4,91 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".info_display.impressum.ImpressumViewActivity">
+    tools:context=".info_display.impressum.ImpressumViewActivity"
+    android:background="?attr/colorAppSecondary">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/header_impressum"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
+    <include
+        layout="@layout/header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <include
+        layout="@layout/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_impressum"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/header_image_impressum"
-                    android:layout_width="256dp"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="@string/header_content_desc"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/logo_schrift" />
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.v7.widget.Toolbar>
-
-
-    </android.support.design.widget.AppBarLayout>
+    <View
+        android:id="@+id/line_one_impressum"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="?attr/colorAppPrimaryContrast"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_back" />
 
     <TextView
         android:id="@+id/title_impressum"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
         android:text="@string/title_activity_impressum"
-        android:textAlignment="textStart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="?attr/colorAppTextPrimary"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_impressum" />
+        app:layout_constraintTop_toTopOf="@+id/line_one_impressum" />
 
-    <TextView
-        android:id="@+id/text_impressum"
+    <LinearLayout
+        android:id="@+id/buttons_impressum"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/impressum_text"
-        android:textColor="@color/colorPrimaryDark"
+        android:layout_height="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_impressum" />
+        app:layout_constraintTop_toBottomOf="@+id/title_impressum">
 
+        <Button
+            android:id="@+id/impressum_to_rights_button"
+            style="@android:style/Widget.Material.Light.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/colorAppAccent"
+            android:fontFamily="@font/fira_sans_condensed"
+            android:gravity="center"
+            android:text="@string/title_info_rights"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="?attr/colorAppTextButtonAccent"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/text_impressum_example"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/lorem_ipsum"
-        android:textColor="@color/colorPrimaryDark"
+        <Button
+            android:id="@+id/impressum_to_contact_button"
+            style="@android:style/Widget.Material.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/colorAppPrimaryContrast"
+            android:fontFamily="@font/fira_sans_condensed"
+            android:gravity="center"
+            android:text="@string/title_info_contact"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="?attr/colorAppTextButtonContrast"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/impressum_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_impressum" />
+        app:layout_constraintTop_toBottomOf="@+id/buttons_impressum">
+
+    </android.support.v4.view.ViewPager>
 
 </android.support.constraint.ConstraintLayout>

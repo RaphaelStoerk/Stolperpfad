@@ -1,0 +1,74 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorAppPrimary"
+    android:theme="@style/AppTheme.Light">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/route_option_pager"
+        android:layout_width="wrap_content"
+        android:layout_height="128dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </android.support.v4.view.ViewPager>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/route_option_pager">
+
+
+        <ImageButton
+            android:id="@+id/dialog_one"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="#0000"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_bio_point_off" />
+
+
+        <ImageButton
+            android:id="@+id/dialog_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0000"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_bio_point_off" />
+
+
+        <ImageButton
+            android:id="@+id/dialog_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="#0000"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_bio_point_off" />
+
+
+        <ImageButton
+            android:id="@+id/dialog_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="#0000"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_bio_point_off" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

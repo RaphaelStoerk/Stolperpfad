@@ -7,74 +7,19 @@
     android:layout_height="fill_parent"
     tools:context=".map_activities.control.NextStoneActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/header_next_stone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
+    <include
+        layout="@layout/header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_next_stone"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            android:focusable="true"
-            android:clickable="true">
-
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/header_image_next_stone"
-                    android:layout_width="256dp"
-                    android:layout_height="64dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="@string/header_content_desc"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/logo_schrift" />
-
-                <Button
-                    android:id="@+id/route_to_next_stone_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="#0000"
-                    android:foreground="@drawable/ic_menu_compass"
-                    android:foregroundTint="@color/colorPrimaryDark"
-                    android:focusable="true"
-                    android:clickable="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.v7.widget.Toolbar>
-
-
-    </android.support.design.widget.AppBarLayout>
-
-    <com.mapquest.mapping.maps.MapView
-        android:id="@+id/map_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <include
+        layout="@layout/fragment_map_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_next_stone"
-        app:mapquest_app_key="@string/mapquest_api_key">
+        app:layout_constraintTop_toBottomOf="@id/header" />
 
-    </com.mapquest.mapping.maps.MapView>
 </LinearLayout>

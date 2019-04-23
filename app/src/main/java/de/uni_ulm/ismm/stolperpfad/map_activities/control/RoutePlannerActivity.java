@@ -1,165 +1,161 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.control;
 
+import android.Manifest;
 import android.app.AlertDialog;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-
-import com.androidquery.AQuery;
+import android.widget.TextView;
 
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
+import de.uni_ulm.ismm.stolperpfad.map_activities.StolperpfadAppMapActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.view.RouteOptionsDialog;
+import de.uni_ulm.ismm.stolperpfad.map_activities.view.RouteOptionsFragment;
 
-public class RoutePlannerActivity extends AppCompatActivity {
+public class RoutePlannerActivity extends StolperpfadAppMapActivity {
 
-    private AQuery aq;
-
-    private static final String MAP_FRAGMENT_TAG = "MAPQUEST_MAP_FRAGMENT";
-    private MapQuestFragment myMapFragment;
-    private MyClickListener myListener;
-    private int starting_choice;
-    private int ending_choice;
     private String[] categories = new String[]{"Nein", "Jüdische Verfolgte", "Politisch Verfolgte", "Andere"};
-    private String time_string;
     private String selected_category;
+
+    private static RoutePlannerActivity instance;
+
+    public static final int START_CHOICE_GPS = 0;
+    public static final int START_CHOICE_MAP = 1;
+    public static final int START_CHOICE_CTR = 2;
+    public static final int START_CHOICE_NAN = -1;
+
+    public static final int END_CHOICE_STN = 0;
+    public static final int END_CHOICE_MAP = 1;
+    public static final int END_CHOICE_CTR = 2;
+    public static final int END_CHOICE_NAN = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        aq = new AQuery(this);
-        myListener = new MyClickListener();
-
-        setContentView(R.layout.activity_route_planner);
-
-
-        // The actual map view is now a fragment, for easier reuse and readability
-        FragmentManager fm = this.getSupportFragmentManager();
-
-        if (fm.findFragmentById(R.id.map_container) == null) {
-            myMapFragment = MapQuestFragment.newInstance(false);
-            fm.beginTransaction().add(R.id.map_container, myMapFragment, MAP_FRAGMENT_TAG).commit();
+        if (instance == null) {
+            instance = this;
         }
+        initializeGeneralControls(R.layout.activity_route_planner);
+        initializeMapQuestFragment(false);
 
-        aq.id(R.id.route_option_button).visible().clicked(myListener);
-
+        // Route Planner specific setups
+        aq.id(R.id.header_route_planner).getView().setTranslationZ(HEADER_TRANSLATION_Z / 2);
+        aq.id(R.id.route_option_button).visible().clicked(myClickListener);
+        aq.id(R.id.save_route_button).visible().clicked(myClickListener);
+        aq.id(R.id.info_map_options_button).visible().clicked(myClickListener);
+        aq.id(R.id.start_guide_button).invisible().clicked(myClickListener);
     }
 
-    public void onResume(){
+    @Override
+    public void onResume() {
         super.onResume();
     }
 
-    public void onPause(){
+    public void onPause() {
         super.onPause();
     }
 
+    public static RoutePlannerActivity getInstance() {
+        if (instance == null) {
+            return instance = new RoutePlannerActivity();
+        }
+        return instance;
+    }
 
-    /**
-     * This is an internal class that handles the Clicks of buttons on the main menu
-     * Here the route creation options are build and displayed
-     */
-    class MyClickListener implements View.OnClickListener {
+    public void routeOptionDialog() {
+        RouteOptionsDialog dialog = RouteOptionsDialog.newInstance(this);
+        dialog.show(getSupportFragmentManager(), "dialog");
+    }
 
-        @Override
-        public void onClick(View v) {
+    public void informationDialog() {
+        AlertDialog.Builder builder;
+        if (currently_in_dark_mode) {
+            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Dark);
+        } else {
+            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
+        }
+        // Get the layout inflater
+        LayoutInflater inflater = myMapFragment.getLayoutInflater();
 
-            // a simple switch case statement that checks which button was pressed
-            switch (v.getId()) {
-                case R.id.route_option_button:
-                    AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext());
+        View myDialogView = inflater.inflate(R.layout.dialog_map_info, null);
 
-                    // Get the layout inflater
-                    LayoutInflater inflater = myMapFragment.getLayoutInflater();
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(myDialogView);
 
-                    View myDialogView = inflater.inflate(R.layout.route_option_layout, null);
+        builder.setNegativeButton("Verstanden", (dialogInterface, i) -> {
+            dialogInterface.cancel();
+        });
 
-                    // Inflate and set the layout for the dialog
-                    // Pass null as the parent view because its going in the dialog layout
-                    builder.setView(myDialogView);
-                    builder.setTitle("Erstelle eine Route");
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void saveOrLoadRouteDialog() {
+        AlertDialog.Builder builder;
+        if (currently_in_dark_mode) {
+            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Dark);
+        } else {
+            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
+        }
+        // Get the layout inflater
+        LayoutInflater inflater = myMapFragment.getLayoutInflater();
+
+        View myDialogView = inflater.inflate(R.layout.dialog_save_or_load_route, null);
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setView(myDialogView);
+
+        builder.setNegativeButton("Speichern", (dialogInterface, i) -> {
+            dialogInterface.cancel();
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    public void startGuide() {
+        myMapFragment.startGuide();
+    }
+
+    public void calcRoute(String start_choice, String end_choice, String time_choice) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        myMapFragment.createRoute(start_choice, end_choice, time_choice);
+    }
 
 
-                    // build the category choices
-                    Spinner spin = myDialogView.findViewById(R.id.spinner);
-                    spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-                        @Override
-                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            selected_category = categories[position];
-                        }
+    class MyDialog extends Dialog {
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> parent) {
-                            selected_category = "";
-                        }
-                    });
-
-                    ArrayAdapter<String> aa = new ArrayAdapter<>(builder.getContext(), android.R.layout.simple_spinner_item, categories);
-                    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spin.setAdapter(aa);
-                    spin.setSelection(0);
-
-                    // build the time input test field
-                    time_string = "";
-                    EditText time_input = myDialogView.findViewById(R.id.time_input);
-
-                    time_input.addTextChangedListener(new TextWatcher() {
-
-                        @Override
-                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                        }
-
-                        @Override
-                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable editable) {
-                            time_string = editable.toString();
-                        }
-                    });
-
-                    // build the start and end position options
-                    starting_choice = -1;
-                    RadioGroup start_choice = myDialogView.findViewById(R.id.start_of_route_choice);
-                    start_choice.setOnCheckedChangeListener((radioGroup, i) -> {
-                        starting_choice = i;
-                    });
-
-                    ending_choice = -1;
-                    RadioGroup end_choice = myDialogView.findViewById(R.id.end_of_route_choice);
-                    end_choice.setOnCheckedChangeListener((radioGroup, i) -> {
-                        ending_choice = i;
-                    });
-
-                    // Set up the buttons
-                    builder.setPositiveButton("OK", (dialog, which) -> {
-
-                        int time_in_minutes;
-                        try {
-                            time_in_minutes = Integer.parseInt(time_string);
-                        }catch(NumberFormatException nfe) {
-                            time_in_minutes = -1;
-                        }
-
-                        myMapFragment.createRoute(selected_category, time_in_minutes, starting_choice, ending_choice);
-                        dialog.cancel();
-                    });
-
-                    builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-                    builder.show();
-                    break;
-            }
+        public MyDialog(@NonNull Context context) {
+            super(context);
         }
     }
+
+
+
 }

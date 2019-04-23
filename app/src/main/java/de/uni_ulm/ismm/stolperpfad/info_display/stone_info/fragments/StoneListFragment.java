@@ -75,7 +75,7 @@ public class StoneListFragment extends Fragment {
             intent.setAction("" + person.getId());
             startActivity(intent);
         });
-        but.setTextAppearance(R.style.Theme_AppCompat);
+        but.setTextAppearance(R.style.AppTheme_Light);
         String display_name = person.getListName();
         but.setText(display_name);
         but.setBackgroundColor(Color.argb(0,0,0,0));

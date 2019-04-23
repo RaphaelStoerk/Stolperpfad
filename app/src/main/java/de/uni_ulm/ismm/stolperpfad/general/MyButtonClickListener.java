@@ -9,13 +9,9 @@ import android.widget.Switch;
 import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.database.list_of_historical_terms.HistoryActivity;
-import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersonsActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.BiographyExampleActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumViewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ProjectAndArtistOverviewActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
@@ -55,7 +51,7 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 ((ScannerActivity) myActivity).takePicture();
                 break;
             case R.id.scan_to_info_button:
-                intent = new Intent(myActivity, ScrollingInfoActivity.class);
+                intent = new Intent(myActivity, StoneListActivity.class);
                 break;
             case R.id.info_button:
                 intent = new Intent(myActivity, StoneListActivity.class);
@@ -82,7 +78,7 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 intent = intentFromQuickAccess(ScannerActivity.class);
                 break;
             case R.id.quick_access_stone_info:
-                intent = intentFromQuickAccess(StoneInfoMainActivity.class);
+                intent = intentFromQuickAccess(StoneListActivity.class);
                 intent.setAction("1");
                 break;
             case R.id.quick_access_next_stone_button:
@@ -107,7 +103,8 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 myActivity.endQuickAccesDialog();
                 break;
             case R.id.dark_mode_text:
-                v = myActivity.findViewById(R.id.dark_mode_switch);
+                // v = myActivity.findViewById(R.id.dark_mode_switch);
+                return;
             case R.id.dark_mode_switch:
                 myActivity.toggleDarkMode((Switch) v, true);
                 myActivity.endQuickAccesDialog();
@@ -147,9 +144,6 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 if(myActivity instanceof ImpressumViewActivity) {
                     ((ImpressumViewActivity) myActivity).setInfoDisplay(1);
                 }
-                break;
-            case R.id.info_test_button:
-                intent = new Intent(myActivity, BiographyExampleActivity.class);
                 break;
             case R.id.button_back:
                 myActivity.onBackPressed();

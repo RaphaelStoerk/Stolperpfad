@@ -14,10 +14,10 @@
     <!-- button texts -->
     <string name="next_stone_button">Nächster Stein</string>
     <string name="scan_button">Stein Scanner</string>
-    <string name="route_button">Routenplaner</string>
+    <string name="route_button">Pfadplaner</string>
     <string name="info_button">Stolpersteine</string>
     <string name="db_button">Geschichtliches (zur Zeit noch: Datenbank)</string>
-    <string name="history_button">Geschichtliche Hintergründe</string>
+    <string name="history_button">Geschichtliches</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="project_info_button_text">Projekt und Künstler</string>
@@ -26,20 +26,20 @@
     <string name="overview_to_artist_info_button">Mehr Informationen zum Künstler</string>
 
     <!-- texts for map activities -->
-    <string name="start_loc_title">Wo möchten sie die Route beginnen?</string>
+    <string name="start_loc_title">Wo möchten sie den Pfad beginnen?</string>
     <string name="category_title">Wollen sie die Route nach einem Thema ausrichten?</string>
-    <string name="end_loc_title">Wo soll die Route enden?</string>
+    <string name="end_loc_title">Wo soll der Pfad enden?</string>
 
     <!-- activity titles -->
     <string name="title_activity_scrolling_info">ScrollingInfoActivity</string>
     <string name="title_activity_db">DbActivity</string>
     <string name="title_activity_scanner">ScannerActivity</string>
     <string name="title_activity_route">Map</string>
-    <string name="title_activity_route_planner">Stolperpfad Routenplaner</string>
+    <string name="title_activity_route_planner">Pfadplaner</string>
     <string name="title_activity_filter_search">FilterSearchActivity</string>
     <string name="title_activity_show_list_item">ShowListItem</string>
     <string name="title_activity_next_stone">Nächster Stein</string>
-    <string name="title_activity_history_info">Historisches</string>
+    <string name="title_activity_history_info">Geschichtliches</string>
     <string name="title_activity_impressum">Impressum</string>
     <string name="title_activity_privacy">Datenschutz</string>
     <string name="title_activity_artist_info">Der Künstler</string>
@@ -149,5 +149,9 @@
     <string name="sub_title_stone_info_default">geb. oder verw. Geburtsname</string>
     <string name="title_activity_stone_info">Stolpersteine</string>
     <string name="title_stone_list">Stolpersteine</string>
+    <string name="quest_start">Wo möchten Sie den Pfad beginnen?</string>
+    <string name="title_summary">Zusammenfassung</string>
+    <string name="route_option_positive">Pfad berechnen</string>
+    <string name="route_option_negative">Abbrechen</string>
 
 </resources>

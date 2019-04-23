@@ -2,29 +2,43 @@ package de.uni_ulm.ismm.stolperpfad.map_activities.control;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.map_activities.StolperpfadAppMapActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.view.RouteOptionsDialog;
+import de.uni_ulm.ismm.stolperpfad.map_activities.view.RouteOptionsFragment;
 
 public class RoutePlannerActivity extends StolperpfadAppMapActivity {
 
-    private int starting_choice;
-    private int ending_choice;
     private String[] categories = new String[]{"Nein", "Jüdische Verfolgte", "Politisch Verfolgte", "Andere"};
-    private String time_string;
     private String selected_category;
+
+    private static RoutePlannerActivity instance;
 
     public static final int START_CHOICE_GPS = 0;
     public static final int START_CHOICE_MAP = 1;
@@ -36,10 +50,12 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     public static final int END_CHOICE_CTR = 2;
     public static final int END_CHOICE_NAN = -1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (instance == null) {
+            instance = this;
+        }
         initializeGeneralControls(R.layout.activity_route_planner);
         initializeMapQuestFragment(false);
 
@@ -60,122 +76,21 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         super.onPause();
     }
 
-    public void routeOptionDialog() {
-        AlertDialog.Builder builder;
-        if(currently_in_dark_mode) {
-            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Dark);
-        } else {
-            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
+    public static RoutePlannerActivity getInstance() {
+        if (instance == null) {
+            return instance = new RoutePlannerActivity();
         }
-        // Get the layout inflater
-        LayoutInflater inflater = myMapFragment.getLayoutInflater();
-
-        View myDialogView = inflater.inflate(R.layout.dialog_route_options, null);
-
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setView(myDialogView);
-        builder.setTitle("Erstelle eine Route");
-
-
-        // build the category choices
-        Spinner spin = myDialogView.findViewById(R.id.spinner);
-        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selected_category = categories[position];
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                selected_category = "";
-            }
-        });
-
-        ArrayAdapter<String> aa = new ArrayAdapter<>(builder.getContext(), android.R.layout.simple_spinner_item, categories);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin.setAdapter(aa);
-        spin.setSelection(0);
-
-        // build the time input test field
-        time_string = "";
-        EditText time_input = myDialogView.findViewById(R.id.time_input);
-
-        time_input.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                time_string = editable.toString();
-            }
-        });
-
-        // build the start and end position options
-        starting_choice = START_CHOICE_GPS;
-        RadioGroup start_choice = myDialogView.findViewById(R.id.start_of_route_choice);
-        start_choice.setOnCheckedChangeListener((RadioGroup radioGroup, int i) -> {
-            starting_choice = getPosFromId(i, true);
-        });
-
-        ending_choice = END_CHOICE_STN;
-        RadioGroup end_choice = myDialogView.findViewById(R.id.end_of_route_choice);
-        end_choice.setOnCheckedChangeListener((radioGroup, i) -> {
-            ending_choice = getPosFromId(i, false);
-        });
-
-        // Set up the buttons
-        builder.setPositiveButton("OK", (dialog, which) -> {
-
-            int time_in_minutes;
-            try {
-                time_in_minutes = Integer.parseInt(time_string);
-            } catch (NumberFormatException nfe) {
-                time_in_minutes = -1;
-            }
-
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            myMapFragment.createRoute(selected_category, time_in_minutes, starting_choice, ending_choice);
-            dialog.cancel();
-        });
-
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-        builder.show();
+        return instance;
     }
 
-    private int getPosFromId(int i, boolean start) {
-        switch(i) {
-            case R.id.start_at_center:
-                return START_CHOICE_CTR;
-            case R.id.start_at_marker:
-                return START_CHOICE_MAP;
-            case R.id.start_at_position:
-                return START_CHOICE_GPS;
-            case R.id.end_at_marker:
-                return END_CHOICE_MAP;
-            case R.id.end_at_center:
-                return END_CHOICE_CTR;
-            case R.id.end_at_stone:
-                return END_CHOICE_STN;
-            default:
-                return start ? START_CHOICE_NAN : END_CHOICE_NAN;
-        }
+    public void routeOptionDialog() {
+        RouteOptionsDialog dialog = RouteOptionsDialog.newInstance(this);
+        dialog.show(getSupportFragmentManager(), "dialog");
     }
 
     public void informationDialog() {
         AlertDialog.Builder builder;
-        if(currently_in_dark_mode) {
+        if (currently_in_dark_mode) {
             builder = new AlertDialog.Builder(this, R.style.DialogTheme_Dark);
         } else {
             builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
@@ -199,7 +114,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
 
     public void saveOrLoadRouteDialog() {
         AlertDialog.Builder builder;
-        if(currently_in_dark_mode) {
+        if (currently_in_dark_mode) {
             builder = new AlertDialog.Builder(this, R.style.DialogTheme_Dark);
         } else {
             builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
@@ -224,5 +139,23 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     public void startGuide() {
         myMapFragment.startGuide();
     }
+
+    public void calcRoute(String start_choice, String end_choice, String time_choice) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        myMapFragment.createRoute(start_choice, end_choice, time_choice);
+    }
+
+
+
+    class MyDialog extends Dialog {
+
+        public MyDialog(@NonNull Context context) {
+            super(context);
+        }
+    }
+
+
 
 }

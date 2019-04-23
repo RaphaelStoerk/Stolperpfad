@@ -3,20 +3,6 @@
 	"vorname": "Gerda",
 	"nachname": "John",
 	"geburtsname": "Kohler",
-	"ehegatte": {
-		"vorname": "Vorname Ehegatte",
-		"nachname": "Nachname Ehegatte"
-	},
-	"kinder": [
-		{
-			"vorname": "Vorname Kind",
-			"nachname": "Nachname Kind"
-		},
-		{
-			"vorname": "Vorname Kind 1",
-			"nachname": "Nachname Kind 1"
-		}
-	],
 	"stein": {
 		"id": 1,
 		"addresse": "Olgastrasse 3",

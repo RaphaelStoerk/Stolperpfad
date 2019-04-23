@@ -25,6 +25,7 @@
         <attr name="colorAppSecondaryContrast" format="color"/>
         <attr name="colorAppAccent" format="color"/>
         <attr name="logoAppHeader" format="integer"/>
+        <attr name="logoScanner" format="integer"/>
     </declare-styleable>
 
 </resources>

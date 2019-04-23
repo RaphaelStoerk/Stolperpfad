@@ -30,6 +30,8 @@
         android:fontFamily="@font/fira_sans_condensed"
         android:textAlignment="textStart"
         android:textSize="18sp"
+        android:textColorLink="?attr/colorAppAccent"
+        android:textColorHighlight="?attr/colorAppPrimaryContrast"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_bio_point" />

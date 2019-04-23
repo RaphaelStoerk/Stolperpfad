@@ -2,16 +2,16 @@
 <resources>
     <color name="black_overlay">#83000000</color>
 
-    <color name="colorPrimaryDarkMode">#555555</color>
+    <color name="colorPrimaryDarkMode">#4d4d4d</color>
     <color name="colorPrimaryLightMode">#FFFFFF</color>
 
-    <color name="colorPrimaryContrastDarkMode">#FFFFFF</color>
+    <color name="colorPrimaryContrastDarkMode">#999999</color>
     <color name="colorPrimaryContrastLightMode">#555555</color>
 
-    <color name="colorSecondaryDarkMode">#333333</color>
+    <color name="colorSecondaryDarkMode">#4d4d4d</color>
     <color name="colorSecondaryLightMode">#FFFFFF</color>
 
-    <color name="colorSecondaryContrastDarkMode">#FFFFFF</color>
+    <color name="colorSecondaryContrastDarkMode">#999999</color>
     <color name="colorSecondaryContrastLightMode">#333333</color>
 
     <color name="colorAccentDarkMode">#FBB03B</color>

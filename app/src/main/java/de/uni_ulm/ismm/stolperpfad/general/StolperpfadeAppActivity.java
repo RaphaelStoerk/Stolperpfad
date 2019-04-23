@@ -105,6 +105,10 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
         }
     }
 
+    public boolean isInDarkMode() {
+        return currently_in_dark_mode;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         if(StolperpfadeApplication.getInstance().isDarkMode()) {
@@ -153,5 +157,9 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
         if(back_button != null) {
             aq.id(R.id.button_back).visible().clicked(myClickListener);
         }
+    }
+
+    public void reactToLink(String s) {
+        // TODO: Handle on Link click
     }
 }

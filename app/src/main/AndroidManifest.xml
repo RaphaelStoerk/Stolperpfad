@@ -43,10 +43,6 @@
             android:label="@string/title_activity_stone_info"
             android:theme="@style/AppTheme.Light" />
         <activity
-            android:name=".info_display.ScrollingInfoActivity"
-            android:label="@string/title_activity_scrolling_info"
-            android:theme="@style/AppTheme.Light" />
-        <activity
             android:name=".map_activities.control.RoutePlannerActivity"
             android:label="@string/title_activity_route_planner"
             android:theme="@style/AppTheme.Light" />
@@ -73,10 +69,6 @@
         <activity
             android:name=".info_display.project_and_artist.ProjectAndArtistOverviewActivity"
             android:label="@string/title_activity_project_and_artist_overview"
-            android:theme="@style/AppTheme.Light" />
-        <activity
-            android:name=".info_display.BiographyExampleActivity"
-            android:label="@string/title_biography_example"
             android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".database.list_of_persons.PersonsActivity"

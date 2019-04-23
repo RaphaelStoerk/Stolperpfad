@@ -28,6 +28,7 @@
         <item name="colorAppTextButtonAccent">@color/colorTextButtonAccentLightMode</item>
         <item name="colorAppTextButtonContrast">@color/colorTextButtonContrastLightMode</item>
         <item name="logoAppHeader">@drawable/ic_logo</item>
+        <item name="logoScanner">@drawable/ic_scanner</item>
     </style>
 
     <!-- Dark mode activity theme -->
@@ -46,6 +47,7 @@
         <item name="colorAppTextButtonAccent">@color/colorTextButtonAccentDarkMode</item>
         <item name="colorAppTextButtonContrast">@color/colorTextButtonContrastDarkMode</item>
         <item name="logoAppHeader">@drawable/ic_logo_dark</item>
+        <item name="logoScanner">@drawable/ic_scanner_dark</item>
     </style>
 
     <style name="AppTheme.Launcher">

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/end_loc_title"
+        android:textColor="?attr/colorAppTextPrimary"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:id="@+id/end_of_route_choice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="4dp"
+        android:checkedButton="@+id/end_at_stone">
+
+        <RadioButton
+            android:id="@+id/end_at_stone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="?attr/colorAppTextPrimary"
+            android:buttonTint="?attr/colorAppTextPrimary"
+            android:text="@string/end_choice_stone"
+            android:textColor="?attr/colorAppTextPrimary"  />
+
+        <RadioButton
+            android:id="@+id/end_at_marker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="?attr/colorAppTextPrimary"
+            android:buttonTint="?attr/colorAppTextPrimary"
+            android:text="@string/end_choice_marker"
+            android:textColor="?attr/colorAppTextPrimary" />
+
+        <RadioButton
+            android:id="@+id/end_at_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="?attr/colorAppTextPrimary"
+            android:buttonTint="?attr/colorAppTextPrimary"
+            android:text="@string/end_choice_center"
+            android:textColor="?attr/colorAppTextPrimary" />
+
+    </RadioGroup>
+</LinearLayout>

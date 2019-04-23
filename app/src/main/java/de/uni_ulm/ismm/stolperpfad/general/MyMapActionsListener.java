@@ -15,7 +15,7 @@ import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
-import de.uni_ulm.ismm.stolperpfad.info_display.ScrollingInfoActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
 
@@ -63,7 +63,7 @@ public class MyMapActionsListener implements MapboxMap.OnInfoWindowClickListener
                 builder2.setPositiveButton("Ja", (dialogInterface1, i1) -> {
                     myMapFragment.getMapboxMap().deselectMarker(marker);
                     dialogInterface1.cancel();
-                    Intent intent = new Intent(myMapFragment.getActivity(), ScrollingInfoActivity.class);
+                    Intent intent = new Intent(myMapFragment.getActivity(), StoneListActivity.class);
                     intent.setAction(myMapFragment.getStoneHandler().getStoneFromMarker(marker).toString());
                     myMapFragment.startActivity(intent);
                 });
@@ -113,7 +113,7 @@ public class MyMapActionsListener implements MapboxMap.OnInfoWindowClickListener
             }
             return false;
         }
-        Intent intent = new Intent(myMapFragment.getActivity(), ScrollingInfoActivity.class);
+        Intent intent = new Intent(myMapFragment.getActivity(), StoneListActivity.class);
         intent.setAction(check.toString());
         myMapFragment.startActivity(intent);
         return true;

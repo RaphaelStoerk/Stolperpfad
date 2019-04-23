@@ -17,7 +17,7 @@
         layout="@layout/button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
@@ -35,15 +35,17 @@
         app:layout_constraintTop_toBottomOf="@+id/button_back" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/left_button"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginTop="32dp"
         android:drawableTint="?attr/colorAppPrimaryContrast"
-        android:foreground="@drawable/ic_arrow_back_black_24dp"
+        android:foreground="@drawable/ic_left_button"
         app:layout_constraintStart_toStartOf="parent"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
         app:layout_constraintTop_toBottomOf="@+id/line_one_stone_info" />
 
     <Button
@@ -53,7 +55,7 @@
         android:layout_height="32dp"
         android:layout_marginTop="32dp"
         android:drawableTint="?attr/colorAppPrimaryContrast"
-        android:foreground="@drawable/ic_arrow_forward_black_24dp"
+        android:foreground="@drawable/ic_right_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line_one_stone_info" />
 

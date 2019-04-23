@@ -278,20 +278,23 @@ public class MapQuestFragment extends Fragment {
     /**
      * Creates a route from the user specified values for category, travel length, start and end positions
      *
-     * @param category_selected A Category for the Route
      * @param time_in_minutes The length the user has time for walking a route
      * @param start_choice The place the user wants to start at
      * @param end_choice The place the user wants to end at
      */
     @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     @SuppressLint("StaticFieldLeak")
-    public void createRoute(String category_selected, int time_in_minutes, int start_choice, int end_choice) {
+    public void createRoute(String start_choice, String end_choice, String time_in_minutes) {
 
         // TODO: create a good route through ulm
         Marker start_route_from;
         Marker end_route_at = null;
 
-        switch (start_choice) {
+        int start = Integer.parseInt(start_choice);
+        int end = Integer.parseInt(end_choice);
+        int time = Integer.parseInt(time_in_minutes);
+
+        switch (start) {
             case RoutePlannerActivity
                     .START_CHOICE_CTR:
                 start_route_from = ulm_center_marker;
@@ -307,7 +310,7 @@ public class MapQuestFragment extends Fragment {
                 start_route_from = ulm_center_marker;
         }
 
-        switch (end_choice) {
+        switch (end) {
             case RoutePlannerActivity.END_CHOICE_CTR:
                 end_route_at = ulm_center_marker;
                 break;
@@ -320,7 +323,7 @@ public class MapQuestFragment extends Fragment {
 
         ArrayList<Marker> route_points = new ArrayList<>();
 
-        addStonesToRoute(route_points, start_route_from, end_route_at, category_selected, time_in_minutes * 60);
+        addStonesToRoute(route_points, start_route_from, end_route_at, time * 60);
 
         new CreateRouteTask() {
             @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
@@ -339,7 +342,7 @@ public class MapQuestFragment extends Fragment {
                 }
                 polyline.addAll(coordinates);
                 polyline.width(3);
-                if (time_in_minutes > 0 && time_in_minutes * 60 > road.mDuration) {
+                if (time > 0 && time * 60 > road.mDuration) {
                     polyline.color(Color.argb(150, 70, 255, 50));
                 } else {
                     polyline.color(Color.argb(150, 255, 50, 50));
@@ -352,7 +355,7 @@ public class MapQuestFragment extends Fragment {
         }.execute(route_points.toArray(new Marker[]{}));
     }
 
-    private void addStonesToRoute(ArrayList<Marker> route_points, Marker start_route_from, Marker end_route_at, String category_selected, int time_in_seconds) {
+    private void addStonesToRoute(ArrayList<Marker> route_points, Marker start_route_from, Marker end_route_at, int time_in_seconds) {
         route_points.add(start_route_from);
 
         // TODO: chose some good stones!!!

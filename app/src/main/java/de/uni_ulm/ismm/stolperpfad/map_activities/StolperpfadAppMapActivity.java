@@ -18,7 +18,7 @@ public class StolperpfadAppMapActivity extends StolperpfadeAppActivity {
 
     protected static final String MAP_FRAGMENT_TAG_ROUTE = "MAPQUEST_MAP_FRAGMENT_ROUTE";
     protected static final String MAP_FRAGMENT_TAG_NEXT = "MAPQUEST_MAP_FRAGMENT_NEXT";
-    protected MapQuestFragment myMapFragment;
+    public MapQuestFragment myMapFragment;
     protected PermissionsManager permissionsManager;
     protected boolean is_first_call;
 

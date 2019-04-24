@@ -36,23 +36,23 @@ public class Person {
     @ColumnInfo(name = "family_name")
     private String mFamName;
 
-    /*@ColumnInfo(name = "birth_name")
+    @ColumnInfo(name = "birth_name")
     private String mBiName;
 
     @ColumnInfo(name = "historical_term")
-    private Integer mHisTerm;*/
+    private Integer mHisTerm;
 
     @ColumnInfo(name = "stolperstein")
     private Integer mStolperstein;
 
     // constructor
-    public Person(@NonNull int persId, @NonNull String fstName, @NonNull String famName/*, String biName,
-                  Integer hisTerm*/, Integer stolperstein) {
+    public Person(@NonNull int persId, @NonNull String fstName, @NonNull String famName, String biName,
+                  Integer hisTerm, Integer stolperstein) {
         this.mPersId = persId;
         this.mFstName = fstName;
         this.mFamName = famName;
-        /*this.mBiName = biName;
-        this.mHisTerm = hisTerm;*/
+        this.mBiName = biName;
+        this.mHisTerm = hisTerm;
         this.mStolperstein = stolperstein;
     }
 
@@ -71,13 +71,13 @@ public class Person {
         return this.mFamName;
     }
 
-    /*public String getBiName() {
+    public String getBiName() {
         return this.mBiName;
     }
 
     public Integer getHisTerm() {
         return this.mHisTerm;
-    }*/
+    }
 
     public Integer getStolperstein() {
         return this.mStolperstein;

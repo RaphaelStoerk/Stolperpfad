@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.R;
@@ -159,7 +160,8 @@ public class StoneInfoBioFragment extends StoneInfoContentFragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putSerializable("person", person);
+        //    outState.putSerializable("person", person);
+
         super.onSaveInstanceState(outState);
     }
 

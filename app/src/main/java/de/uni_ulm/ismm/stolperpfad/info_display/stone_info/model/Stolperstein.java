@@ -20,4 +20,8 @@ public class Stolperstein {
     public double getLongitude() {
         return lon;
     }
+
+    public String getAdress() {
+        return adress;
+    }
 }

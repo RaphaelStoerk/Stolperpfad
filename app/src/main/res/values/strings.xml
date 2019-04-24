@@ -33,7 +33,7 @@
     <!-- activity titles -->
     <string name="title_activity_scrolling_info">ScrollingInfoActivity</string>
     <string name="title_activity_db">DbActivity</string>
-    <string name="title_activity_scanner">ScannerActivity</string>
+    <string name="title_activity_scanner">Stein-Scanner</string>
     <string name="title_activity_route">Map</string>
     <string name="title_activity_route_planner">Pfadplaner</string>
     <string name="title_activity_filter_search">FilterSearchActivity</string>
@@ -144,8 +144,8 @@
     <string name="impressum_text_contact">Kontaktadresse</string>
     <string name="title_dsgvo">Erklärung DSGVO</string>
     <string name="title_stone_info_default">Nachname, Vorname</string>
-    <string name="button_bio">Lebenslauf</string>
-    <string name="button_stone_info_map">Karte</string>
+    <string name="button_bio">Schicksal</string>
+    <string name="button_stone_info_map">Stolperstein</string>
     <string name="sub_title_stone_info_default">geb. oder verw. Geburtsname</string>
     <string name="title_activity_stone_info">Stolpersteine</string>
     <string name="title_stone_list">Stolpersteine</string>
@@ -158,5 +158,8 @@
     <string name="info_start_end_marker">Start/Ende des Pfades</string>
     <string name="info_user_marker">Ihre aktuelle Position</string>
     <string name="info_guide_start">Sie können die Führung erst starten sobald sie einen Pfad erstellt oder geladen haben.</string>
+    <string name="show_map_button_text">Auf Karte anzeigen</string>
+    <string name="buff_string_address">addresse</string>
+    <string name="title_map_content">Der Stolperstein befindet sich bei</string>
 
 </resources>

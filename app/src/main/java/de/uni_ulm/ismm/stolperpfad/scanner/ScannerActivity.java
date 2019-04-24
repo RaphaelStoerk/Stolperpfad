@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -47,6 +48,7 @@ import java.util.List;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
 
 public class ScannerActivity extends StolperpfadeAppActivity {
 
@@ -78,7 +80,6 @@ public class ScannerActivity extends StolperpfadeAppActivity {
         super.onCreate(savedInstanceState);
         initializeGeneralControls(R.layout.activity_scanner);
         aq.id(R.id.scan_button).visible().clicked(myClickListener);
-        aq.id(R.id.scan_to_info_button).visible().clicked(myClickListener);
 
         textureView = (TextureView) aq.id(R.id.camera_preview).getView();
         assert textureView != null;
@@ -211,11 +212,15 @@ public class ScannerActivity extends StolperpfadeAppActivity {
 
                             dialog.cancel();
                             AlertDialog.Builder builder =  new AlertDialog.Builder(ScannerActivity.this);
-                            builder.setTitle("This Text has been recognized");
-                            builder.setMessage(result);
-                            builder.setNegativeButton("Okay", (dialogInterface, i) -> {
+                            builder.setTitle("Kein Ergebnis");
+                            builder.setMessage("Es konnte kein Name erkannt werden...");
+                            builder.setNegativeButton("Abbrechen", (dialogInterface, i) -> {
                                 createCameraPreview();
                                 dialogInterface.cancel();
+                            });
+                            builder.setPositiveButton("Liste anzeigen", (dialogInterface, i) -> {
+                                dialogInterface.cancel();
+                                startActivity(new Intent(ScannerActivity.this, StoneListActivity.class));
                             });
                             AlertDialog dialog = builder.create();
                             dialog.show();

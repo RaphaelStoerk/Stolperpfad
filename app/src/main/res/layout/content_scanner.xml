@@ -12,45 +12,29 @@
         android:id="@+id/camera_preview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/scan_button"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </TextureView>
 
-    <Button
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/scan_button"
-        style="@android:style/Widget.Holo.Button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="64dp"
         android:layout_marginBottom="16dp"
-        android:background="?attr/colorAppAccent"
-        android:text="@string/scan_button"
-        android:textColor="?attr/colorAppTextButton"
-        app:layout_constraintBottom_toTopOf="@+id/scan_to_info_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/scan_to_info_button"
-        style="@android:style/Widget.Holo.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="?attr/colorAppAccent"
-        android:text="@string/info_button"
-        android:textColor="?attr/colorAppTextButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:backgroundTint="?attr/colorAppAccent"
+        android:clickable="true"
+        android:focusable="true"
+        android:tint="?attr/colorAppTextPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/camera_preview"
+        app:layout_constraintEnd_toEndOf="@+id/camera_preview"
+        app:layout_constraintStart_toStartOf="@+id/camera_preview"
+        app:srcCompat="@drawable/ic_menu_camera" />
 
 </android.support.constraint.ConstraintLayout>

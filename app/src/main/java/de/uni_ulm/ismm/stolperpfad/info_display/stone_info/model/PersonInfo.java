@@ -12,11 +12,12 @@ public class PersonInfo implements Serializable {
     private ArrayList<BioPoint> biography;
     private BioPoint birth, death;
 
-    public PersonInfo(int id, String vorname, String nachname, String geburtsname) {
+    public PersonInfo(int id, String vorname, String nachname, String geburtsname, Stolperstein stein) {
         this.vorname = vorname;
         this.nachname = nachname;
         this.geburtsname = geburtsname;
         this.id = id;
+        this.stolperstein = stein;
         biography = new ArrayList<>();
         biography.add(new BioPoint(BioPoint.TYPE.BORN));
         biography.add(new BioPoint(BioPoint.TYPE.MOVED));

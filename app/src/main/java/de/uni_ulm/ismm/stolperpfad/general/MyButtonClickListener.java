@@ -51,9 +51,6 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
             case R.id.scan_button:
                 ((ScannerActivity) myActivity).takePicture();
                 break;
-            case R.id.scan_to_info_button:
-                intent = new Intent(myActivity, StoneListActivity.class);
-                break;
             case R.id.info_button:
                 intent = new Intent(myActivity, StoneListActivity.class);
                 break;

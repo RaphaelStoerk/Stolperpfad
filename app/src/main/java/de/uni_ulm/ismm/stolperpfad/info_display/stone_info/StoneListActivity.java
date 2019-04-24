@@ -170,10 +170,15 @@ public class StoneListActivity extends StolperpfadeAppActivity {
             if (!initials.contains(nachname.charAt(0))) {
                 initials.add(nachname.charAt(0));
             }
-            return new PersonInfo(id, vorname, nachname, geburtsname);
+            JSONObject stein = json.getJSONObject("stein");
+            int id1 = stein.getInt("id");
+            String ad = stein.getString("addresse");
+            double lat = stein.getDouble("latitude");
+            double lon = stein.getDouble("longitude");
+            return new PersonInfo(id, vorname, nachname, geburtsname, new Stolperstein(id1, ad, lat, lon));
         } catch(NullPointerException e) {
 
         }
-        return new PersonInfo(-1, "Fehler", "Fehler", "");
+        return new PersonInfo(-1, "Fehler", "Fehler", "", null);
     }
 }

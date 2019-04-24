@@ -1,26 +1,26 @@
 {
-  "id": 6,
-  "vorname": "Karl",
-  "nachname": "Rueff",
+  "id": 9,
+  "vorname": "Dorothea",
+  "nachname": "Meth-Cohn",
   "geburtsname": "",
   "stein": {
-    "id": 2,
-    "addresse": "Frauenstraße 28",
-    "latitude": 48.399455,
-    "longitude": 9.996718
+    "id": 3,
+    "addresse": "Neue Straße 95/97 (Lange Straße 18 stand gegenüber)",
+    "latitude": 48.397664,
+    "longitude": 9.994661
   },
   "bio": [
     {
-      "content": "0#6##Geburt#Karl Rueff wurde am 1. Februar 1892 als einziger Sohn einer Ulmer Kaufmannsfamilie geboren. Mit seinen Eltern und drei Schwestern wohnte er im Elchinger Hof in der Frauenstraße."
+      "content": "0#"
     },
     {
-      "content": "1#6##Erster_Weltkrieg#Am 2. August 1914 meldete sich Karl Rueff freiwillig zur Truppe und kämpfte vier Jahre lang. Er wurde Offizier und kurz vor Kriegsende schwer verwundet."
+      "content": "1#"
     },
     {
-      "content": "2#6#Heilanstalt_Schussenried#Nach dem Krieg#Bei der Genesung wurde offensichtlich, dass die Kriegserlebnisse Karl Rueff schwer zugesetzt hatten. Nach häuslicher Pflege und Aufenthalten in der Heilanstalt Rottenmünster und der Tübinger Universitätsklinik wurde er am 19. Juli 1924 in die Heilanstalt Bad Schussenried eingewiesen."
+      "content": "2#"
     },
     {
-      "content": "3#6#Aktion_T4#Deportation_und_Tod#Am 18. Juni 1940 wurde Karl Rueff gemeinsam mit anderen Patienten im Rahmen der Aktion T4 nach Grafeneck gebracht und wurde dort am selben Tag mit Gas ermordet."
+      "content": "3#"
     }
   ]
 }

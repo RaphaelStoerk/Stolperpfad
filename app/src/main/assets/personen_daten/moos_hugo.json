@@ -1,0 +1,26 @@
+{
+  "id": 13,
+  "vorname": "Hugo",
+  "nachname": "Moos",
+  "geburtsname": "",
+  "stein": {
+    "id": 5,
+    "addresse": "Neutorstraße 16",
+    "latitude": 48.402063,
+    "longitude": 9.986927
+  },
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}

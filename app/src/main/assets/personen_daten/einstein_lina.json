@@ -1,0 +1,27 @@
+{
+  "id": 28,
+  "vorname": "Lina",
+  "nachname": "Einstein",
+  "geburtsname": "",
+  "stein": {
+    "id": 11,
+    "addresse": "Marktplatz 14 (Seite Herdbruckerstraße)",
+    "latitude": 48.396495,
+    "longitude": 9.9943078
+  },
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

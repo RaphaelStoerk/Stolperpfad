@@ -1,0 +1,27 @@
+{
+  "id": 94,
+  "vorname": "Else",
+  "nachname": "Dölzer",
+  "geburtsname": "Löffler",
+  "stein": {
+    "id": 36,
+    "addresse": "Am Zundeltor 2",
+    "latitude": 48.4022305,
+    "longitude": 9.9995964
+  },
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

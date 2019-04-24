@@ -1,0 +1,26 @@
+{
+  "id": 63,
+  "vorname": "Konrad jun.",
+  "nachname": "Seibold",
+  "geburtsname": "",
+  "stein": {
+    "id": 22,
+    "addresse": "Uhrenmachergasse 23",
+    "latitude": 48.394984,
+    "longitude": 9.955901 
+  },
+    "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}	

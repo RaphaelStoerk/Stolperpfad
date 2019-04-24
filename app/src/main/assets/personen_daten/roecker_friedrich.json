@@ -1,0 +1,26 @@
+{
+  "id": 76,
+  "vorname": "Friedrich",
+  "nachname": "Röcker",
+  "geburtsname": "",
+  "stein": {
+    "id": 30,
+    "addresse": "Neue Straße 42 (Hintereingang)",
+    "latitude": 48.3970998,
+    "longitude": 9.9873800
+  },
+    "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}	

@@ -33,11 +33,15 @@ public class HistoInfoPage extends AppCompatActivity {
         //txtHistoDescript
         mHistoViewModel = ViewModelProviders.of(this).get(HistoViewModel.class);
 
-        TextView textView = findViewById(R.id.txtHistoDescript);
-        int current = getIntent().getExtras().getInt("termId");
-        //textView.setText(mHistoViewModel.getExplanation(current));
+        //int current = getIntent().getExtras().getInt("termId");
+        int current = Integer.parseInt(getIntent().getAction());
+        mHistoViewModel.requestExplanation(current, this);
 
     }
 
 
+    public void setExplanationText(String explanation) {
+        TextView textView = findViewById(R.id.txtHistoDescript);
+        textView.setText(explanation);
+    }
 }

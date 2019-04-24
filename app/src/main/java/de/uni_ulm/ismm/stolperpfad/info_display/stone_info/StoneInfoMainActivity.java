@@ -58,12 +58,24 @@ public class StoneInfoMainActivity extends StolperpfadeAppActivity {
                 current_person_index = position;
             }
         });
-        // current_person_index = getIntent().getAction().charAt(0);
+        current_person_index = getIndexFromId(getIntent().getAction());
         current_person_index = 0;
 
         String id = getIntent().getAction();
         current_person_index = getPerson(id);
         infoPager.setCurrentItem(current_person_index);
+    }
+
+    private int getIndexFromId(String action) {
+        int id = Integer.parseInt(action);
+        int ind = 0;
+        for(PersonInfo p : persons) {
+            if(p.getId() == id) {
+                return ind;
+            }
+            ind++;
+        }
+        return 0;
     }
 
     private int getPerson(String id) {
@@ -97,39 +109,30 @@ public class StoneInfoMainActivity extends StolperpfadeAppActivity {
         persons = new ArrayList<>();
         ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(this, "personen_daten");
         PersonInfo next;
-        int id;
-        String vorname;
-        String nachname;
-        JSONObject stostein;
-        Stolperstein stolperstein;
         for(JSONObject json : personen) {
             try {
                 next = createPersonFromJson(json);
-
                 persons.add(next);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+        // initials.sort();
         MAX_PERSONS = persons.size();
     }
 
     private PersonInfo createPersonFromJson(JSONObject json) throws JSONException {
         Stolperstein stolperstein;
-        int id = json.getInt("id");
-        String vorname = json.getString("vorname");
-        String nachname = json.getString("nachname");
-        String geburtsname = json.getString("geburtsname");
-        JSONObject stostein = json.getJSONObject("stein");
-        stolperstein = new Stolperstein(stostein.getInt("id"),stostein.getString("addresse"), stostein.getDouble("latitude"), stostein.getDouble("longitude"));
-        JSONArray bio = json.getJSONArray("bio");
-        ArrayList<BioPoint> biography = new ArrayList<>();
-        for(int i = 0; i < bio.length(); i++) {
-            JSONObject bio_point = bio.getJSONObject(i);
-            BioPoint next = new BioPoint(vorname + " " + nachname, bio_point);
-            biography.add(next);
+        try {
+            int id = json.getInt("id");
+            String vorname = json.getString("vorname");
+            String nachname = json.getString("nachname");
+            String geburtsname = json.getString("geburtsname");
+            return new PersonInfo(id, vorname, nachname, geburtsname);
+        } catch(NullPointerException e) {
+
         }
-        return new PersonInfo(id,vorname, nachname, geburtsname, stolperstein, biography);
+        return new PersonInfo(-1, "Fehler", "Fehler", "");
     }
 
     /**

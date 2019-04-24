@@ -90,9 +90,9 @@ public class StoneInfoBioFragment extends StoneInfoContentFragment {
 
     private void updateButtons() {
         for(Button b : bio_buttons) {
-            b.setBackgroundResource(R.drawable.ic_bio_point_off);
+            b.setBackgroundResource(R.drawable.ic_point);
         }
-        bio_buttons.get(current_point).setBackgroundResource(R.drawable.ic_bio_point_on);
+        bio_buttons.get(current_point).setBackgroundResource(R.drawable.ic_point_on);
     }
 
     private void createBioButtons(LayoutInflater inflater, Context ctx, ConstraintLayout bio_layout) {
@@ -136,9 +136,9 @@ public class StoneInfoBioFragment extends StoneInfoContentFragment {
     private Button makeButton(LayoutInflater inflater, Context ctx, int bio_index) {
         Button but = (Button) inflater.inflate(R.layout.bio_button_layout, null);
         but.setOnClickListener(view -> showInfo(bio_index));
-        but.setBackgroundResource(R.drawable.ic_bio_point_off);
+        but.setBackgroundResource(R.drawable.ic_point);
         DisplayMetrics dm = ctx.getResources().getDisplayMetrics();
-        float dp = 32f;
+        float dp = 24f;
         float fpixels = dm.density * dp;
         int pixels = (int) (fpixels + 0.5f);
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(pixels,pixels);

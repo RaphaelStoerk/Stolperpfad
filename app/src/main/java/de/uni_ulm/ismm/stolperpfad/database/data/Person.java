@@ -127,67 +127,66 @@ public class Person {
         private String mSection9;
 
         //Constructor
-        public Vita(@NonNull int persId, String sec0, String sec1, String sec2,
-                    String sec3, String sec4, String sec5, String sec6, String sec7, String sec8, String sec9) {
-            this.mPersId = persId;
-            this.mSection0 = sec0;
-            this.mSection1 = sec1;
-            this.mSection2 = sec2;
-            this.mSection3 = sec3;
-            this.mSection4 = sec4;
-            this.mSection5 = sec5;
-            this.mSection6 = sec6;
-            this.mSection7 = sec7;
-            this.mSection8 = sec8;
-            this.mSection9 = sec9;
+        public Vita(@NonNull int mPersId, String mSection0, String mSection1, String mSection2,
+                    String mSection3, String mSection4, String mSection5, String mSection6,
+                    String mSection7, String mSection8, String mSection9) {
+            this.mPersId = mPersId;
+            this.mSection0 = mSection0;
+            this.mSection1 = mSection1;
+            this.mSection2 = mSection2;
+            this.mSection3 = mSection3;
+            this.mSection4 = mSection4;
+            this.mSection5 = mSection5;
+            this.mSection6 = mSection6;
+            this.mSection7 = mSection7;
+            this.mSection8 = mSection8;
+            this.mSection9 = mSection9;
         }
 
         // these are the getter-methods;
 
-        public int getmPersId() {
+        public int getMPersId() {
             return mPersId;
         }
 
         @NonNull
-        public String getmSection0() {
+        public String getMSection0() {
             return mSection0;
         }
 
         @NonNull
-        public String getmSection1() {
+        public String getMSection1() {
             return mSection1;
         }
 
         @NonNull
-        public String getmSection2() {
+        public String getMSection2() {
             return mSection2;
         }
 
-        public String getmSection3() {
+        public String getMSection3() {
             return mSection3;
         }
 
-        public String getmSection4() {
-            return mSection4;
-        }
+        public String getMSection4() { return mSection4; }
 
-        public String getmSection5() {
+        public String getMSection5() {
             return mSection5;
         }
 
-        public String getmSection6() {
+        public String getMSection6() {
             return mSection6;
         }
 
-        public String getmSection7() {
+        public String getMSection7() {
             return mSection7;
         }
 
-        public String getmSection8() {
+        public String getMSection8() {
             return mSection8;
         }
 
-        public String getmSection9() {
+        public String getMSection9() {
             return mSection9;
         }
     }

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,8 @@ public class StoneListActivity extends StolperpfadeAppActivity {
     ScrollView index_scroll_view;
     ArrayList<PersonInfo> persons;
     ArrayList<Character> initials;
+    private Button last_pressed;
+    ArrayList<Button> index_buttons;
     private int MAX_PERSONS;
 
     @Override
@@ -53,49 +56,70 @@ public class StoneListActivity extends StolperpfadeAppActivity {
         list_pager = findViewById(R.id.stone_list_pager);
         PagerAdapter lpa = new ListPagerAdapter(getSupportFragmentManager());
         list_pager.setAdapter(lpa);
+        list_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                updateList(position);
+            }
+        });
 
     }
 
     private void setUpScrollView(ScrollView index_scroll_view) {
-        ConstraintLayout index = index_scroll_view.findViewById(R.id.index_container);
-        ArrayList<Button> index_buttons = new ArrayList<>();
+        ConstraintLayout index = index_scroll_view.findViewById(R.id.index_layout);
+        index_buttons = new ArrayList<>();
+        int count = initials.size();
         Button buff;
-        for(int i = 0; i < initials.size(); i++) {
+        for(int i = 0; i < count; i++) {
             index_buttons.add(buff = makeButton(this, i));
             index.addView(buff);
         }
+        index_buttons.get(0).setBackgroundResource(R.drawable.ic_bio_point_on);
+        Button first = index_buttons.get(0);
+        DisplayMetrics dm = this.getResources().getDisplayMetrics();
+        float dp = 16f;
+        float fpixels = dm.density * dp;
+        int margin = (int) (fpixels + 0.5f);
         ConstraintSet cs = new ConstraintSet();
-        cs.connect(index_buttons.get(0).getId(),ConstraintSet.TOP, index.getId(),ConstraintSet.TOP,32 );
-        cs.connect(index_buttons.get(0).getId(),ConstraintSet.START, index.getId(),ConstraintSet.START, 16 );
-        cs.connect(index_buttons.get(0).getId(),ConstraintSet.END, index.getId(),ConstraintSet.END, 16 );
-
-        for(int i = 1; i < index_buttons.size(); i++) {
-            cs.connect(index_buttons.get(i).getId(),ConstraintSet.TOP,index_buttons.get(i-1).getId(),ConstraintSet.BOTTOM, 64 );
-            cs.connect(index_buttons.get(i).getId(),ConstraintSet.START,index.getId(),ConstraintSet.START, 16 );
-            cs.connect(index_buttons.get(i).getId(),ConstraintSet.END, index.getId(),ConstraintSet.END, 16 );
+        cs.clone(index);
+        cs.connect(first.getId(),ConstraintSet.TOP, index.getId(),ConstraintSet.TOP,margin );
+        cs.connect(first.getId(),ConstraintSet.START,index.getId(),ConstraintSet.START );
+        cs.connect(first.getId(),ConstraintSet.END, index.getId(),ConstraintSet.END);
+        for(int i = 1; i < count; i++) {
+            cs.connect(index_buttons.get(i).getId(),ConstraintSet.TOP,index_buttons.get(i-1).getId(),ConstraintSet.BOTTOM,margin);
+            cs.connect(index_buttons.get(i).getId(),ConstraintSet.START,index.getId(),ConstraintSet.START );
+            cs.connect(index_buttons.get(i).getId(),ConstraintSet.END, index.getId(),ConstraintSet.END );
         }
         cs.applyTo(index);
+        last_pressed = first;
     }
 
     private Button makeButton(Context ctx, int index) {
-        Button but = new Button(ctx);
+        Button but = (Button) LayoutInflater.from(ctx).inflate(R.layout.button_index, null);
         but.setOnClickListener(view -> {
             updateList(index);
+            last_pressed.setBackground(null);
+            but.setBackgroundResource(R.drawable.ic_point_on);
+            last_pressed = but;
         });
-        but.setBackgroundResource(R.drawable.ic_bio_point_on);
         but.setText(initials.get(index).toString());
         DisplayMetrics dm = ctx.getResources().getDisplayMetrics();
-        float dp = 32f;
+        float dp = 50f;
         float fpixels = dm.density * dp;
         int pixels = (int) (fpixels + 0.5f);
-        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(pixels, pixels);
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(pixels,pixels);
         but.setLayoutParams(params);
-        but.setId(View.generateViewId());
+        but.setId(index+1000);
         return but;
+
+
     }
 
     public void updateList(int index) {
         list_pager.setCurrentItem(index);
+        last_pressed.setBackground(null);
+        index_buttons.get(index).setBackgroundResource(R.drawable.ic_bio_point_on);
+        last_pressed = index_buttons.get(index);
     }
 
     /**
@@ -124,15 +148,9 @@ public class StoneListActivity extends StolperpfadeAppActivity {
         initials = new ArrayList<>();
         ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(this, "personen_daten");
         PersonInfo next;
-        int id;
-        String vorname;
-        String nachname;
-        JSONObject stostein;
-        Stolperstein stolperstein;
         for(JSONObject json : personen) {
             try {
                 next = createPersonFromJson(json);
-
                 persons.add(next);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -144,22 +162,18 @@ public class StoneListActivity extends StolperpfadeAppActivity {
 
     private PersonInfo createPersonFromJson(JSONObject json) throws JSONException {
         Stolperstein stolperstein;
-        int id = json.getInt("id");
-        String vorname = json.getString("vorname");
-        String nachname = json.getString("nachname");
-        String geburtsname = json.getString("geburtsname");
-        JSONObject stostein = json.getJSONObject("stein");
-        stolperstein = new Stolperstein(stostein.getInt("id"),stostein.getString("addresse"), stostein.getDouble("latitude"), stostein.getDouble("longitude"));
-        JSONArray bio = json.getJSONArray("bio");
-        ArrayList<BioPoint> biography = new ArrayList<>();
-        for(int i = 0; i < bio.length(); i++) {
-            JSONObject bio_point = bio.getJSONObject(i);
-            BioPoint next = new BioPoint(vorname + " " + nachname, bio_point);
-            biography.add(next);
+        try {
+            int id = json.getInt("id");
+            String vorname = json.getString("vorname");
+            String nachname = json.getString("nachname");
+            String geburtsname = json.getString("geburtsname");
+            if (!initials.contains(nachname.charAt(0))) {
+                initials.add(nachname.charAt(0));
+            }
+            return new PersonInfo(id, vorname, nachname, geburtsname);
+        } catch(NullPointerException e) {
+
         }
-        if(!initials.contains(nachname.charAt(0))) {
-            initials.add(nachname.charAt(0));
-        }
-        return new PersonInfo(id,vorname, nachname, geburtsname, stolperstein, biography);
+        return new PersonInfo(-1, "Fehler", "Fehler", "");
     }
 }

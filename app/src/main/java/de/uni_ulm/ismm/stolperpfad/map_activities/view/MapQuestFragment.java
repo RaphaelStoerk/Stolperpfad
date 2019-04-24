@@ -365,10 +365,12 @@ public class MapQuestFragment extends Fragment {
     private void addStonesToRoute(ArrayList<Marker> route_points, Marker start_route_from, Marker end_route_at, int time_in_seconds) {
         route_points.add(start_route_from);
 
+        ArrayList<Marker> markers = stone_handler.getMarkers();
+
         // TODO: chose some good stones!!!
-        route_points.add(stone_handler.getMarkers().get(0));
-        route_points.add(stone_handler.getMarkers().get(1));
-        route_points.add(stone_handler.getMarkers().get(4));
+        for(int i = 0; i < 10; i++) {
+            route_points.add(markers.get((int)(markers.size() * Math.random())));
+        }
 
         if (!(end_route_at == null)) {
             route_points.add(end_route_at);

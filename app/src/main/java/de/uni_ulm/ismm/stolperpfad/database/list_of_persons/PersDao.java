@@ -7,9 +7,7 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-import de.uni_ulm.ismm.stolperpfad.database.data.Institution;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
-import de.uni_ulm.ismm.stolperpfad.database.data.Place;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 
 /**

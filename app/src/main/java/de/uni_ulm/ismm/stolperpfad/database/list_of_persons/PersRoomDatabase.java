@@ -9,9 +9,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
-import de.uni_ulm.ismm.stolperpfad.database.data.Institution;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
-import de.uni_ulm.ismm.stolperpfad.database.data.Place;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 
 /**

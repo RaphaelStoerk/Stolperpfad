@@ -8,16 +8,9 @@ import android.support.annotation.NonNull;
 /**
  * Overview over the database tables:
  * Table 1: Persons (here)
- * Table 2: Marriages (here)
- * Table 3: Children (here)
- * Table 4: fled to (here)
- * Table 5: Places (in Place)
- * Table 6: moved to (in Place)
- * Table 7: deported to (in Place)
- * Table 8: Stolpersteine (in Stolperstein)
- * Table 9: Institutions in Ulm (in Institution)
- * Table 10: moved in Ulm (in Institution)
- * Table 11: Historical Terms (in HistoricTerm)
+ * Table 2: Vita (here)
+ * Table 3: Stolpersteine (in Stolperstein)
+ * Table 4: Historical Terms (in HistoricalTerm)
  */
 
 
@@ -26,7 +19,7 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "persons")
 public class Person {
 
-    // id - first name - last name - birth name - year* - place of birth - year† - historical term - Stolperstein
+    // id - first name - last name - birth name - historical term - Stolperstein
 
     // we have to work with Integer instead of int because an 'int' can't be null,
     // but an 'Integer' can and sometimes the table entries are null
@@ -46,15 +39,6 @@ public class Person {
     /*@ColumnInfo(name = "birth_name")
     private String mBiName;
 
-    @ColumnInfo(name = "birth_year")
-    private Integer mBiYear;
-
-    @ColumnInfo(name = "birth_place")
-    private Integer mBiPlace;
-
-    @ColumnInfo(name = "death_year")
-    private Integer mDeYear;
-
     @ColumnInfo(name = "historical_term")
     private Integer mHisTerm;*/
 
@@ -63,14 +47,11 @@ public class Person {
 
     // constructor
     public Person(@NonNull int persId, @NonNull String fstName, @NonNull String famName/*, String biName,
-                  Integer biYear, Integer biPlace, Integer deYear, Integer hisTerm*/, Integer stolperstein) {
+                  Integer hisTerm*/, Integer stolperstein) {
         this.mPersId = persId;
         this.mFstName = fstName;
         this.mFamName = famName;
         /*this.mBiName = biName;
-        this.mBiYear = biYear;
-        this.mBiPlace = biPlace;
-        this.mDeYear = deYear;
         this.mHisTerm = hisTerm;*/
         this.mStolperstein = stolperstein;
     }
@@ -94,18 +75,6 @@ public class Person {
         return this.mBiName;
     }
 
-    public Integer getBiYear() {
-        return this.mBiYear;
-    }
-
-    public Integer getBiPlace() {
-        return this.mBiPlace;
-    }
-
-    public Integer getDeYear() {
-        return this.mDeYear;
-    }
-
     public Integer getHisTerm() {
         return this.mHisTerm;
     }*/
@@ -115,129 +84,116 @@ public class Person {
     }
 
 
-    // these are the additional tables we need to store the data
+    // TABLE 2:
+    @Entity(tableName = "vitas")
+    public class Vita {
 
-    // TABLE 2: marriages
-    @Entity(tableName = "married")
-    public static class Marriage {
-        // first person - second person - year
-        @PrimaryKey
-        @NonNull
-        @ColumnInfo(name = "id_pers1")
-        private int mId1;
-
-        @NonNull
-        @ColumnInfo(name = "id_pers2")
-        private int mId2;
-
-        @ColumnInfo(name = "year")
-        private Integer mYear;
-
-        //constructor
-        public Marriage(int id1, int id2, Integer year) {
-            this.mId1 = id1;
-            this.mId2 = id2;
-            this.mYear = year;
-        }
-
-        //getter
-        public int getId1() {
-            return mId1;
-        }
-
-        public int getId2() {
-            return mId2;
-        }
-
-        public Integer getYear() {
-            return mYear;
-        }
-    }
-
-    // TABLE 3: children
-    @Entity(tableName = "children")
-    public static class Children{
-        // id parent (normally mother) - id first child - id second child - id third child
+        // id - section 1 - section 2 - section 3 - section 4 - section 5 - section 6 - section 7
+        // - section 8 - section 9 - section 10
 
         @PrimaryKey
         @NonNull
-        @ColumnInfo(name = "id_parent")
-        private int mIdParent;
-
-        @NonNull
-        @ColumnInfo(name = "first_child")
-        private int mIdFstChild;
-
-        @ColumnInfo(name = "second_child")
-        private Integer mIdSndChild;
-
-        @ColumnInfo(name = "third_child")
-        private Integer mIdTrdChild;
-
-        //constructor
-        public Children(int idParent, int idFstChild, Integer idSndChild, Integer idTrdChild) {
-            this.mIdParent = idParent;
-            this.mIdFstChild = idFstChild;
-            this.mIdSndChild = idSndChild;
-            this.mIdTrdChild = idTrdChild;
-        }
-
-        //getter-methods
-        public int getIdParent() {
-            return mIdParent;
-        }
-
-        public int getIdFstChild() {
-            return mIdFstChild;
-        }
-
-        public Integer getIdSndChild() {
-            return mIdSndChild;
-        }
-
-        public Integer getIdTrdChild() {
-            return mIdTrdChild;
-        }
-    }
-
-    // TABLE 4: flight to the USA, Great Britain or Palestine
-    @Entity(tableName = "flight")
-    public static class Flight{
-        // id person - country - year
-
-        @PrimaryKey
-        @NonNull
-        @ColumnInfo(name = "id_person")
+        @ColumnInfo(name = "pers_id")
         private int mPersId;
 
         @NonNull
-        @ColumnInfo(name = "country")
-        private String mCountry;
+        @ColumnInfo(name = "section0")
+        private String mSection0;
 
         @NonNull
-        @ColumnInfo(name = "year")
-        private int mYear;
+        @ColumnInfo(name = "section1")
+        private String mSection1;
 
-        //constructor
-        public Flight(int persId, String country, int year){
+        @NonNull
+        @ColumnInfo(name = "section2")
+        private String mSection2;
+
+        @ColumnInfo(name = "section3")
+        private String mSection3;
+
+        @ColumnInfo(name = "section4")
+        private String mSection4;
+
+        @ColumnInfo(name = "section5")
+        private String mSection5;
+
+        @ColumnInfo(name = "section6")
+        private String mSection6;
+
+        @ColumnInfo(name = "section7")
+        private String mSection7;
+
+        @ColumnInfo(name = "section8")
+        private String mSection8;
+
+        @ColumnInfo(name = "section9")
+        private String mSection9;
+
+        //Constructor
+        public Vita(@NonNull int persId, @NonNull String sec0, @NonNull String sec1, @NonNull String sec2,
+                    String sec3, String sec4, String sec5, String sec6, String sec7, String sec8, String sec9) {
             this.mPersId = persId;
-            this.mCountry = country;
-            this.mYear = year;
+            this.mSection0 = sec0;
+            this.mSection1 = sec1;
+            this.mSection2 = sec2;
+            this.mSection3 = sec3;
+            this.mSection4 = sec4;
+            this.mSection5 = sec5;
+            this.mSection6 = sec6;
+            this.mSection7 = sec7;
+            this.mSection8 = sec8;
+            this.mSection9 = sec9;
         }
 
-        public int getPersId() {
+        // these are the getter-methods;
+
+        public int getmPersId() {
             return mPersId;
         }
 
-        public String getCountry() {
-            return mCountry;
+        @NonNull
+        public String getmSection0() {
+            return mSection0;
         }
 
-        public int getYear() {
-            return mYear;
+        @NonNull
+        public String getmSection1() {
+            return mSection1;
+        }
+
+        @NonNull
+        public String getmSection2() {
+            return mSection2;
+        }
+
+        public String getmSection3() {
+            return mSection3;
+        }
+
+        public String getmSection4() {
+            return mSection4;
+        }
+
+        public String getmSection5() {
+            return mSection5;
+        }
+
+        public String getmSection6() {
+            return mSection6;
+        }
+
+        public String getmSection7() {
+            return mSection7;
+        }
+
+        public String getmSection8() {
+            return mSection8;
+        }
+
+        public String getmSection9() {
+            return mSection9;
         }
     }
-
 
 }
 

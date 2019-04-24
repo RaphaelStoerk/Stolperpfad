@@ -112,7 +112,7 @@ public class StoneFactory {
      * @return the stone that is nearest to rel_stone
      */
     public Marker getNearestTo(Marker rel_stone) {
-        if (stone_markers == null || stone_markers.size() == 0) {
+        if (stone_markers == null || stone_markers.size() == 0 || rel_stone == null) {
             return null;
         }
         Marker best = stone_markers.get(0);

@@ -9,10 +9,12 @@ import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
 import de.uni_ulm.ismm.stolperpfad.general.MyMapActionsListener;
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.model.MyRoad;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -97,8 +99,7 @@ public class MapQuestFragment extends Fragment {
     private Marker nearest_stone_marker;
     private MyMapActionsListener myActionListener;
     private IconFactory icon_factory;
-    private Icon icon_start_end, icon_user, icon_stone, icon_default;
-    private Icon icon_start_end_low, icon_user_low, icon_stone_low, icon_default_low, icon_spec_red_low, icon_spec_blue_low, icon_spec_green_low, icon_spec_white_low;
+    private Icon icon_start_end_low, icon_user_low, icon_stone_low, icon_default_low;
 
     public MapQuestFragment() {
         // Required empty public constructor
@@ -137,9 +138,12 @@ public class MapQuestFragment extends Fragment {
         map.onCreate(savedInstanceState);
         map.getMapAsync(mapboxMap -> {
             mMapboxMap = mapboxMap;
-            map.setStreetMode();
-            // Thread load = new Thread(this::loadIcons);
-            // load.start();
+            if (StolperpfadeApplication.getInstance().isDarkMode()) {
+                map.setNightMode();
+            } else {
+                map.setStreetMode();
+            }
+            loadIconsLow();
 
             stone_handler = StoneFactory.initialize(this, mMapboxMap);
 
@@ -147,11 +151,11 @@ public class MapQuestFragment extends Fragment {
             chosen_marker_start = null;
             chosen_position_end = new LatLng(0, 0);
             chosen_marker_end = null;
-            ulm_center = new LatLng(48.398638, 9.993720);
+            ulm_center = new LatLng(48.39855, 9.99123);
             MarkerOptions ulm_center_options = new MarkerOptions();
             ulm_center_options.setPosition(ulm_center);
-            ulm_center_options.setTitle("Stadt Ulm");
-            ulm_center_options.setSnippet("Dies ist die Stadt Ulm");
+            ulm_center_options.setIcon(icon_default_low);
+            ulm_center_options.setTitle("Münsterplatz");
             ulm_center_marker = mMapboxMap.addMarker(ulm_center_options);
 
             if (myActionListener == null) {
@@ -169,11 +173,6 @@ public class MapQuestFragment extends Fragment {
             }
         });
 
-        if (StolperpfadeApplication.getInstance().isDarkMode()) {
-            map.setNightMode();
-        } else {
-            map.setStreetMode();
-        }
 
         return map;
     }
@@ -183,40 +182,24 @@ public class MapQuestFragment extends Fragment {
         icon_default_low = icon_factory.fromResource(R.drawable.marker_icon_default_round);
         icon_start_end_low = icon_factory.fromResource(R.drawable.marker_icon_start_end);
         icon_stone_low = icon_factory.fromResource(R.drawable.marker_icon_stone);
-        icon_user_low = icon_factory.fromResource(R.drawable.marker_icon_user);
-        icon_spec_blue_low = icon_factory.fromResource(R.drawable.marker_icon_special_blue);
-        icon_spec_red_low = icon_factory.fromResource(R.drawable.marker_icon_special_red);
-        icon_spec_green_low = icon_factory.fromResource(R.drawable.marker_icon_special_green);
-        icon_spec_white_low = icon_factory.fromResource(R.drawable.marker_icon_default);
-    }
-
-    private void loadIcons() {
-        if (icon_factory == null) {
-            icon_factory = IconFactory.getInstance(ctx);
-        }
-        icon_default = icon_factory.defaultMarker();
-        icon_user = icon_factory.fromAsset("icon_marker_user.json");
-        icon_start_end = icon_factory.fromAsset("icon_marker_start_end.json");
-        icon_stone = icon_factory.fromAsset("icon_marker_stone.json");
-        icons_loaded = true;
-        attemptRedraw();
+        icon_user_low = icon_factory.fromResource(R.drawable.marker_icon_default);
     }
 
     private void attemptRedraw() {
         if (user_position_marker != null) {
-            user_position_marker.setIcon(icon_user);
+            user_position_marker.setIcon(icon_user_low);
         }
         if (chosen_marker_start != null) {
-            chosen_marker_start.setIcon(icon_start_end);
+            chosen_marker_start.setIcon(icon_start_end_low);
         }
         if (chosen_marker_end != null) {
-            chosen_marker_end.setIcon(icon_start_end);
+            chosen_marker_end.setIcon(icon_start_end_low);
         }
         if (stone_handler != null) {
             if (stone_handler.isReady()) {
                 for (Marker m : stone_handler.getMarkers()) {
                     if (m != null) {
-                        m.setIcon(icon_stone);
+                        m.setIcon(icon_stone_low);
                     }
                 }
             }
@@ -252,19 +235,14 @@ public class MapQuestFragment extends Fragment {
             loadIconsLow();
         }
         for (Marker m : stone_handler.getMarkers()) {
-
-            if (icons_loaded) {
-                m.setIcon(icon_stone);
-            } else {
-                m.setIcon(icon_stone_low);
-            }
+            m.setIcon(icon_stone_low);
         }
         if (NEXT) {
             nearest_stone_marker = stone_handler.getNearestTo(user_position_marker);
             if (nearest_stone_marker == null) {
                 nearest_stone_marker = ulm_center_marker;
-                nearest_stone_marker.setTitle("Fehler");
-                nearest_stone_marker.setSnippet("Es konnte kein Stein gefunden werden");
+                nearest_stone_marker.setTitle("TODO!!");
+                nearest_stone_marker.setSnippet("Auch ohne Location kann ein neuer Stein gefunden werden, falls der Benutzer bereits einen Stein betrachtet hat!!");
             } else {
                 nearest_stone_marker.setSnippet("Bring mich zu diesem Stein");
             }
@@ -294,15 +272,24 @@ public class MapQuestFragment extends Fragment {
         int end = Integer.parseInt(end_choice);
         int time = Integer.parseInt(time_in_minutes);
 
+
         switch (start) {
             case RoutePlannerActivity
                     .START_CHOICE_CTR:
                 start_route_from = ulm_center_marker;
                 break;
             case RoutePlannerActivity.START_CHOICE_GPS:
+                if(user_position_marker == null) {
+                    errorDialog("Keinen Standort gefunden");
+                    return;
+                }
                 start_route_from = user_position_marker;
                 break;
             case RoutePlannerActivity.START_CHOICE_MAP:
+                if(chosen_marker_start == null) {
+                    errorDialog("Keinen Start-Marker gesetzt");
+                    return;
+                }
                 start_route_from = chosen_marker_start;
                 break;
             case RoutePlannerActivity.START_CHOICE_NAN:
@@ -315,6 +302,10 @@ public class MapQuestFragment extends Fragment {
                 end_route_at = ulm_center_marker;
                 break;
             case RoutePlannerActivity.END_CHOICE_MAP:
+                if(chosen_marker_end == null) {
+                    errorDialog("Keinen Start-Marker gesetzt");
+                    return;
+                }
                 end_route_at = chosen_marker_end;
                 break;
             case RoutePlannerActivity.END_CHOICE_STN:
@@ -328,7 +319,7 @@ public class MapQuestFragment extends Fragment {
         new CreateRouteTask() {
             @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
             @Override
-            public void onPostExecute(Road road) {
+            public void onPostExecute(MyRoad road) {
                 if (road == null) {
                     return;
                 }
@@ -353,6 +344,22 @@ public class MapQuestFragment extends Fragment {
                 // enterFollowMode();
             }
         }.execute(route_points.toArray(new Marker[]{}));
+    }
+
+    private void errorDialog(String s) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setTitle(s);
+        builder.setMessage("Bei Fragen auf den Informations-Button auf der unteren Leiste drücken.");
+
+        builder.setNegativeButton("Okay", (dialogInterface, i) -> {
+            dialogInterface.cancel();
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void addStonesToRoute(ArrayList<Marker> route_points, Marker start_route_from, Marker end_route_at, int time_in_seconds) {
@@ -385,7 +392,7 @@ public class MapQuestFragment extends Fragment {
         new CreateRouteTask() {
             @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
             @Override
-            public void onPostExecute(Road road) {
+            public void onPostExecute(MyRoad road) {
                 if (road == null) {
                     return;
                 }
@@ -461,11 +468,9 @@ public class MapQuestFragment extends Fragment {
             if (icon_user_low == null) {
                 loadIconsLow();
             }
-            if (icons_loaded) {
-                user_position_marker_options.setIcon(icon_user);
-            } else {
-                user_position_marker_options.setIcon(icon_spec_blue_low);
-            }
+
+            user_position_marker_options.setIcon(icon_user_low);
+
             if (mMapboxMap == null) {
                 return;
             }
@@ -506,18 +511,10 @@ public class MapQuestFragment extends Fragment {
                 loadIconsLow();
             }
             if (asStart) {
-                if (icons_loaded) {
-                    chosen_marker_options.setIcon(icon_start_end);
-                } else {
-                    chosen_marker_options.setIcon(icon_spec_green_low);
-                }
+                chosen_marker_options.setIcon(icon_start_end_low);
                 chosen_marker_start = mMapboxMap.addMarker(chosen_marker_options);
             } else {
-                if (icons_loaded) {
-                    chosen_marker_options.setIcon(icon_start_end);
-                } else {
-                    chosen_marker_options.setIcon(icon_spec_red_low);
-                }
+                chosen_marker_options.setIcon(icon_start_end_low);
                 chosen_marker_end = mMapboxMap.addMarker(chosen_marker_options);
             }
         }
@@ -527,7 +524,14 @@ public class MapQuestFragment extends Fragment {
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        enterFollowMode();
+        if(locationPresenter == null) {
+            return;
+        } else if(!locationPresenter.isFollowing()) {
+            enterFollowMode();
+        } else {
+            locationPresenter.setFollow(false);
+            locationPresenter.onStop();
+        }
     }
 
     public boolean isNearestMarkerToUser(Marker marker) {
@@ -565,10 +569,10 @@ public class MapQuestFragment extends Fragment {
      * for a collection of - at least - two stones
      * A MapQuest Key is needed for the call to be succesful
      */
-    private class CreateRouteTask extends AsyncTask<Marker[], Void, Road> {
+    private class CreateRouteTask extends AsyncTask<Marker[], Void, MyRoad> {
 
         @Override
-        protected Road doInBackground(Marker[]... markers) {
+        protected MyRoad doInBackground(Marker[]... markers) {
 
             if(markers == null || markers.length < 1 || markers[0].length < 2) {
                 return null;
@@ -590,7 +594,7 @@ public class MapQuestFragment extends Fragment {
                 waypoints.add(new GeoPoint(marker_position.getLatitude(), marker_position.getLongitude()));
             }
 
-            Road road = roadManager.getRoad(waypoints);
+            MyRoad road = MyRoad.from(roadManager.getRoad(waypoints));
 
             return road;
         }

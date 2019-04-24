@@ -1,0 +1,26 @@
+{
+  "id": 64,
+  "vorname": "Jonathan",
+  "nachname": "Stark",
+  "geburtsname": "",
+  "stein": {
+    "id": 9,
+    "addresse": "Herdbruckerstraße 6",
+    "latitude": 48.396097,
+    "longitude": 9.994237
+  },
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}

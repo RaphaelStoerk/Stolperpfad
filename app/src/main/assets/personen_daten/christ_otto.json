@@ -1,0 +1,27 @@
+{
+  "id": 11,
+  "vorname": "Otto",
+  "nachname": "Christ",
+  "geburtsname": "",
+  "stein": {
+    "id": 4,
+    "addresse": "Mathildenstraße 2",
+    "latitude": 48.405626,
+    "longitude": 10.007136
+  },
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

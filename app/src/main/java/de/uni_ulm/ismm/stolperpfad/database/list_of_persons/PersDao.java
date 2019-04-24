@@ -21,16 +21,9 @@ public interface PersDao {
     /**
      * Overview over the database tables:
      * Table 1: Persons
-     * Table 2: Marriages
-     * Table 3: Children
-     * Table 4: fled to
-     * Table 5: Places
-     * Table 6: moved to
-     * Table 7: deported to
-     * Table 8: Stolpersteine
-     * Table 9: Institutions in Ulm
-     * Table 10: moved in Ulm
-     * (Table 11: Historical Terms; not treated here!)
+     * Table 2: Vita
+     * Table 3: Stolpersteine
+     * Table 4: Historical Terms, not treated here!)
      */
 
     //PERSONS
@@ -43,53 +36,58 @@ public interface PersDao {
     @Query("SELECT * from persons ORDER BY family_name ASC")
     LiveData<List<Person>> getAllPersons();
 
+    @Query("SELECT first_name from persons WHERE pers_id = :persId")
+    String getFirstName(int persId);
 
-    //MARRIAGES
+    @Query("SELECT family_name from persons WHERE pers_id = :persId")
+    String getFamilyName(int persId);
+
+    @Query("SELECT birth_name from persons WHERE pers_id = :persId")
+    String getBirthName(int persId);
+
+    @Query("SELECT * from persons WHERE historical_terms LIKE '%' || :histoTerms || '%'")
+    List<Person> getAllInvolvedPersons(String histoTerms);
+
+    @Query("SELECT stolperstein from persons WHERE pers_id = :persId")
+    int getStolperstein(int persId);
+
+
+    //VITA
     @Insert
-    void insert(Person.Marriage marriage);
+    void insert(Person.Vita vita);
 
-    @Query("DELETE FROM married")
-    void deleteAllMarriages();
+    @Query("DELETE FROM vitas")
+    void deleteAllVitas();
 
+    @Query("SELECT section0 from vitas WHERE pers_id = :persId")
+    String getSection0(int persId);
 
-    //CHILDREN
-    @Insert
-    void insert(Person.Children children);
+    @Query("SELECT section1 from vitas WHERE pers_id = :persId")
+    String getSection1(int persId);
 
-    @Query("DELETE FROM children")
-    void deleteAllChildren();
+    @Query("SELECT section2 from vitas WHERE pers_id = :persId")
+    String getSection2(int persId);
 
+    @Query("SELECT section3 from vitas WHERE pers_id = :persId")
+    String getSection3(int persId);
 
-    //FLIGHT
-    @Insert
-    void insert(Person.Flight flight);
+    @Query("SELECT section4 from vitas WHERE pers_id = :persId")
+    String getSection4(int persId);
 
-    @Query("DELETE FROM flight")
-    void deleteAllFlights();
+    @Query("SELECT section5 from vitas WHERE pers_id = :persId")
+    String getSection5(int persId);
 
+    @Query("SELECT section6 from vitas WHERE pers_id = :persId")
+    String getSection6(int persId);
 
-    //PLACES
-    @Insert
-    void insert(Place place);
+    @Query("SELECT section7 from vitas WHERE pers_id = :persId")
+    String getSection7(int persId);
 
-    @Query("DELETE FROM places")
-    void deleteAllPlaces();
+    @Query("SELECT section8 from vitas WHERE pers_id = :persId")
+    String getSection8(int persId);
 
-
-    //MOVES (anywhere)
-    @Insert
-    void insert(Place.Move movedTo);
-
-    @Query("DELETE FROM moved_to")
-    void deleteAllMovesAround();
-
-
-    //DEPORTATIONS
-    @Insert
-    void insert(Place.Deportation deportation);
-
-    @Query("DELETE FROM deported_to")
-    void deleteAllDeportations();
+    @Query("SELECT section9 from vitas WHERE pers_id = :persId")
+    String getSection9(int persId);
 
 
     //STOLPERSTEINE
@@ -102,20 +100,11 @@ public interface PersDao {
     @Query("SELECT street_and_number from stolpersteine WHERE stone_id = :stoneId")
     String getAddress(int stoneId);
 
+    @Query("SELECT latitude from stolpersteine WHERE stone_id = :stoneId")
+    double getLatitude(int stoneId);
 
-    //INSTITUTIONS
-    @Insert
-    void insert(Institution institution);
+    @Query("SELECT longitude from stolpersteine WHERE stone_id = :stoneId")
+    double getLongitude(int stoneId);
 
-    @Query("DELETE FROM institution_in_Ulm")
-    void deleteAllInstitutions();
-
-
-    //MOVES (Ulm)
-    @Insert
-    void insert(Institution.MoveInUlm movedInUlm);
-
-    @Query("DELETE FROM moves_in_ulm")
-    void deleteAllMovesInUlm();
 
 }

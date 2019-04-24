@@ -1,0 +1,26 @@
+{
+  "id": 5,
+  "vorname": "Fanny",
+  "nachname": "Zürndorfer",
+  "geburtsname": "Maier",
+  "stein": {
+    "id": 1,
+    "addresse": "Susoweg 17",
+    "latitude": 48.389139,
+    "longitude": 9.976307
+  },
+    "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}	

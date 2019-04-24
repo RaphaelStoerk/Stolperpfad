@@ -21,8 +21,8 @@ public class Person {
 
     // id - first name - last name - birth name - historical term - Stolperstein
 
-    // we have to work with Integer instead of int because an 'int' can't be null,
-    // but an 'Integer' can and sometimes the table entries are null
+    // if some int-entries in a table can be null, we have to work with Integer instead of int
+    // because an 'int' can't be null, but an 'Integer' can
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "pers_id")
@@ -39,20 +39,20 @@ public class Person {
     @ColumnInfo(name = "birth_name")
     private String mBiName;
 
-    @ColumnInfo(name = "historical_term")
-    private Integer mHisTerm;
+    @ColumnInfo(name = "historical_terms")
+    private String mHisTerms;
 
     @ColumnInfo(name = "stolperstein")
-    private Integer mStolperstein;
+    private int mStolperstein;
 
     // constructor
     public Person(@NonNull int persId, @NonNull String fstName, @NonNull String famName, String biName,
-                  Integer hisTerm, Integer stolperstein) {
+                  String hisTerms, int stolperstein) {
         this.mPersId = persId;
         this.mFstName = fstName;
         this.mFamName = famName;
         this.mBiName = biName;
-        this.mHisTerm = hisTerm;
+        this.mHisTerms = hisTerms;
         this.mStolperstein = stolperstein;
     }
 
@@ -75,11 +75,11 @@ public class Person {
         return this.mBiName;
     }
 
-    public Integer getHisTerm() {
-        return this.mHisTerm;
+    public String getHisTerms() {
+        return this.mHisTerms;
     }
 
-    public Integer getStolperstein() {
+    public int getStolperstein() {
         return this.mStolperstein;
     }
 
@@ -96,15 +96,12 @@ public class Person {
         @ColumnInfo(name = "pers_id")
         private int mPersId;
 
-        @NonNull
         @ColumnInfo(name = "section0")
         private String mSection0;
 
-        @NonNull
         @ColumnInfo(name = "section1")
         private String mSection1;
 
-        @NonNull
         @ColumnInfo(name = "section2")
         private String mSection2;
 
@@ -130,7 +127,7 @@ public class Person {
         private String mSection9;
 
         //Constructor
-        public Vita(@NonNull int persId, @NonNull String sec0, @NonNull String sec1, @NonNull String sec2,
+        public Vita(@NonNull int persId, String sec0, String sec1, String sec2,
                     String sec3, String sec4, String sec5, String sec6, String sec7, String sec8, String sec9) {
             this.mPersId = persId;
             this.mSection0 = sec0;

@@ -1,0 +1,26 @@
+{
+  "id": 55,
+  "vorname": "Bertha",
+  "nachname": "Rabausch",
+  "geburtsname": "",
+  "stein": {
+    "id": 13,
+    "addresse": "Küfergasse 1",
+    "latitude": 48.400497,
+    "longitude": 9.990668
+  },
+    "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}	

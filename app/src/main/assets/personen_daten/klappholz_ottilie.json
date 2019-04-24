@@ -1,0 +1,27 @@
+{
+  "id": 80,
+  "vorname": "Ottilie",
+    "nachname": "Klappholz",
+  "geburtsname": "",
+  "stein": {
+    "id": 32,
+    "addresse": "Marktplatz 9 (Museum)",
+    "latitude": 48.3969050,
+    "longitude": 9.9945641
+  },
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

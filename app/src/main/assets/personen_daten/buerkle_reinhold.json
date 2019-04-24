@@ -1,0 +1,27 @@
+{
+  "id": 24,
+  "vorname": "Reinhold",
+  "nachname": "Bürkle",
+  "geburtsname": "",
+  "stein": {
+    "id": 14,
+    "addresse": "Frauenstraße 134 (ehem. Garnisons-Arresthaus)",
+    "latitude": 48.40687,
+    "longitude": 9.992808
+  },
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

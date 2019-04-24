@@ -154,7 +154,7 @@ public class StolperpfadeApplication extends Application {
 
                 stostein = json.getJSONObject("stolperstein");
 
-                // putPesron(id, vorname);
+                // putPerson(id, vorname);
                 JSONArray bio = json.getJSONArray("bio");
                 ArrayList<BioPoint> biography = new ArrayList<>();
                 for(int i = 0; i < bio.length(); i++) {

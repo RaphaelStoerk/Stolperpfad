@@ -60,15 +60,8 @@ public abstract class PersRoomDatabase extends RoomDatabase {
      */
     private static void clearDatabase(PersDao dao){
         dao.deleteAllPersons();
-        dao.deleteAllMarriages();
-        dao.deleteAllChildren();
-        dao.deleteAllFlights();
-        dao.deleteAllPlaces();
-        dao.deleteAllMovesAround();
-        dao.deleteAllDeportations();
+        dao.deleteAllVitas();
         dao.deleteAllStolpersteine();
-        dao.deleteAllInstitutions();
-        dao.deleteAllMovesInUlm();
     }
 
 

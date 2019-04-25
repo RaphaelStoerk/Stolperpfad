@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad.database.list_of_persons;
+package de.uni_ulm.ismm.stolperpfad.database;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -7,6 +7,7 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
+import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 
@@ -16,14 +17,15 @@ import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
  * you need to type a ':' right before the variable name.
  */
 
+
 @Dao
-public interface PersDao {
+public interface StolperpfadeDao {
     /**
      * Overview over the database tables:
      * Table 1: Persons
      * Table 2: Vita
      * Table 3: Stolpersteine
-     * Table 4: Historical Terms, not treated here!)
+     * Table 4: Historical Terms
      */
 
     //PERSONS
@@ -107,4 +109,19 @@ public interface PersDao {
     double getLongitude(int stoneId);
 
 
+    //HISTORICAL TERMS
+    @Insert
+    void insert(HistoricalTerm histoTerm);
+
+    @Query("DELETE FROM historical_terms")
+    void deleteAll();
+
+    @Query("SELECT * from historical_terms ORDER BY name ASC")
+    LiveData<List<HistoricalTerm>> getAllTerms();
+
+    @Query("SELECT explanation from historical_terms WHERE name = :histoTerm")
+    String getExplanation(String histoTerm);
+
 }
+
+

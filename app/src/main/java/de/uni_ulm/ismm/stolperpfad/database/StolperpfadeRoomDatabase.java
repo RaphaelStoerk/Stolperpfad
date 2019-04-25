@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad.database.list_of_persons;
+package de.uni_ulm.ismm.stolperpfad.database;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
@@ -14,7 +14,7 @@ import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 
 /**
  * !!! READ ME !!!
- * If you get this exception
+ * If you get the following exception
  * "Room cannot verify the data integrity. Looks like you've changed schema but forgot to update the version number.
  * You can simply fix this by increasing the version number."
  * (because you changed something in the data tables),
@@ -22,21 +22,20 @@ import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
  * Then it should work again.
  */
 @Database(entities = {Person.class, Person.Vita.class, HistoricalTerm.class, Stolperstein.class}, version = 1, exportSchema = false)
+public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
 
-public abstract class PersRoomDatabase extends RoomDatabase {
+    public abstract StolperpfadeDao mDao();
+    //make the database a singleton
+    private static volatile StolperpfadeRoomDatabase INSTANCE;
 
-    public abstract PersDao persDao();
-
-    private static volatile PersRoomDatabase INSTANCE;
-
-    static PersRoomDatabase getDatabase(final Context context) {
+    static StolperpfadeRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (PersRoomDatabase.class) {
+            synchronized (StolperpfadeRoomDatabase.class) {
                 if (INSTANCE == null) {
 
                     // Create database here
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            PersRoomDatabase.class, "persons_database")
+                            StolperpfadeRoomDatabase.class, "stolperpfade_database")
                             .addCallback(sRoomDatabaseCallback).build();
                 }
             }
@@ -50,36 +49,34 @@ public abstract class PersRoomDatabase extends RoomDatabase {
                 @Override
                 public void onOpen(@NonNull SupportSQLiteDatabase db) {
                     super.onOpen(db);
-                    new PopulateDbAsync(INSTANCE).execute();
+                    new StolperpfadeRoomDatabase.PopulateDbAsync(INSTANCE).execute();
                 }
             };
-
 
     /**
      * CLEAR OLDER DATABASE ENTRIES
      */
-    private static void clearDatabase(PersDao dao){
+    private static void clearDatabase(StolperpfadeDao dao){
         dao.deleteAllPersons();
         dao.deleteAllVitas();
         dao.deleteAllStolpersteine();
     }
-
 
     /**
      * POPULATE DATABASE
      */
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
-        private final PersDao mDao;
+        private final StolperpfadeDao mDao;
 
-        PopulateDbAsync(PersRoomDatabase db) {
-            mDao = db.persDao();
+        PopulateDbAsync(StolperpfadeRoomDatabase db) {
+            mDao = db.mDao();
         }
 
         @Override
         protected Void doInBackground(final Void... params) {
-            //TODO: add here the reading of the data (parser)
-           clearDatabase(mDao);
+            //TODO: add here the reading of the data (parser)?
+            clearDatabase(mDao);
             Person person = new Person(0,"Jakob", "Frenkel", null, null, 0);
             mDao.insert(person);
             person = new Person(1,"Ida", "Frenkel", null, null,0);
@@ -91,11 +88,21 @@ public abstract class PersRoomDatabase extends RoomDatabase {
             mDao.insert(stolperstein);
             stolperstein = new Stolperstein(1,"Frauenstraße 28", 48.399455, 9.996718);
             mDao.insert(stolperstein);
+
+            HistoricalTerm histoTerm = new HistoricalTerm("Polenaktion", "@string/info_polenaktion");
+            mDao.insert(histoTerm);
+            histoTerm = new HistoricalTerm("Aktion T4/Euthanasie", "Aktion T4");
+            mDao.insert(histoTerm);
+            histoTerm = new HistoricalTerm("Pogromnacht", "Pogromnacht");
+            mDao.insert(histoTerm);
+            histoTerm = new HistoricalTerm("Kindertransport nach Großbritannien", "Kindertransport nach Großbritannien");
+            mDao.insert(histoTerm);
+            histoTerm = new HistoricalTerm("Zeugen Jehovas", "Zeugen Jehovas");
+            mDao.insert(histoTerm);
+            histoTerm = new HistoricalTerm("Fabrikation", "Fabrikation");
+            mDao.insert(histoTerm);
             return null;
         }
 
     }
-
-
-
 }

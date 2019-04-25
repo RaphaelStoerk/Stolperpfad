@@ -30,7 +30,7 @@ public class StoneListActivity extends StolperpfadeAppActivity {
 
     VerticalViewPager list_pager;
     ScrollView index_scroll_view;
-    ArrayList<PersonInfo> persons;
+    ArrayList<Person> persons;
     ArrayList<Character> initials;
     private Button last_pressed;
     ArrayList<Button> index_buttons;
@@ -40,8 +40,6 @@ public class StoneListActivity extends StolperpfadeAppActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeGeneralControls(R.layout.activity_stone_list);
-
-        loadPersons();
 
         index_scroll_view = findViewById(R.id.index_scroll_view);
         setUpScrollView(index_scroll_view);
@@ -63,7 +61,7 @@ public class StoneListActivity extends StolperpfadeAppActivity {
         index_buttons = new ArrayList<>();
         int count = initials.size();
         Button buff;
-        for(int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             index_buttons.add(buff = makeButton(this, i));
             index.addView(buff);
         }
@@ -75,13 +73,13 @@ public class StoneListActivity extends StolperpfadeAppActivity {
         int margin = (int) (fpixels + 0.5f);
         ConstraintSet cs = new ConstraintSet();
         cs.clone(index);
-        cs.connect(first.getId(),ConstraintSet.TOP, index.getId(),ConstraintSet.TOP,margin );
-        cs.connect(first.getId(),ConstraintSet.START,index.getId(),ConstraintSet.START );
-        cs.connect(first.getId(),ConstraintSet.END, index.getId(),ConstraintSet.END);
-        for(int i = 1; i < count; i++) {
-            cs.connect(index_buttons.get(i).getId(),ConstraintSet.TOP,index_buttons.get(i-1).getId(),ConstraintSet.BOTTOM,margin);
-            cs.connect(index_buttons.get(i).getId(),ConstraintSet.START,index.getId(),ConstraintSet.START );
-            cs.connect(index_buttons.get(i).getId(),ConstraintSet.END, index.getId(),ConstraintSet.END );
+        cs.connect(first.getId(), ConstraintSet.TOP, index.getId(), ConstraintSet.TOP, margin);
+        cs.connect(first.getId(), ConstraintSet.START, index.getId(), ConstraintSet.START);
+        cs.connect(first.getId(), ConstraintSet.END, index.getId(), ConstraintSet.END);
+        for (int i = 1; i < count; i++) {
+            cs.connect(index_buttons.get(i).getId(), ConstraintSet.TOP, index_buttons.get(i - 1).getId(), ConstraintSet.BOTTOM, margin);
+            cs.connect(index_buttons.get(i).getId(), ConstraintSet.START, index.getId(), ConstraintSet.START);
+            cs.connect(index_buttons.get(i).getId(), ConstraintSet.END, index.getId(), ConstraintSet.END);
         }
         cs.applyTo(index);
         last_pressed = first;
@@ -100,9 +98,9 @@ public class StoneListActivity extends StolperpfadeAppActivity {
         float dp = 50f;
         float fpixels = dm.density * dp;
         int pixels = (int) (fpixels + 0.5f);
-        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(pixels,pixels);
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(pixels, pixels);
         but.setLayoutParams(params);
-        but.setId(index+1000);
+        but.setId(index + 1000);
         return but;
 
 
@@ -133,45 +131,5 @@ public class StoneListActivity extends StolperpfadeAppActivity {
         public int getCount() {
             return initials.size();
         }
-    }
-
-
-    private void loadPersons() {
-        persons = new ArrayList<>();
-        initials = new ArrayList<>();
-        ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(this, "person_data");
-        PersonInfo next;
-        for(JSONObject json : personen) {
-            try {
-                next = createPersonFromJson(json);
-                persons.add(next);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-       // initials.sort();
-        MAX_PERSONS = persons.size();
-    }
-
-    private PersonInfo createPersonFromJson(JSONObject json) throws JSONException {
-        Stolperstein stolperstein;
-        try {
-            int id = json.getInt("id");
-            String vorname = json.getString("vorname");
-            String nachname = json.getString("nachname");
-            String geburtsname = json.getString("geburtsname");
-            if (!initials.contains(nachname.charAt(0))) {
-                initials.add(nachname.charAt(0));
-            }
-            JSONObject stein = json.getJSONObject("stein");
-            int id1 = stein.getInt("id");
-            String ad = stein.getString("addresse");
-            double lat = stein.getDouble("latitude");
-            double lon = stein.getDouble("longitude");
-            return new PersonInfo(id, vorname, nachname, geburtsname, new Stolperstein(id1, ad, lat, lon));
-        } catch(NullPointerException e) {
-
-        }
-        return new PersonInfo(-1, "Fehler", "Fehler", "", null);
     }
 }

@@ -129,20 +129,20 @@ public class Person {
         private String mSectionNine;
 
         //Constructor
-        public Vita(@NonNull int persId, String secZero, String secOne, String secTwo,
-                    String secThree, String secFour, String secFive, String secSix, String secSeven,
-                    String secEight, String secNine) {
+        public Vita(@NonNull int persId, String sectionZero, String sectionOne, String sectionTwo,
+                    String sectionThree, String sectionFour, String sectionFive, String sectionSix,
+                    String sectionSeven, String sectionEight, String sectionNine) {
             this.mPersId = persId;
-            this.mSectionZero = secZero;
-            this.mSectionOne = secOne;
-            this.mSectionTwo = secTwo;
-            this.mSectionThree = secThree;
-            this.mSectionFour = secFour;
-            this.mSectionFive = secFive;
-            this.mSectionSix = secSix;
-            this.mSectionSeven = secSeven;
-            this.mSectionEight = secEight;
-            this.mSectionNine = secNine;
+            this.mSectionZero = sectionZero;
+            this.mSectionOne = sectionOne;
+            this.mSectionTwo = sectionTwo;
+            this.mSectionThree = sectionThree;
+            this.mSectionFour = sectionFour;
+            this.mSectionFive = sectionFive;
+            this.mSectionSix = sectionSix;
+            this.mSectionSeven = sectionSeven;
+            this.mSectionEight = sectionEight;
+            this.mSectionNine = sectionNine;
         }
 
         // these are the getter-methods;

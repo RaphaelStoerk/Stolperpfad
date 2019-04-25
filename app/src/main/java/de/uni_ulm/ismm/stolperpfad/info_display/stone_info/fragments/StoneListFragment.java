@@ -17,19 +17,20 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
 
 public class StoneListFragment extends Fragment {
 
-    private ArrayList<PersonInfo> persons;
+    private ArrayList<Person> persons;
     private char initial;
 
     public StoneListFragment() {
 
     }
 
-    public static StoneListFragment newInstance(ArrayList<PersonInfo> persons, char initial){
+    public static StoneListFragment newInstance(ArrayList<Person> persons, char initial){
         StoneListFragment frag = new StoneListFragment();
         frag.persons = persons;
         frag.initial = initial;
@@ -59,8 +60,8 @@ public class StoneListFragment extends Fragment {
 
     private void createList(Context ctx, LinearLayout list_layout) {
         Button buff;
-        for(PersonInfo person : persons) {
-            if(person.getNachname().startsWith(initial + "")) {
+        for(Person person : persons) {
+            if(person.getFamName().startsWith(initial + "")) {
                 buff = addButton(ctx, person);
                 list_layout.addView(buff);
             }
@@ -71,7 +72,7 @@ public class StoneListFragment extends Fragment {
         Button but = (Button) LayoutInflater.from(ctx).inflate(R.layout.button_person_list, null);
         but.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), StoneInfoMainActivity.class);
-            intent.setAction("" + person.getId());
+            intent.setAction("" + person.getPersId());
             startActivity(intent);
         });
         String display_name = person.getListName();

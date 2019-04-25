@@ -8,9 +8,17 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
+import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
 
 /**
  * !!! READ ME !!!
@@ -24,11 +32,15 @@ import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 @Database(entities = {Person.class, Person.Vita.class, HistoricalTerm.class, Stolperstein.class}, version = 1, exportSchema = false)
 public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
 
+    private static Context mContext;
+    private static int vitaLength = 10;
+
     public abstract StolperpfadeDao mDao();
     //make the database a singleton
     private static volatile StolperpfadeRoomDatabase INSTANCE;
 
     static StolperpfadeRoomDatabase getDatabase(final Context context) {
+        mContext = context;
         if (INSTANCE == null) {
             synchronized (StolperpfadeRoomDatabase.class) {
                 if (INSTANCE == null) {
@@ -75,9 +87,79 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            //TODO: add here the reading of the data (parser)?
             clearDatabase(mDao);
-            Person person = new Person(0,"Jakob", "Frenkel", null, null, 0);
+
+            // PERSONS, VITA, STOLPERSTEINE
+            ArrayList<JSONObject> persons = DataFromJSON.loadAllJSONFromDirectory(mContext, "person_data");
+            PersonInfo next;
+            int id;
+            String firstname;
+            String familyname;
+            String birthname;
+            String history;
+            JSONObject stone;
+            int stoneId;
+            String address;
+            double latitude;
+            double longitude;
+
+            for (JSONObject json : persons) {
+                try {
+                    //insert person
+                    id = json.getInt("id");
+                    firstname = json.getString("vorname");
+                    familyname = json.getString("nachname");
+                    birthname = json.getString("geburtsname");
+                    history = json.getString("geschichte");
+                    stone = json.getJSONObject("stolperstein");
+                    stoneId = stone.getInt("id");
+                    Person person = new Person(id, firstname, familyname, birthname, history, stoneId);
+                    mDao.insert(person);
+
+                    //insert vita
+                    JSONArray biography = json.getJSONArray("bio");
+                    String[] vitaSections = new String[vitaLength];
+                    for (int i = 0; i < biography.length(); i++) {
+                        String section = biography.getString(i);
+                        vitaSections[i] = section;
+                    }
+                    Person.Vita vita = new Person.Vita(id, vitaSections[0], vitaSections[1], vitaSections[2],
+                            vitaSections[3], vitaSections[4], vitaSections[5], vitaSections[6],
+                            vitaSections[7], vitaSections[8], vitaSections[9]);
+                    mDao.insert(vita);
+
+                    //insert Stolperstein
+                    address = stone.getString("addresse");
+                    latitude = stone.getDouble("latitude");
+                    longitude = stone.getDouble("longitude");
+                    Stolperstein stostei = new Stolperstein(stoneId, address, latitude, longitude);
+                    mDao.insert(stostei);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // HISTORICAL TERMS
+            ArrayList<JSONObject> histoTerms = DataFromJSON.loadAllJSONFromDirectory(mContext,"history_data");
+            String histoName;
+            String histoExplanation;
+
+            for (JSONObject json : persons) {
+                try {
+                    histoName = json.getString("name");
+                    histoExplanation = json.getString("explanation");
+                    HistoricalTerm histoTerm = new HistoricalTerm(histoName, histoExplanation);
+                    mDao.insert(histoTerm);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+
+            /*Person person = new Person(0,"Jakob", "Frenkel", null, null, 0);
             mDao.insert(person);
             person = new Person(1,"Ida", "Frenkel", null, null,0);
             mDao.insert(person);
@@ -100,7 +182,7 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
             histoTerm = new HistoricalTerm("Zeugen Jehovas", "Zeugen Jehovas");
             mDao.insert(histoTerm);
             histoTerm = new HistoricalTerm("Fabrikation", "Fabrikation");
-            mDao.insert(histoTerm);
+            mDao.insert(histoTerm);*/
             return null;
         }
 

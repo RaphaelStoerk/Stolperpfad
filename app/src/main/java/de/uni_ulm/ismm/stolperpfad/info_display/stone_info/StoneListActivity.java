@@ -17,20 +17,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
+import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.IndexFragment;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneListFragment;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.BioPoint;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager;
 
 public class StoneListActivity extends StolperpfadeAppActivity {

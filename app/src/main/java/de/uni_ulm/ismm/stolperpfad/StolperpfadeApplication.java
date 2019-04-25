@@ -36,8 +36,8 @@ public class StolperpfadeApplication extends Application {
     private SharedPreferences prefs;
     private static StolperpfadeApplication instance;
 
-    private StolperpfadeRepository repo;
-    private int vitaLength = 10;
+    //private StolperpfadeRepository repo = new StolperpfadeRepository(this);
+
 
     public static final String DATA_FILES_PATH = Environment.getExternalStorageDirectory() + "/stolperpfade/data";
 
@@ -146,76 +146,7 @@ public class StolperpfadeApplication extends Application {
         return file_tree_ready = prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.file_tree_ready", false);
     }
 
+
     public void setUpDatabase() {
-        repo = new StolperpfadeRepository(this);
-
-        // PERSONS, VITA, STOLPERSTEINE
-        ArrayList<JSONObject> persons = DataFromJSON.loadAllJSONFromDirectory(this, "person_data");
-        PersonInfo next;
-        int id;
-        String firstname;
-        String familyname;
-        String birthname;
-        String history;
-        JSONObject stone;
-        int stoneId;
-        String address;
-        double latitude;
-        double longitude;
-
-        for (JSONObject json : persons) {
-            try {
-                //insert person
-                id = json.getInt("id");
-                firstname = json.getString("vorname");
-                familyname = json.getString("nachname");
-                birthname = json.getString("geburtsname");
-                history = json.getString("geschichte");
-                stone = json.getJSONObject("stolperstein");
-                stoneId = stone.getInt("id");
-                Person person = new Person(id, firstname, familyname, birthname, history, stoneId);
-                repo.insertPerson(person);
-
-                //insert vita
-                JSONArray biography = json.getJSONArray("bio");
-                String[] vitaSections = new String[vitaLength];
-                for (int i = 0; i < biography.length(); i++) {
-                    String section = biography.getString(i);
-                    vitaSections[i] = section;
-                }
-                Vita vita = new Vita(id, vitaSections[0], vitaSections[1], vitaSections[2],
-                        vitaSections[3], vitaSections[4], vitaSections[5], vitaSections[6],
-                        vitaSections[7], vitaSections[8], vitaSections[9]);
-                repo.insertVita(vita);
-
-                //insert Stolperstein
-                address = stone.getString("addresse");
-                latitude = stone.getDouble("latitude");
-                longitude = stone.getDouble("longitude");
-                Stolperstein stostei = new Stolperstein(stoneId, address, latitude, longitude);
-                repo.insertStone(stostei);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // HISTORICAL TERMS
-        ArrayList<JSONObject> histoTerms = DataFromJSON.loadAllJSONFromDirectory(this, "history_data");
-        String histoName;
-        String histoExplanation;
-
-        for (JSONObject json : persons) {
-            try {
-                histoName = json.getString("name");
-                histoExplanation = json.getString("explanation");
-                HistoricalTerm histoTerm = new HistoricalTerm(histoName, histoExplanation);
-                repo.insertHisto(histoTerm);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
     }
 }

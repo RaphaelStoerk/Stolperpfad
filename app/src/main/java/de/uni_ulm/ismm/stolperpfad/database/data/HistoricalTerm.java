@@ -13,7 +13,7 @@ import android.support.annotation.NonNull;
  * Table 4: Historical Terms (here)
  */
 
-// TABLE 11: historical terms
+// TABLE 4: historical terms
 @Entity(tableName = "historical_terms")
 public class HistoricalTerm {
     // name - explanation

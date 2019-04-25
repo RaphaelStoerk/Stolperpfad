@@ -7,7 +7,10 @@ import java.util.Objects;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
 import de.uni_ulm.ismm.stolperpfad.general.MyMapActionsListener;
+import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
+import de.uni_ulm.ismm.stolperpfad.map_activities.StolperpfadAppMapActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.MyRoad;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
@@ -100,6 +103,7 @@ public class MapQuestFragment extends Fragment {
     private MyMapActionsListener myActionListener;
     private IconFactory icon_factory;
     private Icon icon_start_end_low, icon_user_low, icon_stone_low, icon_default_low;
+    private AlertDialog info_dialog;
 
     public MapQuestFragment() {
         // Required empty public constructor
@@ -264,6 +268,8 @@ public class MapQuestFragment extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public void createRoute(String start_choice, String end_choice, String time_in_minutes) {
 
+        alertUser("Pfad wird berechnet...");
+
         // TODO: create a good route through ulm
         Marker start_route_from;
         Marker end_route_at = null;
@@ -314,7 +320,9 @@ public class MapQuestFragment extends Fragment {
 
         ArrayList<Marker> route_points = new ArrayList<>();
 
-        addStonesToRoute(route_points, start_route_from, end_route_at, time * 60);
+        if(!addStonesToRoute(route_points, start_route_from, end_route_at, time * 60)) {
+            errorDialog("Kein Erfolg", "Mit den gegebenen Einstellungen konnte kein Pfad erstellt werden");
+        }
 
         new CreateRouteTask() {
             @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
@@ -341,18 +349,49 @@ public class MapQuestFragment extends Fragment {
                 mMapboxMap.addPolyline(polyline);
                 moveCameraTo(coordinates.get(0), 15, 45);
                 aq.id(R.id.start_guide_button).visible();
+                dismissAlert();
                 // enterFollowMode();
             }
         }.execute(route_points.toArray(new Marker[]{}));
     }
 
+    private void alertUser(String s) {
+        if(info_dialog != null) {
+            dismissAlert();
+            return;
+        }
+        AlertDialog.Builder builder;
+        if (StolperpfadeApplication.getInstance().isDarkMode()) {
+            builder = new AlertDialog.Builder(this.getContext(), R.style.DialogTheme_Dark);
+        } else {
+            builder = new AlertDialog.Builder(this.getContext(), R.style.DialogTheme_Light);
+        }
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setMessage(s);
+        builder.setCancelable(false);
+
+        info_dialog = builder.create();
+        info_dialog.show();
+    }
+
+    private void dismissAlert() {
+        if(info_dialog != null) {
+            info_dialog.dismiss();
+            info_dialog = null;
+        }
+    }
     private void errorDialog(String s) {
+        errorDialog(s, "");
+    }
+
+    private void errorDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        builder.setTitle(s);
-        builder.setMessage("Bei Fragen auf den Informations-Button auf der unteren Leiste drücken.");
+        builder.setTitle(title);
+        builder.setMessage(message);
 
         builder.setNegativeButton("Okay", (dialogInterface, i) -> {
             dialogInterface.cancel();
@@ -362,19 +401,21 @@ public class MapQuestFragment extends Fragment {
         dialog.show();
     }
 
-    private void addStonesToRoute(ArrayList<Marker> route_points, Marker start_route_from, Marker end_route_at, int time_in_seconds) {
+    private boolean addStonesToRoute(ArrayList<Marker> route_points, Marker start_route_from, Marker end_route_at, int time_in_seconds) {
         route_points.add(start_route_from);
 
         ArrayList<Marker> markers = stone_handler.getMarkers();
 
-        // TODO: chose some good stones!!!
-        for(int i = 0; i < 10; i++) {
-            route_points.add(markers.get((int)(markers.size() * Math.random())));
+        if(time_in_seconds < 60) {
+            time_in_seconds = 60 * (getRandomtPathTime());
         }
 
-        if (!(end_route_at == null)) {
-            route_points.add(end_route_at);
-        }
+        // TODO: create a Path Object to store in a json file
+        return stone_handler.createPathWith(route_points, start_route_from, end_route_at, time_in_seconds);
+    }
+
+    private int getRandomtPathTime() {
+        return (int) (30 + Math.random() * 90);
     }
 
     /**
@@ -444,9 +485,9 @@ public class MapQuestFragment extends Fragment {
     public void initializeLocationEngine() {
         locationEngine = (new LocationEngineProvider(Objects.requireNonNull(getActivity()).getApplicationContext())).obtainBestLocationEngineAvailable();
         locationEngine.setInterval(1000);
-        locationEngine.setFastestInterval(500);
-        locationEngine.setSmallestDisplacement(5);
-        locationEngine.setPriority(LocationEnginePriority.BALANCED_POWER_ACCURACY);
+        locationEngine.setFastestInterval(800);
+        locationEngine.setSmallestDisplacement(2);
+        locationEngine.setPriority(LocationEnginePriority.HIGH_ACCURACY);
         if (myActionListener == null) {
             myActionListener = new MyMapActionsListener(this);
         }
@@ -566,6 +607,17 @@ public class MapQuestFragment extends Fragment {
         chosen_marker_end = null;
     }
 
+    public void activatePathPlanner(boolean bool) {
+        StolperpfadAppMapActivity a = (StolperpfadAppMapActivity) getActivity();
+        if(a instanceof RoutePlannerActivity) {
+            ((RoutePlannerActivity) a).activatePathPlanner(bool);
+        } else if(a instanceof NextStoneActivity) {
+
+        } else {
+
+        }
+    }
+
     /**
      * This class is responsible for creating a network call to get a route
      * for a collection of - at least - two stones
@@ -597,6 +649,7 @@ public class MapQuestFragment extends Fragment {
             }
 
             MyRoad road = MyRoad.from(roadManager.getRoad(waypoints));
+            // TODO: sometimes here is a INDEX OUt Of BOUNDS EXCEPTION Because no road, check to fix
 
             return road;
         }

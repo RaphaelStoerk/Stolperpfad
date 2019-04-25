@@ -17,6 +17,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,6 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioGroup;
@@ -67,7 +69,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
 
         // Route Planner specific setups
         //aq.id(R.id.header_route_planner).getView().setTranslationZ(HEADER_TRANSLATION_Z / 2);
-        aq.id(R.id.route_option_button).visible().clicked(myClickListener);
+        //aq.id(R.id.route_option_button).visible().clicked(myClickListener);
         aq.id(R.id.save_route_button).visible().clicked(myClickListener);
         aq.id(R.id.info_map_options_button).visible().clicked(myClickListener);
         aq.id(R.id.start_guide_button).visible().clicked(myClickListener);
@@ -215,5 +217,11 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         }
         animating = true;
         menu_up = !menu_up;
+    }
+
+    public void activatePathPlanner(boolean b1) {
+        AppCompatImageButton b = (AppCompatImageButton) aq.id(R.id.route_option_button).visible().clicked(myClickListener).getView();
+        // b.setBackgroundResource(R.drawable.ic_bio_point_on);
+        Log.i("MY_ROUTE_TAG", "ACTIVATED: " + b1);
     }
 }

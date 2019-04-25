@@ -140,7 +140,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/Programme/Android/Android_Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_brightness_1_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/Programme/Android/Android_Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_crop_square_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -151,12 +151,10 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="color" value="fbbb49" />
-                            <entry key="height" value="32" />
-                            <entry key="outputName" value="ic_forward_button" />
+                            <entry key="color" value="4d4d4d" />
+                            <entry key="outputName" value="ic_bio_point_on" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="D:\rapha\Stolperpfad\ISMM Stolperpfad\Design\AI\SVGs\SteinPfeilOrangeRechts.svg" />
-                            <entry key="width" value="32" />
+                            <entry key="sourceFile" value="D:\rapha\Stolperpfad\ISMM Stolperpfad\Design\AI\SVGs\MinisteinchenOrange.svg" />
                           </map>
                         </option>
                       </PersistentState>

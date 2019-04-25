@@ -42,7 +42,7 @@
         android:layout_height="32dp"
         android:layout_marginTop="32dp"
         android:drawableTint="?attr/colorAppPrimaryContrast"
-        android:foreground="@drawable/ic_left_button"
+        android:foreground="@drawable/ic_arrow_left"
         app:layout_constraintStart_toStartOf="parent"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
@@ -55,7 +55,7 @@
         android:layout_height="32dp"
         android:layout_marginTop="32dp"
         android:drawableTint="?attr/colorAppPrimaryContrast"
-        android:foreground="@drawable/ic_right_button"
+        android:foreground="@drawable/ic_arrow_right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line_one_stone_info" />
 

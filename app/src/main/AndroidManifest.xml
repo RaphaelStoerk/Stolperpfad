@@ -23,14 +23,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".info_display.stone_info.StoneListActivity"></activity>
         <!-- Declares the entry point to the app -->
         <activity
             android:name=".MainMenuActivity"
-            android:theme="@style/AppTheme.Launcher">
+            android:theme="@style/AppTheme.Launcher"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -41,35 +40,49 @@
         <activity
             android:name=".info_display.stone_info.StoneInfoMainActivity"
             android:label="@string/title_activity_stone_info"
-            android:theme="@style/AppTheme.Light" />
+            android:theme="@style/AppTheme.Light"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".map_activities.control.RoutePlannerActivity"
             android:label="@string/title_activity_route_planner"
-            android:theme="@style/AppTheme.Light" />
+            android:theme="@style/AppTheme.Light"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".scanner.ScannerActivity"
             android:label="@string/title_activity_scanner"
-            android:theme="@style/AppTheme.Light" />
+            android:theme="@style/AppTheme.Light"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".map_activities.control.NextStoneActivity"
             android:label="@string/title_activity_next_stone"
-            android:theme="@style/AppTheme.Light" />
+            android:theme="@style/AppTheme.Light"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".info_display.history.HistoryInfoBasicActivity"
             android:label="@string/title_activity_history_info"
-            android:theme="@style/AppTheme.Light" />
+            android:theme="@style/AppTheme.Light"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".info_display.impressum.ImpressumViewActivity"
             android:label="@string/title_activity_impressum"
-            android:theme="@style/AppTheme.Light" />
+            android:theme="@style/AppTheme.Light"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".info_display.impressum.PrivacyInfoActivity"
             android:label="@string/title_activity_privacy"
-            android:theme="@style/AppTheme.Light" />
+            android:theme="@style/AppTheme.Light"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".info_display.project_and_artist.ProjectAndArtistOverviewActivity"
             android:label="@string/title_activity_project_and_artist_overview"
-            android:theme="@style/AppTheme.Light" />
+            android:theme="@style/AppTheme.Light"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".info_display.stone_info.StoneListActivity"
+            android:label="@string/title_stone_list"
+            android:theme="@style/AppTheme.Light"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".database.list_of_persons.PersonsActivity"
             android:label="@string/title_activity_db" />

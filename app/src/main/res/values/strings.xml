@@ -26,14 +26,14 @@
     <string name="overview_to_artist_info_button">Mehr Informationen zum Künstler</string>
 
     <!-- texts for map activities -->
-    <string name="start_loc_title">Wo möchten sie den Pfad beginnen?</string>
+    <string name="start_loc_title">Wo möchten sie den nächsten Stolperpfad beginnen?</string>
     <string name="category_title">Wollen sie die Route nach einem Thema ausrichten?</string>
-    <string name="end_loc_title">Wo soll der Pfad enden?</string>
+    <string name="end_loc_title">Wo soll der nächste Stolperpfad enden?</string>
 
     <!-- activity titles -->
     <string name="title_activity_scrolling_info">ScrollingInfoActivity</string>
     <string name="title_activity_db">DbActivity</string>
-    <string name="title_activity_scanner">ScannerActivity</string>
+    <string name="title_activity_scanner">Stein-Scanner</string>
     <string name="title_activity_route">Map</string>
     <string name="title_activity_route_planner">Pfadplaner</string>
     <string name="title_activity_filter_search">FilterSearchActivity</string>
@@ -50,7 +50,7 @@
     <!-- placehodler texts -->
     <string name="username">Username</string>
     <string name="walk_time">Zeit in min</string>
-    <string name="walk_time_title">Wie wie viel Zeit haben Sie für die Route?</string>
+    <string name="walk_time_title">Wie wie viel Zeit haben Sie für den Stolperpfad?</string>
     <string name="test_title">This is a Test Title</string>
     <string name="my_test_text">This is a Test.
         This also is only a placeholder activity that should never and not ever be
@@ -109,8 +109,8 @@
     <string name="info_for_route_save_load">Route speichern/laden</string>
     <string name="info_for_def_marker">Wichtiger Punkt auf der Karte</string>
     <string name="info_long_click_title">Hinweis:</string>
-    <string name="info_long_click">Um eine Anfangs- oder End-Markierung für Ihre Route zu setzen drücken sie einfach lange auf die gewünschte Position. Sie können diese Markierung später jederzeit wieder löschen oder umsetzen.</string>
-    <string name="info_route_planner_title">Das sind ihre Funktionen</string>
+    <string name="info_long_click">Um eine Start- oder End-Markierung für Ihren Stolperpfad zu setzen drücken sie einfach lange auf der Karte auf die gewünschte Position. Sie können diese Markierung später jederzeit durch einen Klick auf die markierung wieder löschen.</string>
+    <string name="info_route_planner_title">Informationen zur Karte</string>
     <string name="start_choice_gps">Aktuelle Position</string>
     <string name="start_choice_marker">Gewählte Markierung</string>
     <string name="start_choice_center">Am Münsterplatz</string>
@@ -144,8 +144,8 @@
     <string name="impressum_text_contact">Kontaktadresse</string>
     <string name="title_dsgvo">Erklärung DSGVO</string>
     <string name="title_stone_info_default">Nachname, Vorname</string>
-    <string name="button_bio">Lebenslauf</string>
-    <string name="button_stone_info_map">Karte</string>
+    <string name="button_bio">Schicksal</string>
+    <string name="button_stone_info_map">Stolperstein</string>
     <string name="sub_title_stone_info_default">geb. oder verw. Geburtsname</string>
     <string name="title_activity_stone_info">Stolpersteine</string>
     <string name="title_stone_list">Stolpersteine</string>
@@ -153,5 +153,13 @@
     <string name="title_summary">Zusammenfassung</string>
     <string name="route_option_positive">Pfad berechnen</string>
     <string name="route_option_negative">Abbrechen</string>
+    <string name="info_for_guide">Pfadführung starten</string>
+    <string name="info_stone_marker">Hier liegt ein Stolperstein</string>
+    <string name="info_start_end_marker">Start/Ende des Pfades</string>
+    <string name="info_user_marker">Ihre aktuelle Position</string>
+    <string name="info_guide_start">Sie können die Führung erst starten sobald sie einen Pfad erstellt oder geladen haben.</string>
+    <string name="show_map_button_text">Auf Karte anzeigen</string>
+    <string name="buff_string_address">addresse</string>
+    <string name="title_map_content">Der Stolperstein befindet sich bei</string>
 
 </resources>

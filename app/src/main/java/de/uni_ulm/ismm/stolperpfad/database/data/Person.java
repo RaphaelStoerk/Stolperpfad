@@ -129,6 +129,7 @@ public class Person {
         private String mSectionNine;
 
         //Constructor
+<<<<<<< HEAD
         public Vita(@NonNull int persId, String secZero, String secOne, String secTwo,
                     String secThree, String secFour, String secFive, String secSix, String secSeven,
                     String secEight, String secNine) {
@@ -143,10 +144,27 @@ public class Person {
             this.mSectionSeven = secSeven;
             this.mSectionEight = secEight;
             this.mSectionNine = secNine;
+=======
+        public Vita(@NonNull int mPersId, String mSection0, String mSection1, String mSection2,
+                    String mSection3, String mSection4, String mSection5, String mSection6,
+                    String mSection7, String mSection8, String mSection9) {
+            this.mPersId = mPersId;
+            this.mSection0 = mSection0;
+            this.mSection1 = mSection1;
+            this.mSection2 = mSection2;
+            this.mSection3 = mSection3;
+            this.mSection4 = mSection4;
+            this.mSection5 = mSection5;
+            this.mSection6 = mSection6;
+            this.mSection7 = mSection7;
+            this.mSection8 = mSection8;
+            this.mSection9 = mSection9;
+>>>>>>> origin/general_design
         }
 
         // these are the getter-methods;
 
+<<<<<<< HEAD
         public int getPersId() {
             return mPersId;
         }
@@ -189,6 +207,51 @@ public class Person {
 
         public String getSectionNine() {
             return mSectionNine;
+=======
+        public int getMPersId() {
+            return mPersId;
+        }
+
+        @NonNull
+        public String getMSection0() {
+            return mSection0;
+        }
+
+        @NonNull
+        public String getMSection1() {
+            return mSection1;
+        }
+
+        @NonNull
+        public String getMSection2() {
+            return mSection2;
+        }
+
+        public String getMSection3() {
+            return mSection3;
+        }
+
+        public String getMSection4() { return mSection4; }
+
+        public String getMSection5() {
+            return mSection5;
+        }
+
+        public String getMSection6() {
+            return mSection6;
+        }
+
+        public String getMSection7() {
+            return mSection7;
+        }
+
+        public String getMSection8() {
+            return mSection8;
+        }
+
+        public String getMSection9() {
+            return mSection9;
+>>>>>>> origin/general_design
         }
     }
 

@@ -23,14 +23,16 @@ public class IndexFragment extends Fragment {
 
     private ArrayList<Character> initials;
     private ArrayList<Button> index_buttons;
+    private int page;
 
     public IndexFragment() {
 
     }
 
-    public static IndexFragment newInstance(ArrayList<Character> initials) {
+    public static IndexFragment newInstance(ArrayList<Character> initials, int page) {
         IndexFragment frag = new IndexFragment();
         frag.initials = initials;
+        frag.page = page;
         return frag;
     }
 
@@ -55,35 +57,57 @@ public class IndexFragment extends Fragment {
 
     private void createIndexButtons(Context ctx, ConstraintLayout index_layout) {
         int points = initials.size();
+        int buttons = points / 2;
         if(points < 2) {
             return;
         }
         index_buttons = new ArrayList<>();
-        Button first_button = makeButton( ctx, 0);
-        Button last_button = makeButton(ctx, points - 1);
-        index_buttons.add(first_button);
-        Button buff;
-        for(int i = 0; i < points - 2; i++) {
-            index_buttons.add(buff = makeButton(ctx, i + 1));
-            index_layout.addView(buff);
+        Button first_button = makeButton( ctx, page == 0 ? 0 : buttons + 1);
+        Button last_button;
+        if(buttons == 1) {
+            last_button = first_button;
+        } else {
+            last_button = makeButton(ctx, page * buttons + buttons - 1);
         }
-        index_buttons.add(last_button);
+        index_buttons.add(first_button);
         index_layout.addView(first_button);
-        index_layout.addView(last_button);
+        Button buff;
+        switch(page) {
+            case 0:
+                for(int i = 1; i < buttons - 1; i++) {
+                    index_buttons.add(buff = makeButton(ctx, i));
+                    index_layout.addView(buff);
+                }
+                break;
+            case 1:
+                for(int i = buttons + 2; i < points - 1; i++) {
+                    index_buttons.add(buff = makeButton(ctx, i));
+                    index_layout.addView(buff);
+                }
+                break;
+        }
+        if(first_button != last_button) {
+            index_buttons.add(last_button);
+            index_layout.addView(last_button);
+        }
 
         ConstraintSet cs = new ConstraintSet();
         cs.clone(index_layout);
         cs.connect(first_button.getId(),ConstraintSet.TOP, index_layout.getId(),ConstraintSet.TOP,32 );
-        cs.connect(first_button.getId(),ConstraintSet.BOTTOM, index_buttons.get(1).getId(),ConstraintSet.TOP );
+        if(first_button != last_button) {
+            cs.connect(first_button.getId(), ConstraintSet.BOTTOM, index_buttons.get(1).getId(), ConstraintSet.TOP);
+        }
         cs.connect(first_button.getId(),ConstraintSet.START,index_layout.getId(),ConstraintSet.START, 16 );
         cs.connect(first_button.getId(),ConstraintSet.END, index_layout.getId(),ConstraintSet.END, 16 );
-        for(int i = 1; i <= points - 2; i++) {
+        for(int i = 1; i < (index_buttons.size()/2) - 1; i++) {
             cs.connect(index_buttons.get(i).getId(),ConstraintSet.TOP,index_buttons.get(i-1).getId(),ConstraintSet.BOTTOM );
             cs.connect(index_buttons.get(i).getId(),ConstraintSet.BOTTOM,index_buttons.get(i+1).getId(),ConstraintSet.TOP );
             cs.connect(index_buttons.get(i).getId(),ConstraintSet.START,index_layout.getId(),ConstraintSet.START, 16 );
             cs.connect(index_buttons.get(i).getId(),ConstraintSet.END, index_layout.getId(),ConstraintSet.END, 16 );
         }
-        cs.connect(last_button.getId(),ConstraintSet.TOP, index_buttons.get(points-2).getId(),ConstraintSet.BOTTOM );
+        if(first_button != last_button) {
+            cs.connect(last_button.getId(), ConstraintSet.TOP, index_buttons.get(index_buttons.size() - 2).getId(), ConstraintSet.BOTTOM);
+        }
         cs.connect(last_button.getId(),ConstraintSet.BOTTOM, index_layout.getId(),ConstraintSet.BOTTOM,32);
         cs.connect(last_button.getId(),ConstraintSet.START,index_layout.getId(),ConstraintSet.START, 16 );
         cs.connect(last_button.getId(),ConstraintSet.END, index_layout.getId(),ConstraintSet.END, 16 );

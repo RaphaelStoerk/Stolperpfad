@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -13,7 +15,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
+import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
+import de.uni_ulm.ismm.stolperpfad.database.data.Person;
+import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.Stolperstein;
 
@@ -27,7 +33,7 @@ public class StolperpfadeApplication extends Application {
     private SharedPreferences prefs;
     private static StolperpfadeApplication instance;
 
-    private PersRepository repo;
+    private StolperpfadeRepository repo;
 
     public static final String DATA_FILES_PATH = Environment.getExternalStorageDirectory() + "/stolperpfade/data";
 
@@ -40,7 +46,7 @@ public class StolperpfadeApplication extends Application {
         prefs = this.getSharedPreferences(
                 "de.uni_ulm.ismm.stolperpfad", Context.MODE_PRIVATE);
 
-        if(!prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.dark_mode", false)) {
+        if (!prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.dark_mode", false)) {
             prefs.edit().putBoolean("de.uni_ulm.ismm.stolperpfad.dark_mode", false).apply();
         }
         dark_mode = prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.dark_mode", false);
@@ -52,7 +58,7 @@ public class StolperpfadeApplication extends Application {
     }
 
     public boolean isDarkMode() {
-        return dark_mode =  prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.dark_mode", false);
+        return dark_mode = prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.dark_mode", false);
     }
 
     public void setDarkMode(boolean dark_mode) {
@@ -71,13 +77,13 @@ public class StolperpfadeApplication extends Application {
 
     public boolean setupFileTree() {
         boolean file_tree = prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.file_tree_ready", false);
-        if(file_tree) {
+        if (file_tree) {
             return true;
         }
         File tess = new File(DATA_FILES_PATH + "/tessdata");
         File img = new File(DATA_FILES_PATH + "/img");
-        if(tess.mkdirs() || tess.exists()){
-            if(img.mkdirs() || img.exists()) {
+        if (tess.mkdirs() || tess.exists()) {
+            if (img.mkdirs() || img.exists()) {
                 File lang_file = new File(tess, "deu.traineddata");
                 OutputStream out;
                 if (!lang_file.exists() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -132,35 +138,57 @@ public class StolperpfadeApplication extends Application {
     }
 
     public void setUpDatabase() {
-        //repo = new PersRepository(this);
+        repo = new StolperpfadeRepository(this);
 
-//        ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(this, "personen_daten");
+        ArrayList<JSONObject> persons = DataFromJSON.loadAllJSONFromDirectory(this, "person_data");
         PersonInfo next;
         int id;
-        String vorname;
-        String nachname;
-        JSONObject stostein;
+        String firstname;
+        String familyname;
+        String birthname;
+        String history;
+        JSONObject stone;
         Stolperstein stolperstein;
-        /*for(JSONObject json : personen) {
+        int stoneId;
+        String address;
+        double latitude;
+        double longitude;
+
+        ArrayList<JSONObject> histoTerms = DataFromJSON.loadAllJSONFromDirectory(this, "")
+        String histoName;
+        String histoExplanation;
+
+        for (JSONObject json : persons) {
             try {
+                //insert person
                 id = json.getInt("id");
-                vorname  =json.getString("vorname");
+                firstname = json.getString("vorname");
+                familyname = json.getString("nachname");
+                birthname = json.getString("geburtsname");
+                history = json.getString("geschichte");
+                stone = json.getJSONObject("stolperstein");
+                stoneId = stone.getInt("id");
+                Person person = new Person(id, firstname, familyname, birthname, history, stoneId);
+                repo.insert(person);
 
-                stostein = json.getJSONObject("stolperstein");
-
-                // putPerson(id, vorname);
-                JSONArray bio = json.getJSONArray("bio");
-                ArrayList<BioPoint> biography = new ArrayList<>();
-                for(int i = 0; i < bio.length(); i++) {
-                    JSONObject bio_point = bio.getJSONObject(i);
-                    BioPoint next = new BioPoint(vorname + " " + nachname, bio_point);
+                //insert vita
+                JSONArray vita = json.getJSONArray("bio");
+                ArrayList<String> biography = new ArrayList<>();
+                for (int i = 0; i < vita.length(); i++) {
+                    JSONObject bio_point = vita.getString(i);
+                    BioPoint next = new BioPoint(firstname + " " + familyname, bio_point);
                     biography.add(next);
                 }
+
+                //insert Stolperstein
+
+
+
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
 
     }
 }

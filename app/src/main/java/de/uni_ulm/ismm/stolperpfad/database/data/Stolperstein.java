@@ -13,7 +13,7 @@ import android.support.annotation.NonNull;
  * Table 4: Historical Terms (in HistoricalTerm)
  */
 
-// TABLE 8: Stolpersteine
+// TABLE 3: Stolpersteine
 @Entity(tableName = "Stolpersteine")
 public class Stolperstein {
     // stone id - address - latitude (Breitangrad) - longitude (Längengrad)

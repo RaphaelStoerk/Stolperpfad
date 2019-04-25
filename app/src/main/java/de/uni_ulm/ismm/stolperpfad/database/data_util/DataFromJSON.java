@@ -60,7 +60,7 @@ public class DataFromJSON {
             ex.printStackTrace();
             return null;
         } catch (JSONException e) {
-
+            Log.i("MY_JSON_TAG", filename);
         }
         return pers;
     }

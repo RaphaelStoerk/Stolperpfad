@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
+import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 
 public class RouteOptionsDialog extends DialogFragment {
@@ -33,6 +36,7 @@ public class RouteOptionsDialog extends DialogFragment {
 
     private SharedPreferences prefs;
     private ImageButton[] index;
+    private ImageButton left, right;
     private RoutePlannerActivity parent;
 
     private String time_in_min;
@@ -54,18 +58,31 @@ public class RouteOptionsDialog extends DialogFragment {
         prefs.edit().putString("de.uni_ulm.ismm.stolperpfad.route_start", "#").apply();
         prefs.edit().putString("de.uni_ulm.ismm.stolperpfad.route_end", "#").apply();
 
+        if(StolperpfadeApplication.getInstance().isDarkMode()) {
+            setStyle(STYLE_NO_TITLE, R.style.DialogTheme_Dark);
+        } else {
+            setStyle(STYLE_NO_TITLE, R.style.DialogTheme_Light);
+        }
+
         View myDialogView = inflater.inflate(R.layout.dialog_route_options, null);
 
         Log.i("MY_DIALOG_TAG", "View inflated");
 
         getDialog().setTitle("");
 
+
         ViewPager options_pager = myDialogView.findViewById(R.id.route_option_pager);
+        options_pager.setMinimumHeight(options_pager.getWidth());
         PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
         options_pager.setAdapter(pagerAdapter);
+        left = myDialogView.findViewById(R.id.dialog_left);
+        left.setOnClickListener(view -> options_pager.setCurrentItem(options_pager.getCurrentItem() - 1));
+        right = myDialogView.findViewById(R.id.dialog_right);
+        right.setOnClickListener(view -> options_pager.setCurrentItem(options_pager.getCurrentItem() + 1));
         options_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                options_pager.getAdapter().notifyDataSetChanged();
                 updateIndex(position);
             }
         });
@@ -83,18 +100,30 @@ public class RouteOptionsDialog extends DialogFragment {
 
         options_pager.setOffscreenPageLimit(1);
 
+        updateIndex(0);
+
         return myDialogView;
     }
 
     private void updateIndex(int pos) {
         for(ImageButton ib : index) {
-            if(parent.isInDarkMode()) {
-                ib.setBackgroundResource(R.drawable.ic_bio_point_off_dark);
+            if(StolperpfadeApplication.getInstance().isDarkMode()) {
+                ib.setImageResource(R.drawable.ic_bio_point_off_dark);
             } else {
-                ib.setBackgroundResource(R.drawable.ic_bio_point_off);
+                ib.setImageResource(R.drawable.ic_bio_point_off);
             }
         }
-        index[pos].setBackgroundResource(R.drawable.ic_bio_point_on);
+        index[pos].setImageResource(R.drawable.ic_bio_point_on);
+        if(pos <= 0) {
+            left.setAlpha(0f);
+        } else {
+            left.setAlpha(0.7f);
+        }
+        if(pos >= index.length - 1) {
+            right.setAlpha(0f);
+        } else {
+            right.setAlpha(0.7f);
+        }
     }
 
     /**
@@ -102,6 +131,26 @@ public class RouteOptionsDialog extends DialogFragment {
      * sequence.
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+
+        private Fragment myCurrentFragment;
+
+        @Override
+        public int getItemPosition(@NonNull Object object) {
+            return POSITION_NONE;
+        }
+
+        public Fragment getMyCurrentFragment() {
+            return myCurrentFragment;
+        }
+
+        @Override
+        public void setPrimaryItem(ViewGroup containter, int pos, Object obj) {
+            if(getMyCurrentFragment() != obj) {
+                myCurrentFragment = (Fragment) obj;
+            }
+            super.setPrimaryItem(containter,pos,obj);
+        }
+
         ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
         }

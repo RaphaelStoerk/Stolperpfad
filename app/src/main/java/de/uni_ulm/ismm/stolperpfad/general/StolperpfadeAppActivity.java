@@ -34,11 +34,8 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
 
     public void showQuickAccesMenu() {
         AlertDialog.Builder builder;
-        if(currently_in_dark_mode) {
-            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Dark);
-        } else {
-            builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
-        }
+        builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
+
         // Get the layout inflater
         LayoutInflater inflater = getLayoutInflater();
 

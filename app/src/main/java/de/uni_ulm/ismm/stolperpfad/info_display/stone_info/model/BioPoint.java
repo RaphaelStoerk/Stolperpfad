@@ -25,18 +25,15 @@ public class BioPoint implements Serializable {
 
     public BioPoint(TYPE type) {
         this.type = type;
+        place = "text";
+        year = 0;
+        date = "text";
+        name = "text";
     }
 
     public BioPoint(String name, JSONObject bio_as_json) {
         this.name = name;
         this.type = getType(bio_as_json);
-        try {
-            use_custom_desc = bio_as_json.getBoolean("beschreibung");
-            createPoint(bio_as_json);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.i("BIO_TAG", name + ", " + type.toString() + ", " + year);
     }
 
     private TYPE getType(JSONObject json) {

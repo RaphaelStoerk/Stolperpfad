@@ -69,6 +69,7 @@ public class StoneInfoPersonFragment extends Fragment {
                 // TODO: Update left and right buttons if persons are before or after
             }
         });
+        infoPager.setOffscreenPageLimit(0);
         shown = 0;
         return root;
     }

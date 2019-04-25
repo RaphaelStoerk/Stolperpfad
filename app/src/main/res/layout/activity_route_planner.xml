@@ -71,7 +71,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:adjustViewBounds="true"
-        android:background="@drawable/ic_bio_point_off"
+        android:background="@drawable/ic_round_back"
         android:backgroundTint="?attr/colorAppPrimaryContrast"
         android:clickable="true"
         android:focusable="true"
@@ -80,6 +80,7 @@
         android:foreground="@drawable/ic_arrow_up"
         android:foregroundTint="?attr/colorAppPrimary"
         android:scaleType="fitCenter"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

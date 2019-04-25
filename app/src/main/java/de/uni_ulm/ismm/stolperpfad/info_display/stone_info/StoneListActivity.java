@@ -34,7 +34,6 @@ public class StoneListActivity extends StolperpfadeAppActivity {
     ArrayList<Character> initials;
     private Button last_pressed;
     ArrayList<Button> index_buttons;
-    private int MAX_PERSONS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

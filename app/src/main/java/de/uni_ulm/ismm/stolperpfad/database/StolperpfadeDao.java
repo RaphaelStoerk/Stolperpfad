@@ -1,11 +1,10 @@
 package de.uni_ulm.ismm.stolperpfad.database;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
@@ -36,7 +35,7 @@ public interface StolperpfadeDao {
     void deleteAllPersons();
 
     @Query("SELECT * from persons ORDER BY family_name ASC")
-    LiveData<List<Person>> getAllPersons();
+    ArrayList<Person> getAllPersons();
 
     @Query("SELECT first_name from persons WHERE pers_id = :persId")
     String getFirstName(int persId);
@@ -47,9 +46,10 @@ public interface StolperpfadeDao {
     @Query("SELECT birth_name from persons WHERE pers_id = :persId")
     String getBirthName(int persId);
 
-    @Query("SELECT * from persons WHERE historical_terms LIKE '%' || :histoTerms || '%'")
-    List<Person> getAllInvolvedPersons(String histoTerms);
+    @Query("SELECT * from persons WHERE historical_terms LIKE '%' || :histoTerm || '%'")
+    ArrayList<Person> getAllConcernedPersons(String histoTerm);
 
+    //get a person's Stolperstein id
     @Query("SELECT stolperstein from persons WHERE pers_id = :persId")
     int getStolperstein(int persId);
 
@@ -99,6 +99,9 @@ public interface StolperpfadeDao {
     @Query("DELETE FROM stolpersteine")
     void deleteAllStolpersteine();
 
+    @Query("SELECT * from stolpersteine")
+    ArrayList<Stolperstein> getAllStones();
+
     @Query("SELECT street_and_number from stolpersteine WHERE stone_id = :stoneId")
     String getAddress(int stoneId);
 
@@ -117,7 +120,7 @@ public interface StolperpfadeDao {
     void deleteAll();
 
     @Query("SELECT * from historical_terms ORDER BY name ASC")
-    LiveData<List<HistoricalTerm>> getAllTerms();
+    ArrayList<HistoricalTerm> getAllTerms();
 
     @Query("SELECT explanation from historical_terms WHERE name = :histoTerm")
     String getExplanation(String histoTerm);

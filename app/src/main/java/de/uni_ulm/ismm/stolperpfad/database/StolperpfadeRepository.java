@@ -1,37 +1,32 @@
 package de.uni_ulm.ismm.stolperpfad.database;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
-import java.util.List;
+
+import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.database.list_of_historical_terms.HistoInfoPage;
+import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersInfoPage;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoryInfoBasicActivity;
 
 
 public class StolperpfadeRepository {
 
-
     private StolperpfadeDao mDao;
-    private LiveData<List<Person>> mAllPersons;
-    private LiveData<List<HistoricalTerm>> mAllTerms;
+    private ArrayList<Person> mAllPersons;
+    private ArrayList<HistoricalTerm> mAllTerms;
 
     public StolperpfadeRepository(Application application) {
         StolperpfadeRoomDatabase db = StolperpfadeRoomDatabase.getDatabase(application);
         mDao = db.mDao();
         mAllPersons = mDao.getAllPersons();
         mAllTerms = mDao.getAllTerms();
-    }
-
-    LiveData<List<Person>> getAllPersons() {
-        return mAllPersons;
-    }
-
-    LiveData<List<HistoricalTerm>> getAllTerms() {
-        return mAllTerms;
     }
 
 
@@ -56,6 +51,52 @@ public class StolperpfadeRepository {
         }
     }
 
+    //get a list of all persons
+    ArrayList<Person> getAllPersons() {
+        return mAllPersons;
+    }
+
+    //get a person's first name
+    /*public String getFstName(int persId, PersInfoPage parent){
+        new StolperpfadeRepository.getFstNameAsyncTask(mDao){
+            @Override
+            protected void onPostExecute(String fstName){
+                parent.set
+            }
+        }
+    }*/
+
+    //get a person's family name
+
+    //get a person's birth name (if existent)
+
+    //get all persons who are concerned by the given historical term
+    /*public ArrayList<Person> getConcernedPersons(String histoTerm, HistoryInfoBasicActivity parent){
+        new StolperpfadeRepository.getConcernedPersonsAsyncTask(mDao){
+            @Override
+            protected void onPostExecute(ArrayList<Person> concernedPersons){
+                parent.setPersList(concernedPersons);
+            }
+        }.execute(new ArrayList<Person>);
+    }
+
+    private static class getConcernedPersonsAsyncTask extends AsyncTask<ArrayList<Person>, Void, Person>{
+        private StolperpfadeDao mAsyncTaskDao;
+        getConcernedPersonsAsyncTask(StolperpfadeDao dao){
+            mAsyncTaskDao = dao;
+        }
+        @Override
+        protected ArrayList<Person> doInBackground(ArrayList<Person>... histoTerm){
+
+        }
+
+    }*/
+
+    //get a person's Stolperstein id
+
+
+
+
     //VITAS
     //insert vita
     public void insertVita(Person.Vita vita) {
@@ -74,6 +115,10 @@ public class StolperpfadeRepository {
             return null;
         }
     }
+
+    //get a particular section of a person's vita
+
+
 
     //STOLPERSTEINE
     //insert Stolperstein
@@ -94,10 +139,16 @@ public class StolperpfadeRepository {
         }
     }
 
-    //get Stolpersteine address
+    //get the Stolperstein's address
     public String getAddress(int stoneId) {
         return mDao.getAddress(stoneId);
     }
+
+    //get get the Stolperstein's latitude
+
+    //get the Stolperstein's longitude
+
+
 
     //HISTORICAL TERMS
     //insert historical term
@@ -119,7 +170,13 @@ public class StolperpfadeRepository {
         }
     }
 
+    //get a list of all historical terms
+    ArrayList<HistoricalTerm> getAllTerms() {
+        return mAllTerms;
+    }
+
     //get historical term explanation
+    @SuppressLint("StaticFieldLeak")
     public void getExplanation(String termName, HistoInfoPage parent) {
         new StolperpfadeRepository.getExplantionAsyncTask(mDao) {
             @Override

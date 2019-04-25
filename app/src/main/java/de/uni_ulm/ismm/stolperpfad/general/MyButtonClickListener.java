@@ -8,7 +8,6 @@ import android.widget.Switch;
 
 import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.database.list_of_historical_terms.HistoryActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumViewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ProjectAndArtistOverviewActivity;
@@ -87,9 +86,9 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
             case R.id.quick_access_route_planner:
                 intent = intentFromQuickAccess(RoutePlannerActivity.class);
                 break;
-            case R.id.quick_access_historical_info:
+            /*case R.id.quick_access_historical_info:
                 intent = intentFromQuickAccess(HistoryActivity.class);
-                break;
+                break;*/
             case R.id.quick_access_project_artist:
                 intent = intentFromQuickAccess(ProjectAndArtistOverviewActivity.class);
                 break;

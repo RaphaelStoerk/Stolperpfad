@@ -83,6 +83,8 @@ public class Person {
         return this.mStolperstein;
     }
 
+    public String getEntireName() {return mFstName + " " + mFamName;   }
+
 
     // TABLE 2:
     @Entity(tableName = "vitas")
@@ -96,99 +98,97 @@ public class Person {
         @ColumnInfo(name = "pers_id")
         private int mPersId;
 
-        @ColumnInfo(name = "section0")
-        private String mSection0;
+        @ColumnInfo(name = "sectionZero")
+        private String mSectionZero;
 
-        @ColumnInfo(name = "section1")
-        private String mSection1;
+        @ColumnInfo(name = "sectionOne")
+        private String mSectionOne;
 
-        @ColumnInfo(name = "section2")
-        private String mSection2;
+        @ColumnInfo(name = "sectionTwo")
+        private String mSectionTwo;
 
-        @ColumnInfo(name = "section3")
-        private String mSection3;
+        @ColumnInfo(name = "sectionThree")
+        private String mSectionThree;
 
-        @ColumnInfo(name = "section4")
-        private String mSection4;
+        @ColumnInfo(name = "sectionFour")
+        private String mSectionFour;
 
-        @ColumnInfo(name = "section5")
-        private String mSection5;
+        @ColumnInfo(name = "sectionFive")
+        private String mSectionFive;
 
-        @ColumnInfo(name = "section6")
-        private String mSection6;
+        @ColumnInfo(name = "sectionSix")
+        private String mSectionSix;
 
-        @ColumnInfo(name = "section7")
-        private String mSection7;
+        @ColumnInfo(name = "sectionSeven")
+        private String mSectionSeven;
 
-        @ColumnInfo(name = "section8")
-        private String mSection8;
+        @ColumnInfo(name = "sectionEight")
+        private String mSectionEight;
 
-        @ColumnInfo(name = "section9")
-        private String mSection9;
+        @ColumnInfo(name = "sectionNine")
+        private String mSectionNine;
 
         //Constructor
-        public Vita(@NonNull int persId, String sec0, String sec1, String sec2,
-                    String sec3, String sec4, String sec5, String sec6, String sec7, String sec8, String sec9) {
+        public Vita(@NonNull int persId, String secZero, String secOne, String secTwo,
+                    String secThree, String secFour, String secFive, String secSix, String secSeven,
+                    String secEight, String secNine) {
             this.mPersId = persId;
-            this.mSection0 = sec0;
-            this.mSection1 = sec1;
-            this.mSection2 = sec2;
-            this.mSection3 = sec3;
-            this.mSection4 = sec4;
-            this.mSection5 = sec5;
-            this.mSection6 = sec6;
-            this.mSection7 = sec7;
-            this.mSection8 = sec8;
-            this.mSection9 = sec9;
+            this.mSectionZero = secZero;
+            this.mSectionOne = secOne;
+            this.mSectionTwo = secTwo;
+            this.mSectionThree = secThree;
+            this.mSectionFour = secFour;
+            this.mSectionFive = secFive;
+            this.mSectionSix = secSix;
+            this.mSectionSeven = secSeven;
+            this.mSectionEight = secEight;
+            this.mSectionNine = secNine;
         }
 
         // these are the getter-methods;
 
-        public int getmPersId() {
+        public int getPersId() {
             return mPersId;
         }
 
-        @NonNull
-        public String getmSection0() {
-            return mSection0;
+        public String getSectionZero() {
+            return mSectionZero;
         }
 
-        @NonNull
-        public String getmSection1() {
-            return mSection1;
+        public String getSectionOne() {
+            return mSectionOne;
         }
 
-        @NonNull
-        public String getmSection2() {
-            return mSection2;
+        public String getSectionTwo() {
+            return mSectionTwo;
         }
 
-        public String getmSection3() {
-            return mSection3;
+        public String getSectionThree() {
+            return mSectionThree;
         }
 
-        public String getmSection4() {
-            return mSection4;
+        public String getSectionFour() {
+            return mSectionFour;
         }
 
-        public String getmSection5() {
-            return mSection5;
+        public String getSectionFive() {
+            return mSectionFive;
         }
 
-        public String getmSection6() {
-            return mSection6;
+        public String getSectionSix() {
+            return mSectionSix;
         }
 
-        public String getmSection7() {
-            return mSection7;
+        public String getSectionSeven() {
+            return mSectionSeven;
         }
 
-        public String getmSection8() {
-            return mSection8;
+        public String getSectionEight() {
+            return mSectionEight;
         }
 
-        public String getmSection9() {
-            return mSection9;
+        public String getSectionNine() {
+            return mSectionNine;
         }
     }
 

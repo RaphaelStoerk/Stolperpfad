@@ -5,6 +5,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
@@ -35,7 +36,7 @@ public interface StolperpfadeDao {
     void deleteAllPersons();
 
     @Query("SELECT * from persons ORDER BY family_name ASC")
-    ArrayList<Person> getAllPersons();
+    List<Person> getAllPersons();
 
     @Query("SELECT first_name from persons WHERE pers_id = :persId")
     String getFirstName(int persId);
@@ -47,7 +48,7 @@ public interface StolperpfadeDao {
     String getBirthName(int persId);
 
     @Query("SELECT * from persons WHERE historical_terms LIKE '%' || :histoTerm || '%'")
-    ArrayList<Person> getAllConcernedPersons(String histoTerm);
+    List<Person> getAllConcernedPersons(String histoTerm);
 
     //get a person's Stolperstein id
     @Query("SELECT stolperstein from persons WHERE pers_id = :persId")
@@ -61,35 +62,35 @@ public interface StolperpfadeDao {
     @Query("DELETE FROM vitas")
     void deleteAllVitas();
 
-    @Query("SELECT section0 from vitas WHERE pers_id = :persId")
-    String getSection0(int persId);
+    @Query("SELECT sectionZero from vitas WHERE pers_id = :persId")
+    String getSectionZero(int persId);
 
-    @Query("SELECT section1 from vitas WHERE pers_id = :persId")
-    String getSection1(int persId);
+    @Query("SELECT sectionOne from vitas WHERE pers_id = :persId")
+    String getSectionOne(int persId);
 
-    @Query("SELECT section2 from vitas WHERE pers_id = :persId")
-    String getSection2(int persId);
+    @Query("SELECT sectionTwo from vitas WHERE pers_id = :persId")
+    String getSectionTwo(int persId);
 
-    @Query("SELECT section3 from vitas WHERE pers_id = :persId")
-    String getSection3(int persId);
+    @Query("SELECT sectionThree from vitas WHERE pers_id = :persId")
+    String getSectionThree(int persId);
 
-    @Query("SELECT section4 from vitas WHERE pers_id = :persId")
-    String getSection4(int persId);
+    @Query("SELECT sectionFour from vitas WHERE pers_id = :persId")
+    String getSectionFour(int persId);
 
-    @Query("SELECT section5 from vitas WHERE pers_id = :persId")
-    String getSection5(int persId);
+    @Query("SELECT sectionFive from vitas WHERE pers_id = :persId")
+    String getSectionFive(int persId);
 
-    @Query("SELECT section6 from vitas WHERE pers_id = :persId")
-    String getSection6(int persId);
+    @Query("SELECT sectionSix from vitas WHERE pers_id = :persId")
+    String getSectionSix(int persId);
 
-    @Query("SELECT section7 from vitas WHERE pers_id = :persId")
-    String getSection7(int persId);
+    @Query("SELECT sectionSeven from vitas WHERE pers_id = :persId")
+    String getSectionSeven(int persId);
 
-    @Query("SELECT section8 from vitas WHERE pers_id = :persId")
-    String getSection8(int persId);
+    @Query("SELECT sectionEight from vitas WHERE pers_id = :persId")
+    String getSectionEight(int persId);
 
-    @Query("SELECT section9 from vitas WHERE pers_id = :persId")
-    String getSection9(int persId);
+    @Query("SELECT sectionNine from vitas WHERE pers_id = :persId")
+    String getSectionNine(int persId);
 
 
     //STOLPERSTEINE
@@ -100,7 +101,7 @@ public interface StolperpfadeDao {
     void deleteAllStolpersteine();
 
     @Query("SELECT * from stolpersteine")
-    ArrayList<Stolperstein> getAllStones();
+    List<Stolperstein> getAllStones();
 
     @Query("SELECT street_and_number from stolpersteine WHERE stone_id = :stoneId")
     String getAddress(int stoneId);
@@ -120,7 +121,7 @@ public interface StolperpfadeDao {
     void deleteAll();
 
     @Query("SELECT * from historical_terms ORDER BY name ASC")
-    ArrayList<HistoricalTerm> getAllTerms();
+    List<HistoricalTerm> getAllTerms();
 
     @Query("SELECT explanation from historical_terms WHERE name = :histoTerm")
     String getExplanation(String histoTerm);

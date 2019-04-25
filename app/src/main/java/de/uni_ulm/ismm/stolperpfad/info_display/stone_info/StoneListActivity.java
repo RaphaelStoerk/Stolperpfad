@@ -6,35 +6,25 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.os.Bundle;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
+import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.IndexFragment;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneListFragment;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.BioPoint;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager;
 
 public class StoneListActivity extends StolperpfadeAppActivity {
 
     VerticalViewPager index_pager, list_pager;
-    ArrayList<PersonInfo> persons;
+    ArrayList<Person> persons;
     ArrayList<Character> initials;
-    private int MAX_PERSONS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeGeneralControls(R.layout.activity_stone_list);
-
-        loadPersons();
 
         index_pager = findViewById(R.id.index_pager);
         PagerAdapter ipa = new IndexPagerAdapter(getSupportFragmentManager());
@@ -90,48 +80,4 @@ public class StoneListActivity extends StolperpfadeAppActivity {
         }
     }
 
-
-    private void loadPersons() {
-        persons = new ArrayList<>();
-        initials = new ArrayList<>();
-        ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(this, "person_data");
-        PersonInfo next;
-        int id;
-        String vorname;
-        String nachname;
-        JSONObject stostein;
-        Stolperstein stolperstein;
-        for(JSONObject json : personen) {
-            try {
-                next = createPersonFromJson(json);
-
-                persons.add(next);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-       // initials.sort();
-        MAX_PERSONS = persons.size();
-    }
-
-    private PersonInfo createPersonFromJson(JSONObject json) throws JSONException {
-        Stolperstein stolperstein;
-        int id = json.getInt("id");
-        String vorname = json.getString("vorname");
-        String nachname = json.getString("nachname");
-        String geburtsname = json.getString("geburtsname");
-        JSONObject stostein = json.getJSONObject("stein");
-        stolperstein = new Stolperstein(stostein.getInt("id"),stostein.getString("addresse"), stostein.getDouble("latitude"), stostein.getDouble("longitude"));
-        JSONArray bio = json.getJSONArray("bio");
-        ArrayList<BioPoint> biography = new ArrayList<>();
-        for(int i = 0; i < bio.length(); i++) {
-            JSONObject bio_point = bio.getJSONObject(i);
-            BioPoint next = new BioPoint(vorname + " " + nachname, bio_point);
-            biography.add(next);
-        }
-        if(!initials.contains(nachname.charAt(0))) {
-            initials.add(nachname.charAt(0));
-        }
-        return new PersonInfo(id,vorname, nachname, geburtsname, stolperstein, biography);
-    }
 }

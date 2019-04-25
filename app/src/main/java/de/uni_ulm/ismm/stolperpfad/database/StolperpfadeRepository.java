@@ -7,20 +7,17 @@ import android.os.AsyncTask;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
-import de.uni_ulm.ismm.stolperpfad.database.list_of_historical_terms.HistoInfoPage;
-import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersInfoPage;
-import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoryInfoBasicActivity;
-
 
 public class StolperpfadeRepository {
 
     private StolperpfadeDao mDao;
-    private ArrayList<Person> mAllPersons;
-    private ArrayList<HistoricalTerm> mAllTerms;
+    private List<Person> mAllPersons;
+    private List<HistoricalTerm> mAllTerms;
 
     public StolperpfadeRepository(Application application) {
         StolperpfadeRoomDatabase db = StolperpfadeRoomDatabase.getDatabase(application);
@@ -52,7 +49,7 @@ public class StolperpfadeRepository {
     }
 
     //get a list of all persons
-    ArrayList<Person> getAllPersons() {
+   List<Person> getAllPersons() {
         return mAllPersons;
     }
 
@@ -171,12 +168,13 @@ public class StolperpfadeRepository {
     }
 
     //get a list of all historical terms
-    ArrayList<HistoricalTerm> getAllTerms() {
+    List<HistoricalTerm> getAllTerms() {
         return mAllTerms;
     }
 
     //get historical term explanation
-    @SuppressLint("StaticFieldLeak")
+    //THIS CODE WORKED
+    /*@SuppressLint("StaticFieldLeak")
     public void getExplanation(String termName, HistoInfoPage parent) {
         new StolperpfadeRepository.getExplantionAsyncTask(mDao) {
             @Override
@@ -198,5 +196,5 @@ public class StolperpfadeRepository {
             String explanation = mAsyncTaskDao.getExplanation(termId[0][0]);
             return explanation;
         }
-    }
+    }*/
 }

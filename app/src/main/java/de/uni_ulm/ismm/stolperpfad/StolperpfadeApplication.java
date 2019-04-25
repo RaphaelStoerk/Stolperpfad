@@ -20,9 +20,10 @@ import java.util.ArrayList;
 import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
 import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
+import de.uni_ulm.ismm.stolperpfad.database.data.Person.Vita;
+import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.Stolperstein;
 
 public class StolperpfadeApplication extends Application {
 
@@ -35,6 +36,7 @@ public class StolperpfadeApplication extends Application {
     private static StolperpfadeApplication instance;
 
     private StolperpfadeRepository repo;
+    private int vitaLength = 10;
 
     public static final String DATA_FILES_PATH = Environment.getExternalStorageDirectory() + "/stolperpfade/data";
 
@@ -169,20 +171,23 @@ public class StolperpfadeApplication extends Application {
                 repo.insertPerson(person);
 
                 //insert vita
-                /*JSONArray vita = json.getJSONArray("bio");
-                ArrayList<String> biography = new ArrayList<>();
-                for (int i = 0; i < vita.length(); i++) {
-                    JSONObject bio_point = vita.getString(i);
-                    BioPoint next = new BioPoint(firstname + " " + familyname, bio_point);
-                    biography.add(next);
-                }*/
+                JSONArray biography = json.getJSONArray("bio");
+                String[] vitaSections = new String[vitaLength];
+                for (int i = 0; i < biography.length(); i++) {
+                    String section = biography.getString(i);
+                    vitaSections[i] = section;
+                }
+                Vita vita = new Vita(id, vitaSections[0], vitaSections[1], vitaSections[2],
+                        vitaSections[3], vitaSections[4], vitaSections[5], vitaSections[6],
+                        vitaSections[7], vitaSections[8], vitaSections[9]);
+                repo.insertVita(vita);
 
                 //insert Stolperstein
                 address = stone.getString("addresse");
                 latitude = stone.getDouble("latitude");
                 longitude = stone.getDouble("longitude");
-                Stolperstein stostei = new Stolperstein(stoneId,address,latitude, longitude);
-                //repo.insertStone(stostei);
+                Stolperstein stostei = new Stolperstein(stoneId, address, latitude, longitude);
+                repo.insertStone(stostei);
 
             } catch (JSONException e) {
                 e.printStackTrace();

@@ -1,0 +1,27 @@
+{
+  "id": 91,
+  "vorname": "Jenny",
+  "nachname": "Krippel",
+  "geburtsname": "",
+  "stein": {
+    "id": 34,
+    "addresse": "Hafengasse 10",
+    "latitude": 48.3990155,
+    "longitude": 9.9943728
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}

@@ -21,8 +21,8 @@ public class Person {
 
     // id - first name - last name - birth name - historical term - Stolperstein
 
-    // we have to work with Integer instead of int because an 'int' can't be null,
-    // but an 'Integer' can and sometimes the table entries are null
+    // if some int-entries in a table can be null, we have to work with Integer instead of int
+    // because an 'int' can't be null, but an 'Integer' can
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "pers_id")
@@ -39,20 +39,20 @@ public class Person {
     @ColumnInfo(name = "birth_name")
     private String mBiName;
 
-    @ColumnInfo(name = "historical_term")
-    private Integer mHisTerm;
+    @ColumnInfo(name = "historical_terms")
+    private String mHisTerms;
 
     @ColumnInfo(name = "stolperstein")
-    private Integer mStolperstein;
+    private int mStolperstein;
 
     // constructor
     public Person(@NonNull int persId, @NonNull String fstName, @NonNull String famName, String biName,
-                  Integer hisTerm, Integer stolperstein) {
+                  String hisTerms, int stolperstein) {
         this.mPersId = persId;
         this.mFstName = fstName;
         this.mFamName = famName;
         this.mBiName = biName;
-        this.mHisTerm = hisTerm;
+        this.mHisTerms = hisTerms;
         this.mStolperstein = stolperstein;
     }
 
@@ -75,18 +75,18 @@ public class Person {
         return this.mBiName;
     }
 
-    public Integer getHisTerm() {
-        return this.mHisTerm;
+    public String getHisTerms() {
+        return this.mHisTerms;
     }
 
-    public Integer getStolperstein() {
+    public int getStolperstein() {
         return this.mStolperstein;
     }
 
 
     // TABLE 2:
     @Entity(tableName = "vitas")
-    public class Vita {
+    public static class Vita {
 
         // id - section 1 - section 2 - section 3 - section 4 - section 5 - section 6 - section 7
         // - section 8 - section 9 - section 10

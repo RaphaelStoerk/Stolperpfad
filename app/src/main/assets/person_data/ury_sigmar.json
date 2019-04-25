@@ -1,0 +1,27 @@
+{
+  "id": 67,
+  "vorname": "Sigmar",
+  "nachname": "Ury",
+  "geburtsname": "",
+  "stein": {
+    "id": 16,
+    "addresse": "Zinglerstraße 44",
+    "latitude": 48.394012,
+    "longitude": 9.982236
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}	

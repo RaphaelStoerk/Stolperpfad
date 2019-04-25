@@ -1,0 +1,28 @@
+{
+  "id": 25,
+  "vorname": "Ernst",
+  "nachname": "Dauner",
+  "geburtsname": "",
+  "stein": {
+    "id": 15,
+    "addresse": "Säntisstraße 36",
+    "latitude": 48.411408,
+    "longitude": 9.98664
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

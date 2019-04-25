@@ -1,0 +1,28 @@
+{
+  "id": 29,
+  "vorname": "Mathilde",
+  "nachname": "Fischer",
+  "geburtsname": "",
+  "stein": {
+    "id": 12,
+    "addresse": "Neue Straße 32",
+    "latitude": 48.397105,
+    "longitude": 9.986348
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

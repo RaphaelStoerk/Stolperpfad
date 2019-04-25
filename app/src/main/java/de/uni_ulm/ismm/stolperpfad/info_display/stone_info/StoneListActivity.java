@@ -146,7 +146,7 @@ public class StoneListActivity extends StolperpfadeAppActivity {
     private void loadPersons() {
         persons = new ArrayList<>();
         initials = new ArrayList<>();
-        ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(this, "personen_daten");
+        ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(this, "person_data");
         PersonInfo next;
         for(JSONObject json : personen) {
             try {

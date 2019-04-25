@@ -1,0 +1,28 @@
+{
+  "id": 75,
+  "vorname": "Maria",
+  "nachname": "Hausser",
+  "geburtsname": "",
+  "stein": {
+    "id": 29,
+    "addresse": "Kirchstraße 3, Grimmelfingen",
+    "latitude": 48.3716788,
+    "longitude": 9.9355790
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

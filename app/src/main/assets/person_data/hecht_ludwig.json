@@ -1,0 +1,28 @@
+{
+  "id": 32,
+  "vorname": "Ludwig",
+  "nachname": "Hecht",
+  "geburtsname": "",
+  "stein": {
+    "id": 7,
+    "addresse": "Olgastraße 85",
+    "latitude": 48.401455,
+    "longitude": 9.988625
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

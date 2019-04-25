@@ -18,6 +18,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
+import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
@@ -140,6 +141,7 @@ public class StolperpfadeApplication extends Application {
     public void setUpDatabase() {
         repo = new StolperpfadeRepository(this);
 
+        // PERSONS, VITA, STOLPERSTEINE
         ArrayList<JSONObject> persons = DataFromJSON.loadAllJSONFromDirectory(this, "person_data");
         PersonInfo next;
         int id;
@@ -148,15 +150,10 @@ public class StolperpfadeApplication extends Application {
         String birthname;
         String history;
         JSONObject stone;
-        Stolperstein stolperstein;
         int stoneId;
         String address;
         double latitude;
         double longitude;
-
-        ArrayList<JSONObject> histoTerms = DataFromJSON.loadAllJSONFromDirectory(this, "")
-        String histoName;
-        String histoExplanation;
 
         for (JSONObject json : persons) {
             try {
@@ -169,26 +166,46 @@ public class StolperpfadeApplication extends Application {
                 stone = json.getJSONObject("stolperstein");
                 stoneId = stone.getInt("id");
                 Person person = new Person(id, firstname, familyname, birthname, history, stoneId);
-                repo.insert(person);
+                repo.insertPerson(person);
 
                 //insert vita
-                JSONArray vita = json.getJSONArray("bio");
+                /*JSONArray vita = json.getJSONArray("bio");
                 ArrayList<String> biography = new ArrayList<>();
                 for (int i = 0; i < vita.length(); i++) {
                     JSONObject bio_point = vita.getString(i);
                     BioPoint next = new BioPoint(firstname + " " + familyname, bio_point);
                     biography.add(next);
-                }
+                }*/
 
                 //insert Stolperstein
-
-
-
+                address = stone.getString("addresse");
+                latitude = stone.getDouble("latitude");
+                longitude = stone.getDouble("longitude");
+                Stolperstein stostei = new Stolperstein(stoneId,address,latitude, longitude);
+                //repo.insertStone(stostei);
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+
+        // HISTORICAL TERMS
+        ArrayList<JSONObject> histoTerms = DataFromJSON.loadAllJSONFromDirectory(this, "history_data");
+        String histoName;
+        String histoExplanation;
+
+        for (JSONObject json : persons) {
+            try {
+                histoName = json.getString("name");
+                histoExplanation = json.getString("explanation");
+                HistoricalTerm histoTerm = new HistoricalTerm(histoName, histoExplanation);
+                repo.insertHisto(histoTerm);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
 
     }
 }

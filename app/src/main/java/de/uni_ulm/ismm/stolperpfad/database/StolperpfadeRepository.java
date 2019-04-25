@@ -8,6 +8,7 @@ import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
+import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.database.list_of_historical_terms.HistoInfoPage;
 
 
@@ -36,15 +37,14 @@ public class StolperpfadeRepository {
 
     //GET DATA FROM THE DATABASE
 
-    // PERSONS
+    //PERSONS
     //insert person
-    public void insert(Person person) {
+    public void insertPerson(Person person) {
         new de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository.insertPersonAsyncTask(mDao).execute(person);
     }
 
     private static class insertPersonAsyncTask extends AsyncTask<Person, Void, Void> {
         private StolperpfadeDao mAsyncTaskDao;
-
         insertPersonAsyncTask(StolperpfadeDao dao) {
             mAsyncTaskDao = dao;
         }
@@ -56,7 +56,44 @@ public class StolperpfadeRepository {
         }
     }
 
+    //VITAS
+    //insert vita
+    public void insertVita(Person.Vita vita) {
+        new de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository.insertVitaAsyncTask(mDao).execute(vita);
+    }
+
+    private static class insertVitaAsyncTask extends AsyncTask<Person.Vita, Void, Void> {
+        private StolperpfadeDao mAsyncTaskDao;
+        insertVitaAsyncTask(StolperpfadeDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Person.Vita... params) {
+            mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
     //STOLPERSTEINE
+    //insert Stolperstein
+    public void insertStone(Stolperstein stostei) {
+        new de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository.insertStoneAsyncTask(mDao).execute(stostei);
+    }
+
+    private static class insertStoneAsyncTask extends AsyncTask<Stolperstein, Void, Void> {
+        private StolperpfadeDao mAsyncTaskDao;
+        insertStoneAsyncTask(StolperpfadeDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Stolperstein... params) {
+            mAsyncTaskDao.insert(params[0]);
+            return null;
+        }
+    }
+
     //get Stolpersteine address
     public String getAddress(int stoneId) {
         return mDao.getAddress(stoneId);
@@ -64,14 +101,13 @@ public class StolperpfadeRepository {
 
     //HISTORICAL TERMS
     //insert historical term
-    public void insert(HistoricalTerm histoTerm) {
+    public void insertHisto(HistoricalTerm histoTerm) {
         new StolperpfadeRepository.insertHistoAsyncTask(mDao).execute(histoTerm);
     }
 
     private static class insertHistoAsyncTask extends AsyncTask<HistoricalTerm, Void, Void> {
 
         private StolperpfadeDao mAsyncTaskDao;
-
         insertHistoAsyncTask(StolperpfadeDao dao) {
             mAsyncTaskDao = dao;
         }
@@ -96,7 +132,6 @@ public class StolperpfadeRepository {
     private static class getExplantionAsyncTask extends AsyncTask<String[], Void, String> {
 
         private StolperpfadeDao mAsyncTaskDao;
-
         getExplantionAsyncTask(StolperpfadeDao dao) {
             mAsyncTaskDao = dao;
         }

@@ -186,5 +186,10 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
             return null;
         }
 
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+
     }
 }

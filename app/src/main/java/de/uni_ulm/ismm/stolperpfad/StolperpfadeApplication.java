@@ -36,7 +36,7 @@ public class StolperpfadeApplication extends Application {
     private SharedPreferences prefs;
     private static StolperpfadeApplication instance;
 
-    //private StolperpfadeRepository repo = new StolperpfadeRepository(this);
+    private StolperpfadeRepository repo;
 
 
     public static final String DATA_FILES_PATH = Environment.getExternalStorageDirectory() + "/stolperpfade/data";
@@ -148,5 +148,6 @@ public class StolperpfadeApplication extends Application {
 
 
     public void setUpDatabase() {
+        repo = new StolperpfadeRepository(this);
     }
 }

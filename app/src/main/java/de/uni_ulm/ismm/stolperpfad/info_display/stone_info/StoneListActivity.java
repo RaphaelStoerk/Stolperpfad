@@ -40,6 +40,8 @@ public class StoneListActivity extends StolperpfadeAppActivity {
         super.onCreate(savedInstanceState);
         initializeGeneralControls(R.layout.activity_stone_list);
 
+        //TODO: warte auf db
+
         index_scroll_view = findViewById(R.id.index_scroll_view);
         setUpScrollView(index_scroll_view);
 

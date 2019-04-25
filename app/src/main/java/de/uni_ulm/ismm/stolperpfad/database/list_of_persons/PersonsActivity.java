@@ -53,14 +53,14 @@ public class PersonsActivity extends AppCompatActivity implements PersListAdapte
         //ViewModel
         mPersViewModel = ViewModelProviders.of(this).get(PersViewModel.class);
 
-        mPersViewModel.getAllPersons().observe(this, new Observer<List<Person>>() {
+        /*mPersViewModel.getAllPersons().observe(this, new Observer<List<Person>>() {
             @Override
             public void onChanged(@Nullable final List<Person> persons) {
                 // Update the cached copy of the words in the adapter.
                 adapter.setPersons(persons);
             }
         });
-
+*/
     }
 
 

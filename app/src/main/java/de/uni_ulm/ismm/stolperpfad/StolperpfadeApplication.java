@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,42 +86,47 @@ public class StolperpfadeApplication extends Application {
         }
         File tess = new File(DATA_FILES_PATH + "/tessdata");
         File img = new File(DATA_FILES_PATH + "/img");
-        if (tess.mkdirs() || tess.exists()) {
-            if (img.mkdirs() || img.exists()) {
-                File lang_file = new File(tess, "deu.traineddata");
-                OutputStream out;
-                if (!lang_file.exists() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    try {
-                        out = new FileOutputStream(lang_file);
-                        InputStream in = getResources().openRawResource(R.raw.traineddata);
-                        byte[] buffer = new byte[1024];
-                        int len;
-                        while ((len = in.read(buffer, 0, buffer.length)) != -1) {
-                            out.write(buffer, 0, len);
-                        }
-                        ocr_language_file_ready = true;
-                        in.close();
-                        out.close();
+        File routes = new File(DATA_FILES_PATH + "/routes");
+        if(tess.mkdirs() || tess.exists()){
+            if(img.mkdirs() || img.exists()) {
+                if (routes.mkdirs() || routes.exists()) {
+                    File lang_file = new File(tess, "deu.traineddata");
+                    OutputStream out;
+                    if (!lang_file.exists() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        try {
+                            out = new FileOutputStream(lang_file);
+                            InputStream in = getResources().openRawResource(R.raw.traineddata);
+                            byte[] buffer = new byte[1024];
+                            int len;
+                            while ((len = in.read(buffer, 0, buffer.length)) != -1) {
+                                out.write(buffer, 0, len);
+                            }
+                            ocr_language_file_ready = true;
+                            in.close();
+                            out.close();
 
-                    } catch (IOException e) {
-                        ocr_language_file_ready = false;
-                        e.printStackTrace();
+                        } catch (IOException e) {
+                            ocr_language_file_ready = false;
+                            e.printStackTrace();
+                        }
                     }
-                }
-                File image_buff = new File(img, "last_scanned_stone.jpg");
-                if (!image_buff.exists()) {
-                    try {
-                        image_buff.createNewFile();
+                    File image_buff = new File(img, "last_scanned_stone.jpg");
+                    if (!image_buff.exists()) {
+                        try {
+                            image_buff.createNewFile();
+                            image_buffer_ready = true;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            image_buffer_ready = false;
+                        }
+                    } else {
                         image_buffer_ready = true;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        image_buffer_ready = false;
                     }
+                    file_tree_ready = ocr_language_file_ready && image_buffer_ready;
                 } else {
-                    image_buffer_ready = true;
+                    file_tree_ready = false;
                 }
-                file_tree_ready = ocr_language_file_ready && image_buffer_ready;
-            } else {
+            }else {
                 file_tree_ready = false;
             }
         } else {
@@ -210,7 +216,6 @@ public class StolperpfadeApplication extends Application {
                 e.printStackTrace();
             }
         }
-
 
     }
 }

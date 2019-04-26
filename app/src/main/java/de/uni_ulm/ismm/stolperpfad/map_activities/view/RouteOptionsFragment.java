@@ -100,7 +100,6 @@ public class RouteOptionsFragment extends Fragment {
         // build the start and end position options
         prefs = this.getActivity().getApplicationContext().getSharedPreferences(
                 "de.uni_ulm.ismm.stolperpfad", Context.MODE_PRIVATE);
-        prefs.edit().putString("de.uni_ulm.ismm.stolperpfad.route_end", "1").apply();
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_options_one, null);
 
         RadioGroup start_choice = root.findViewById(R.id.start_of_route_choice);
@@ -114,7 +113,6 @@ public class RouteOptionsFragment extends Fragment {
         // build the start and end position options
         prefs = this.getActivity().getApplicationContext().getSharedPreferences(
                 "de.uni_ulm.ismm.stolperpfad", Context.MODE_PRIVATE);
-        prefs.edit().putString("de.uni_ulm.ismm.stolperpfad.route_end", "1").apply();
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_options_two, null);
 
         RadioGroup end_choice = root.findViewById(R.id.end_of_route_choice);
@@ -126,7 +124,7 @@ public class RouteOptionsFragment extends Fragment {
 
     private View createThirdPage(LayoutInflater inflater) {
         prefs = this.getActivity().getApplicationContext().getSharedPreferences(
-            "de.uni_ulm.ismm.stolperpfad", Context.MODE_PRIVATE);
+                "de.uni_ulm.ismm.stolperpfad", Context.MODE_PRIVATE);
 
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_options_three, null);
         EditText time_input = root.findViewById(R.id.time_input);
@@ -145,7 +143,11 @@ public class RouteOptionsFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                prefs.edit().putString("de.uni_ulm.ismm.stolperpfad.route_time", editable.toString()).apply();
+                if(editable.toString().length() > 0) {
+                    prefs.edit().putString("de.uni_ulm.ismm.stolperpfad.route_time", editable.toString()).apply();
+                } else {
+                    prefs.edit().putString("de.uni_ulm.ismm.stolperpfad.route_time", "#").apply();
+                }
             }
         });
         return root;
@@ -153,53 +155,56 @@ public class RouteOptionsFragment extends Fragment {
 
     private View createSummaryPage(LayoutInflater inflater) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.options_summary, null);
-        LinearLayout summary = root.findViewById(R.id.summary);
+        ConstraintLayout summary = root.findViewById(R.id.summary);
 
         prefs = this.getActivity().getApplicationContext().getSharedPreferences(
                 "de.uni_ulm.ismm.stolperpfad", Context.MODE_PRIVATE);
         String start_option = prefs.getString("de.uni_ulm.ismm.stolperpfad.route_start", null);
         String end_option = prefs.getString("de.uni_ulm.ismm.stolperpfad.route_end", null);
         String time_option = prefs.getString("de.uni_ulm.ismm.stolperpfad.route_time", null);
-        TextView start_choice = (TextView) inflater.inflate(R.layout.summary_text, null);
+        TextView start_choice = (TextView) summary.findViewById(R.id.summary_start);
         switch(start_option) {
             case "0":
-                start_choice.setText("Pfad bei aktueller Position beginnen");
+                start_choice.setText("Pfad bei aktueller Position beginnen.");
                 break;
             case "1":
-                start_choice.setText("Pfad bei gesetzter Markierung beginnen");
+                start_choice.setText("Pfad bei gesetzter Markierung beginnen.");
                 break;
             case "2":
-                start_choice.setText("Pfad am Ulmer Münster beginnen");
+                start_choice.setText("Pfad am Ulmer Münster beginnen.");
                 break;
             default:
-                start_choice.setText("Keine Angaben zum Start des Pfades");
+                start_choice.setText("Keine Angaben zum Start des Pfades.");
         }
-        summary.addView(start_choice);
-        TextView end_choice = (TextView) inflater.inflate(R.layout.summary_text, null);
+        TextView end_choice = (TextView) summary.findViewById(R.id.summary_end);
         switch(end_option) {
             case "0":
-                end_choice.setText("Pfad endet bei einem Stolperstein");
+                end_choice.setText("Pfad endet bei einem Stolperstein.");
                 break;
             case "1":
-                end_choice.setText("Pfad endet bei gesetzter Markierung");
+                end_choice.setText("Pfad endet bei gesetzter Markierung.");
                 break;
             case "2":
-                end_choice.setText("Pfad endet am Ulmer Münster");
+                end_choice.setText("Pfad endet am Ulmer Münster.");
                 break;
             default:
-                end_choice.setText("Keine Angaben zum Ende des Pfades");
+                end_choice.setText("Keine Angaben zum Ende des Pfades.");
         }
-        summary.addView(end_choice);
 
-        TextView time_choice = (TextView) inflater.inflate(R.layout.summary_text, null);
-        if(!time_option.startsWith("#")) {
+        TextView time_choice = (TextView) summary.findViewById(R.id.summary_time);
+        if(!time_option.startsWith("#") && time_option.length() > 0) {
             time_choice.setText("Der Pfad sollte in " + time_option + " Minuten zu schaffen sein.");
-            summary.addView(time_choice);
+        } else {
+            time_choice.setText(" ");
         }
-        ConstraintLayout buttons = (ConstraintLayout) inflater.inflate(R.layout.summary_buttons, null);
-        buttons.findViewById(R.id.route_option_button_pos).setOnClickListener(
-                    view -> RoutePlannerActivity.getInstance().calcRoute(start_option, end_option, time_option
-                ));
+
+        summary.findViewById(R.id.route_option_button_pos).setOnClickListener(
+                view -> ((RoutePlannerActivity)getActivity()).calcRoute(start_option, end_option, time_option)
+                );
+
+        summary.findViewById(R.id.route_option_button_neg).setOnClickListener(
+                view -> ((RoutePlannerActivity)getActivity()).endDialog()
+                );
 
         return root;
     }

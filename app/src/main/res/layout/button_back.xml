@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="#0000"
-    android:drawableStart="@drawable/ic_back_button"
+    android:drawableStart="@drawable/ic_arrow_back"
     android:fontFamily="@font/fira_sans_condensed_semibold"
     android:textColor="?attr/colorAppAccent"
     android:text="@string/button_back"

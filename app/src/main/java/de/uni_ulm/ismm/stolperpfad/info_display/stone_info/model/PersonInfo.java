@@ -12,13 +12,16 @@ public class PersonInfo implements Serializable {
     private ArrayList<BioPoint> biography;
     private BioPoint birth, death;
 
-    public PersonInfo(int id, String vorname, String nachname, String geburtsname, Stolperstein stolperstein, ArrayList<BioPoint> biography) {
-        this.id = id;
+    public PersonInfo(int id, String vorname, String nachname, String geburtsname, Stolperstein stein) {
         this.vorname = vorname;
         this.nachname = nachname;
         this.geburtsname = geburtsname;
-        this.stolperstein = stolperstein;
-        this.biography = biography;
+        this.id = id;
+        this.stolperstein = stein;
+        biography = new ArrayList<>();
+        biography.add(new BioPoint(BioPoint.TYPE.BORN));
+        biography.add(new BioPoint(BioPoint.TYPE.MOVED));
+        biography.add(new BioPoint(BioPoint.TYPE.DIED));
     }
 
     public String getVorname() {
@@ -72,6 +75,6 @@ public class PersonInfo implements Serializable {
     }
 
     public String getListName() {
-        return nachname + ", " + vorname + (geburtsname.length() != 0 ? ("; geb. " + geburtsname) : "");
+        return "<b>" + nachname + "</b>, " + vorname + (geburtsname.length() != 0 ? ("; geb. " + geburtsname) : "");
     }
 }

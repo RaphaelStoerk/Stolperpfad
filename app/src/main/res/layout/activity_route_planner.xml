@@ -11,8 +11,9 @@
         layout="@layout/header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <!--
     <android.support.design.widget.AppBarLayout
         android:id="@+id/header_route_planner"
         android:layout_width="match_parent"
@@ -36,47 +37,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
-                    android:id="@+id/route_option_button"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="#0000"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/ic_add_button_round"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <Button
-                    android:id="@+id/save_route_button"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="#0000"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/ic_save_black_24dp"
-                    android:foregroundTint="?attr/colorAppPrimaryContrast"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/route_option_button"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/info_map_options_button"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="#0000"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/ic_info_black_24dp"
-                    android:foregroundTint="?attr/colorAppPrimaryContrast"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/save_route_button"
-                    app:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -84,27 +44,44 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    -->
+
     <include
         layout="@layout/fragment_map_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_route_planner" />
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/start_guide_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="?attr/colorAppAccent"
+    <include
+        layout="@layout/toolbar_route_planner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <ImageButton
+        android:id="@+id/menu_open_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/ic_round_back"
+        android:backgroundTint="?attr/colorAppPrimaryContrast"
         android:clickable="true"
         android:focusable="true"
-        android:foregroundTint="?attr/colorAppTextButtonAccent"
+        android:elevation="5dp"
+        android:translationZ="5dp"
+        android:foreground="@drawable/ic_arrow_up"
+        android:foregroundTint="?attr/colorAppPrimary"
+        android:scaleType="fitCenter"
+        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_directions_walk_black_24dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

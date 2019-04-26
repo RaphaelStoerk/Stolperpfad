@@ -43,10 +43,10 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/fira_sans_condensed_semibold"
         android:text="@string/title_stone_list"
-        android:textColor="?attr/colorAppTextPrimary"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="24sp"
+        android:textColor="?attr/colorAppTextPrimary"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,21 +64,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_stone_list" />
 
-    <de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager
-        android:id="@+id/index_pager"
+    <ScrollView
+        android:id="@+id/index_scroll_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/stone_list_pager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_two_stone_list" />
+        app:layout_constraintTop_toBottomOf="@+id/line_two_stone_list">
+
+        <include layout="@layout/content_list_index" />
+    </ScrollView>
 
     <de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager
         android:id="@+id/stone_list_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="116dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

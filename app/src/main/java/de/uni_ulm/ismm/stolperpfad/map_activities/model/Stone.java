@@ -5,6 +5,8 @@ import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
+import java.util.ArrayList;
+
 /**
  * This is a model class to represent a "Stolperstein" on the map activities of this application
  */
@@ -14,6 +16,7 @@ public class Stone {
     private LatLng location;
     private String first_name, last_name, short_desc;
     private Marker marker;
+    ArrayList<Neighbour> neighbours;
 
 
     public Stone(double lat, double lng, String first_name, String last_name, String short_desc) {
@@ -21,6 +24,7 @@ public class Stone {
         this.last_name = last_name;
         this.short_desc = short_desc;
         this.location = new LatLng(lat, lng);
+        this.neighbours = new ArrayList<>();
     }
 
     /**
@@ -60,5 +64,26 @@ public class Stone {
         Stone check = (Stone) o;
         return (this.location.getLatitude() == check.getLocation().getLatitude()) &&
                 (this.location.getLongitude() == check.getLocation().getLongitude());
+    }
+
+    public boolean hasNeighbour(Stone s_to) {
+        for(Neighbour n : neighbours) {
+            if(n.getStone().equals(s_to)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void addNeighbour(double shorest_dist, Stone nearest) {
+        neighbours.add(new Neighbour(nearest, shorest_dist));
+    }
+
+    public int countNeighbours() {
+        return neighbours.size();
+    }
+
+    public ArrayList<Neighbour> getNeighbours() {
+        return neighbours;
     }
 }

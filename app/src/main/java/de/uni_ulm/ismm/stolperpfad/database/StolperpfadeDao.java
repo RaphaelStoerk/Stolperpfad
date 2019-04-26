@@ -62,6 +62,9 @@ public interface StolperpfadeDao {
     @Query("DELETE FROM vitas")
     void deleteAllVitas();
 
+    @Query("SELECT * FROM vitas WHERE pers_id = :persId")
+    List<Person.Vita> getVita(int persId);
+
     @Query("SELECT sectionZero from vitas WHERE pers_id = :persId")
     String getSectionZero(int persId);
 
@@ -102,6 +105,9 @@ public interface StolperpfadeDao {
 
     @Query("SELECT * from stolpersteine")
     List<Stolperstein> getAllStones();
+
+    @Query("SELECT * from stolpersteine WHERE stone_id = :stoneId")
+    List<Stolperstein> getStone(int stoneId);
 
     @Query("SELECT street_and_number from stolpersteine WHERE stone_id = :stoneId")
     String getAddress(int stoneId);

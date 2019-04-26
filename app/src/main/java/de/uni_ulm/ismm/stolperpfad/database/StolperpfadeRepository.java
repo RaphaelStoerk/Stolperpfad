@@ -22,8 +22,8 @@ public class StolperpfadeRepository {
     public StolperpfadeRepository(Application application) {
         StolperpfadeRoomDatabase db = StolperpfadeRoomDatabase.getDatabase(application);
         mDao = db.mDao();
-        mAllPersons = mDao.getAllPersons();
-        mAllTerms = mDao.getAllTerms();
+//        mAllPersons = mDao.getAllPersons();
+        //       mAllTerms = mDao.getAllTerms();
     }
 
 
@@ -50,6 +50,8 @@ public class StolperpfadeRepository {
 
     //get a list of all persons
     public List<Person> getAllPersons() {
+        if(mAllPersons == null)
+            return mAllPersons = mDao.getAllPersons();
         return mAllPersons;
     }
 
@@ -113,6 +115,11 @@ public class StolperpfadeRepository {
         }
     }
 
+    // get all Vitas from an id
+    public List<Person.Vita> getVita(int persId) {
+        return mDao.getVita(persId);
+    }
+
     //get a particular section of a person's vita
 
 
@@ -135,6 +142,8 @@ public class StolperpfadeRepository {
             return null;
         }
     }
+
+    public List<Stolperstein> getStone(int stoneId) {return mDao.getStone(stoneId);}
 
     //get the Stolperstein's address
     public String getAddress(int stoneId) {

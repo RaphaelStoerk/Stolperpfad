@@ -14,8 +14,11 @@ import android.widget.TextView;
 import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.StringCreator;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewModel;
 
 /**
  * The lowest Fragment of its group, placeholder fragment for one specific
@@ -23,28 +26,33 @@ import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
  */
 public class StoneInfoBioContentFragment extends Fragment {
 
-    private BioPoint content;
+    private int position;
+    private int point;
+    private StoneInfoViewModel model;
 
     public StoneInfoBioContentFragment() {
 
     }
 
-    public static StoneInfoBioContentFragment newInstance(BioPoint content) {
+    public static StoneInfoBioContentFragment newInstance(StoneInfoViewModel model, int position, int point) {
         StoneInfoBioContentFragment frag  = new StoneInfoBioContentFragment();
-        frag.content = content;
-        Log.i("BIO_TAG", content.getName() + ", " + content.getType().toString() + ", " + content.getYear());
+        frag.position = position;
+        frag.point = point;
+        frag.model = model;
         return frag;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            if (savedInstanceState != null) {
-                content = (BioPoint) savedInstanceState.getSerializable("content");
+        int buff;
+        if(savedInstanceState != null) {
+            if((buff = savedInstanceState.getInt("current_person")) != -1) {
+                position = buff;
             }
-        } catch(NullPointerException ignored) {
-
+            if((buff = savedInstanceState.getInt("current_vita_point")) != -1) {
+                point = buff;
+            }
         }
     }
 
@@ -52,18 +60,15 @@ public class StoneInfoBioContentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_bio_point, container, false);
-        AQuery aq = new AQuery(root);
-        aq.id(R.id.title_bio_point).text(content.getTitle());
-        TextView desc_text = (TextView) aq.id(R.id.text_bio_point).getView();
-        desc_text.setText(StringCreator.makeTextFrom(content,(StolperpfadeAppActivity) getActivity()));
-        desc_text.setMovementMethod(LinkMovementMethod.getInstance());
+        model = StoneInfoMainActivity.getModelInstance();
+        model.showVitaContent(root, position, point);
         return root;
     }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putSerializable("content", content);
+        outState.putInt("current_person", position);
+        outState.putInt("current_vita_point", point);
         super.onSaveInstanceState(outState);
     }
-
 }

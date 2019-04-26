@@ -9,6 +9,11 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -47,7 +52,7 @@ public class StoneListViewModel extends AndroidViewModel {
     }
 
     public static StoneListViewModel getInstance(StoneListActivity activity) {
-        if(INSTANCE == null) {
+        if(INSTANCE == null || INSTANCE.parent != activity) {
             INSTANCE = new StoneListViewModel(activity.getApplication(), activity);
         }
         return INSTANCE;
@@ -59,9 +64,6 @@ public class StoneListViewModel extends AndroidViewModel {
         Button but = (Button) LayoutInflater.from(ctx).inflate(R.layout.button_index, null);
         but.setOnClickListener(view -> {
             updateIndex(index);
-            last_pressed.setBackground(null);
-            but.setBackgroundResource(R.drawable.ic_point_on);
-            last_pressed = but;
         });
         but.setText(initials.get(index).toString());
         DisplayMetrics dm = ctx.getResources().getDisplayMetrics();
@@ -75,8 +77,12 @@ public class StoneListViewModel extends AndroidViewModel {
     }
 
     public void updateIndex(int index) {
+        if(index_buttons == null) {
+            setUpIndex();
+        }
         list_pager.setCurrentItem(index);
-        last_pressed.setBackground(null);
+        if(last_pressed != null)
+            last_pressed.setBackground(null);
         index_buttons.get(index).setBackgroundResource(R.drawable.ic_index_highlight);
         last_pressed = index_buttons.get(index);
     }
@@ -86,6 +92,9 @@ public class StoneListViewModel extends AndroidViewModel {
         ConstraintLayout index = index_scroll_view.findViewById(R.id.index_layout);
         index_buttons = new ArrayList<>();
         int count = initials.size();
+        if(count == 0) {
+            return;
+        }
         Button buff;
         for(int i = 0; i < count; i++) {
             index_buttons.add(buff = makeIndexButton(parent, i));
@@ -112,13 +121,24 @@ public class StoneListViewModel extends AndroidViewModel {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void setUpIndex(VerticalViewPager list_pager) {
-        this.list_pager = list_pager;
+    public void setUpIndex(StoneListActivity parent) {
+        list_pager = parent.findViewById(R.id.stone_list_pager);
+        list_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                updateIndex(position);
+            }
+        });
+        //loading(true);
         new LoadIndexTask() {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                readIndex();
+                if(initials == null || initials.size() == 0) {
+                    readIndex();
+                }
+                PagerAdapter lpa = new ListPagerAdapter(parent.getSupportFragmentManager());
+                list_pager.setAdapter(lpa);
                 setUpIndex();
             }
         }.execute();
@@ -126,6 +146,7 @@ public class StoneListViewModel extends AndroidViewModel {
 
     private void readIndex() {
         char buff;
+        initials = new ArrayList<>();
         for(Person p : persons) {
             if(p.getFamName() == null || p.getFamName().length() == 0) {
                 continue;
@@ -140,7 +161,7 @@ public class StoneListViewModel extends AndroidViewModel {
     public List<Person> getPersonsWithInitial(char initial) {
         List<Person> ret = new ArrayList<>();
         for(Person p : persons) {
-            if(p.getFamName() != null && p.getFamName().length() != 0) {
+            if(p.getFamName() != null && p.getFamName().length() != 0 && p.getFamName().startsWith(initial + "")) {
                 ret.add(p);
             }
         }
@@ -154,8 +175,10 @@ public class StoneListViewModel extends AndroidViewModel {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                readIndex();
-                setUpIndex();
+                if(initials == null || initials.size() == 0) {
+                    readIndex();
+                }
+                buildList(fragment);
             }
         }.execute();
     }
@@ -170,7 +193,7 @@ public class StoneListViewModel extends AndroidViewModel {
     private void buildList(StoneListFragment fragment) {
         Button buff;
         LinearLayout list_layout = fragment.getView().findViewById(R.id.list_layout);
-        for(Person person : getPersonsWithInitial(fragment.getInitial())) {
+        for(Person person : persons) {
             if(person.getFamName().startsWith(fragment.getInitial() + "")) {
                 buff = addButton(fragment, person);
                 list_layout.addView(buff);
@@ -191,13 +214,6 @@ public class StoneListViewModel extends AndroidViewModel {
         return but;
     }
 
-    public int getInitialCount() {
-        if(initials == null) {
-            return 0;
-        }
-        return initials.size();
-    }
-
     private class LoadListTask extends AsyncTask<Void, Void, Void> {
 
         private final StoneListFragment fragment;
@@ -209,7 +225,6 @@ public class StoneListViewModel extends AndroidViewModel {
         @Override
         protected Void doInBackground(Void... voids) {
             persons = repo.getAllPersons();
-            buildList(fragment);
             return null;
         }
     }
@@ -223,4 +238,23 @@ public class StoneListViewModel extends AndroidViewModel {
         }
     }
 
+    /**
+     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
+     * sequence.
+     */
+    private class ListPagerAdapter extends FragmentStatePagerAdapter {
+        ListPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return StoneListFragment.newInstance(StoneListViewModel.this, getInitial(position));
+        }
+
+        @Override
+        public int getCount() {
+            return initials.size();
+        }
+    }
 }

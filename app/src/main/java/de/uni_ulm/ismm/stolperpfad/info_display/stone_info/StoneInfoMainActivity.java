@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +19,7 @@ import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneInfoPersonFragment;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.NoSwipeViewPager;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewModel;
 
 /**
  * The main activity that stores an alphabetical List of all the persons
@@ -26,11 +28,11 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.NoSwipeViewPage
 
 public class StoneInfoMainActivity extends StolperpfadeAppActivity {
 
-    private ArrayList<PersonInfo> persons;
-    private int current_person_index;
-    private int MAX_PERSONS;
     private StoneInfoPersonFragment fragment;
     private NoSwipeViewPager infoPager;
+    private int current_person_index;
+    private static volatile StoneInfoViewModel model;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,50 +40,24 @@ public class StoneInfoMainActivity extends StolperpfadeAppActivity {
         initializeGeneralControls(R.layout.activity_stone_info_main);
         aq.id(R.id.left_button).clicked(view -> left_click());
         aq.id(R.id.right_button).clicked(view -> right_click());
-        loadPersons(); // TODO: das am Anfang machen und hier dafür aus Datenbak lesen
-
-        // TODO: Personen sortieren
-        // TODO: erst die Liste Anzeigen und danach erst die Person anzeigen
 
         // Instantiate a ViewPager and a PagerAdapter.
-        infoPager = (NoSwipeViewPager)
-                findViewById(R.id.stone_pager);
-        PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        infoPager.setAdapter(pagerAdapter);
+        infoPager = (NoSwipeViewPager) findViewById(R.id.stone_pager);
         infoPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                current_person_index = position;
+                setPerson(position);
             }
         });
-        current_person_index = getIndexFromId(getIntent().getAction());
-        current_person_index = 0;
-
-        String id = getIntent().getAction();
-        current_person_index = getPerson(id);
-        infoPager.setCurrentItem(current_person_index);
+        model = StoneInfoViewModel.getInstance(this);
+        Log.i("MY_DATA_TAG", "" + getIntent().getAction());
+        model.setUpPersonPage(infoPager, getIntent().getAction());
     }
 
-    private int getIndexFromId(String action) {
-        int id = Integer.parseInt(action);
-        int ind = 0;
-        for(PersonInfo p : persons) {
-            if(p.getId() == id) {
-                return ind;
-            }
-            ind++;
-        }
-        return 0;
+    public void setPerson(int position) {
+        current_person_index = position;
     }
 
-    private int getPerson(String id) {
-        for(PersonInfo person : persons) {
-            if(id.equals(person.getId() + "")) {
-                return persons.indexOf(person);
-            }
-        }
-        return 0;
-    }
 
     public void left_click() {
         if (current_person_index == 0) {
@@ -89,73 +65,23 @@ public class StoneInfoMainActivity extends StolperpfadeAppActivity {
         }
         current_person_index--;
         infoPager.setCurrentItem(current_person_index);
-        //fragment.update(persons.get(current_person_index));
     }
 
     public void right_click() {
-        if (current_person_index == MAX_PERSONS - 1) {
+        if(infoPager == null || infoPager.getAdapter() == null) {
+            return;
+        }
+        if (current_person_index == infoPager.getAdapter().getCount() - 1) {
             return;
         }
         current_person_index++;
         infoPager.setCurrentItem(current_person_index);
-        //fragment.update(persons.get(current_person_index));
     }
 
-    private void loadPersons() {
-        persons = new ArrayList<>();
-        ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(this, "person_data");
-        PersonInfo next;
-        for(JSONObject json : personen) {
-            try {
-                next = createPersonFromJson(json);
-                persons.add(next);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+    public static StoneInfoViewModel getModelInstance() {
+        if(model == null) {
+            return null;
         }
-        // initials.sort();
-        MAX_PERSONS = persons.size();
+        return model;
     }
-
-    private PersonInfo createPersonFromJson(JSONObject json) throws JSONException {
-        Stolperstein stolperstein;
-        try {
-            int id = json.getInt("id");
-            String vorname = json.getString("vorname");
-            String nachname = json.getString("nachname");
-            String geburtsname = json.getString("geburtsname");
-            JSONObject stein = json.getJSONObject("stein");
-            int id1 = stein.getInt("id");
-            String ad = stein.getString("addresse");
-            double lat = stein.getDouble("latitude");
-            double lon = stein.getDouble("longitude");
-            return new PersonInfo(id, vorname, nachname, geburtsname, new Stolperstein(id1, ad, lat, lon));
-        } catch(NullPointerException e) {
-
-        }
-        return new PersonInfo(-1, "Fehler", "Fehler", "", null);
-    }
-
-    /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        ScreenSlidePagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            StoneInfoPersonFragment fragment = StoneInfoPersonFragment.newInstance(persons.get(position), myClickListener);
-            fragment.setRetainInstance(true);
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return MAX_PERSONS;
-        }
-    }
-
 }

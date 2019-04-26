@@ -12,11 +12,11 @@ import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneListViewModel;
 
 public class StoneListFragment extends Fragment {
 
-    private ArrayList<Person> persons;
     private StoneListViewModel model;
     private char initial;
 
@@ -45,6 +45,7 @@ public class StoneListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_stone_list, container, false);
+        model = StoneListActivity.getModelInstance();
         model.setUpList(this);
         return root;
     }

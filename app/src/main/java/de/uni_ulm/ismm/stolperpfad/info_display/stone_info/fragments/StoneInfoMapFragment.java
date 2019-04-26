@@ -9,10 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.androidquery.AQuery;
-
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
 
 /**

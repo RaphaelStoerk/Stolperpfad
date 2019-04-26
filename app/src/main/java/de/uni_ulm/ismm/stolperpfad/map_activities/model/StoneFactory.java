@@ -1,7 +1,6 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.model;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,12 +11,9 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
 

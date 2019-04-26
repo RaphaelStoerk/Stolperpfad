@@ -18,7 +18,6 @@ import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
 
 /**
  * !!! READ ME !!!

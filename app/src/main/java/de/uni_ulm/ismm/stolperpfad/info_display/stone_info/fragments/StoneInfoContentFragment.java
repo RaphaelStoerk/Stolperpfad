@@ -1,7 +1,6 @@
 package de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments;
 
 import android.support.v4.app.Fragment;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
 
 /**
  * Only a placeholder class that gives form to the two specific

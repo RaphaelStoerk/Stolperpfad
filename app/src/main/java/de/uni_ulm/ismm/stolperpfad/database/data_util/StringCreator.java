@@ -1,7 +1,5 @@
 package de.uni_ulm.ismm.stolperpfad.database.data_util;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -10,8 +8,6 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.BioPoint;
 
 public class StringCreator {
 
@@ -22,7 +18,7 @@ public class StringCreator {
     public static String makeIntroText(String name, String date, String place) {
         return name + " wurde am " + date + " in " + place + " geboren.";
     }
-
+/*
     public static SpannableString makeTextFrom(BioPoint content, StolperpfadeAppActivity curr_activity) {
         switch(content.getType()) {
             case BORN:
@@ -107,4 +103,6 @@ public class StringCreator {
     public static SpannableString makeCustomTextWithLinks() {
         return null; // TODO: allow custom texts to use highlighted links
     }
+
+*/
 }

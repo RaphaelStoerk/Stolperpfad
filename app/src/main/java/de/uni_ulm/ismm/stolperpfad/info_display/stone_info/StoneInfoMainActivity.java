@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,10 +17,7 @@ import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneInfoPersonFragment;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.BioPoint;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.NoSwipeViewPager;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.Stolperstein;
 
 /**
  * The main activity that stores an alphabetical List of all the persons

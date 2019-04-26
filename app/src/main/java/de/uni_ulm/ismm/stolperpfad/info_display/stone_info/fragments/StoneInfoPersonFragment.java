@@ -18,7 +18,6 @@ import com.androidquery.AQuery;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.general.MyButtonClickListener;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
 
 /**
  * The Fragment that is the highest up fragment, holds the whole information

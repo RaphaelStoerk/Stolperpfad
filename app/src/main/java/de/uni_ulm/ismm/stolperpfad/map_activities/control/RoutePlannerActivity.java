@@ -75,7 +75,6 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         aq.id(R.id.start_guide_button).visible().clicked(myClickListener);
         View v = aq.id(R.id.menu_open_button).visible().clicked(myClickListener).getView();
         View v2 = aq.id(R.id.menu_close_button).visible().clicked(myClickListener).getView();
-        v.setLay;
         v.setMinimumWidth(v2.getWidth());
 
 

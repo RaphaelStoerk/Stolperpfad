@@ -49,7 +49,7 @@ public class StolperpfadeRepository {
     }
 
     //get a list of all persons
-   List<Person> getAllPersons() {
+    public List<Person> getAllPersons() {
         return mAllPersons;
     }
 

@@ -85,6 +85,8 @@ public class Person {
 
     public String getEntireName() {return mFstName + " " + mFamName;   }
 
+    public String getFormattedListName() { return "<b>" + mFamName + "</b>, " + mFstName; }
+
 
     // TABLE 2:
     @Entity(tableName = "vitas")

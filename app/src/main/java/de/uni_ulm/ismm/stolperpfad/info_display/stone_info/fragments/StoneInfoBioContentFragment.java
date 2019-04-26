@@ -16,7 +16,6 @@ import com.androidquery.AQuery;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.StringCreator;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.BioPoint;
 
 /**
  * The lowest Fragment of its group, placeholder fragment for one specific

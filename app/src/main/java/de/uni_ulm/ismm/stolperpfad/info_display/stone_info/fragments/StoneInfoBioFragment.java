@@ -17,12 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.BioPoint;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager;
 
 /**

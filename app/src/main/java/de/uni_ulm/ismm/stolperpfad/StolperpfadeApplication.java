@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,11 +18,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
+import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
+import de.uni_ulm.ismm.stolperpfad.database.data.Person;
+import de.uni_ulm.ismm.stolperpfad.database.data.Person.Vita;
+import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
-import de.uni_ulm.ismm.stolperpfad.database.list_of_persons.PersRepository;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.BioPoint;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.Stolperstein;
 
 public class StolperpfadeApplication extends Application {
 
@@ -33,7 +36,8 @@ public class StolperpfadeApplication extends Application {
     private SharedPreferences prefs;
     private static StolperpfadeApplication instance;
 
-    private PersRepository repo;
+    private StolperpfadeRepository repo;
+
 
     public static final String DATA_FILES_PATH = Environment.getExternalStorageDirectory() + "/stolperpfade/data";
 
@@ -46,7 +50,7 @@ public class StolperpfadeApplication extends Application {
         prefs = this.getSharedPreferences(
                 "de.uni_ulm.ismm.stolperpfad", Context.MODE_PRIVATE);
 
-        if(!prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.dark_mode", false)) {
+        if (!prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.dark_mode", false)) {
             prefs.edit().putBoolean("de.uni_ulm.ismm.stolperpfad.dark_mode", false).apply();
         }
         dark_mode = prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.dark_mode", false);
@@ -58,7 +62,7 @@ public class StolperpfadeApplication extends Application {
     }
 
     public boolean isDarkMode() {
-        return dark_mode =  prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.dark_mode", false);
+        return dark_mode = prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.dark_mode", false);
     }
 
     public void setDarkMode(boolean dark_mode) {
@@ -77,47 +81,52 @@ public class StolperpfadeApplication extends Application {
 
     public boolean setupFileTree() {
         boolean file_tree = prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.file_tree_ready", false);
-        if(file_tree) {
+        if (file_tree) {
             return true;
         }
         File tess = new File(DATA_FILES_PATH + "/tessdata");
         File img = new File(DATA_FILES_PATH + "/img");
+        File routes = new File(DATA_FILES_PATH + "/routes");
         if(tess.mkdirs() || tess.exists()){
             if(img.mkdirs() || img.exists()) {
-                File lang_file = new File(tess, "deu.traineddata");
-                OutputStream out;
-                if (!lang_file.exists() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    try {
-                        out = new FileOutputStream(lang_file);
-                        InputStream in = getResources().openRawResource(R.raw.traineddata);
-                        byte[] buffer = new byte[1024];
-                        int len;
-                        while ((len = in.read(buffer, 0, buffer.length)) != -1) {
-                            out.write(buffer, 0, len);
-                        }
-                        ocr_language_file_ready = true;
-                        in.close();
-                        out.close();
+                if (routes.mkdirs() || routes.exists()) {
+                    File lang_file = new File(tess, "deu.traineddata");
+                    OutputStream out;
+                    if (!lang_file.exists() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        try {
+                            out = new FileOutputStream(lang_file);
+                            InputStream in = getResources().openRawResource(R.raw.traineddata);
+                            byte[] buffer = new byte[1024];
+                            int len;
+                            while ((len = in.read(buffer, 0, buffer.length)) != -1) {
+                                out.write(buffer, 0, len);
+                            }
+                            ocr_language_file_ready = true;
+                            in.close();
+                            out.close();
 
-                    } catch (IOException e) {
-                        ocr_language_file_ready = false;
-                        e.printStackTrace();
+                        } catch (IOException e) {
+                            ocr_language_file_ready = false;
+                            e.printStackTrace();
+                        }
                     }
-                }
-                File image_buff = new File(img, "last_scanned_stone.jpg");
-                if (!image_buff.exists()) {
-                    try {
-                        image_buff.createNewFile();
+                    File image_buff = new File(img, "last_scanned_stone.jpg");
+                    if (!image_buff.exists()) {
+                        try {
+                            image_buff.createNewFile();
+                            image_buffer_ready = true;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            image_buffer_ready = false;
+                        }
+                    } else {
                         image_buffer_ready = true;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        image_buffer_ready = false;
                     }
+                    file_tree_ready = ocr_language_file_ready && image_buffer_ready;
                 } else {
-                    image_buffer_ready = true;
+                    file_tree_ready = false;
                 }
-                file_tree_ready = ocr_language_file_ready && image_buffer_ready;
-            } else {
+            }else {
                 file_tree_ready = false;
             }
         } else {
@@ -137,36 +146,8 @@ public class StolperpfadeApplication extends Application {
         return file_tree_ready = prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.file_tree_ready", false);
     }
 
+
     public void setUpDatabase() {
-        //repo = new PersRepository(this);
-
-//        ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(this, "personen_daten");
-        PersonInfo next;
-        int id;
-        String vorname;
-        String nachname;
-        JSONObject stostein;
-        Stolperstein stolperstein;
-        /*for(JSONObject json : personen) {
-            try {
-                id = json.getInt("id");
-                vorname  =json.getString("vorname");
-
-                stostein = json.getJSONObject("stolperstein");
-
-                // putPesron(id, vorname);
-                JSONArray bio = json.getJSONArray("bio");
-                ArrayList<BioPoint> biography = new ArrayList<>();
-                for(int i = 0; i < bio.length(); i++) {
-                    JSONObject bio_point = bio.getJSONObject(i);
-                    BioPoint next = new BioPoint(vorname + " " + nachname, bio_point);
-                    biography.add(next);
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }*/
-
+        repo = new StolperpfadeRepository(this);
     }
 }

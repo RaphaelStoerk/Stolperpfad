@@ -1,0 +1,28 @@
+{
+  "id": 23,
+  "vorname": "Selma",
+  "nachname": "Behr",
+  "geburtsname": "Kaufmann",
+  "stein": {
+    "id": 17,
+    "addresse": "Keplerstraße 21 (St. Anna Stift)",
+    "latitude": 48.404543,
+    "longitude": 9.992678
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

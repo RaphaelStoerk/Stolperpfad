@@ -1,0 +1,27 @@
+{
+  "id": 85,
+  "vorname": "Emma",
+  "nachname": "Neuburger",
+  "geburtsname": "",
+  "stein": {
+    "id": 33,
+    "addresse": "Schuhhausgasse 9",
+    "latitude": 48.3983037,
+    "longitude": 9.9951667
+  },
+  "geschichte": "",
+    "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}	

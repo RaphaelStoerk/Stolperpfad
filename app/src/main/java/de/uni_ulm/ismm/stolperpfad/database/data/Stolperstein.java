@@ -8,19 +8,12 @@ import android.support.annotation.NonNull;
 /**
  * Overview over the database tables:
  * Table 1: Persons (in Person)
- * Table 2: Marriages (in Person)
- * Table 3: Children (in Person)
- * Table 4: fled to (in Person)
- * Table 5: Places (in Place)
- * Table 6: moved to (in Place)
- * Table 7: deported to (in Place)
- * Table 8: Stolpersteine (here)
- * Table 9: Institutions in Ulm (in Institution)
- * Table 10: moved in Ulm (in Institution)
- * Table 11: Historical Terms (in HistoricTerm)
+ * Table 2: Vita (in Person)
+ * Table 3: Stolpersteine (here)
+ * Table 4: Historical Terms (in HistoricalTerm)
  */
 
-// TABLE 8: Stolpersteine
+// TABLE 3: Stolpersteine
 @Entity(tableName = "Stolpersteine")
 public class Stolperstein {
     // stone id - address - latitude (Breitangrad) - longitude (Längengrad)

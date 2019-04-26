@@ -8,13 +8,13 @@ import android.widget.Switch;
 
 import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.database.list_of_historical_terms.HistoryActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumViewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ProjectAndArtistOverviewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.view.RouteOptionsDialog;
 import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
 
 /**
@@ -50,9 +50,6 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
             case R.id.scan_button:
                 ((ScannerActivity) myActivity).takePicture();
                 break;
-            case R.id.scan_to_info_button:
-                intent = new Intent(myActivity, StoneListActivity.class);
-                break;
             case R.id.info_button:
                 intent = new Intent(myActivity, StoneListActivity.class);
                 break;
@@ -87,9 +84,9 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
             case R.id.quick_access_route_planner:
                 intent = intentFromQuickAccess(RoutePlannerActivity.class);
                 break;
-            case R.id.quick_access_historical_info:
+            /*case R.id.quick_access_historical_info:
                 intent = intentFromQuickAccess(HistoryActivity.class);
-                break;
+                break;*/
             case R.id.quick_access_project_artist:
                 intent = intentFromQuickAccess(ProjectAndArtistOverviewActivity.class);
                 break;
@@ -124,6 +121,12 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
             case R.id.start_guide_button:
                 if (myActivity instanceof RoutePlannerActivity)
                     ((RoutePlannerActivity) myActivity).startGuide();
+                break;
+            case R.id.menu_close_button:
+            case R.id.menu_open_button:
+                if(myActivity instanceof RoutePlannerActivity) {
+                    ((RoutePlannerActivity) myActivity).toggleMenu();
+                }
                 break;
             case R.id.overview_to_project_info_button:
                 if(myActivity instanceof ProjectAndArtistOverviewActivity) {

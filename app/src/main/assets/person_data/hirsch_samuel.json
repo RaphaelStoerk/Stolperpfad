@@ -1,0 +1,28 @@
+{
+  "id": 37,
+  "vorname": "Samuel",
+  "nachname": "Hirsch",
+  "geburtsname": "",
+  "stein": {
+    "id": 19,
+    "addresse": "Wagnerstraße 105",
+    "latitude": 48.394062,
+    "longitude": 9.970179 
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

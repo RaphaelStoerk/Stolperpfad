@@ -1,0 +1,28 @@
+{
+  "id": 1,
+  "vorname": "Ida",
+  "nachname": "Frenkel",
+  "geburtsname": "Chaskelowitz",
+  "stein": {
+    "id": 0,
+    "addresse": "Olgastraße 114",
+    "latitude": 48.402106,
+    "longitude": 9.994395
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

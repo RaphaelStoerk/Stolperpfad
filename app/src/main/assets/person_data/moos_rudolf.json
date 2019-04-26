@@ -1,0 +1,28 @@
+{
+  "id": 47,
+  "vorname": "Rudolf",
+  "nachname": "Moos",
+  "geburtsname": "",
+  "stein": {
+    "id": 8,
+    "addresse": "Friedrich-Ebert-Straße 14 (vor C&A)",
+    "latitude": 48.3984666,
+    "longitude": 9.9845005
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

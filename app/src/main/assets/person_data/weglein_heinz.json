@@ -1,0 +1,27 @@
+{
+  "id": 69,
+  "vorname": "Heinz",
+  "nachname": "Weglein",
+  "geburtsname": "",
+  "stein": {
+    "id": 28,
+    "addresse": "Hans-und-Sophie-Scholl-Platz 2 (früher Sattlergasse 19)",
+    "latitude": 48.3973950,
+    "longitude": 9.9928779
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}	

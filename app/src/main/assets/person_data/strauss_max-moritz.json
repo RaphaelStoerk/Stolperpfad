@@ -1,0 +1,27 @@
+{
+  "id": 77,
+  "vorname": "Max Moritz",
+  "nachname": "Strauss",
+  "geburtsname": "",
+  "stein": {
+    "id": 31,
+    "addresse": "Schwörhausgasse 15 (gegenüber Nr. 18)",
+    "latitude": 48.3966005,
+    "longitude": 9.9898292
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "0#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}	

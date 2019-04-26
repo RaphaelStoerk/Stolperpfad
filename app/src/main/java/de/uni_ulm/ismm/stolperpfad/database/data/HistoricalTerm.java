@@ -8,28 +8,17 @@ import android.support.annotation.NonNull;
 /**
  * Overview over the database tables:
  * Table 1: Persons (in Person)
- * Table 2: Marriages (in Person)
- * Table 3: Children (in Person)
- * Table 4: fled to (in Person)
- * Table 5: Places (in Place)
- * Table 6: moved to (in Place)
- * Table 7: deported to (in Place)
- * Table 8: Stolpersteine (in Stolperstein)
- * Table 9: Institutions in Ulm (in Institution)
- * Table 10: moved in Ulm (in Institution)
- * Table 11: Historical Terms (here)
+ * Table 2: Vita (in Person)
+ * Table 3: Stolpersteine (in Stolperstein)
+ * Table 4: Historical Terms (here)
  */
 
-// TABLE 11: historical terms
+// TABLE 4: historical terms
 @Entity(tableName = "historical_terms")
 public class HistoricalTerm {
-    // id - name - explanation
+    // name - explanation
 
     @PrimaryKey
-    @NonNull
-    @ColumnInfo(name = "histo_id")
-    private int mHistoId;
-
     @NonNull
     @ColumnInfo(name = "name")
     private String mName;
@@ -40,17 +29,12 @@ public class HistoricalTerm {
 
 
     //constructor
-    public HistoricalTerm(@NonNull int histoId, @NonNull String name, @NonNull String explanation) {
-        this.mHistoId = histoId;
+    public HistoricalTerm(@NonNull String name, @NonNull String explanation) {
         this.mName = name;
         this.mExplanation = explanation;
     }
 
     //getter
-    public int getHistoId() {
-        return mHistoId;
-    }
-
     public String getName() {
         return mName;
     }

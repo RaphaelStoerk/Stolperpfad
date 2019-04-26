@@ -58,9 +58,12 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 break;
             case R.id.menu_to_route_button:
                 intent = new Intent(myActivity, RoutePlannerActivity.class);
+                intent.putExtra("flag", false);
                 break;
             case R.id.menu_to_next_stone_button:
-                intent = new Intent(myActivity, NextStoneActivity.class);
+                intent = new Intent(myActivity, RoutePlannerActivity.class);
+                intent.putExtra("flag", true);
+                intent.putExtra("next", "NAME");
                 break;
             case R.id.header_image:
                 if(myActivity instanceof MainMenuActivity) {

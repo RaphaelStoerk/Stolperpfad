@@ -8,13 +8,13 @@ import android.widget.Switch;
 
 import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoListActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumViewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ProjectAndArtistOverviewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.view.RouteOptionsDialog;
 import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
 
 /**
@@ -65,6 +65,9 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 intent.putExtra("flag", true);
                 intent.putExtra("next", "NAME");
                 break;
+            case R.id.menu_to_history_button:
+                intent = new Intent(myActivity, HistoListActivity.class);
+                break;
             case R.id.header_image:
                 if(myActivity instanceof MainMenuActivity) {
                     return;
@@ -87,9 +90,9 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
             case R.id.quick_access_route_planner:
                 intent = intentFromQuickAccess(RoutePlannerActivity.class);
                 break;
-            /*case R.id.quick_access_historical_info:
-                intent = intentFromQuickAccess(HistoryActivity.class);
-                break;*/
+            case R.id.quick_access_historical_info:
+                intent = intentFromQuickAccess(HistoListActivity.class);
+                break;
             case R.id.quick_access_project_artist:
                 intent = intentFromQuickAccess(ProjectAndArtistOverviewActivity.class);
                 break;

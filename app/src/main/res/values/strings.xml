@@ -16,7 +16,6 @@
     <string name="scan_button">Stein Scanner</string>
     <string name="route_button">Pfadplaner</string>
     <string name="info_button">Stolpersteine</string>
-    <string name="db_button">Geschichtliches (zur Zeit noch: Datenbank)</string>
     <string name="history_button">Geschichtliches</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
@@ -160,6 +159,6 @@
     <string name="info_guide_start">Sie können die Führung erst starten sobald sie einen Pfad erstellt oder geladen haben.</string>
     <string name="show_map_button_text">Auf Karte anzeigen</string>
     <string name="buff_string_address">addresse</string>
-    <string name="title_map_content">Der Stolperstein befindet sich bei</string>
+    <string name="title_map_content">Der Stolperstein befindet sich hier:</string>
 
 </resources>

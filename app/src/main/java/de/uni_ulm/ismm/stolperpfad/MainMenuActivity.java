@@ -38,5 +38,6 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
         aq.id(R.id.menu_to_scan_button).visible().clicked(myClickListener);
         aq.id(R.id.menu_to_route_button).visible().clicked(myClickListener);
         aq.id(R.id.menu_to_next_stone_button).visible().clicked(myClickListener);
+        aq.id(R.id.menu_to_history_button).visible().clicked(myClickListener);
     }
 }

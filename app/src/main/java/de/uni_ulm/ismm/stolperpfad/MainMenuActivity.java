@@ -21,7 +21,6 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
         if(StolperpfadeApplication.getInstance().isFirstCall()) {
             StolperpfadeApplication.getInstance().setFirstCall(false);
             StolperpfadeApplication.getInstance().setupFileTree();
-            StolperpfadeApplication.getInstance().setUpDatabase();
             MapQuest.start(getApplicationContext());
             try {
                 Thread.sleep(1000);

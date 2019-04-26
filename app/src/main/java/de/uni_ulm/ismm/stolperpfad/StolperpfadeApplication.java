@@ -22,9 +22,6 @@ public class StolperpfadeApplication extends Application {
     private SharedPreferences prefs;
     private static StolperpfadeApplication instance;
 
-    private StolperpfadeRepository repo;
-
-
     public static final String DATA_FILES_PATH = Environment.getExternalStorageDirectory() + "/stolperpfade/data";
 
     @Override
@@ -130,10 +127,5 @@ public class StolperpfadeApplication extends Application {
 
     public boolean fileTreeIsReady() {
         return file_tree_ready = prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.file_tree_ready", false);
-    }
-
-
-    public void setUpDatabase() {
-
     }
 }

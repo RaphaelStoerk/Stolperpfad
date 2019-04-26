@@ -18,7 +18,6 @@ import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
 
 /**
  * !!! READ ME !!!
@@ -91,7 +90,6 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
 
             // PERSONS, VITA, STOLPERSTEINE
             ArrayList<JSONObject> persons = DataFromJSON.loadAllJSONFromDirectory(mContext, "person_data");
-            PersonInfo next;
             int id;
             String firstname;
             String familyname;
@@ -111,7 +109,7 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     familyname = json.getString("nachname");
                     birthname = json.getString("geburtsname");
                     history = json.getString("geschichte");
-                    stone = json.getJSONObject("stolperstein");
+                    stone = json.getJSONObject("stein");
                     stoneId = stone.getInt("id");
                     Person person = new Person(id, firstname, familyname, birthname, history, stoneId);
                     mDao.insert(person);
@@ -132,7 +130,7 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     address = stone.getString("addresse");
                     latitude = stone.getDouble("latitude");
                     longitude = stone.getDouble("longitude");
-                    Stolperstein stostei = new Stolperstein(stoneId, address, latitude, longitude);
+                    Stolperstein stostei = new Stolperstein(id, address, latitude, longitude);
                     mDao.insert(stostei);
 
                 } catch (JSONException e) {

@@ -5,26 +5,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-
-import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
-import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
-import de.uni_ulm.ismm.stolperpfad.database.data.Person;
-import de.uni_ulm.ismm.stolperpfad.database.data.Person.Vita;
-import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
-import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
 
 public class StolperpfadeApplication extends Application {
 
@@ -148,6 +134,6 @@ public class StolperpfadeApplication extends Application {
 
 
     public void setUpDatabase() {
-        repo = new StolperpfadeRepository(this);
+
     }
 }

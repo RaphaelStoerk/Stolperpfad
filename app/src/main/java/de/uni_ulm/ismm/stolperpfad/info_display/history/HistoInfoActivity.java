@@ -10,7 +10,7 @@ public class HistoInfoActivity extends StolperpfadeAppActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initializeGeneralControls(R.layout.activity_histo_info_page);
+
     }
 }

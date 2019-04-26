@@ -194,6 +194,7 @@ public class HistoListViewModel extends AndroidViewModel {
 
     // ++++ List methods ++++
 
+    @SuppressLint("StaticFieldLeak")
     public void setUpList(HistoListFragment fragment) {
         new LoadListTask (fragment) {
             @Override
@@ -273,7 +274,7 @@ public class HistoListViewModel extends AndroidViewModel {
 
         @Override
         public Fragment getItem(int position) {
-            return HistoListFragment.newInstance(HistoListViewModel.this, getInitial(position));
+            return null;//HistoListFragment.newInstance(HistoListViewModel.this, getInitial(position));
         }
 
         @Override

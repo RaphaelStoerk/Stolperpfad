@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
@@ -222,7 +223,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
             protected void onPostExecute(String address) {
                 TextView address_text = root.findViewById(R.id.address);
                 address_text.setText(address);
-                Button to_map = root.findViewById(R.id.show_map_button);
+                ImageView to_map = root.findViewById(R.id.map_basic);
                 to_map.setOnClickListener(view -> {
                     Intent intent = new Intent(parent, NextStoneActivity.class);
                     intent.putExtra("id", p.getPersId());
@@ -307,6 +308,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
                 cs.connect(death_button.getId(),ConstraintSet.END, bio_pager.getId(),ConstraintSet.START, 16 );
                 cs.applyTo(bio_layout);
                 fragment.setVitaButtons(vita_buttons);
+                updateVitaButtons(fragment, 0);
             }
         }.execute(index);
     }

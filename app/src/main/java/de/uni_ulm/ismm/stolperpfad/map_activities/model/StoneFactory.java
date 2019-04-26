@@ -58,17 +58,7 @@ public class StoneFactory {
         new InitializeStonesTask() {
             @Override
             public void onPostExecute(String res) {
-                is_ready = true;
-                map.setStones();
-                Log.i("MY_ROUTE_TAG", "STARTING");
-                new InitializeNeighboursTask() {
-                    @Override
-                    protected void onPostExecute(Boolean aBoolean) {
-                        super.onPostExecute(aBoolean);
-                        neighbours_ready = aBoolean;
-                        map.activatePathPlanner(aBoolean);
-                    }
-                }.execute();
+               // TODO: Stub
             }
         }.execute();
     }
@@ -285,7 +275,6 @@ public class StoneFactory {
     @SuppressLint("StaticFieldLeak")
     private class InitializeStonesTask extends AsyncTask<String, Integer, String> {
 
-
         @Override
         protected String doInBackground(String... strings) {
 
@@ -294,19 +283,22 @@ public class StoneFactory {
                 new LoadContentTask() {
                     @Override
                     protected void onPostExecute(Void aVoid) {
-                        for (Person p : persons) {
-                            new LoadStoneTask() {
-                                @Override
-                                protected void onPostExecute(Stolperstein stolperstein) {
-                                    Stone s = new Stone(stolperstein.getLatitude(), stolperstein.getLongitude(), p.getFstName(), p.getFamName(), stolperstein.getAddress());
-                                    all_stones.add(s);
-                                    stone_markers.add(s.getMarker(mapboxMap));
-                                }
-                            }.execute(p);
+                        for(Stone s : all_stones) {
+                            stone_markers.add(s.getMarker(mapboxMap));
                         }
+                        is_ready = true;
+                        map.setStones();
+                        Log.i("MY_ROUTE_TAG", "STARTING");
+                        new InitializeNeighboursTask() {
+                            @Override
+                            protected void onPostExecute(Boolean aBoolean) {
+                                super.onPostExecute(aBoolean);
+                                neighbours_ready = aBoolean;
+                                map.activatePathPlanner(aBoolean);
+                            }
+                        }.execute();
                     }
                 }.execute();
-
             });
             return "Finished";
         }
@@ -315,17 +307,16 @@ public class StoneFactory {
             @Override
             protected Void doInBackground(Void... voids) {
                 persons = repo.getAllPersons();
-                return null;
-            }
-        }
-        private class LoadStoneTask extends AsyncTask<Person, Void, Stolperstein> {
-            @Override
-            protected Stolperstein doInBackground(Person... persons) {
-                List<Stolperstein> temp = repo.getStone(persons[0].getStolperstein());
-                if (temp == null || temp.size() == 0) {
-                    return null;
+                for (Person p : persons) {
+                    List<Stolperstein> temp = repo.getStone(p.getStolperstein());
+                    if (temp == null || temp.size() == 0) {
+                        return null;
+                    }
+                    Stolperstein stolperstein = temp.get(0);
+                    Stone s = new Stone(stolperstein.getLatitude(), stolperstein.getLongitude(), p.getFstName(), p.getFamName(), stolperstein.getAddress());
+                    all_stones.add(s);
                 }
-                return temp.get(0);
+                return null;
             }
         }
     }

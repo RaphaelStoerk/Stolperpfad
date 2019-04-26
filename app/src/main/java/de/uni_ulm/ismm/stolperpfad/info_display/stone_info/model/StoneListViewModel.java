@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -129,7 +130,7 @@ public class StoneListViewModel extends AndroidViewModel {
                 updateIndex(position);
             }
         });
-        //loading(true);
+        loading(true);
         new LoadIndexTask() {
             @Override
             protected void onPostExecute(Void aVoid) {
@@ -140,8 +141,30 @@ public class StoneListViewModel extends AndroidViewModel {
                 PagerAdapter lpa = new ListPagerAdapter(parent.getSupportFragmentManager());
                 list_pager.setAdapter(lpa);
                 setUpIndex();
+                loading(false);
             }
         }.execute();
+    }
+
+    private AlertDialog loading_info;
+
+    private void loading(boolean start) {
+        if(!start) {
+            if(loading_info != null) {
+                loading_info.dismiss();
+            }
+            loading_info = null;
+        } else{
+            if(loading_info != null) {
+                loading_info.dismiss();
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(parent);
+            builder.setTitle("Bitte haben Sie Geduld");
+            builder.setMessage("Daten werden geladen...");
+            builder.setCancelable(false);
+            loading_info = builder.create();
+            loading_info.show();
+        }
     }
 
     private void readIndex() {

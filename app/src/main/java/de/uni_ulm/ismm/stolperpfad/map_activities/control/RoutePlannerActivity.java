@@ -73,8 +73,10 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         aq.id(R.id.save_route_button).visible().clicked(myClickListener);
         aq.id(R.id.info_map_options_button).visible().clicked(myClickListener);
         aq.id(R.id.start_guide_button).visible().clicked(myClickListener);
-        aq.id(R.id.menu_open_button).visible().clicked(myClickListener);
-        aq.id(R.id.menu_close_button).visible().clicked(myClickListener);
+        View v = aq.id(R.id.menu_open_button).visible().clicked(myClickListener).getView();
+        View v2 = aq.id(R.id.menu_close_button).visible().clicked(myClickListener).getView();
+        v.setMinimumWidth(v2.getWidth());
+
 
         menu_up = false;
     }

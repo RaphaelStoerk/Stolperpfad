@@ -30,7 +30,7 @@ public class StoneListActivity extends StolperpfadeAppActivity {
 
     VerticalViewPager list_pager;
     ScrollView index_scroll_view;
-    ArrayList<PersonInfo> persons;
+    ArrayList<Person> persons;
     ArrayList<Character> initials;
     private Button last_pressed;
     ArrayList<Button> index_buttons;
@@ -135,43 +135,10 @@ public class StoneListActivity extends StolperpfadeAppActivity {
         }
     }
 
+<<<<<<<<< Temporary merge branch 1
+=========
 
     private void loadPersons() {
+    }
         persons = new ArrayList<>();
-        initials = new ArrayList<>();
-        ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(this, "person_data");
-        PersonInfo next;
-        for(JSONObject json : personen) {
-            try {
-                next = createPersonFromJson(json);
-                persons.add(next);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-       // initials.sort();
-        MAX_PERSONS = persons.size();
-    }
-
-    private PersonInfo createPersonFromJson(JSONObject json) throws JSONException {
-        Stolperstein stolperstein;
-        try {
-            int id = json.getInt("id");
-            String vorname = json.getString("vorname");
-            String nachname = json.getString("nachname");
-            String geburtsname = json.getString("geburtsname");
-            if (!initials.contains(nachname.charAt(0))) {
-                initials.add(nachname.charAt(0));
-            }
-            JSONObject stein = json.getJSONObject("stein");
-            int id1 = stein.getInt("id");
-            String ad = stein.getString("addresse");
-            double lat = stein.getDouble("latitude");
-            double lon = stein.getDouble("longitude");
-            return new PersonInfo(id, vorname, nachname, geburtsname, new Stolperstein(id1, ad, lat, lon));
-        } catch(NullPointerException e) {
-
-        }
-        return new PersonInfo(-1, "Fehler", "Fehler", "", null);
-    }
 }

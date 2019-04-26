@@ -68,14 +68,14 @@ public class StoneListFragment extends Fragment {
         }
     }
 
-    private Button addButton(Context ctx, PersonInfo person) {
+    private Button addButton(Context ctx, Person person) {
         Button but = (Button) LayoutInflater.from(ctx).inflate(R.layout.button_person_list, null);
         but.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), StoneInfoMainActivity.class);
             intent.setAction("" + person.getPersId());
             startActivity(intent);
         });
-        String display_name = person.getListName();
+        String display_name = person.getEntireName();
         but.setText(Html.fromHtml(display_name));
         int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 42, getResources().getDisplayMetrics());
        // LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height);

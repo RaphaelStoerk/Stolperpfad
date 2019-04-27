@@ -13,7 +13,6 @@ import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumViewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ProjectAndArtistOverviewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
 
@@ -58,12 +57,13 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 break;
             case R.id.menu_to_route_button:
                 intent = new Intent(myActivity, RoutePlannerActivity.class);
-                intent.putExtra("flag", false);
+                intent.putExtra("id", -1);
+                intent.putExtra("next", false);
                 break;
             case R.id.menu_to_next_stone_button:
                 intent = new Intent(myActivity, RoutePlannerActivity.class);
-                intent.putExtra("flag", true);
-                intent.putExtra("next", "NAME");
+                intent.putExtra("id", -1);
+                intent.putExtra("next", true);
                 break;
             case R.id.menu_to_history_button:
                 intent = new Intent(myActivity, HistoListActivity.class);
@@ -85,10 +85,14 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 intent.setAction("1");
                 break;
             case R.id.quick_access_next_stone_button:
-                intent = intentFromQuickAccess(NextStoneActivity.class);
+                intent = intentFromQuickAccess(RoutePlannerActivity.class);
+                intent.putExtra("id", -1);
+                intent.putExtra("next", true);
                 break;
             case R.id.quick_access_route_planner:
                 intent = intentFromQuickAccess(RoutePlannerActivity.class);
+                intent.putExtra("id", -1);
+                intent.putExtra("next", false);
                 break;
             case R.id.quick_access_historical_info:
                 intent = intentFromQuickAccess(HistoListActivity.class);

@@ -35,17 +35,11 @@ import java.util.List;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
-import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
-import de.uni_ulm.ismm.stolperpfad.database.data_util.StringCreator;
-import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneInfoBioContentFragment;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneInfoBioFragment;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneInfoMapFragment;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneInfoPersonFragment;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneListFragment;
-import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
+import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 
 public class StoneInfoViewModel extends AndroidViewModel {
 
@@ -225,8 +219,9 @@ public class StoneInfoViewModel extends AndroidViewModel {
                 address_text.setText(address);
                 ImageView to_map = root.findViewById(R.id.map_basic);
                 to_map.setOnClickListener(view -> {
-                    Intent intent = new Intent(parent, NextStoneActivity.class);
-                    intent.putExtra("id", p.getPersId());
+                    Intent intent = new Intent(parent, RoutePlannerActivity.class);
+                    intent.putExtra("id", p.getStolperstein());
+                    intent.putExtra("next", true);
                     parent.startActivity(intent);
                 });
             }

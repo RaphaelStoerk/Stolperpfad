@@ -41,15 +41,15 @@ public class StolperpfadAppMapActivity extends StolperpfadeAppActivity {
         super.onPause();
     }
 
-    protected void initializeMapQuestFragment(boolean next) {
+    protected void initializeMapQuestFragment(int id, boolean next) {
         // The actual map view is now a fragment, for easier reuse and readability
         FragmentManager fm = this.getSupportFragmentManager();
 
         if (fm.findFragmentById(R.id.map_container) == null) {
-            myMapFragment = MapQuestFragment.newInstance(next, aq);
-            fm.beginTransaction().add(R.id.map_container, myMapFragment, next ? MAP_FRAGMENT_TAG_NEXT : MAP_FRAGMENT_TAG_ROUTE).commit();
+            myMapFragment = MapQuestFragment.newInstance(id, next, aq);
+            fm.beginTransaction().add(R.id.map_container, myMapFragment, MAP_FRAGMENT_TAG_ROUTE).commit();
         } else {
-            myMapFragment = (MapQuestFragment) fm.findFragmentByTag(next ? MAP_FRAGMENT_TAG_NEXT : MAP_FRAGMENT_TAG_ROUTE);
+            myMapFragment = (MapQuestFragment) fm.findFragmentByTag(MAP_FRAGMENT_TAG_ROUTE);
         }
     }
 

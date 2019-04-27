@@ -35,6 +35,7 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
     private static int vitaLength = 10;
 
     public abstract StolperpfadeDao mDao();
+
     //make the database a singleton
     private static volatile StolperpfadeRoomDatabase INSTANCE;
 
@@ -67,10 +68,11 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
     /**
      * CLEAR OLDER DATABASE ENTRIES
      */
-    private static void clearDatabase(StolperpfadeDao dao){
+    private static void clearDatabase(StolperpfadeDao dao) {
         dao.deleteAllPersons();
         dao.deleteAllVitas();
         dao.deleteAllStolpersteine();
+        dao.deleteAllTerms();
     }
 
     /**
@@ -131,7 +133,11 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     latitude = stone.getDouble("latitude");
                     longitude = stone.getDouble("longitude");
                     Stolperstein stostei = new Stolperstein(id, address, latitude, longitude);
-                    mDao.insert(stostei);
+                    if (stoneExists(stoneId)) {
+
+                    } else {
+                        mDao.insert(stostei);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -139,7 +145,7 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
             }
 
             // HISTORICAL TERMS
-            ArrayList<JSONObject> histoTerms = DataFromJSON.loadAllJSONFromDirectory(mContext,"history_data");
+            ArrayList<JSONObject> histoTerms = DataFromJSON.loadAllJSONFromDirectory(mContext, "history_data");
             String histoName;
             String histoExplanation;
 
@@ -155,6 +161,15 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                 }
             }
             return null;
+        }
+
+        private boolean stoneExists(int stoneId) {
+            String address = mDao.getAddress(stoneId);
+            if (address == null || address.equals("")) {
+                return false;
+            } else {
+                return true;
+            }
         }
 
         @Override

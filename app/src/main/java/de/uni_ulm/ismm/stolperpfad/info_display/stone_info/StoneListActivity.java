@@ -4,7 +4,6 @@ import android.os.Bundle;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneListViewModel;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager;
 
 public class StoneListActivity extends StolperpfadeAppActivity {
 

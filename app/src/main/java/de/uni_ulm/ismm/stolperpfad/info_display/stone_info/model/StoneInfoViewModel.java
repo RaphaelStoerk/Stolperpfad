@@ -287,8 +287,8 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
                 ConstraintSet cs = new ConstraintSet();
                 cs.clone(bio_layout);
-                cs.connect(birth_button.getId(),ConstraintSet.TOP, bio_layout.getId(),ConstraintSet.TOP,32 );
-                cs.connect(birth_button.getId(),ConstraintSet.BOTTOM, vita_buttons.get(1).getId(),ConstraintSet.TOP );
+                cs.connect(birth_button.getId(),ConstraintSet.TOP, bio_layout.getId(),ConstraintSet.TOP);
+                // cs.connect(birth_button.getId(),ConstraintSet.BOTTOM, vita_buttons.get(1).getId(),ConstraintSet.TOP );
                 cs.connect(birth_button.getId(),ConstraintSet.START,bio_layout.getId(),ConstraintSet.START, 16 );
                 cs.connect(birth_button.getId(),ConstraintSet.END, bio_pager.getId(),ConstraintSet.START, 16 );
                 for(int i = 1; i <= points - 2; i++) {
@@ -297,8 +297,8 @@ public class StoneInfoViewModel extends AndroidViewModel {
                     cs.connect(vita_buttons.get(i).getId(),ConstraintSet.START,bio_layout.getId(),ConstraintSet.START, 16 );
                     cs.connect(vita_buttons.get(i).getId(),ConstraintSet.END, bio_pager.getId(),ConstraintSet.START, 16 );
                 }
-                cs.connect(death_button.getId(),ConstraintSet.TOP, vita_buttons.get(points-2).getId(),ConstraintSet.BOTTOM );
-                cs.connect(death_button.getId(),ConstraintSet.BOTTOM, bio_layout.getId(),ConstraintSet.BOTTOM,32);
+                // cs.connect(death_button.getId(),ConstraintSet.TOP, vita_buttons.get(points-2).getId(),ConstraintSet.BOTTOM );
+                cs.connect(death_button.getId(),ConstraintSet.BOTTOM, bio_layout.getId(),ConstraintSet.BOTTOM);
                 cs.connect(death_button.getId(),ConstraintSet.START,bio_layout.getId(),ConstraintSet.START, 16 );
                 cs.connect(death_button.getId(),ConstraintSet.END, bio_pager.getId(),ConstraintSet.START, 16 );
                 cs.applyTo(bio_layout);

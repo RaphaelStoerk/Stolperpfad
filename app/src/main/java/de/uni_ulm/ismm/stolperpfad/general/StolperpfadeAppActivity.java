@@ -136,7 +136,6 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
 
     protected void initializeGeneralControls(@LayoutRes int currentLayout) {
         // Initialize important helper-Objects
-
         setContentView(this.currentLayout = currentLayout);
 
         aq = new AQuery(this);

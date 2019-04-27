@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,6 +119,7 @@ public class MapQuestFragment extends Fragment {
         fragment.NEXT = next;
         fragment.next_id = id;
         fragment.aq = aq;
+        Log.i("MY_DEBUG_TAG","new instance done");
         return fragment;
     }
 
@@ -131,6 +133,7 @@ public class MapQuestFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         ctx = inflater.getContext();
+        Log.i("MY_DEBUG_TAG","fragment create view");
 
         // Important Mapquest Initialization
         MapQuest.start(ctx);
@@ -147,6 +150,7 @@ public class MapQuestFragment extends Fragment {
                 map.setStreetMode();
             }
             loadIconsLow();
+            Log.i("MY_DEBUG_TAG","icons loaded");
 
             stone_handler = StoneFactory.initialize(this, mMapboxMap);
 
@@ -174,6 +178,7 @@ public class MapQuestFragment extends Fragment {
             if (locationEngine != null && locationEngine.isConnected()) {
                 setUserMarker();
             }
+            Log.i("MY_DEBUG_TAG","loaded map");
         });
 
 
@@ -231,6 +236,7 @@ public class MapQuestFragment extends Fragment {
      * Displays the Stone markers on the map, that have been stored in the stone factory
      */
     public void setStones() {
+        Log.i("MY_DEBUG_TAG","setStones");
         if (!stone_handler.isReady() || map == null || mMapboxMap == null) {
             return;
         }
@@ -241,6 +247,7 @@ public class MapQuestFragment extends Fragment {
             m.setIcon(icon_stone_low);
         }
         if (NEXT) {
+            Log.i("MY_DEBUG_TAG","next");
             if(next_id == -1) {
                 nearest_stone_marker = stone_handler.getNearestTo(user_position_marker);
             } else {
@@ -256,6 +263,7 @@ public class MapQuestFragment extends Fragment {
             moveCameraTo(nearest_stone_marker.getPosition(), 15, 45);
             mMapboxMap.selectMarker(nearest_stone_marker);
         }
+        Log.i("MY_DEBUG_TAG","set stones done");
         setUserMarker();
         map.invalidate();
     }
@@ -478,6 +486,7 @@ public class MapQuestFragment extends Fragment {
     }
 
     public void setUserMarker() {
+        Log.i("MY_DEBUG_TAG","set user marker");
         if(lastLocation == null) {
             return;
         }

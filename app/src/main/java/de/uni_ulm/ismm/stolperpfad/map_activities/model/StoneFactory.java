@@ -317,6 +317,7 @@ public class StoneFactory {
                                 super.onPostExecute(aBoolean);
                                 neighbours_ready = aBoolean;
                                 map.activatePathPlanner(aBoolean);
+                                Log.i("MY_DEBUG_TAG","onpost load content");
                             }
                         }.execute();
                     }
@@ -328,6 +329,7 @@ public class StoneFactory {
         private class LoadContentTask extends AsyncTask<Void, Void, Void> {
             @Override
             protected Void doInBackground(Void... voids) {
+                Log.i("MY_DEBUG_TAG","loading repo");
                 persons = repo.getAllPersons();
                 for (Person p : persons) {
                     List<Stolperstein> temp = repo.getStone(p.getStolperstein());
@@ -338,6 +340,7 @@ public class StoneFactory {
                     Stone s = new Stone(stolperstein, p.getFstName(), p.getFamName());
                     all_stones.add(s);
                 }
+                Log.i("MY_DEBUG_TAG","loading repo done");
                 return null;
             }
         }

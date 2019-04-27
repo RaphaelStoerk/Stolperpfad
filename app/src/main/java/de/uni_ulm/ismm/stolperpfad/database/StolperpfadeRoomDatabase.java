@@ -124,6 +124,7 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     Person.Vita vita = new Person.Vita(id, vitaSections[0], vitaSections[1], vitaSections[2],
                             vitaSections[3], vitaSections[4], vitaSections[5], vitaSections[6],
                             vitaSections[7], vitaSections[8], vitaSections[9]);
+
                     mDao.insert(vita);
 
                     //insert Stolperstein

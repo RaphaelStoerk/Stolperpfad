@@ -69,16 +69,25 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
 
     private boolean menu_up;
     private boolean animating;
+    private boolean loadable;
     private String current_file_name;
     private ArrayList<MyRoad> saved_paths;
+
+    private RouteOptionsDialog dialog;
+    private AlertDialog info_dialog;
+    private AlertDialog save_dialog;
+    private AlertDialog buff_dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("MY_DEBUG_TAG","onCreate started");
         if (instance == null) {
             instance = this;
         }
         initializeGeneralControls(R.layout.activity_route_planner);
+        Log.i("MY_DEBUG_TAG","General controls done");
         Bundle b = getIntent().getExtras();
         int id = -1;
         boolean next = false;
@@ -86,7 +95,9 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             id = b.getInt("id");
             next = b.getBoolean("next");
         }
+        Log.i("MY_DEBUG_TAG","getExtras done");
         initializeMapQuestFragment(id, next);
+        Log.i("MY_DEBUG_TAG","Fragment done");
 
         // Route Planner specific setups
         //aq.id(R.id.header_route_planner).getView().setTranslationZ(HEADER_TRANSLATION_Z / 2);
@@ -97,6 +108,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         aq.id(R.id.menu_open_button).visible().clicked(myClickListener).getView();
         aq.id(R.id.menu_close_button).visible().clicked(myClickListener).getView();
         menu_up = false;
+        Log.i("MY_DEBUG_TAG","setup done");
     }
 
     @Override
@@ -115,14 +127,10 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         return instance;
     }
 
-    private RouteOptionsDialog dialog;
-
     public void routeOptionDialog() {
         dialog = RouteOptionsDialog.newInstance(this);
         dialog.show(getSupportFragmentManager(), "dialog");
     }
-
-    private AlertDialog info_dialog;
 
     public void informationDialog() {
         AlertDialog.Builder builder;
@@ -146,8 +154,6 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         info_dialog.show();
     }
 
-    private AlertDialog save_dialog;
-
     public void saveOrLoadRouteDialog() {
         AlertDialog.Builder builder;
         current_file_name = "";
@@ -168,10 +174,6 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             myMapFragment.saveRoute(current_file_name);
         });
 
-        myDialogView.findViewById(R.id.load_button).setOnClickListener(view -> {
-            if(save_dialog != null)save_dialog.cancel();
-            myMapFragment.loadRoute(getCurrentRoute(""));
-        });
         EditText time_input = myDialogView.findViewById(R.id.path_name_input);
 
         time_input.addTextChangedListener(new TextWatcher() {
@@ -265,12 +267,12 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
                 builder.setMessage(getInfoFor(path_name));
                 builder.setPositiveButton("Auswählen", (dialogInterface, i) -> {
                     current_file_name = path_name;
-                    EditText text_field = myDialogView.findViewById(R.id.path_name_input);
-                    text_field.setText(path_name);
-                    dialogInterface.cancel();
+                    closeDialogs();
+                    myMapFragment.loadRoute(getCurrentRoute(path_name));
                 });
                 builder.setNegativeButton("Zurück", (dialogInterface, i) -> dialogInterface.cancel());
-                builder.create().show();
+                buff_dialog = builder.create();
+                buff_dialog.show();
             });
         }
         String show_text;
@@ -283,6 +285,17 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         }
         //int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 42, getResources().getDisplayMetrics());
         return but;
+    }
+
+    private void closeDialogs() {
+        if(buff_dialog != null) {
+            buff_dialog.cancel();
+            buff_dialog = null;
+        }
+        if(save_dialog != null) {
+            save_dialog.cancel();
+            save_dialog = null;
+        }
     }
 
     private String getInfoFor(String path_name) {

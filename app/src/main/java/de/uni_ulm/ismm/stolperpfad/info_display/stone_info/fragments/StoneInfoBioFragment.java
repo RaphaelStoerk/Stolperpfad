@@ -4,25 +4,21 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.BioPoint;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewModel;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager;
 
 /**
@@ -32,32 +28,30 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPag
  */
 public class StoneInfoBioFragment extends StoneInfoContentFragment {
 
-    private PersonInfo person;
 
+    private StoneInfoViewModel model;
+    private int index;
     private VerticalViewPager bio_pager;
-
-    private int current_point;
-
-    ArrayList<Button> bio_buttons;
+    ArrayList<Button> vita_buttons;
 
     public StoneInfoBioFragment() {
 
     }
 
-    public static StoneInfoBioFragment newInstance(PersonInfo person) {
+    public static StoneInfoBioFragment newInstance(StoneInfoViewModel model, int person_index) {
         StoneInfoBioFragment fragment = new StoneInfoBioFragment();
-        fragment.person = person;
+        fragment.index = person_index;
         return fragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try {
-            person = (PersonInfo) savedInstanceState.getSerializable("person");
-
-        } catch(NullPointerException e) {
-
+        int buff;
+        if(savedInstanceState != null) {
+            if((buff = savedInstanceState.getInt("current_person")) != -1) {
+                index = buff;
+            }
         }
     }
 
@@ -65,91 +59,18 @@ public class StoneInfoBioFragment extends StoneInfoContentFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_stone_info_bio, container, false);
-
-        ConstraintLayout bio_layout = (ConstraintLayout) root.findViewById(R.id.bio_layout);
-
+        model = StoneInfoMainActivity.getModelInstance();
         bio_pager = root.findViewById(R.id.bio_view_pager);
-        PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
-        bio_pager.setAdapter(pagerAdapter);
         bio_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                current_point = position;
-                updateButtons();
+                // current_point = position;
+                model.updateVitaButtons(StoneInfoBioFragment.this, position);
                 // TODO: Update left and right buttons if persons are before or after
             }
         });
-        current_point = 0;
-        bio_pager.setCurrentItem(current_point);
-        if(person == null) {
-        } else {
-            createBioButtons(inflater,inflater.getContext(), bio_layout);
-        }
-        updateButtons();
+        model.buildPersonVita(this, getChildFragmentManager(), inflater, root, bio_pager, index);
         return root;
-    }
-
-    private void updateButtons() {
-        for(Button b : bio_buttons) {
-            b.setBackgroundResource(R.drawable.ic_point);
-        }
-        bio_buttons.get(current_point).setBackgroundResource(R.drawable.ic_point_on);
-    }
-
-    private void createBioButtons(LayoutInflater inflater, Context ctx, ConstraintLayout bio_layout) {
-        ArrayList<BioPoint> bio = person.getBio();
-        int points = bio.size();
-        if(points < 2) {
-            return;
-        }
-        bio_buttons = new ArrayList<>();
-        Button birth_button = makeButton(inflater, ctx, 0);
-        Button death_button = makeButton(inflater,ctx, points - 1);
-        bio_buttons.add(birth_button);
-        Button buff;
-        for(int i = 0; i < bio.size() - 2; i++) {
-            bio_buttons.add(buff = makeButton(inflater,ctx, i + 1));
-            bio_layout.addView(buff);
-        }
-        bio_buttons.add(death_button);
-        bio_layout.addView(birth_button);
-        bio_layout.addView(death_button);
-
-        ConstraintSet cs = new ConstraintSet();
-        cs.clone(bio_layout);
-        cs.connect(birth_button.getId(),ConstraintSet.TOP, bio_layout.getId(),ConstraintSet.TOP,32 );
-        cs.connect(birth_button.getId(),ConstraintSet.BOTTOM, bio_buttons.get(1).getId(),ConstraintSet.TOP );
-        cs.connect(birth_button.getId(),ConstraintSet.START,bio_layout.getId(),ConstraintSet.START, 16 );
-        cs.connect(birth_button.getId(),ConstraintSet.END, bio_pager.getId(),ConstraintSet.START, 16 );
-        for(int i = 1; i <= points - 2; i++) {
-            cs.connect(bio_buttons.get(i).getId(),ConstraintSet.TOP,bio_buttons.get(i-1).getId(),ConstraintSet.BOTTOM );
-            cs.connect(bio_buttons.get(i).getId(),ConstraintSet.BOTTOM,bio_buttons.get(i+1).getId(),ConstraintSet.TOP );
-            cs.connect(bio_buttons.get(i).getId(),ConstraintSet.START,bio_layout.getId(),ConstraintSet.START, 16 );
-            cs.connect(bio_buttons.get(i).getId(),ConstraintSet.END, bio_pager.getId(),ConstraintSet.START, 16 );
-        }
-        cs.connect(death_button.getId(),ConstraintSet.TOP, bio_buttons.get(points-2).getId(),ConstraintSet.BOTTOM );
-        cs.connect(death_button.getId(),ConstraintSet.BOTTOM, bio_layout.getId(),ConstraintSet.BOTTOM,32);
-        cs.connect(death_button.getId(),ConstraintSet.START,bio_layout.getId(),ConstraintSet.START, 16 );
-        cs.connect(death_button.getId(),ConstraintSet.END, bio_pager.getId(),ConstraintSet.START, 16 );
-        cs.applyTo(bio_layout);
-    }
-
-    private Button makeButton(LayoutInflater inflater, Context ctx, int bio_index) {
-        Button but = (Button) inflater.inflate(R.layout.bio_button_layout, null);
-        but.setOnClickListener(view -> showInfo(bio_index));
-        but.setBackgroundResource(R.drawable.ic_point);
-        DisplayMetrics dm = ctx.getResources().getDisplayMetrics();
-        float dp = 24f;
-        float fpixels = dm.density * dp;
-        int pixels = (int) (fpixels + 0.5f);
-        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(pixels,pixels);
-        but.setLayoutParams(params);
-        but.setId(bio_index+1000);
-        return but;
-    }
-
-    private void showInfo(int index) {
-        bio_pager.setCurrentItem(index);
     }
 
     @Override
@@ -158,32 +79,17 @@ public class StoneInfoBioFragment extends StoneInfoContentFragment {
         this.setRetainInstance(true);
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        //    outState.putSerializable("person", person);
-
-        super.onSaveInstanceState(outState);
+    public ArrayList<Button> getVitaButtons() {
+        return vita_buttons;
     }
 
+    public void setVitaButtons(ArrayList<Button> vita_buttons) {
+        this.vita_buttons = vita_buttons;
+    }
 
-    /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        ScreenSlidePagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            current_point = position;
-            return StoneInfoBioContentFragment.newInstance(person.getBio().get(position));
-        }
-
-        @Override
-        public int getCount() {
-            return person.getBio().size();
-        }
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt("current_person", index);
+        super.onSaveInstanceState(outState);
     }
 }

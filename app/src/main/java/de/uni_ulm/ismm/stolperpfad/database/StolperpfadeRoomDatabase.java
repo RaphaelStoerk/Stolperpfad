@@ -18,7 +18,6 @@ import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
 
 /**
  * !!! READ ME !!!
@@ -36,6 +35,7 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
     private static int vitaLength = 10;
 
     public abstract StolperpfadeDao mDao();
+
     //make the database a singleton
     private static volatile StolperpfadeRoomDatabase INSTANCE;
 
@@ -68,10 +68,11 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
     /**
      * CLEAR OLDER DATABASE ENTRIES
      */
-    private static void clearDatabase(StolperpfadeDao dao){
+    private static void clearDatabase(StolperpfadeDao dao) {
         dao.deleteAllPersons();
         dao.deleteAllVitas();
         dao.deleteAllStolpersteine();
+        dao.deleteAllTerms();
     }
 
     /**
@@ -91,7 +92,6 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
 
             // PERSONS, VITA, STOLPERSTEINE
             ArrayList<JSONObject> persons = DataFromJSON.loadAllJSONFromDirectory(mContext, "person_data");
-            PersonInfo next;
             int id;
             String firstname;
             String familyname;
@@ -111,7 +111,7 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     familyname = json.getString("nachname");
                     birthname = json.getString("geburtsname");
                     history = json.getString("geschichte");
-                    stone = json.getJSONObject("stolperstein");
+                    stone = json.getJSONObject("stein");
                     stoneId = stone.getInt("id");
                     Person person = new Person(id, firstname, familyname, birthname, history, stoneId);
                     mDao.insert(person);
@@ -132,8 +132,12 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     address = stone.getString("addresse");
                     latitude = stone.getDouble("latitude");
                     longitude = stone.getDouble("longitude");
-                    Stolperstein stostei = new Stolperstein(stoneId, address, latitude, longitude);
-                    mDao.insert(stostei);
+                    Stolperstein stostei = new Stolperstein(id, address, latitude, longitude);
+                    if (stoneExists(stoneId)) {
+
+                    } else {
+                        mDao.insert(stostei);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -141,11 +145,11 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
             }
 
             // HISTORICAL TERMS
-            ArrayList<JSONObject> histoTerms = DataFromJSON.loadAllJSONFromDirectory(mContext,"history_data");
+            ArrayList<JSONObject> histoTerms = DataFromJSON.loadAllJSONFromDirectory(mContext, "history_data");
             String histoName;
             String histoExplanation;
 
-            for (JSONObject json : persons) {
+            for (JSONObject json : histoTerms) {
                 try {
                     histoName = json.getString("name");
                     histoExplanation = json.getString("explanation");
@@ -156,34 +160,21 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     e.printStackTrace();
                 }
             }
-
-
-
-            /*Person person = new Person(0,"Jakob", "Frenkel", null, null, 0);
-            mDao.insert(person);
-            person = new Person(1,"Ida", "Frenkel", null, null,0);
-            mDao.insert(person);
-            person = new Person(2,"Karl", "Rueff", null, null,1);
-            mDao.insert(person);
-
-            Stolperstein stolperstein = new Stolperstein(0,"Olgastraße 114", 48.402106, 9.994395);
-            mDao.insert(stolperstein);
-            stolperstein = new Stolperstein(1,"Frauenstraße 28", 48.399455, 9.996718);
-            mDao.insert(stolperstein);
-
-            HistoricalTerm histoTerm = new HistoricalTerm("Polenaktion", "@string/info_polenaktion");
-            mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm("Aktion T4/Euthanasie", "Aktion T4");
-            mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm("Pogromnacht", "Pogromnacht");
-            mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm("Kindertransport nach Großbritannien", "Kindertransport nach Großbritannien");
-            mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm("Zeugen Jehovas", "Zeugen Jehovas");
-            mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm("Fabrikation", "Fabrikation");
-            mDao.insert(histoTerm);*/
             return null;
+        }
+
+        private boolean stoneExists(int stoneId) {
+            String address = mDao.getAddress(stoneId);
+            if (address == null || address.equals("")) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
         }
 
     }

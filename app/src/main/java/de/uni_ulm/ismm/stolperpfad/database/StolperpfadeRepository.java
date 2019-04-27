@@ -22,8 +22,8 @@ public class StolperpfadeRepository {
     public StolperpfadeRepository(Application application) {
         StolperpfadeRoomDatabase db = StolperpfadeRoomDatabase.getDatabase(application);
         mDao = db.mDao();
-        mAllPersons = mDao.getAllPersons();
-        mAllTerms = mDao.getAllTerms();
+//        mAllPersons = mDao.getAllPersons();
+        //       mAllTerms = mDao.getAllTerms();
     }
 
 
@@ -49,7 +49,9 @@ public class StolperpfadeRepository {
     }
 
     //get a list of all persons
-   List<Person> getAllPersons() {
+    public List<Person> getAllPersons() {
+        if(mAllPersons == null)
+            return mAllPersons = mDao.getAllPersons();
         return mAllPersons;
     }
 
@@ -68,7 +70,7 @@ public class StolperpfadeRepository {
     //get a person's birth name (if existent)
 
     //get all persons who are concerned by the given historical term
-    /*public ArrayList<Person> getConcernedPersons(String histoTerm, HistoryInfoBasicActivity parent){
+    /*public ArrayList<Person> getConcernedPersons(String histoTerm, HistoListActivity parent){
         new StolperpfadeRepository.getConcernedPersonsAsyncTask(mDao){
             @Override
             protected void onPostExecute(ArrayList<Person> concernedPersons){
@@ -113,6 +115,11 @@ public class StolperpfadeRepository {
         }
     }
 
+    // get all Vitas from an id
+    public List<Person.Vita> getVita(int persId) {
+        return mDao.getVita(persId);
+    }
+
     //get a particular section of a person's vita
 
 
@@ -135,6 +142,8 @@ public class StolperpfadeRepository {
             return null;
         }
     }
+
+    public List<Stolperstein> getStone(int stoneId) {return mDao.getStone(stoneId);}
 
     //get the Stolperstein's address
     public String getAddress(int stoneId) {
@@ -168,7 +177,9 @@ public class StolperpfadeRepository {
     }
 
     //get a list of all historical terms
-    List<HistoricalTerm> getAllTerms() {
+    public List<HistoricalTerm> getAllTerms() {
+        if(mAllTerms == null)
+            return mAllTerms = mDao.getAllTerms();
         return mAllTerms;
     }
 

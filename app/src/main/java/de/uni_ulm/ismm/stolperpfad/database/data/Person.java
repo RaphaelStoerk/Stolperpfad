@@ -85,6 +85,8 @@ public class Person {
 
     public String getEntireName() {return mFstName + " " + mFamName;   }
 
+    public String getFormattedListName() { return "<b>" + mFamName + "</b>, " + mFstName; }
+
 
     // TABLE 2:
     @Entity(tableName = "vitas")
@@ -189,6 +191,26 @@ public class Person {
 
         public String getSectionNine() {
             return mSectionNine;
+        }
+
+        public int getSize() {
+            int sum = 0;
+            String[] sections = {mSectionOne, mSectionTwo, mSectionThree, mSectionFour, mSectionFive, mSectionSix, mSectionSeven, mSectionEight, mSectionNine};
+            for(String s : sections) {
+                if(s == null || s.length() == 0) {
+                    return sum;
+                }
+                sum++;
+            }
+            return sum;
+        }
+
+        public String getSection(int point) {
+            String[] sections = {mSectionOne, mSectionTwo, mSectionThree, mSectionFour, mSectionFive, mSectionSix, mSectionSeven, mSectionEight, mSectionNine};
+            if(point < getSize()) {
+                return sections[point];
+            }
+            return "FEHLER";
         }
     }
 

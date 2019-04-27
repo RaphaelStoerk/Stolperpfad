@@ -58,7 +58,7 @@
             android:theme="@style/AppTheme.Light"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".info_display.history.HistoryInfoBasicActivity"
+            android:name=".info_display.history.HistoListActivity"
             android:label="@string/title_activity_history_info"
             android:theme="@style/AppTheme.Light"
             android:screenOrientation="portrait"/>

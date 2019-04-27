@@ -1,7 +1,6 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.model;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -12,12 +11,13 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
+import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
+import de.uni_ulm.ismm.stolperpfad.database.data.Person;
+import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfo;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
 
@@ -34,15 +34,16 @@ public class StoneFactory {
     private MapQuestFragment map;
     private MapboxMap mapboxMap;
     private boolean is_ready;
-    private ArrayList<PersonInfo> persons;
+    private List<Person> persons;
     private boolean neighbours_ready;
+    private StolperpfadeRepository repo;
 
     private StoneFactory(MapQuestFragment map, MapboxMap mapboxMap) {
         this.map = map;
         this.mapboxMap = mapboxMap;
         all_stones = new ArrayList<>();
         stone_markers = new ArrayList<>();
-
+        repo = new StolperpfadeRepository(map.getActivity().getApplication());
     }
 
     public static StoneFactory initialize(MapQuestFragment map, MapboxMap mapboxMap) {
@@ -57,17 +58,7 @@ public class StoneFactory {
         new InitializeStonesTask() {
             @Override
             public void onPostExecute(String res) {
-                is_ready = true;
-                map.setStones();
-                Log.i("MY_ROUTE_TAG", "STARTING");
-                new InitializeNeighboursTask() {
-                    @Override
-                    protected void onPostExecute(Boolean aBoolean) {
-                        super.onPostExecute(aBoolean);
-                        neighbours_ready = aBoolean;
-                        map.activatePathPlanner(aBoolean);
-                    }
-                }.execute();
+               // TODO: Stub
             }
         }.execute();
     }
@@ -284,58 +275,49 @@ public class StoneFactory {
     @SuppressLint("StaticFieldLeak")
     private class InitializeStonesTask extends AsyncTask<String, Integer, String> {
 
-
         @Override
         protected String doInBackground(String... strings) {
 
             map.getActivity().runOnUiThread(() -> {
                 // TODO: grab all stone info from the DataBase
-
-                loadPersons();
-
-                Stone s;
-
-                for(PersonInfo p : persons) {
-                    Stolperstein st = p.getStolperstein();
-                    s = new Stone(st.getLatitude(),st.getLongitude(), p.getVorname(),p.getNachname(), st.getAdress());
-                    all_stones.add(s);
-                    stone_markers.add(s.getMarker(mapboxMap));
-                }
+                new LoadContentTask() {
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        for(Stone s : all_stones) {
+                            stone_markers.add(s.getMarker(mapboxMap));
+                        }
+                        is_ready = true;
+                        map.setStones();
+                        Log.i("MY_ROUTE_TAG", "STARTING");
+                        new InitializeNeighboursTask() {
+                            @Override
+                            protected void onPostExecute(Boolean aBoolean) {
+                                super.onPostExecute(aBoolean);
+                                neighbours_ready = aBoolean;
+                                map.activatePathPlanner(aBoolean);
+                            }
+                        }.execute();
+                    }
+                }.execute();
             });
             return "Finished";
         }
 
-        private void loadPersons() {
-            persons = new ArrayList<>();
-            ArrayList<JSONObject> personen = DataFromJSON.loadAllJSONFromDirectory(map.getContext(), "personen_daten");
-            PersonInfo next;
-            for(JSONObject json : personen) {
-                try {
-                    next = createPersonFromJson(json);
-                    persons.add(next);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        private class LoadContentTask extends AsyncTask<Void, Void, Void> {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                persons = repo.getAllPersons();
+                for (Person p : persons) {
+                    List<Stolperstein> temp = repo.getStone(p.getStolperstein());
+                    if (temp == null || temp.size() == 0) {
+                        return null;
+                    }
+                    Stolperstein stolperstein = temp.get(0);
+                    Stone s = new Stone(stolperstein.getLatitude(), stolperstein.getLongitude(), p.getFstName(), p.getFamName(), stolperstein.getAddress());
+                    all_stones.add(s);
                 }
+                return null;
             }
-        }
-
-        private PersonInfo createPersonFromJson(JSONObject json) throws JSONException {
-            Stolperstein stolperstein;
-            try {
-                int id = json.getInt("id");
-                String vorname = json.getString("vorname");
-                String nachname = json.getString("nachname");
-                String geburtsname = json.getString("geburtsname");
-                JSONObject stein = json.getJSONObject("stein");
-                int id1 = stein.getInt("id");
-                String ad = stein.getString("addresse");
-                double lat = stein.getDouble("latitude");
-                double lon = stein.getDouble("longitude");
-                return new PersonInfo(id, vorname, nachname, geburtsname, new Stolperstein(id1, ad, lat, lon));
-            } catch(NullPointerException e) {
-
-            }
-            return new PersonInfo(-1, "Fehler", "Fehler", "", null);
         }
     }
 }

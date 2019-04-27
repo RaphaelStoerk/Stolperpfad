@@ -160,5 +160,6 @@
     <string name="show_map_button_text">Auf Karte anzeigen</string>
     <string name="buff_string_address">addresse</string>
     <string name="title_map_content">Der Stolperstein befindet sich hier:</string>
+    <string name="title_histo_list">Geschichtliche Hintergründe</string>
 
 </resources>

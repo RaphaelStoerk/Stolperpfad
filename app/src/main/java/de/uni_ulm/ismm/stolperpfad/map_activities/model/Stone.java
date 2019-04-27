@@ -7,6 +7,8 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 
 import java.util.ArrayList;
 
+import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
+
 /**
  * This is a model class to represent a "Stolperstein" on the map activities of this application
  */
@@ -15,15 +17,17 @@ public class Stone {
 
     private LatLng location;
     private String first_name, last_name, short_desc;
+    private int stoneId;
     private Marker marker;
     ArrayList<Neighbour> neighbours;
 
 
-    public Stone(double lat, double lng, String first_name, String last_name, String short_desc) {
+    public Stone(Stolperstein stein, String first_name, String last_name) {
+        this.stoneId = stein.getStoneId();
         this.first_name = first_name;
         this.last_name = last_name;
-        this.short_desc = short_desc;
-        this.location = new LatLng(lat, lng);
+        this.short_desc = stein.getAddress();
+        this.location = new LatLng(stein.getLatitude(), stein.getLongitude());
         this.neighbours = new ArrayList<>();
     }
 
@@ -50,6 +54,10 @@ public class Stone {
      */
     public LatLng getLocation() {
         return location;
+    }
+
+    public int getStoneId() {
+        return stoneId;
     }
 
     public String toString() {

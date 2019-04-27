@@ -69,7 +69,7 @@ public class StolperpfadeApplication extends Application {
         }
         File tess = new File(DATA_FILES_PATH + "/tessdata");
         File img = new File(DATA_FILES_PATH + "/img");
-        File routes = new File(DATA_FILES_PATH + "/routes");
+        File routes = new File(DATA_FILES_PATH + "/paths");
         if(tess.mkdirs() || tess.exists()){
             if(img.mkdirs() || img.exists()) {
                 if (routes.mkdirs() || routes.exists()) {

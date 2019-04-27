@@ -58,7 +58,7 @@ public class StoneFactory {
         new InitializeStonesTask() {
             @Override
             public void onPostExecute(String res) {
-               // TODO: Stub
+                // TODO: Stub
             }
         }.execute();
     }
@@ -143,10 +143,17 @@ public class StoneFactory {
         return best;
     }
 
-    public boolean createPathWith(ArrayList<Marker> route_points, Marker start_route_from, Marker end_route_at, int time_in_seconds) {
+    public MyRoad createPathWith(Marker start_route_from, Marker end_route_at, int time_in_seconds) {
         Marker curr_pos;
         Stone curr_stone;
         double curr_dist;
+        MyRoad created_path = MyRoad.newInstance();
+        if(start_route_from == null) {
+            Log.i("MY_ROUTE_TAG", "No start");
+            return created_path;
+        }
+        created_path.setStart(start_route_from);
+        created_path.setRequestedTime(time_in_seconds);
         ArrayList<Neighbour> neighbours;
         ArrayList<Neighbour> valid_neighs;
         // Check if start position is already a stone, else get the nearest one and add it to the route
@@ -155,63 +162,56 @@ public class StoneFactory {
             curr_dist = start_route_from.getPosition().distanceTo(curr_pos.getPosition());
             // check if the nearest stone can be reached in time, else no route can be created
             if(curr_dist > time_in_seconds) {
-                return false;
+                Log.i("MY_ROUTE_TAG", "Not enough time");
+                return created_path;
             }
-            route_points.add(curr_pos);
             curr_stone = getStoneFromMarker(curr_pos);
-            Log.i("MY_ROUTE_TAG", "Added a first stone: " + curr_pos.getTitle());
+            created_path.addStone(curr_stone);
             time_in_seconds -= (curr_dist + 60 * MINUTES_AT_STONE);
         }
-
         // The main Route creation
         while(true) {
-            curr_pos = route_points.get(route_points.size()-1);
-            curr_stone = getStoneFromMarker(curr_pos);
+            curr_stone = created_path.getLastStone();
+            curr_pos = curr_stone.getMarker(mapboxMap);
             neighbours = curr_stone.getNeighbours();
-            valid_neighs = getValidNeighbours(neighbours, route_points, curr_pos, end_route_at, time_in_seconds);
+            valid_neighs = getValidNeighbours(neighbours, created_path, end_route_at, time_in_seconds);
             if(valid_neighs.size() == 0) {
-                Log.i("MY_ROUTE_TAG", "No new neighbour found, left time to go to the end: " + (time_in_seconds / 60f) + "min");
-                if(end_route_at == null) {
-                    if(route_points.size() >= 2) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
+                if(end_route_at != null) {
                     if(end_route_at.getPosition().distanceTo(curr_pos.getPosition()) < time_in_seconds) {
-                        route_points.add(end_route_at);
-                        return true;
+                        created_path.addEnd(end_route_at);
+                        Log.i("MY_ROUTE_TAG", " The end");
+                        break;
+                    } else if(!isStonePosition(end_route_at.getPosition())) {
+                        created_path.addEnd(end_route_at);
                     } else {
-                        if(!isStonePosition(end_route_at.getPosition())) {
-                            route_points.add(end_route_at);
-                            Log.i("MY_ROUTE_TAG", "Questionable Route");
-                            return true; // TODO: false ???
-                        } else {
-                            return false;
-                        }
+                        created_path.setNotPossible();
                     }
+                    Log.i("MY_ROUTE_TAG", "Path not possible: left time: " + time_in_seconds);
                 }
+                Log.i("MY_ROUTE_TAG", "No valid neighbours");
+                break;
             } else {
-                Neighbour next = choseGoodNeighbour(valid_neighs, route_points, curr_pos, time_in_seconds);
-                route_points.add(next.getMarker(mapboxMap));
+                Neighbour next = choseGoodNeighbour(valid_neighs, created_path, curr_pos, time_in_seconds);
+                created_path.addStone(next.getStone());
                 time_in_seconds -= (next.getDist() + 60 * MINUTES_AT_STONE);
-                Log.i("MY_ROUTE_TAG", "Added a new stone, left time " + time_in_seconds);
+                Log.i("MY_ROUTE_TAG", "New stone: " + created_path.getLastStone().getStoneId());
             }
         }
+        return created_path;
     }
 
-    private Neighbour choseGoodNeighbour(ArrayList<Neighbour> valid_neighs, ArrayList<Marker> route_points, Marker curr_pos, int time_in_seconds) {
+    private Neighbour choseGoodNeighbour(ArrayList<Neighbour> valid_neighs, MyRoad path, Marker curr_pos, int time_in_seconds) {
         int size = valid_neighs.size();
         int index = (int) (Math.random() * size); // TODO: chose on basis of distances and times
         return valid_neighs.get(index);
     }
 
-    private ArrayList<Neighbour> getValidNeighbours(ArrayList<Neighbour> neighbours, ArrayList<Marker> route_points, Marker curr_pos, Marker end_route_at, int time_in_seconds) {
+    private ArrayList<Neighbour> getValidNeighbours(ArrayList<Neighbour> neighbours, MyRoad path, Marker end_route_at, int time_in_seconds) {
         ArrayList<Neighbour> ret = new ArrayList<>();
 
         for(Neighbour n : neighbours) {
             // Avoid adding a stone twice to the route
-            if(route_points.contains(n.getMarker(mapboxMap))){
+            if(path.getWaypointsLatLng().contains(n.getMarker(mapboxMap).getPosition())){
                 continue;
             }
             // check if the stone is reachable
@@ -234,6 +234,28 @@ public class StoneFactory {
             }
         }
         return false;
+    }
+
+    public ArrayList<Stone> getStonesFromIds(ArrayList<Integer> stoneIds) {
+        ArrayList<Stone> ret = new ArrayList<>();
+        for(int id : stoneIds) {
+            for(Stone s : all_stones) {
+                if(s.getStoneId() == id) {
+                    ret.add(s);
+                    break;
+                }
+            }
+        }
+        return ret;
+    }
+
+    public Marker getMarkerFromId(int next_id) {
+        for(Stone s : all_stones) {
+            if(s.getStoneId() == next_id) {
+                return s.getMarker(mapboxMap);
+            }
+        }
+        return null;
     }
 
     private class InitializeNeighboursTask extends AsyncTask<Void, Void, Boolean> {
@@ -313,7 +335,7 @@ public class StoneFactory {
                         return null;
                     }
                     Stolperstein stolperstein = temp.get(0);
-                    Stone s = new Stone(stolperstein.getLatitude(), stolperstein.getLongitude(), p.getFstName(), p.getFamName(), stolperstein.getAddress());
+                    Stone s = new Stone(stolperstein, p.getFstName(), p.getFamName());
                     all_stones.add(s);
                 }
                 return null;

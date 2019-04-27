@@ -13,7 +13,6 @@ import android.widget.TextView;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewModel;
-import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
 
 /**
  * Holds only a simple representation of a map locked to

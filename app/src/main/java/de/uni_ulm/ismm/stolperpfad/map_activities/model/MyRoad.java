@@ -87,6 +87,10 @@ public class MyRoad extends Road {
             JSONObject start = path.getJSONObject("start");
             JSONObject end = path.getJSONObject("end");
             buff.path_name = path.getString("name");
+            int time = path.getInt("time");
+            if(time != NO_TIME_REQUESTED) {
+                buff.requested_time = time;
+            }
             JSONArray stones = path.getJSONArray("stones");
             buff.start_pos = new LatLng(start.getDouble("lat"), start.getDouble("lon"));
             String end_status = end.getString("status");

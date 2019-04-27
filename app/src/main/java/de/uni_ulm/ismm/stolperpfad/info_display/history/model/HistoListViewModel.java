@@ -32,8 +32,6 @@ import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoListActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.history.fragments.HistoListFragment;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneListViewModel;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager;
 
 public class HistoListViewModel extends AndroidViewModel {
 
@@ -274,7 +272,7 @@ public class HistoListViewModel extends AndroidViewModel {
 
         @Override
         public Fragment getItem(int position) {
-            return null;//HistoListFragment.newInstance(HistoListViewModel.this, getInitial(position));
+            return HistoListFragment.newInstance(HistoListViewModel.this, getInitial(position));
         }
 
         @Override

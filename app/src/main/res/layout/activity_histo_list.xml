@@ -70,7 +70,7 @@
     android:layout_height="0dp"
     android:layout_marginTop="16dp"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toStartOf="@+id/stone_list_pager"
+    app:layout_constraintEnd_toStartOf="@+id/histo_list_pager"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@+id/line_two_histo_list">
 

@@ -58,8 +58,13 @@
             android:theme="@style/AppTheme.Light"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".info_display.history.HistoryInfoBasicActivity"
+            android:name=".info_display.history.HistoListActivity"
             android:label="@string/title_activity_history_info"
+            android:theme="@style/AppTheme.Light"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".info_display.history.HistoInfoActivity"
+            android:label="TermInfoPage"
             android:theme="@style/AppTheme.Light"
             android:screenOrientation="portrait"/>
         <activity
@@ -91,9 +96,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_filter_search"
             android:theme="@style/AppTheme.Light" />
-        <activity android:name=".database.list_of_historical_terms.HistoInfoPage" />
-        <activity android:name=".database.list_of_historical_terms.HistoryActivity" />
-        <activity android:name=".database.list_of_persons.PersInfoPage" />
         <activity android:name=".map_activities.StolperpfadAppMapActivity" />
 
         <meta-data

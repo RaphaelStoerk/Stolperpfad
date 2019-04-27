@@ -23,13 +23,12 @@ public class HistoricalTerm {
     @ColumnInfo(name = "name")
     private String mName;
 
-    @NonNull
     @ColumnInfo(name = "explanation")
     private String mExplanation;
 
 
     //constructor
-    public HistoricalTerm(@NonNull String name, @NonNull String explanation) {
+    public HistoricalTerm(@NonNull String name, String explanation) {
         this.mName = name;
         this.mExplanation = explanation;
     }

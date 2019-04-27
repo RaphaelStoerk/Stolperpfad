@@ -38,6 +38,7 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
             findViewById(R.id.splash_background).setOnClickListener(view -> createMainMenu());
         } else {
             createMainMenu();
+            StolperpfadeApplication.getInstance().setUpDb();
         }
     }
 

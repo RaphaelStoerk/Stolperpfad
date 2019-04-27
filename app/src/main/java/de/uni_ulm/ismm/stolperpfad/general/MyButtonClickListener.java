@@ -8,12 +8,12 @@ import android.widget.Switch;
 
 import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoListActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumViewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ProjectAndArtistOverviewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.view.RouteOptionsDialog;
 import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
 
 /**
@@ -66,7 +66,7 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 intent.putExtra("next", true);
                 break;
             case R.id.header_image:
-                if(myActivity instanceof MainMenuActivity) {
+                if (myActivity instanceof MainMenuActivity) {
                     return;
                 }
                 intent = new Intent(myActivity, MainMenuActivity.class);
@@ -91,9 +91,9 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 intent.putExtra("id", -1);
                 intent.putExtra("next", false);
                 break;
-            /*case R.id.quick_access_historical_info:
-                intent = intentFromQuickAccess(HistoryActivity.class);
-                break;*/
+            case R.id.quick_access_historical_info:
+                intent = intentFromQuickAccess(HistoListActivity.class);
+                break;
             case R.id.quick_access_project_artist:
                 intent = intentFromQuickAccess(ProjectAndArtistOverviewActivity.class);
                 break;
@@ -131,27 +131,27 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 break;
             case R.id.menu_close_button:
             case R.id.menu_open_button:
-                if(myActivity instanceof RoutePlannerActivity) {
+                if (myActivity instanceof RoutePlannerActivity) {
                     ((RoutePlannerActivity) myActivity).toggleMenu();
                 }
                 break;
             case R.id.overview_to_project_info_button:
-                if(myActivity instanceof ProjectAndArtistOverviewActivity) {
+                if (myActivity instanceof ProjectAndArtistOverviewActivity) {
                     ((ProjectAndArtistOverviewActivity) myActivity).setInfoDisplay(0);
                 }
                 break;
             case R.id.overview_to_artist_info_button:
-                if(myActivity instanceof ProjectAndArtistOverviewActivity) {
+                if (myActivity instanceof ProjectAndArtistOverviewActivity) {
                     ((ProjectAndArtistOverviewActivity) myActivity).setInfoDisplay(1);
                 }
                 break;
             case R.id.impressum_to_rights_button:
-                if(myActivity instanceof ImpressumViewActivity) {
+                if (myActivity instanceof ImpressumViewActivity) {
                     ((ImpressumViewActivity) myActivity).setInfoDisplay(0);
                 }
                 break;
             case R.id.impressum_to_contact_button:
-                if(myActivity instanceof ImpressumViewActivity) {
+                if (myActivity instanceof ImpressumViewActivity) {
                     ((ImpressumViewActivity) myActivity).setInfoDisplay(1);
                 }
                 break;
@@ -159,7 +159,7 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 myActivity.onBackPressed();
                 break;
         }
-        if(intent != null) {
+        if (intent != null) {
             myActivity.startActivity(intent, transitionOptions);
         }
     }

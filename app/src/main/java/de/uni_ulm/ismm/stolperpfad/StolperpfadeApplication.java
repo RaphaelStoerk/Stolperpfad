@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
+import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRoomDatabase;
+
 public class StolperpfadeApplication extends Application {
 
     private boolean dark_mode = false;
@@ -21,9 +24,6 @@ public class StolperpfadeApplication extends Application {
     private boolean image_buffer_ready = false;
     private SharedPreferences prefs;
     private static StolperpfadeApplication instance;
-
-    //private StolperpfadeRepository repo = new StolperpfadeRepository(this);
-
 
     public static final String DATA_FILES_PATH = Environment.getExternalStorageDirectory() + "/stolperpfade/data";
 
@@ -132,8 +132,8 @@ public class StolperpfadeApplication extends Application {
         return file_tree_ready = prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.file_tree_ready", false);
     }
 
-
-    public void setUpDatabase() {
-
+    public void setUpDb() {
+        StolperpfadeRepository repo = new StolperpfadeRepository(this);
+        
     }
 }

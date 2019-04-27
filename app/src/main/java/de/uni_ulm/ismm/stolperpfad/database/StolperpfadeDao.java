@@ -119,19 +119,20 @@ public interface StolperpfadeDao {
     double getLongitude(int stoneId);
 
 
+
+
     //HISTORICAL TERMS
     @Insert
     void insert(HistoricalTerm histoTerm);
 
     @Query("DELETE FROM historical_terms")
-    void deleteAll();
+    void deleteAllTerms();
 
     @Query("SELECT * from historical_terms ORDER BY name ASC")
     List<HistoricalTerm> getAllTerms();
 
     @Query("SELECT explanation from historical_terms WHERE name = :histoTerm")
     String getExplanation(String histoTerm);
-
 }
 
 

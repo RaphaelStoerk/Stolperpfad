@@ -12,6 +12,7 @@ import java.util.List;
 import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoInfoActivity;
 
 public class StolperpfadeRepository {
 
@@ -37,6 +38,7 @@ public class StolperpfadeRepository {
 
     private static class insertPersonAsyncTask extends AsyncTask<Person, Void, Void> {
         private StolperpfadeDao mAsyncTaskDao;
+
         insertPersonAsyncTask(StolperpfadeDao dao) {
             mAsyncTaskDao = dao;
         }
@@ -50,7 +52,7 @@ public class StolperpfadeRepository {
 
     //get a list of all persons
     public List<Person> getAllPersons() {
-        if(mAllPersons == null)
+        if (mAllPersons == null)
             return mAllPersons = mDao.getAllPersons();
         return mAllPersons;
     }
@@ -94,8 +96,6 @@ public class StolperpfadeRepository {
     //get a person's Stolperstein id
 
 
-
-
     //VITAS
     //insert vita
     public void insertVita(Person.Vita vita) {
@@ -104,6 +104,7 @@ public class StolperpfadeRepository {
 
     private static class insertVitaAsyncTask extends AsyncTask<Person.Vita, Void, Void> {
         private StolperpfadeDao mAsyncTaskDao;
+
         insertVitaAsyncTask(StolperpfadeDao dao) {
             mAsyncTaskDao = dao;
         }
@@ -123,7 +124,6 @@ public class StolperpfadeRepository {
     //get a particular section of a person's vita
 
 
-
     //STOLPERSTEINE
     //insert Stolperstein
     public void insertStone(Stolperstein stostei) {
@@ -132,6 +132,7 @@ public class StolperpfadeRepository {
 
     private static class insertStoneAsyncTask extends AsyncTask<Stolperstein, Void, Void> {
         private StolperpfadeDao mAsyncTaskDao;
+
         insertStoneAsyncTask(StolperpfadeDao dao) {
             mAsyncTaskDao = dao;
         }
@@ -143,7 +144,9 @@ public class StolperpfadeRepository {
         }
     }
 
-    public List<Stolperstein> getStone(int stoneId) {return mDao.getStone(stoneId);}
+    public List<Stolperstein> getStone(int stoneId) {
+        return mDao.getStone(stoneId);
+    }
 
     //get the Stolperstein's address
     public String getAddress(int stoneId) {
@@ -155,7 +158,6 @@ public class StolperpfadeRepository {
     //get the Stolperstein's longitude
 
 
-
     //HISTORICAL TERMS
     //insert historical term
     public void insertHisto(HistoricalTerm histoTerm) {
@@ -165,6 +167,7 @@ public class StolperpfadeRepository {
     private static class insertHistoAsyncTask extends AsyncTask<HistoricalTerm, Void, Void> {
 
         private StolperpfadeDao mAsyncTaskDao;
+
         insertHistoAsyncTask(StolperpfadeDao dao) {
             mAsyncTaskDao = dao;
         }
@@ -178,19 +181,18 @@ public class StolperpfadeRepository {
 
     //get a list of all historical terms
     public List<HistoricalTerm> getAllTerms() {
-        if(mAllTerms == null)
+        if (mAllTerms == null)
             return mAllTerms = mDao.getAllTerms();
         return mAllTerms;
     }
 
     //get historical term explanation
-    //THIS CODE WORKED
-    /*@SuppressLint("StaticFieldLeak")
-    public void getExplanation(String termName, HistoInfoPage parent) {
+    @SuppressLint("StaticFieldLeak")
+    public void getExplanation(String termName, HistoInfoActivity parent) {
         new StolperpfadeRepository.getExplantionAsyncTask(mDao) {
             @Override
             protected void onPostExecute(String explanation) {
-                parent.setExplanationText(explanation);
+                parent.setContentText(termName, explanation);
             }
         }.execute(new String[]{termName});
     }
@@ -198,6 +200,7 @@ public class StolperpfadeRepository {
     private static class getExplantionAsyncTask extends AsyncTask<String[], Void, String> {
 
         private StolperpfadeDao mAsyncTaskDao;
+
         getExplantionAsyncTask(StolperpfadeDao dao) {
             mAsyncTaskDao = dao;
         }
@@ -207,5 +210,5 @@ public class StolperpfadeRepository {
             String explanation = mAsyncTaskDao.getExplanation(termId[0][0]);
             return explanation;
         }
-    }*/
+    }
 }

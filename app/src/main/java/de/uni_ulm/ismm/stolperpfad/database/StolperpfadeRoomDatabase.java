@@ -172,33 +172,5 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
             }
         }
 
-
-            /*Person person = new Person(0,"Jakob", "Frenkel", null, null, 0);
-            mDao.insert(person);
-            person = new Person(1,"Ida", "Frenkel", null, null,0);
-            mDao.insert(person);
-            person = new Person(2,"Karl", "Rueff", null, null,1);
-            mDao.insert(person);
-
-            Stolperstein stolperstein = new Stolperstein(0,"Olgastraße 114", 48.402106, 9.994395);
-            mDao.insert(stolperstein);
-            stolperstein = new Stolperstein(1,"Frauenstraße 28", 48.399455, 9.996718);
-            mDao.insert(stolperstein);
-
-            HistoricalTerm histoTerm = new HistoricalTerm("Polenaktion", "@string/info_polenaktion");
-            mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm("Aktion T4/Euthanasie", "Aktion T4");
-            mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm("Pogromnacht", "Pogromnacht");
-            mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm("Kindertransport nach Großbritannien", "Kindertransport nach Großbritannien");
-            mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm("Zeugen Jehovas", "Zeugen Jehovas");
-            mDao.insert(histoTerm);
-            histoTerm = new HistoricalTerm("Fabrikation", "Fabrikation");
-            mDao.insert(histoTerm);*/
-            return null;
-        }
-
     }
 }

@@ -208,7 +208,8 @@ public class ScannerActivity extends StolperpfadeAppActivity {
                         protected Object doInBackground(Object[] objects) {
                             String result = scanImage();
 
-                            // TODO: try to find a pesron in this text and open their info page
+                            // TODO: try to find a person in this text and open their info page
+                            //for p in persons if string contains entire name
 
                             dialog.cancel();
                             AlertDialog.Builder builder =  new AlertDialog.Builder(ScannerActivity.this);

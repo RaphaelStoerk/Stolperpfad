@@ -65,11 +65,8 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 intent.putExtra("id", -1);
                 intent.putExtra("next", true);
                 break;
-            case R.id.menu_to_history_button:
-                intent = new Intent(myActivity, HistoListActivity.class);
-                break;
             case R.id.header_image:
-                if(myActivity instanceof MainMenuActivity) {
+                if (myActivity instanceof MainMenuActivity) {
                     return;
                 }
                 intent = new Intent(myActivity, MainMenuActivity.class);
@@ -134,27 +131,27 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 break;
             case R.id.menu_close_button:
             case R.id.menu_open_button:
-                if(myActivity instanceof RoutePlannerActivity) {
+                if (myActivity instanceof RoutePlannerActivity) {
                     ((RoutePlannerActivity) myActivity).toggleMenu();
                 }
                 break;
             case R.id.overview_to_project_info_button:
-                if(myActivity instanceof ProjectAndArtistOverviewActivity) {
+                if (myActivity instanceof ProjectAndArtistOverviewActivity) {
                     ((ProjectAndArtistOverviewActivity) myActivity).setInfoDisplay(0);
                 }
                 break;
             case R.id.overview_to_artist_info_button:
-                if(myActivity instanceof ProjectAndArtistOverviewActivity) {
+                if (myActivity instanceof ProjectAndArtistOverviewActivity) {
                     ((ProjectAndArtistOverviewActivity) myActivity).setInfoDisplay(1);
                 }
                 break;
             case R.id.impressum_to_rights_button:
-                if(myActivity instanceof ImpressumViewActivity) {
+                if (myActivity instanceof ImpressumViewActivity) {
                     ((ImpressumViewActivity) myActivity).setInfoDisplay(0);
                 }
                 break;
             case R.id.impressum_to_contact_button:
-                if(myActivity instanceof ImpressumViewActivity) {
+                if (myActivity instanceof ImpressumViewActivity) {
                     ((ImpressumViewActivity) myActivity).setInfoDisplay(1);
                 }
                 break;
@@ -162,7 +159,7 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 myActivity.onBackPressed();
                 break;
         }
-        if(intent != null) {
+        if (intent != null) {
             myActivity.startActivity(intent, transitionOptions);
         }
     }

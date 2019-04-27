@@ -21,6 +21,7 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
         if(StolperpfadeApplication.getInstance().isFirstCall()) {
             StolperpfadeApplication.getInstance().setFirstCall(false);
             StolperpfadeApplication.getInstance().setupFileTree();
+            StolperpfadeApplication.getInstance().setUpDb();
             MapQuest.start(getApplicationContext());
             try {
                 Thread.sleep(1000);
@@ -38,6 +39,5 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
         aq.id(R.id.menu_to_scan_button).visible().clicked(myClickListener);
         aq.id(R.id.menu_to_route_button).visible().clicked(myClickListener);
         aq.id(R.id.menu_to_next_stone_button).visible().clicked(myClickListener);
-        aq.id(R.id.menu_to_history_button).visible().clicked(myClickListener);
     }
 }

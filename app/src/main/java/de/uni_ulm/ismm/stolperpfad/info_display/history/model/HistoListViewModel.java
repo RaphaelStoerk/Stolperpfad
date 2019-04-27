@@ -280,4 +280,10 @@ public class HistoListViewModel extends AndroidViewModel {
             return initials.size();
         }
     }
+
+    // method to get explanation for histo_info_view
+    public void requestExplanation(String current, HistoInfoActivity activity) {
+        repo.getExplanation(current, activity);
+    }
+
 }

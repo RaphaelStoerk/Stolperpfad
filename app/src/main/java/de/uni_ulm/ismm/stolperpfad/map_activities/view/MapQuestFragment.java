@@ -1,16 +1,12 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.view;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
 import de.uni_ulm.ismm.stolperpfad.general.MyMapActionsListener;
-import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
 import de.uni_ulm.ismm.stolperpfad.map_activities.StolperpfadAppMapActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.control.NextStoneActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.MyRoad;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
@@ -20,7 +16,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -28,7 +23,6 @@ import android.os.Bundle;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,6 +89,9 @@ public class MapQuestFragment extends Fragment {
 
     private Marker user_position_marker;
 
+    private MyRoad current_path;
+    private Polyline current_path_polyline;
+
     private Polyline store_current_drawn_path;
     private MyLocationPresenter locationPresenter;
     protected LocationEngine locationEngine;
@@ -104,6 +101,7 @@ public class MapQuestFragment extends Fragment {
     private IconFactory icon_factory;
     private Icon icon_start_end_low, icon_user_low, icon_stone_low, icon_default_low;
     private AlertDialog info_dialog;
+    private int next_id;
 
     public MapQuestFragment() {
         // Required empty public constructor
@@ -115,9 +113,10 @@ public class MapQuestFragment extends Fragment {
      * this fragment using the provided parameters.
      * @return A new instance of fragment MapQuestFragment.
      */
-    public static MapQuestFragment newInstance(boolean next, AQuery aq) {
+    public static MapQuestFragment newInstance(int id, boolean next, AQuery aq) {
         MapQuestFragment fragment = new MapQuestFragment();
         fragment.NEXT = next;
+        fragment.next_id = id;
         fragment.aq = aq;
         return fragment;
     }
@@ -242,7 +241,11 @@ public class MapQuestFragment extends Fragment {
             m.setIcon(icon_stone_low);
         }
         if (NEXT) {
-            nearest_stone_marker = stone_handler.getNearestTo(user_position_marker);
+            if(next_id == -1) {
+                nearest_stone_marker = stone_handler.getNearestTo(user_position_marker);
+            } else {
+                nearest_stone_marker = stone_handler.getMarkerFromId(next_id);
+            }
             if (nearest_stone_marker == null) {
                 nearest_stone_marker = ulm_center_marker;
                 nearest_stone_marker.setTitle("TODO!!");
@@ -268,7 +271,7 @@ public class MapQuestFragment extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public void createRoute(String start_choice, String end_choice, String time_in_minutes) {
 
-        alertUser("Pfad wird berechnet...");
+       // alertUser("Pfad wird berechnet...");
 
         // TODO: create a good route through ulm
         Marker start_route_from;
@@ -286,14 +289,14 @@ public class MapQuestFragment extends Fragment {
                 break;
             case RoutePlannerActivity.START_CHOICE_GPS:
                 if(user_position_marker == null) {
-                    errorDialog("Keinen Standort gefunden");
+                    //errorDialog("Keinen Standort gefunden");
                     return;
                 }
                 start_route_from = user_position_marker;
                 break;
             case RoutePlannerActivity.START_CHOICE_MAP:
                 if(chosen_marker_start == null) {
-                    errorDialog("Keinen Start-Marker gesetzt");
+                    //errorDialog("Keinen Start-Marker gesetzt");
                     return;
                 }
                 start_route_from = chosen_marker_start;
@@ -309,7 +312,7 @@ public class MapQuestFragment extends Fragment {
                 break;
             case RoutePlannerActivity.END_CHOICE_MAP:
                 if(chosen_marker_end == null) {
-                    errorDialog("Keinen Start-Marker gesetzt");
+                    //errorDialog("Keinen Start-Marker gesetzt");
                     return;
                 }
                 end_route_at = chosen_marker_end;
@@ -317,47 +320,34 @@ public class MapQuestFragment extends Fragment {
             case RoutePlannerActivity.END_CHOICE_STN:
                 break;
         }
-
-        ArrayList<Marker> route_points = new ArrayList<>();
-
-        if(!addStonesToRoute(route_points, start_route_from, end_route_at, time * 60)) {
+        MyRoad road = addStonesToRoute(start_route_from, end_route_at, time * 60);
+        if(!road.isValid()) {
             errorDialog("Kein Erfolg", "Mit den gegebenen Einstellungen konnte kein Pfad erstellt werden");
+            return;
         }
+        current_path = road;
 
         new CreateRouteTask() {
             @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
             @Override
-            public void onPostExecute(MyRoad road) {
-                if (road == null) {
+            public void onPostExecute(Void voids) {
+                if (current_path == null || !current_path.isValid()) {
                     return;
                 }
-                ArrayList<GeoPoint> coords = road.mRouteHigh;
-                List<LatLng> coordinates = new ArrayList<>();
-
-                PolylineOptions polyline = new PolylineOptions();
-
-                for (GeoPoint g : coords) {
-                    coordinates.add(new LatLng(g.getLatitude(), g.getLongitude()));
+                if(current_path_polyline != null) {
+                    mMapboxMap.removePolyline(current_path_polyline);
                 }
-                polyline.addAll(coordinates);
-                polyline.width(3);
-                if (time > 0 && time * 60 > road.mDuration) {
-                    polyline.color(Color.argb(150, 70, 255, 50));
-                } else {
-                    polyline.color(Color.argb(150, 255, 50, 50));
-                }
-                mMapboxMap.addPolyline(polyline);
-                moveCameraTo(coordinates.get(0), 15, 45);
+                current_path_polyline = current_path.addPathToMap(mMapboxMap);
+                moveCameraTo(road.getStartPosition(), 15, 45);
                 aq.id(R.id.start_guide_button).visible();
-                dismissAlert();
-                // enterFollowMode();
+                // dismissAlert();
             }
-        }.execute(route_points.toArray(new Marker[]{}));
+        }.execute();
     }
 
     private void alertUser(String s) {
         if(info_dialog != null) {
-            dismissAlert();
+            // dismissAlert();
             return;
         }
         AlertDialog.Builder builder;
@@ -401,17 +391,11 @@ public class MapQuestFragment extends Fragment {
         dialog.show();
     }
 
-    private boolean addStonesToRoute(ArrayList<Marker> route_points, Marker start_route_from, Marker end_route_at, int time_in_seconds) {
-        route_points.add(start_route_from);
-
-        ArrayList<Marker> markers = stone_handler.getMarkers();
-
+    private MyRoad addStonesToRoute(Marker start_route_from, Marker end_route_at, int time_in_seconds) {
         if(time_in_seconds < 60) {
             time_in_seconds = 60 * (getRandomtPathTime());
         }
-
-        // TODO: create a Path Object to store in a json file
-        return stone_handler.createPathWith(route_points, start_route_from, end_route_at, time_in_seconds);
+        return stone_handler.createPathWith(start_route_from, end_route_at, time_in_seconds);
     }
 
     private int getRandomtPathTime() {
@@ -432,30 +416,26 @@ public class MapQuestFragment extends Fragment {
             return;
         }
 
+        MyRoad direct_path = MyRoad.newDirectPathInstance(user_position_marker, nearest_stone_marker);
+        if(direct_path.isValid()) {
+            current_path = direct_path;
+        }
         new CreateRouteTask() {
             @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
             @Override
-            public void onPostExecute(MyRoad road) {
-                if (road == null) {
+            public void onPostExecute(Void voids) {
+                if (current_path == null || !current_path.isValid()) {
                     return;
                 }
-                ArrayList<GeoPoint> coords = road.mRouteHigh;
-                List<LatLng> coordinates = new ArrayList<>();
-
-                PolylineOptions polyline = new PolylineOptions();
-
-                for (GeoPoint g : coords) {
-                    coordinates.add(new LatLng(g.getLatitude(), g.getLongitude()));
+                if(current_path_polyline != null) {
+                    mMapboxMap.removePolyline(current_path_polyline);
                 }
-                polyline.addAll(coordinates);
-                polyline.width(3);
-                polyline.color(Color.argb(150, 250, 190, 50));
-                mMapboxMap.addPolyline(polyline);
-
-                moveCameraTo(user_position_marker.getPosition(), 15, 45);
-                enterFollowMode();
+                current_path_polyline = current_path.addPathToMap(mMapboxMap);
+                moveCameraTo(current_path.getStartPosition(), 15, 45);
+                aq.id(R.id.start_guide_button).visible();
+                dismissAlert();
             }
-        }.execute(new Marker[]{user_position_marker, nearest_stone_marker});
+        }.execute();
     }
 
     public void moveCameraTo(LatLng newPosition, float zoom, float tilt) {
@@ -611,11 +591,35 @@ public class MapQuestFragment extends Fragment {
         StolperpfadAppMapActivity a = (StolperpfadAppMapActivity) getActivity();
         if(a instanceof RoutePlannerActivity) {
             ((RoutePlannerActivity) a).activatePathPlanner(bool);
-        } else if(a instanceof NextStoneActivity) {
-
         } else {
 
         }
+    }
+
+    public void saveRoute(String current_file_name) {
+        if(current_path != null && current_path.isValid()) {
+            current_path.saveRoad(current_file_name);
+        }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void loadRoute(MyRoad road) {
+        current_path = road;
+        current_path.inflateFromBasic(stone_handler, mMapboxMap, icon_start_end_low);
+        new CreateRouteTask() {
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                if (current_path == null || !current_path.isValid()) {
+                    return;
+                }
+                if(current_path_polyline != null) {
+                    mMapboxMap.removePolyline(current_path_polyline);
+                }
+                current_path_polyline = current_path.addPathToMap(mMapboxMap);
+                moveCameraTo(current_path.getStartPosition(), 15, 45);
+                aq.id(R.id.start_guide_button).visible();
+            }
+        }.execute();
     }
 
     /**
@@ -623,35 +627,19 @@ public class MapQuestFragment extends Fragment {
      * for a collection of - at least - two stones
      * A MapQuest Key is needed for the call to be succesful
      */
-    private class CreateRouteTask extends AsyncTask<Marker[], Void, MyRoad> {
+    private class CreateRouteTask extends AsyncTask<Void, Void, Void> {
 
         @Override
-        protected MyRoad doInBackground(Marker[]... markers) {
+        protected Void doInBackground(Void... voids) {
 
-            if(markers == null || markers.length < 1 || markers[0].length < 2) {
+            if(current_path == null || !current_path.isValid()) {
                 return null;
             }
-
             RoadManager roadManager = new MapQuestRoadManager(getResources().getString(R.string.mapquest_api_key));
-
             roadManager.addRequestOption("routeType=pedestrian");
-
-            ArrayList<GeoPoint> waypoints = new ArrayList<>();
-
-            LatLng marker_position;
-            for(Marker m : markers[0]) {
-                Log.i("MY_ROUTE_TAG", "This is a new marker in the array: " + m);
-                if(m == null) {
-                    return null;
-                }
-                marker_position = m.getPosition();
-                waypoints.add(new GeoPoint(marker_position.getLatitude(), marker_position.getLongitude()));
-            }
-
-            MyRoad road = MyRoad.from(roadManager.getRoad(waypoints));
-            // TODO: sometimes here is a INDEX OUt Of BOUNDS EXCEPTION Because no road, check to fix
-
-            return road;
+            Road path = roadManager.getRoad(current_path.getWaypoints());
+            current_path.addRoadInformation(path);
+            return null;
         }
     }
 

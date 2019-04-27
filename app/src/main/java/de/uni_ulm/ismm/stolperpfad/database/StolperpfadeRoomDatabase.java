@@ -142,8 +142,8 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
             ArrayList<JSONObject> histoTerms = DataFromJSON.loadAllJSONFromDirectory(mContext,"history_data");
             String histoName;
             String histoExplanation;
-
-            for (JSONObject json : persons) {
+/*
+            for (JSONObject json : histoTerms) {
                 try {
                     histoName = json.getString("name");
                     histoExplanation = json.getString("explanation");
@@ -154,7 +154,7 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     e.printStackTrace();
                 }
             }
-
+*/
 
 
             /*Person person = new Person(0,"Jakob", "Frenkel", null, null, 0);

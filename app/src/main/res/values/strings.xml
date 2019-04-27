@@ -161,5 +161,7 @@
     <string name="show_map_button_text">Auf Karte anzeigen</string>
     <string name="buff_string_address">addresse</string>
     <string name="title_map_content">Der Stolperstein befindet sich bei</string>
+    <string name="title_dialog_save_load">Pfad speichern/laden</string>
+    <string name="hint_paths">Pfad suchen oder speichern</string>
 
 </resources>

@@ -140,7 +140,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/D:/Programme/Android/Android_Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_lens_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/D:/Programme/Android/Android_Studio/plugins/android/lib/android.jar!/images/material_design_icons/navigation/ic_close_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -150,7 +150,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_round_back" />
+                            <entry key="outputName" value="ic_close" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="D:\rapha\Stolperpfad\ISMM Stolperpfad\Design\AI\SVGs\MinisteinchenOrange.svg" />
                           </map>

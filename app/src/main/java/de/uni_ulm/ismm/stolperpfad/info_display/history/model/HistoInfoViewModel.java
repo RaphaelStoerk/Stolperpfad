@@ -3,9 +3,11 @@ package de.uni_ulm.ismm.stolperpfad.info_display.history.model;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -86,6 +88,8 @@ public class HistoInfoViewModel extends AndroidViewModel {
             SpannableString newContent = StringCreator.makeSpanWith(termExplanation, activity, allHighlightTerms);
             textView = activity.findViewById(R.id.histo_info_explanation);
             textView.setText(newContent);
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
+            textView.setHighlightColor(Color.TRANSPARENT);
         }
 
         //set concerned persons
@@ -95,6 +99,8 @@ public class HistoInfoViewModel extends AndroidViewModel {
             SpannableString newContent = StringCreator.makeSpanWith(concernedPersonsString, activity, allHighlightTerms);
             textView = activity.findViewById(R.id.histo_info_concerned_persons);
             textView.setText(newContent);
+            textView.setMovementMethod(LinkMovementMethod.getInstance());
+            textView.setHighlightColor(Color.TRANSPARENT);
         }
 
     }

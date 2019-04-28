@@ -358,16 +358,16 @@ public class StoneInfoViewModel extends AndroidViewModel {
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
                     loaded = true;
-                    showVitaContentHelper(root, persons.get(person).getPersId(), point);
+                    showVitaContentHelper(root, persons.get(person).getPersId(), point, persons.get(person).getEntireName());
                 }
             }.execute();
         } else {
-            showVitaContentHelper(root, persons.get(person).getPersId(), point);
+            showVitaContentHelper(root, persons.get(person).getPersId(), point, persons.get(person).getEntireName());
         }
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void showVitaContentHelper(ViewGroup root, int persId, int point) {
+    private void showVitaContentHelper(ViewGroup root, int persId, int point, String currentPersName) {
         new LoadVitaTask(this) {
             @Override
             protected void onPostExecute(List<Person.Vita> vitas) {
@@ -389,16 +389,21 @@ public class StoneInfoViewModel extends AndroidViewModel {
                 //list with all terms to highlight
                 ArrayList<String> allHighlightTerms = new ArrayList<>();
                 for (String person : personNames) {
-                    allHighlightTerms.add(person);
+                    if (person.equals(currentPersName)) {
+
+                    } else {
+                        allHighlightTerms.add(person);
+                    }
                 }
                 for (String term : histoTermNames) {
                     allHighlightTerms.add(term);
                 }
                 //call method which identify in a text the terms to highlight
                 SpannableString newContent = StringCreator.makeSpanWith(text, parent, allHighlightTerms);
-                if(title != null && title.length()>0){
-                aq.id(R.id.title_bio_point).text(title);}
-                if(text != null && text.length()>0){
+                if (title != null && title.length() > 0) {
+                    aq.id(R.id.title_bio_point).text(title);
+                }
+                if (text != null && text.length() > 0) {
                     aq.id(R.id.text_bio_point).text(newContent);
                 }
             }

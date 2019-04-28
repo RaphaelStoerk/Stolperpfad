@@ -86,14 +86,6 @@
             android:label="@string/title_stone_list"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Light" />
-        <activity
-            android:name=".database.list_of_persons.PersonsActivity"
-            android:label="@string/title_activity_db" />
-        <activity
-            android:name=".filter_search.FilterSearchActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_filter_search"
-            android:theme="@style/AppTheme.Light" />
         <activity android:name=".map_activities.StolperpfadAppMapActivity" />
 
         <meta-data

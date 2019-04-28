@@ -17,12 +17,7 @@
     <string name="route_button">Pfadplaner</string>
     <string name="info_button">Stolpersteine</string>
     <string name="history_button">Geschichtliches</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-    <string name="project_info_button_text">Projekt und Künstler</string>
     <string name="project_and_artist_button_text">Projekt und Künstler</string>
-    <string name="overview_to_project_info_button">Mehr Informationen zum Projekt</string>
-    <string name="overview_to_artist_info_button">Mehr Informationen zum Künstler</string>
 
     <!-- texts for map activities -->
     <string name="start_loc_title">Wo möchten sie den nächsten Stolperpfad beginnen?</string>
@@ -31,7 +26,6 @@
 
     <!-- activity titles -->
     <string name="title_activity_scrolling_info">ScrollingInfoActivity</string>
-    <string name="title_activity_db">DbActivity</string>
     <string name="title_activity_scanner">Stein-Scanner</string>
     <string name="title_activity_route">Map</string>
     <string name="title_activity_route_planner">Pfadplaner</string>
@@ -44,7 +38,7 @@
     <string name="title_activity_artist_info">Der Künstler</string>
     <string name="title_activity_project_info">Das Projekt</string>
     <string name="title_activity_project_and_artist_overview">Projekt und Künstler</string>
-    <string name="title_biography_example">Biografie</string>
+    <string name="title_biography_example">Biographie</string>
 
     <!-- placehodler texts -->
     <string name="username">Username</string>
@@ -56,8 +50,24 @@
         viewed and handled as an activity that would be kept in the final product.
         Please remember to implement a specific activity for the place where this string
         appears. Have a nice day.</string>
-    <string name="impressum_text">Hier steht nacher das ganze Impressum drin, bitte noch nachtragen und formatieren!</string>
-    <string name="privacy_text">Hier steht nacher alles zum Thema Datenschutz drin, bitte noch nachtragen und formatieren!</string>
+    <string name="impressum_text">Institut für Medieninformatik\n James-Franck Ring\n 89081 Ulm\n Vertreten durch:\n Prof. Dr. Enrico Rukzio\n
+        Kontakt:
+        Telefon: +49 731/50 313 01
+        Fax: +49 731/50 313 02
+
+
+        Projektverantwortlich:
+        M.A. Jens Kramer
+
+        Kontakt:
+        E-Mail: jens.kramer@uni-ulm.de
+        Telefon: +49(0)731/50-31325
+
+        Team:
+        Ulrike Kulzer (ulrike.kulzer@uni-ulm.de)
+        Raphael Störk (raphael.stoerk@uni-ulm.de)
+        Markus Lederer (markus.lederer@uni-ulm.de)</string>
+    <string name="privacy_text">Die Nutzung unserer Anwendung ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name oder E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben.\n Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.\n Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten durch Dritte zur Übersendung von nicht angeforderter Werbung und Informationsmaterialien wird hiermit ausdrücklich widersprochen. Die Betreiber dieser Anwendung behalten sich vor, im Falle der unverlangten Zusendung von Werbeinformationen oder Spam-Mails rechtliche Schritte einzuleiten.</string>
 
     <string name="info_text">
         "Nur ein Beispiel für einen Informationstext."

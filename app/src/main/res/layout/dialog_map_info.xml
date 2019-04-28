@@ -4,8 +4,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/linearLayout3"
+    android:background="?attr/colorAppSecondary"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme.Dark">
 
     <TextView
         android:id="@+id/textView9"
@@ -28,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView9"
-        app:srcCompat="@drawable/ic_close"
+        android:src="@drawable/ic_close"
         android:tint="?attr/colorAppPrimaryContrast"
         android:background="#0000"/>
 
@@ -52,7 +54,8 @@
         app:layout_constraintDimensionRatio="5:6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_top">
+        app:layout_constraintTop_toBottomOf="@+id/line_top"
+        android:scrollbarThumbVertical="?attr/colorAppPrimaryContrast">
 
         <LinearLayout
             android:layout_width="match_parent"

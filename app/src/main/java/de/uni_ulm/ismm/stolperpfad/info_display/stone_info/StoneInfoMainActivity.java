@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.widget.Button;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneInfoPersonFragment;
@@ -38,9 +40,15 @@ public class StoneInfoMainActivity extends StolperpfadeAppActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initializeGeneralControls(R.layout.activity_stone_info_main);
-        aq.id(R.id.left_button).clicked(view -> left_click());
-        aq.id(R.id.right_button).clicked(view -> right_click());
-
+        Button left = (Button) aq.id(R.id.left_button).clicked(view -> left_click()).getView();
+        Button right = (Button) aq.id(R.id.right_button).clicked(view -> right_click()).getView();
+        if(StolperpfadeApplication.getInstance().isDarkMode()) {
+            left.setBackgroundResource(R.drawable.ic_left_dark);
+            right.setBackgroundResource(R.drawable.ic_right_dark);
+        } else {
+            left.setBackgroundResource(R.drawable.ic_arrow_left);
+            right.setBackgroundResource(R.drawable.ic_arrow_right);
+        }
         // Instantiate a ViewPager and a PagerAdapter.
         infoPager = (NoSwipeViewPager) findViewById(R.id.stone_pager);
         infoPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {

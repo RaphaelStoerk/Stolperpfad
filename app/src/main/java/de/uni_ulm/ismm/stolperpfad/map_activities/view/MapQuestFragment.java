@@ -220,7 +220,6 @@ public class MapQuestFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-
     @Override
     public void onResume() {
         super.onResume();

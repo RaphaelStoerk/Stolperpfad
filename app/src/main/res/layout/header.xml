@@ -48,7 +48,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:background="#0000"
-                app:srcCompat="@drawable/ic_burgermenu"
+                app:srcCompat="@drawable/ic_burgermenu_vert"
                 android:tint="?attr/colorAppPrimaryContrast"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"

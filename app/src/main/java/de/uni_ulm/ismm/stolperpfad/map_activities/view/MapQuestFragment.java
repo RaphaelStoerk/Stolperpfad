@@ -9,6 +9,7 @@ import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
 import de.uni_ulm.ismm.stolperpfad.map_activities.StolperpfadAppMapActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.MyRoad;
+import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
 
 import android.Manifest;
@@ -346,6 +347,7 @@ public class MapQuestFragment extends Fragment {
                     mMapboxMap.removePolyline(current_path_polyline);
                 }
                 current_path_polyline = current_path.addPathToMap(mMapboxMap);
+                ((RoutePlannerActivity)getActivity()).activatePathPlanner(true);
                 moveCameraTo(road.getStartPosition(), 15, 45);
                 aq.id(R.id.start_guide_button).visible();
                 // dismissAlert();
@@ -441,6 +443,7 @@ public class MapQuestFragment extends Fragment {
                     mMapboxMap.removePolyline(current_path_polyline);
                 }
                 current_path_polyline = current_path.addPathToMap(mMapboxMap);
+                ((RoutePlannerActivity)getActivity()).activatePathPlanner(true);
                 moveCameraTo(current_path.getStartPosition(), 15, 45);
                 aq.id(R.id.start_guide_button).visible();
                 dismissAlert();
@@ -631,8 +634,37 @@ public class MapQuestFragment extends Fragment {
                     mMapboxMap.removePolyline(current_path_polyline);
                 }
                 current_path_polyline = current_path.addPathToMap(mMapboxMap);
+                ((RoutePlannerActivity)getActivity()).activatePathPlanner(true);
                 moveCameraTo(current_path.getStartPosition(), 15, 45);
                 aq.id(R.id.start_guide_button).visible();
+            }
+        }.execute();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void createRouteTo(Stone stone) {
+        if(user_position_marker == null){
+            return;
+        }
+        MyRoad direct_path = MyRoad.newDirectPathInstance(user_position_marker, stone.getMarker(mMapboxMap));
+        if(direct_path.isValid()) {
+            current_path = direct_path;
+        }
+        new CreateRouteTask() {
+            @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
+            @Override
+            public void onPostExecute(Void voids) {
+                if (current_path == null || !current_path.isValid()) {
+                    return;
+                }
+                if(current_path_polyline != null) {
+                    mMapboxMap.removePolyline(current_path_polyline);
+                }
+                current_path_polyline = current_path.addPathToMap(mMapboxMap);
+                ((RoutePlannerActivity)getActivity()).activatePathPlanner(true);
+                moveCameraTo(current_path.getStartPosition(), 15, 45);
+                aq.id(R.id.start_guide_button).visible();
+                dismissAlert();
             }
         }.execute();
     }

@@ -106,6 +106,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         aq.id(R.id.info_map_options_button).visible().clicked(myClickListener);
         aq.id(R.id.start_guide_button).visible().clicked(myClickListener);
         aq.id(R.id.menu_open_button).visible().clicked(myClickListener).getView();
+        aq.id(R.id.route_option_button).visible().clicked(myClickListener).getView();
         menu_up = false;
         Log.i("MY_DEBUG_TAG","setup done");
     }
@@ -396,8 +397,6 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     }
 
     public void activatePathPlanner(boolean b1) {
-        AppCompatImageButton b = (AppCompatImageButton) aq.id(R.id.route_option_button).visible().clicked(myClickListener).getView();
-        // b.setBackgroundResource(R.drawable.ic_bio_point_on);
-        Log.i("MY_ROUTE_TAG", "ACTIVATED: " + b1);
+        aq.id(R.id.start_guide_button).getView().getBackground().setTint(getResources().getColor(R.color.colorAccentLightMode, null));
     }
 }

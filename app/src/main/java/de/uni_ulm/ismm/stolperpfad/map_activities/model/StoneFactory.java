@@ -317,7 +317,6 @@ public class StoneFactory {
                             protected void onPostExecute(Boolean aBoolean) {
                                 super.onPostExecute(aBoolean);
                                 neighbours_ready = aBoolean;
-                                map.activatePathPlanner(aBoolean);
                                 Log.i("MY_DEBUG_TAG","onpost load content");
                             }
                         }.execute();

@@ -36,51 +36,9 @@ public class MyMapActionsListener implements MapboxMap.OnInfoWindowClickListener
      */
     @Override
     public boolean onInfoWindowClick(@NonNull Marker marker) {
-        if (myMapFragment.isNearestMarkerToUser(marker)) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext());
 
-            builder.setTitle("Zu diesem Stein führen lassen?");
+        // TODO: show stone info dialog
 
-            builder.setPositiveButton("Ja", (dialogInterface, i) -> {
-
-                Context ctx = myMapFragment.getActivity().getApplicationContext();
-
-                if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED &&
-                        ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION)
-                                != PackageManager.PERMISSION_GRANTED) {
-                    dialogInterface.cancel();
-                }
-                myMapFragment.createRouteToNext();
-                dialogInterface.cancel();
-            });
-            builder.setNegativeButton("Nein", (dialogInterface, i) -> {
-                dialogInterface.cancel();
-                AlertDialog.Builder builder2 = new AlertDialog.Builder(myMapFragment.getContext());
-
-                builder2.setTitle("Informationen zu diesem Stein anzeigen?");
-
-                builder2.setPositiveButton("Ja", (dialogInterface1, i1) -> {
-                    myMapFragment.getMapboxMap().deselectMarker(marker);
-                    dialogInterface1.cancel();
-                    Intent intent = new Intent(myMapFragment.getActivity(), StoneListActivity.class);
-                    intent.setAction(myMapFragment.getStoneHandler().getStoneFromMarker(marker).toString());
-                    myMapFragment.startActivity(intent);
-                });
-                builder2.setNegativeButton("Nein", (dialogInterface1, i1) -> {
-                    dialogInterface1.cancel();
-                });
-
-                // Create the AlertDialog
-                AlertDialog dialog = builder2.create();
-                dialog.show();
-            });
-
-            // Create the AlertDialog
-            AlertDialog dialog = builder.create();
-            dialog.show();
-            return true;
-        }
         Stone check = myMapFragment.getStoneHandler().getStoneFromMarker(marker);
         if (check == null) {
             if (myMapFragment.isStartMarker(marker)) {
@@ -113,9 +71,9 @@ public class MyMapActionsListener implements MapboxMap.OnInfoWindowClickListener
             }
             return false;
         }
-        Intent intent = new Intent(myMapFragment.getActivity(), StoneListActivity.class);
-        intent.setAction(check.toString());
-        myMapFragment.startActivity(intent);
+
+        check.showDialog(myMapFragment);
+
         return true;
     }
 

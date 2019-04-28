@@ -150,5 +150,6 @@
     <string name="title_histo_list">Geschichtliches</string>
     <string name="title_dialog_save_load">Pfad speichern/laden</string>
     <string name="hint_paths">Pfad suchen oder speichern</string>
+    <string name="info_special_marker">Besondere Orte</string>
 
 </resources>

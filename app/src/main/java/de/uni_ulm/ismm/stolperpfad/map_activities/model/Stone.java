@@ -145,7 +145,7 @@ public class Stone {
         // Pass null as the parent view because its going in the dialog layout
         LinearLayout list_layout = myDialogView.findViewById(R.id.marker_list_container);
         for (Person person : persons) {
-            list_layout.addView(addButton(myMapFragment, person));
+            list_layout.addView(addButton(myMapFragment, person, persons.size() == 1));
         }
         TextView t = myDialogView.findViewById(R.id.title_marker);
         t.setText(stein.getAddress());
@@ -162,7 +162,7 @@ public class Stone {
     }
 
 
-    private Button addButton(MapQuestFragment fragment, Person person) {
+    private Button addButton(MapQuestFragment fragment, Person person, boolean only_one) {
         Button but = (Button) LayoutInflater.from(fragment.getContext()).inflate(R.layout.button_person_list, null);
         but.setOnClickListener(view -> {
             Intent intent = new Intent(fragment.getActivity(), StoneInfoMainActivity.class);
@@ -170,7 +170,12 @@ public class Stone {
             fragment.startActivity(intent);
         });
         but.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        String display_name = person.getFormattedListName();
+        String display_name;
+        if(only_one) {
+            display_name = "<b>" + person.getEntireName() + "</b>";
+        } else {
+            display_name = person.getFormattedListName();
+        }
         but.setText(Html.fromHtml(display_name));
         return but;
     }

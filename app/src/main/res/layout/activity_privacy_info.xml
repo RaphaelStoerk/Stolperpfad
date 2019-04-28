@@ -72,7 +72,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_two_privacy">
+        app:layout_constraintTop_toBottomOf="@+id/line_two_privacy"
+        android:scrollbarThumbVertical="?attr/colorAppPrimaryContrast">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"

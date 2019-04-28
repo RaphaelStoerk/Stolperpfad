@@ -5,21 +5,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/colorAppPrimary"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.Light">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/marker_list_container"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/route_marker"
-        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintDimensionRatio="7:4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_marker" />
+        app:layout_constraintTop_toBottomOf="@+id/title_marker"
+        android:scrollbarThumbVertical="?attr/colorAppPrimaryContrast">
+
+        <LinearLayout
+            android:id="@+id/marker_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/title_marker"

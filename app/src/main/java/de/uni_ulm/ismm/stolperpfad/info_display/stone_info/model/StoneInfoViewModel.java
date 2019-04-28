@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
 import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
@@ -251,7 +252,11 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
     public void updateVitaButtons(StoneInfoBioFragment fragment, int index) {
         for(Button b : fragment.getVitaButtons()) {
-            b.setBackgroundResource(R.drawable.ic_bio_point_off);
+            if(StolperpfadeApplication.getInstance().isDarkMode()){
+                b.setBackgroundResource(R.drawable.ic_bio_off_dark);
+            } else {
+                b.setBackgroundResource(R.drawable.ic_bio_point_off);
+            }
         }
         fragment.getVitaButtons().get(index).setBackgroundResource(R.drawable.ic_bio_point_on);
     }

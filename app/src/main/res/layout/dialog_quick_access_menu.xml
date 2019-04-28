@@ -18,7 +18,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/fira_sans_condensed_semibold"
-        android:text="Schnellzugriff"
+        android:text="@string/title_quick_access"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textColor="?attr/colorAppTextButtonContrast"
         android:textSize="24sp"
@@ -43,10 +43,10 @@
     <View
         android:id="@+id/line_zero_quick_access"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
+        android:layout_height="2dp"
         android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:background="?attr/colorAppPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_zero_quick_access">
+        app:layout_constraintTop_toBottomOf="@+id/line_zero_quick_access"
+        android:scrollbarThumbVertical="@color/colorPrimaryLightMode">
 
 
         <LinearLayout

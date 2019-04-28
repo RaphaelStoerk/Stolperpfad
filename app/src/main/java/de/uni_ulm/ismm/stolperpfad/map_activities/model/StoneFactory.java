@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
 import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
@@ -130,10 +131,15 @@ public class StoneFactory {
         if (stone_markers == null || stone_markers.size() == 0 || rel_stone == null) {
             return null;
         }
-        Marker best = stone_markers.get(0);
+        int[] avoid = StolperpfadeApplication.getInstance().getVisitedStones();
+        Marker best = null;
         double best_dist = -1;
         double curr_dist;
-        for (Marker m : stone_markers) {
+        for (Stone s : all_stones) {
+            if(avoid(s.getStoneId(), avoid)) {
+                continue;
+            }
+            Marker m = s.getMarker(mapboxMap);
             m.getPosition().distanceTo(rel_stone.getPosition());
             curr_dist = RoutingUtil.getDist(rel_stone, m);
             if (!m.equals(rel_stone) && (best_dist == -1 || curr_dist < best_dist)) {
@@ -142,6 +148,15 @@ public class StoneFactory {
             }
         }
         return best;
+    }
+
+    private boolean avoid(int id, int[] to_avoid) {
+        for(int i : to_avoid){
+            if(i == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public MyRoad createPathWith(Marker start_route_from, Marker end_route_at, int time_in_seconds) {

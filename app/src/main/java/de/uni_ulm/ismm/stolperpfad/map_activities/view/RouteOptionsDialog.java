@@ -108,7 +108,7 @@ public class RouteOptionsDialog extends DialogFragment {
     private void updateIndex(int pos) {
         for(ImageButton ib : index) {
             if(StolperpfadeApplication.getInstance().isDarkMode()) {
-                ib.setImageResource(R.drawable.ic_bio_point_off_dark);
+                ib.setImageResource(R.drawable.ic_bio_off_dark);
             } else {
                 ib.setImageResource(R.drawable.ic_bio_point_off);
             }

@@ -15,7 +15,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,9 +25,6 @@ import android.widget.TextView;
 
 import com.androidquery.AQuery;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +43,8 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
     private List<Person> persons;
     private List<HistoricalTerm> histoTerms;
-    private List<String> histoTermsNames;
-    private List<String> personsNames;
+    private List<String> histoTermNames;
+    private List<String> personNames;
     private StolperpfadeRepository repo;
     private StoneInfoMainActivity parent;
     private static StoneInfoViewModel INSTANCE;
@@ -61,8 +57,8 @@ public class StoneInfoViewModel extends AndroidViewModel {
     public StoneInfoViewModel(@NonNull Application application, StoneInfoMainActivity activity) {
         super(application);
         this.parent = activity;
-        histoTermsNames = new ArrayList<>();
-        personsNames = new ArrayList<>();
+        histoTermNames = new ArrayList<>();
+        personNames = new ArrayList<>();
         repo = new StolperpfadeRepository(application);
     }
 
@@ -379,10 +375,10 @@ public class StoneInfoViewModel extends AndroidViewModel {
                 //highlight terms in text
                 //list with all terms to highlight
                 ArrayList<String> allHighlightTerms = new ArrayList<>();
-                for (String person : personsNames) {
+                for (String person : personNames) {
                     allHighlightTerms.add(person);
                 }
-                for (String term : histoTermsNames) {
+                for (String term : histoTermNames) {
                     allHighlightTerms.add(term);
                 }
                 //call method which identify in a text the terms to highlight
@@ -414,11 +410,11 @@ public class StoneInfoViewModel extends AndroidViewModel {
             model.histoTerms = model.repo.getAllTerms();
             for (HistoricalTerm term : model.histoTerms) {
                 String current = term.getName();
-                model.histoTermsNames.add(current);
+                model.histoTermNames.add(current);
             }
             for (Person pers : model.persons) {
                 String current = pers.getEntireName();
-                model.personsNames.add(current);
+                model.personNames.add(current);
             }
             return null;
         }

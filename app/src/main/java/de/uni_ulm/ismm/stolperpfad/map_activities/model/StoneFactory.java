@@ -35,6 +35,7 @@ public class StoneFactory {
     private MapboxMap mapboxMap;
     private boolean is_ready;
     private List<Person> persons;
+    private List<Stolperstein> stones;
     private boolean neighbours_ready;
     private StolperpfadeRepository repo;
 
@@ -316,7 +317,7 @@ public class StoneFactory {
                             protected void onPostExecute(Boolean aBoolean) {
                                 super.onPostExecute(aBoolean);
                                 neighbours_ready = aBoolean;
-                                map.activatePathPlanner(aBoolean);
+                                Log.i("MY_DEBUG_TAG","onpost load content");
                             }
                         }.execute();
                     }
@@ -328,16 +329,15 @@ public class StoneFactory {
         private class LoadContentTask extends AsyncTask<Void, Void, Void> {
             @Override
             protected Void doInBackground(Void... voids) {
+                Log.i("MY_DEBUG_TAG","loading repo");
+                stones = repo.getAllStones();
                 persons = repo.getAllPersons();
-                for (Person p : persons) {
-                    List<Stolperstein> temp = repo.getStone(p.getStolperstein());
-                    if (temp == null || temp.size() == 0) {
-                        return null;
-                    }
-                    Stolperstein stolperstein = temp.get(0);
-                    Stone s = new Stone(stolperstein, p.getFstName(), p.getFamName());
-                    all_stones.add(s);
+                for (Stolperstein s : stones) {
+                    List<Person> persons_on_stone = repo.getPersonsOnStone(s.getStoneId());
+                    Stone next = new Stone(s, persons_on_stone);
+                    all_stones.add(next);
                 }
+                Log.i("MY_DEBUG_TAG","loading repo done " + persons.size() + ", " + all_stones.size());
                 return null;
             }
         }

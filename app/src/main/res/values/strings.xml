@@ -13,7 +13,7 @@
 
     <!-- button texts -->
     <string name="next_stone_button">Nächster Stein</string>
-    <string name="scan_button">Stein Scanner</string>
+    <string name="scan_button">Stein-Scanner</string>
     <string name="route_button">Pfadplaner</string>
     <string name="info_button">Stolpersteine</string>
     <string name="history_button">Geschichtliches</string>
@@ -87,7 +87,7 @@
     <string name="app_name_big">STOLPERPFADE</string>
     <string name="todo">TODO</string>
     <string name="dark_mode_switch">Nacht Modus</string>
-    <string name="quick_acces_scanner_button">Stein Scanner</string>
+    <string name="quick_acces_scanner_button">Stein-Scanner</string>
     <string name="welcome_text_title">Willkommen!</string>
     <string name="welcome_text">
         Willkommen, hier ist ein Info-Text. Hier sind sie gerade auf der Startseite unserer App. Wir hoffen sie erweist sich als informativ und gut nutzbar</string>

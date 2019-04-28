@@ -63,23 +63,6 @@
         "Nur ein Beispiel für einen Informationstext."
     </string>
 
-    <string name="info_person">
-        "\nLudwig Hecht\n
-        Ludwig Hecht wurde am 14. Oktober 1866 in Bonnland geboren (der Ort musste 1937 von seinen Bewohnern aufgegeben werden,
-        weil dort der Truppenübungsplatz Hammelburg eingerichtet wurde). Er war der 3. Sohn von Pauline Hecht geb.
-        Obermaier und Moses Wolf Hecht. 1871 verzogen die Eltern nach Würzburg, wo sein Vater als Immobilienagent den Familienunterhalt verdiente.
-        Ludwig Hecht wurde, wie sein 1891 verstorbener Bruder Arzt. Nach seinem Studium übernahm er zunächst die Praxis seines erkrankten Bruders.
-        Er zog jedoch 1891 nach Ulm,um dort eine Stelle als Assistenzarzt anzutreten. Hier heiratete er am 7. Sept 1893 Rosa Thalmessinger.
-        Das Paar hatte 3 Kinder: Paul, Otto und Anneliese."
-        "Ludwig Hecht war offenbar sehr bald ein beliebter und gefragter Arzt. Er praktizierte ab 1893 als niedergelassener praktischer Arzt
-        und Geburtshelfer im Hafenbad , später in der Sattlergasse und ab 1910 in der Olgastr. 4, zuletzt ab 1932/33 bis 1938 in der Olgastr. 31
-        (heute Olgastr. 83-85). Er arbeitete seit 1906 auch als Armenarzt (Armenärzte waren von der Stadt beauftragte Ärzte, an die sich
-        mittellose Ulmer wenden konnten). Rudolph C. Hecht (ein Enkel) beschreibt in seinen Erinnerungen, dass sein Großvater mit der
-        Kutsche auch viele Hausbesuche auf dem Land machte und wenn notwendig nächtelang am Bett seiner Patienten blieb.
-        Bei mittellosen Patienten habe er, statt einer Rechnung, bisweilen Geld auf dem Küchentisch zurückgelassen."
-        "Am 19.4.1933 wurden per Verfügung des Staatskommissars für die Verwaltung der Stadt Ulm für die sozial Hilfebedürftigen
-        die freie Arztwahl eingeführt. Das bedeutete jedoch gleichzeitig, dass die jüdischen Ärzte von der Versorgung dieses Personenkreises ausgeschlossen waren."
-    </string>
     <string name="header_content_desc">Header of the app with a small logo and the title</string>
     <string name="text_artist_info">Hier stehen nacher genaue Informationen zum Künstler hinter dem Projekt Stolpersteine, auch eventuelle Bilder und Zitate können hier eingebaut werden</string>
     <string name="text_project_info">Hier steht später alles wichtige zum Projekt. Alle interessanten Hintergründe, Orte, etc und auch evtl noch Links und Bilder und Zitate könnten hier eingebuat werden</string>
@@ -96,6 +79,10 @@
     Suspendisse lacinia nulla vitae turpis molestie imperdiet. Phasellus consequat eros sit amet dignissim fermentum. Nulla non efficitur urna. Curabitur laoreet, mi in ultrices varius, felis nisi rhoncus augue, et blandit quam massa blandit neque. Morbi tincidunt ipsum nec est tincidunt, mattis tempus elit pulvinar. Curabitur ut elementum lectus. Etiam egestas tellus leo, ut malesuada felis vestibulum at. Vestibulum suscipit pellentesque sapien, nec pharetra elit varius eu. Suspendisse potenti. Etiam nec porta nisl. Etiam vel nunc augue. Vivamus sed lobortis urna. Maecenas tempor blandit nunc et scelerisque.
     \n
     Suspendisse hendrerit nibh sit amet sollicitudin vulputate. Cras malesuada feugiat augue, a auctor nulla pharetra ut. Cras bibendum laoreet commodo. Quisque sed dui suscipit velit consectetur consequat. Morbi sed convallis nisl. Donec eget urna tortor. Cras et dignissim sem.
+    </string>
+    <string name="lorem_ipsum_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit amet lobortis augue. Curabitur nec elementum quam. Fusce rhoncus lobortis mi, et dictum dolor interdum vitae.
+    \n
+    In pretium leo non diam eleifend sollicitudin. Mauris maximus, urna non ullamcorper molestie, turpis orci cursus augue, sed laoreet massa eros at eros.
     </string>
     <string name="app_name_big">STOLPERPFADE</string>
     <string name="todo">TODO</string>
@@ -160,7 +147,7 @@
     <string name="show_map_button_text">Auf Karte anzeigen</string>
     <string name="buff_string_address">addresse</string>
     <string name="title_map_content">Der Stolperstein befindet sich hier:</string>
-    <string name="title_histo_list">Geschichtliche Hintergründe</string>
+    <string name="title_histo_list">Geschichtliches</string>
     <string name="title_dialog_save_load">Pfad speichern/laden</string>
     <string name="hint_paths">Pfad suchen oder speichern</string>
 

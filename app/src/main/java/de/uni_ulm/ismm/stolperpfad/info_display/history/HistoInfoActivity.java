@@ -31,8 +31,12 @@ public class HistoInfoActivity extends StolperpfadeAppActivity {
     public void setPrimaryContentText(String name, String explanation){
         TextView textView = findViewById(R.id.title_histo_info);
         textView.setText(name);
-        textView = findViewById(R.id.histo_info_explanation);
-        textView.setText(explanation);
+        if(explanation == null || explanation.equals("")){
+
+        }else {
+            textView = findViewById(R.id.histo_info_explanation);
+            textView.setText(explanation);
+        }
     }
 
     //set concerned persons

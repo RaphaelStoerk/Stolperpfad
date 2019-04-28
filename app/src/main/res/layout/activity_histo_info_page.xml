@@ -42,9 +42,9 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/fira_sans_condensed_semibold"
-        android:textColor="?attr/colorAppTitle"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="?attr/colorAppTitle"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -95,33 +95,29 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fira_sans_condensed_semibold"
+                android:text="@string/lorem_ipsum_short"
                 android:textColor="?attr/colorAppTitle"
-                android:textAlignment="center"
                 android:textSize="18sp"
-                android:text="explanation"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/histo_info_concerned_persons"
-                />
+                app:layout_constraintBottom_toTopOf="@+id/histo_info_concerned_persons"/>
+
 
             <TextView
                 android:id="@+id/histo_info_concerned_persons"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fira_sans_condensed_semibold"
-                android:textColor="?attr/colorAppTitle"
-                android:textAlignment="center"
-                android:textSize="18sp"
                 android:text="concerned persons"
+                android:textColor="?attr/colorAppTitle"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/histo_info_explanation"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/histo_info_explanation" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
-
 
 
 </android.support.constraint.ConstraintLayout>

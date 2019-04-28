@@ -7,6 +7,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -122,12 +123,13 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     JSONArray biography = json.getJSONArray("bio");
                     String[] vitaSections = new String[vitaLength];
                     for (int i = 0; i < biography.length(); i++) {
-                        String section = biography.getString(i);
+                        String section = biography.getJSONObject(i).getString("content");
                         vitaSections[i] = section;
                     }
                     Person.Vita vita = new Person.Vita(id, vitaSections[0], vitaSections[1], vitaSections[2],
                             vitaSections[3], vitaSections[4], vitaSections[5], vitaSections[6],
                             vitaSections[7], vitaSections[8], vitaSections[9]);
+                    Log.i("LOG_MY_PERSON", firstname +" " + familyname + " " + vitaSections[0]);
 
                     mDao.insert(vita);
 

@@ -244,18 +244,18 @@ public class StoneInfoViewModel extends AndroidViewModel {
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
                     loaded = true;
-                    createVitaButtons(fragment, cfm, inflater, bio_pager, bio_layout, persons.get(index).getPersId());
+                    createVitaButtons(fragment, cfm, inflater, bio_pager, bio_layout, persons.get(index).getPersId(), index);
                 }
             }.execute();
         } else {
-            createVitaButtons(fragment, cfm, inflater, bio_pager, bio_layout, persons.get(index).getPersId());
+            createVitaButtons(fragment, cfm, inflater, bio_pager, bio_layout, persons.get(index).getPersId(), index);
         }
     }
 
 
     public void updateVitaButtons(StoneInfoBioFragment fragment, int index) {
-        for(Button b : fragment.getVitaButtons()) {
-            if(StolperpfadeApplication.getInstance().isDarkMode()){
+        for (Button b : fragment.getVitaButtons()) {
+            if (StolperpfadeApplication.getInstance().isDarkMode()) {
                 b.setBackgroundResource(R.drawable.ic_bio_off_dark);
             } else {
                 b.setBackgroundResource(R.drawable.ic_bio_point_off);
@@ -265,7 +265,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void createVitaButtons(StoneInfoBioFragment fragment, FragmentManager cfm, LayoutInflater inflater, ViewPager bio_pager, ConstraintLayout bio_layout, int index) {
+    private void createVitaButtons(StoneInfoBioFragment fragment, FragmentManager cfm, LayoutInflater inflater, ViewPager bio_pager, ConstraintLayout bio_layout, int index, int position) {
         new LoadVitaTask(this) {
             @Override
             protected void onPostExecute(List<Person.Vita> vitas) {
@@ -277,7 +277,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
                 if (points < 2) {
                     return;
                 }
-                PagerAdapter pagerAdapter = new VitaPagerAdapter(cfm, current_vita.getSize());
+                PagerAdapter pagerAdapter = new VitaPagerAdapter(cfm, current_vita.getSize(), position);
                 bio_pager.setAdapter(pagerAdapter);
                 ArrayList<Button> vita_buttons;
                 vita_buttons = new ArrayList<>();
@@ -358,16 +358,16 @@ public class StoneInfoViewModel extends AndroidViewModel {
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
                     loaded = true;
-                    showVitaContentHelper(root, persons.get(person).getPersId(), point);
+                    showVitaContentHelper(root, persons.get(person).getPersId(), point, persons.get(person).getEntireName());
                 }
             }.execute();
         } else {
-            showVitaContentHelper(root, persons.get(person).getPersId(), point);
+            showVitaContentHelper(root, persons.get(person).getPersId(), point, persons.get(person).getEntireName());
         }
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void showVitaContentHelper(ViewGroup root, int persId, int point) {
+    private void showVitaContentHelper(ViewGroup root, int persId, int point, String currentPersName) {
         new LoadVitaTask(this) {
             @Override
             protected void onPostExecute(List<Person.Vita> vitas) {
@@ -377,24 +377,35 @@ public class StoneInfoViewModel extends AndroidViewModel {
                 String content = vitas.get(0).getSection(point);
                 AQuery aq = new AQuery(root);
 
+                String[] contentTemp = content.split("#");
+                String title = "";
+                String text = "";
+                if (contentTemp != null && contentTemp.length > 1) {
+                    title = contentTemp[0];
+                    text = contentTemp[1];
+                }
+
                 //highlight terms in text
                 //list with all terms to highlight
                 ArrayList<String> allHighlightTerms = new ArrayList<>();
                 for (String person : personNames) {
-                    allHighlightTerms.add(person);
+                    if (person.equals(currentPersName)) {
+
+                    } else {
+                        allHighlightTerms.add(person);
+                    }
                 }
                 for (String term : histoTermNames) {
                     allHighlightTerms.add(term);
                 }
                 //call method which identify in a text the terms to highlight
-                SpannableString newContent = StringCreator.makeSpanWith(content, parent, allHighlightTerms);
-
-                /*aq.id(R.id.title_bio_point).text(content);
-                TextView desc_text = (TextView) aq.id(R.id.text_bio_point).getView();
-                desc_text.setText(StringCreator.makeTextFrom(content, (StolperpfadeAppActivity) getActivity()));
-                desc_text.setMovementMethod(LinkMovementMethod.getInstance());
-                */
-                aq.id(R.id.text_bio_point).text(newContent);
+                SpannableString newContent = StringCreator.makeSpanWith(text, parent, allHighlightTerms);
+                if (title != null && title.length() > 0) {
+                    aq.id(R.id.title_bio_point).text(title);
+                }
+                if (text != null && text.length() > 0) {
+                    aq.id(R.id.text_bio_point).text(newContent);
+                }
             }
         }.execute(persId);
     }
@@ -462,15 +473,18 @@ public class StoneInfoViewModel extends AndroidViewModel {
     public class VitaPagerAdapter extends FragmentStatePagerAdapter {
 
         private int vita_size;
+        private int index;
 
-        VitaPagerAdapter(FragmentManager fm, int size) {
+        VitaPagerAdapter(FragmentManager fm, int size, int index) {
             super(fm);
             vita_size = size;
+            this.index = index;
+
         }
 
         @Override
         public Fragment getItem(int position) {
-            return StoneInfoBioContentFragment.newInstance(StoneInfoViewModel.this, position, position);
+            return StoneInfoBioContentFragment.newInstance(StoneInfoViewModel.this, index, position);
         }
 
         @Override

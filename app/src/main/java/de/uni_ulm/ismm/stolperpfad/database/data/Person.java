@@ -92,8 +92,8 @@ public class Person {
     @Entity(tableName = "vitas")
     public static class Vita {
 
-        // id - section 1 - section 2 - section 3 - section 4 - section 5 - section 6 - section 7
-        // - section 8 - section 9 - section 10
+        // id - section 0 - section 1 - section 2 - section 3 - section 4 - section 5 - section 6 - section 7
+        // - section 8 - section 9
 
         @PrimaryKey
         @NonNull
@@ -195,7 +195,7 @@ public class Person {
 
         public int getSize() {
             int sum = 0;
-            String[] sections = {mSectionOne, mSectionTwo, mSectionThree, mSectionFour, mSectionFive, mSectionSix, mSectionSeven, mSectionEight, mSectionNine};
+            String[] sections = {mSectionZero, mSectionOne, mSectionTwo, mSectionThree, mSectionFour, mSectionFive, mSectionSix, mSectionSeven, mSectionEight, mSectionNine};
             for(String s : sections) {
                 if(s == null || s.length() == 0) {
                     return sum;
@@ -206,7 +206,7 @@ public class Person {
         }
 
         public String getSection(int point) {
-            String[] sections = {mSectionOne, mSectionTwo, mSectionThree, mSectionFour, mSectionFive, mSectionSix, mSectionSeven, mSectionEight, mSectionNine};
+            String[] sections = {mSectionZero, mSectionOne, mSectionTwo, mSectionThree, mSectionFour, mSectionFive, mSectionSix, mSectionSeven, mSectionEight, mSectionNine};
             if(point < getSize()) {
                 return sections[point];
             }

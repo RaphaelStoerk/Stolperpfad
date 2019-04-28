@@ -69,6 +69,7 @@ public class StoneInfoBioFragment extends StoneInfoContentFragment {
                 // TODO: Update left and right buttons if persons are before or after
             }
         });
+        vita_buttons = new ArrayList<>();
         model.buildPersonVita(this, getChildFragmentManager(), inflater, root, bio_pager, index);
         return root;
     }

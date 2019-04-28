@@ -25,26 +25,18 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(StolperpfadeApplication.getInstance().isFirstCall()) {
+        setContentView(R.layout.splash_screen);
+        findViewById(R.id.splash_background).setOnClickListener(view -> {});
+        if (StolperpfadeApplication.getInstance().isFirstCall()) {
             StolperpfadeApplication.getInstance().setFirstCall(false);
-            new LoadDataTask(this) {
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    if(!created)
-                        createMainMenu();
-                }
-            }.execute();
-            setContentView(R.layout.splash_screen);
-            findViewById(R.id.splash_background).setOnClickListener(view -> createMainMenu());
-        } else {
-            createMainMenu();
-            StolperpfadeApplication.getInstance().setUpDb();
+            StolperpfadeApplication.getInstance().setupFileTree();
+            //StolperpfadeApplication.getInstance().set();
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-    }
-
-    private void createMainMenu() {
-        created = true;
-        // Initialize this view and display the right screen
         initializeGeneralControls(R.layout.activity_main_menu);
 
         // add the listener to the buttons on screen and make them visible
@@ -52,28 +44,6 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
         aq.id(R.id.menu_to_scan_button).visible().clicked(myClickListener);
         aq.id(R.id.menu_to_route_button).visible().clicked(myClickListener);
         aq.id(R.id.menu_to_next_stone_button).visible().clicked(myClickListener);
+
     }
-
-    private static class LoadDataTask extends AsyncTask<Void,Void,Void> {
-
-        @SuppressLint("StaticFieldLeak")
-        private Activity a;
-
-        LoadDataTask(Activity a) {
-            this.a = a;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            StolperpfadeApplication.getInstance().setupFileTree();
-            StolperpfadeApplication.getInstance().setUpDatabase();
-            try {
-                Thread.sleep(7000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
 }

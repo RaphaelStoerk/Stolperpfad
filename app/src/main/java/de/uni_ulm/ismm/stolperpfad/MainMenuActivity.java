@@ -25,18 +25,6 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_screen);
-        findViewById(R.id.splash_background).setOnClickListener(view -> {});
-        if (StolperpfadeApplication.getInstance().isFirstCall()) {
-            StolperpfadeApplication.getInstance().setFirstCall(false);
-            StolperpfadeApplication.getInstance().setupFileTree();
-            //StolperpfadeApplication.getInstance().set();
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
         initializeGeneralControls(R.layout.activity_main_menu);
 
         // add the listener to the buttons on screen and make them visible

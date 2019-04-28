@@ -72,7 +72,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/stone_list_pager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_two_stone_list">
+        app:layout_constraintTop_toBottomOf="@+id/line_two_stone_list"
+        android:scrollbarThumbVertical="?attr/colorAppPrimaryContrast">
 
         <include layout="@layout/content_list_index" />
     </ScrollView>

@@ -2,9 +2,10 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme.Dark"
+    android:background="?attr/colorAppSecondary">
 
     <TextView
         android:id="@+id/title_save_dialog"
@@ -55,7 +56,8 @@
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_top_save">
+        app:layout_constraintTop_toBottomOf="@+id/line_top_save"
+        android:scrollbarThumbVertical="?attr/colorAppPrimaryContrast">
 
         <LinearLayout
             android:id="@+id/container_loaded_paths"
@@ -95,9 +97,10 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/fira_sans_condensed_semibold"
-        android:text="Speichern"
+        android:text="@string/button_save"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="18sp"
+        android:textColor="?attr/colorAppTextPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

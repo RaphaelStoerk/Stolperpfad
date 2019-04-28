@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -170,10 +171,12 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
 
     @SuppressLint("StaticFieldLeak")
     public void reactToLink(String s) {
+        Log.i("MY_LINK_TAG", s);
         // TODO: Handle on Link click
         new RedirectToInfoPageTask() {
             @Override
             protected void onPostExecute(Object object) {
+                Log.i("MY_LINK_TAG", "On Post " + object.toString());
                 if(object instanceof Person) {
                     int id = ((Person) object).getPersId();
                     Intent intent = new Intent(StolperpfadeAppActivity.this, StoneInfoMainActivity.class);
@@ -195,9 +198,12 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
         @Override
         protected Object doInBackground(String... strings) {
             if(strings == null || strings.length == 0) {
+                Log.i("MY_LINK_TAG", "Wrong one");
                 return null;
             }
+            Log.i("MY_LINK_TAG", "good");
             String tag = strings[0];
+            Log.i("MY_LINK_TAG", tag);
             StolperpfadeRepository repo = new StolperpfadeRepository(getApplication());
             List<Person> persons = repo.getAllPersons();
             List<HistoricalTerm> terms = repo.getAllTerms();
@@ -206,11 +212,15 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
                     return p;
                 }
             }
+            Log.i("MY_LINK_TAG", "no person found");
+
             for(HistoricalTerm h : terms) {
                 if(h.getName().equalsIgnoreCase(tag)) {
                     return h;
                 }
             }
+            Log.i("MY_LINK_TAG", "no term found");
+
             return null;
         }
     }

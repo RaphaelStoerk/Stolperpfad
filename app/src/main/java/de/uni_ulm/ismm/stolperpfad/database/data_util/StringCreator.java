@@ -5,6 +5,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -86,20 +87,22 @@ public class StringCreator {
     public static SpannableString makeSpanWith(String text, StolperpfadeAppActivity curr_activity, ArrayList<String> links) {
         SpannableString ret = new SpannableString(text);
         for(String s : links) {
-            ClickableSpan clickableSpan = new ClickableSpan() {
-                @Override
-                public void onClick(@NonNull View view) {
-                    curr_activity.reactToLink(s);
-                }
-
-                @Override
-                public void updateDrawState(@NonNull TextPaint ds) {
-                    super.updateDrawState(ds);
-                    ds.setUnderlineText(false);
-                }
-            };
             int start = text.indexOf(s);
             if(start >= 0 && start < text.length()) {
+                Log.i("MY_LINK_TAG", "creating span");
+                ClickableSpan clickableSpan = new ClickableSpan() {
+                    @Override
+                    public void onClick(@NonNull View view) {
+                        curr_activity.reactToLink(s);
+                        Log.i("MY_LINK_TAG", "reacting");
+                    }
+
+                    @Override
+                    public void updateDrawState(@NonNull TextPaint ds) {
+                        super.updateDrawState(ds);
+                        ds.setUnderlineText(false);
+                    }
+                };
                 ret.setSpan(clickableSpan, start, start + s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
         }

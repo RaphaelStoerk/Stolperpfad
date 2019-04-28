@@ -231,7 +231,6 @@ public class HistoListViewModel extends AndroidViewModel {
         but.setOnClickListener(view -> {
             Intent intent = new Intent(fragment.getActivity(), HistoInfoActivity.class);
             intent.putExtra("termName", term.getName());
-            Log.i("MY_HISTO-TERM_TAG", term.getName());
             intent.setAction("" + term.getName());
             fragment.startActivity(intent);
         });

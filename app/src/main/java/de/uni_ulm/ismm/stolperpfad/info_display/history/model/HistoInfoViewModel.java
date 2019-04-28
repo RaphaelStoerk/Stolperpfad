@@ -3,6 +3,7 @@ package de.uni_ulm.ismm.stolperpfad.info_display.history.model;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
 import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoInfoActivity;
@@ -26,8 +27,15 @@ public class HistoInfoViewModel extends AndroidViewModel {
         return INSTANCE;
     }
 
-    // method to get explanation for histo_info_view
+    // methods to get contents for histo_info_view
+    //explanation
     public void requestExplanation(String current, HistoInfoActivity activity) {
         repo.getExplanation(current, activity);
+    }
+
+    //list of concerned persons
+    public void requestConcPers(String curent, HistoInfoActivity activity){
+        Log.i("LOG_REQUEST_CONC_PERS", "started in ViewModel");
+        repo.getConcernedPersons(curent, activity);
     }
 }

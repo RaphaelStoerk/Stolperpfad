@@ -45,6 +45,8 @@ public class StolperpfadeApplication extends Application {
         first_call = prefs.getBoolean("de.uni_ulm.ismm.stolperpfad.first_call", false);
 
         prefs.edit().putBoolean("de.uni_ulm.ismm.stolperpfad.file_tree_ready", false).apply();
+
+        prefs.edit().putString("de.uni_ulm.ismm.stolperpfad.next_stone_mem", "").apply();
     }
 
     public boolean isDarkMode() {
@@ -138,6 +140,31 @@ public class StolperpfadeApplication extends Application {
 
     public void setUpDb() {
         StolperpfadeRepository repo = new StolperpfadeRepository(this);
-        
+    }
+
+    public void addStoneToMemory(int stoneId) {
+        String curr_mem = prefs.getString("de.uni_ulm.ismm.stolperpfad.next_stone_mem", "");
+        if(curr_mem == null || curr_mem.length() == 0) {
+            curr_mem = stoneId + "";
+        } else {
+            curr_mem += "," + stoneId;
+        }
+        prefs.edit().putString("de.uni_ulm.ismm.stolperpfad.next_stone_mem", curr_mem).apply();
+    }
+
+    public int[] getVisitedStones() {
+        String[] buff = prefs.getString("de.uni_ulm.ismm.stolperpfad.next_stone_mem", "").split(",");
+        int[] ret = new int[buff.length];
+        int i;
+        int j = 0;
+        for(String s : buff) {
+            try{
+                i = Integer.parseInt(s);
+            } catch (NumberFormatException e) {
+                i = -1;
+            }
+            ret[j++] = i;
+        }
+        return ret;
     }
 }

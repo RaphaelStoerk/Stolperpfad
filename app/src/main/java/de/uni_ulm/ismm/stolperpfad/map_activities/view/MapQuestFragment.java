@@ -251,15 +251,18 @@ public class MapQuestFragment extends Fragment {
             Log.i("MY_DEBUG_TAG","next");
             if(next_id == -1) {
                 nearest_stone_marker = stone_handler.getNearestTo(user_position_marker);
+                if(nearest_stone_marker != null) {
+                    StolperpfadeApplication.getInstance().addStoneToMemory(stone_handler.getStoneFromMarker(nearest_stone_marker).getStoneId());
+                }
             } else {
                 nearest_stone_marker = stone_handler.getMarkerFromId(next_id);
             }
             if (nearest_stone_marker == null) {
                 nearest_stone_marker = ulm_center_marker;
-                nearest_stone_marker.setTitle("TODO!!");
-                nearest_stone_marker.setSnippet("Auch ohne Location kann ein neuer Stein gefunden werden, falls der Benutzer bereits einen Stein betrachtet hat!!");
+                nearest_stone_marker.setTitle("Information");
+                nearest_stone_marker.setSnippet("Sie haben bereits alle Steine gesehen");
             } else {
-                nearest_stone_marker.setSnippet("Bring mich zu diesem Stein");
+                // nearest_stone_marker.setSnippet("Bring mich zu diesem Stein");
             }
             moveCameraTo(nearest_stone_marker.getPosition(), 15, 45);
             mMapboxMap.selectMarker(nearest_stone_marker);

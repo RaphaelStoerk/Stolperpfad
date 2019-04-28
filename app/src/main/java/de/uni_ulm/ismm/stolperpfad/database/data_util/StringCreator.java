@@ -7,6 +7,8 @@ import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 
 public class StringCreator {
@@ -18,7 +20,8 @@ public class StringCreator {
     public static String makeIntroText(String name, String date, String place) {
         return name + " wurde am " + date + " in " + place + " geboren.";
     }
-/*
+
+    /*
     public static SpannableString makeTextFrom(BioPoint content, StolperpfadeAppActivity curr_activity) {
         switch(content.getType()) {
             case BORN:
@@ -75,12 +78,12 @@ public class StringCreator {
         String text = content.getName() + " wurde am " + content.getDate() + " in " + content.getPlace() + " geboren";
         SpannableString ret = makeSpanWith(text, curr_activity,content.getYear() + "", content.getPlace());
         return ret;
-    }
+    }*/
 
 
-    // TODO: @Ulrike
-
-    private static SpannableString makeSpanWith(String text, StolperpfadeAppActivity curr_activity, String... links) {
+    // in this method a given text (bio content) is searched for links to histoTerms / other persons
+    // which are highlighted in the text
+    public static SpannableString makeSpanWith(String text, StolperpfadeAppActivity curr_activity, ArrayList<String> links) {
         SpannableString ret = new SpannableString(text);
         for(String s : links) {
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -107,5 +110,5 @@ public class StringCreator {
         return null; // TODO: allow custom texts to use highlighted links
     }
 
-*/
+
 }

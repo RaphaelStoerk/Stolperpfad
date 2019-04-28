@@ -206,8 +206,8 @@ public class StolperpfadeRepository {
         }
 
         @Override
-        protected String doInBackground(String[]... termId) {
-            String explanation = mAsyncTaskDao.getExplanation(termId[0][0]);
+        protected String doInBackground(String[]... termName) {
+            String explanation = mAsyncTaskDao.getExplanation(termName[0][0]);
             return explanation;
         }
     }

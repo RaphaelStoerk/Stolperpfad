@@ -5,6 +5,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -17,6 +18,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.widget.Button;
@@ -228,6 +230,8 @@ public class HistoListViewModel extends AndroidViewModel {
         Button but = (Button) LayoutInflater.from(fragment.getContext()).inflate(R.layout.button_person_list, null);
         but.setOnClickListener(view -> {
             Intent intent = new Intent(fragment.getActivity(), HistoInfoActivity.class);
+            intent.putExtra("termName", term.getName());
+            Log.i("MY_HISTO-TERM_TAG", term.getName());
             intent.setAction("" + term.getName());
             fragment.startActivity(intent);
         });
@@ -279,11 +283,6 @@ public class HistoListViewModel extends AndroidViewModel {
         public int getCount() {
             return initials.size();
         }
-    }
-
-    // method to get explanation for histo_info_view
-    public void requestExplanation(String current, HistoInfoActivity activity) {
-        repo.getExplanation(current, activity);
     }
 
 }

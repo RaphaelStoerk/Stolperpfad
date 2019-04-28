@@ -5,18 +5,19 @@ import android.widget.TextView;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.history.model.HistoListViewModel;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.model.HistoInfoViewModel;
 
 public class HistoInfoActivity extends StolperpfadeAppActivity {
 
-    HistoListViewModel model;
+    HistoInfoViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         initializeGeneralControls(R.layout.activity_histo_info_page);
-        String current = getIntent().getAction();
+        model = HistoInfoViewModel.getInstance(this);
+        String current = getIntent().getStringExtra("termName");
         model.requestExplanation(current, this);
 
     }

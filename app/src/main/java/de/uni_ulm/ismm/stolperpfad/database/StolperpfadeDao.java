@@ -47,7 +47,7 @@ public interface StolperpfadeDao {
     @Query("SELECT birth_name from persons WHERE pers_id = :persId")
     String getBirthName(int persId);
 
-    @Query("SELECT * from persons WHERE historical_terms LIKE '%' || :histoTerm || '%'")
+    @Query("SELECT * from persons WHERE historical_terms LIKE '%' || :histoTerm || '%' ORDER BY family_name ASC")
     List<Person> getAllConcernedPersons(String histoTerm);
 
     //get a person's Stolperstein id

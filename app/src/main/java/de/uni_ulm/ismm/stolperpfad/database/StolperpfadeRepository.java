@@ -230,7 +230,6 @@ public class StolperpfadeRepository {
     //get List<Person>
     @SuppressLint("StaticFieldLeak")
     public void getConcernedPersons(String termName, HistoInfoActivity parent) {
-        Log.i("LOG_REQUEST_CONC_PERS", "started in Repo");
         new StolperpfadeRepository.getConcPersAsyncTask(mDao) {
             @Override
             protected void onPostExecute(String concPers){
@@ -250,9 +249,7 @@ public class StolperpfadeRepository {
         @Override
         protected String doInBackground(String[]... termName) {
             String concPers = "";
-            Log.i("LOG_REQUEST_CONC_PERS", "started in doInBackground 1");
             List<Person> persons = mAsyncTaskDao.getAllConcernedPersons(termName[0][0]);
-            Log.i("LIST_OF_CONC_PERS:", "got it");
             for (Person pers : persons) {
                 String entName = pers.getEntireName();
                 if(concPers == null || concPers.equals("")){
@@ -261,7 +258,6 @@ public class StolperpfadeRepository {
                     concPers = concPers + ", " + entName;
                 }
             }
-            Log.i("LIST_OF_CONC_PERS:", concPers);
             return concPers;
             //return persons;
         }

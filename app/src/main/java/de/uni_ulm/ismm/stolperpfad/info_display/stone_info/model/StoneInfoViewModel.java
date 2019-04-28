@@ -3,7 +3,6 @@ package de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.AsyncTask;
@@ -15,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -34,7 +34,9 @@ import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
+import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
+import de.uni_ulm.ismm.stolperpfad.database.data_util.StringCreator;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneInfoBioContentFragment;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneInfoBioFragment;
@@ -44,6 +46,9 @@ import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 public class StoneInfoViewModel extends AndroidViewModel {
 
     private List<Person> persons;
+    private List<HistoricalTerm> histoTerms;
+    private List<String> histoTermsNames;
+    private List<String> personsNames;
     private StolperpfadeRepository repo;
     private StoneInfoMainActivity parent;
     private static StoneInfoViewModel INSTANCE;
@@ -56,11 +61,13 @@ public class StoneInfoViewModel extends AndroidViewModel {
     public StoneInfoViewModel(@NonNull Application application, StoneInfoMainActivity activity) {
         super(application);
         this.parent = activity;
+        histoTermsNames = new ArrayList<>();
+        personsNames = new ArrayList<>();
         repo = new StolperpfadeRepository(application);
     }
 
     public static StoneInfoViewModel getInstance(StoneInfoMainActivity activity) {
-        if(INSTANCE == null || INSTANCE.parent != activity) {
+        if (INSTANCE == null || INSTANCE.parent != activity) {
             INSTANCE = new StoneInfoViewModel(activity.getApplication(), activity);
         }
         return INSTANCE;
@@ -69,7 +76,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
     // ++++ INFO MAIN METHODS ++++
 
     public int getIndexFromId(String action) {
-        if(action == null || action.length() == 0) {
+        if (action == null || action.length() == 0) {
             Log.i("MY_DATA_TAG", "Empty action");
             return 0;
         }
@@ -77,13 +84,13 @@ public class StoneInfoViewModel extends AndroidViewModel {
         try {
             id = Integer.parseInt(action);
 
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             Log.i("MY_DATA_TAG", "String could not be parsed: " + action);
             return 0;
         }
         int ind = 0;
-        for(Person p : persons) {
-            if(p.getPersId() == id) { // TODO: Maybe insert query for optimization
+        for (Person p : persons) {
+            if (p.getPersId() == id) { // TODO: Maybe insert query for optimization
                 return ind;
             }
             ind++;
@@ -93,7 +100,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
     }
 
     public int getPersonCount() {
-        if(persons == null) {
+        if (persons == null) {
             return 0;
         } else {
             return persons.size();
@@ -104,7 +111,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
     @SuppressLint("StaticFieldLeak")
     public void showBasicPersonInfo(ViewGroup root, @NonNull ViewPager pager, int index) {
-        if(!loaded) {
+        if (!loaded) {
             new LoadContentTask(this) {
                 @Override
                 protected void onPostExecute(Void aVoid) {
@@ -136,22 +143,22 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
 
     public void setInfoDisplay(@NonNull ViewGroup root, @NonNull ViewPager pager, int position) {
-        if(position == DISPLAY_BIO) {
+        if (position == DISPLAY_BIO) {
             pager.setCurrentItem(DISPLAY_BIO);
-        } else if(position == DISPLAY_MAP) {
+        } else if (position == DISPLAY_MAP) {
             pager.setCurrentItem(DISPLAY_MAP);
         }
-        updateButtons(root,position);
+        updateButtons(root, position);
     }
 
     public void updateButtons(@NonNull ViewGroup root, int position) {
         Button bio_button, map_button;
         bio_button = root.findViewById(R.id.stone_info_to_bio_button);
         map_button = root.findViewById(R.id.stone_info_to_map_button);
-        if(position == DISPLAY_BIO) {
+        if (position == DISPLAY_BIO) {
             setButtonActive(bio_button, true);
             setButtonActive(map_button, false);
-        } else if(position == DISPLAY_MAP) {
+        } else if (position == DISPLAY_MAP) {
             setButtonActive(bio_button, false);
             setButtonActive(map_button, true);
         }
@@ -166,7 +173,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
         int text_color_active = ta.getResourceId(1, android.R.color.black);
         int bg_color_inactive = ta.getResourceId(2, android.R.color.black);
         int text_color_inactive = ta.getResourceId(3, android.R.color.black);
-        if(active) {
+        if (active) {
             button.setBackgroundColor(parent.getResources().getColor(bg_color_active, parent.getTheme()));
             button.setTextColor(parent.getResources().getColor(text_color_active, parent.getTheme()));
         } else {
@@ -178,7 +185,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
     @SuppressLint("StaticFieldLeak")
     public void setUpPersonPage(NoSwipeViewPager infoPager, String action) {
-        new LoadContentTask(this){
+        new LoadContentTask(this) {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
@@ -196,7 +203,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
     @SuppressLint("StaticFieldLeak")
     public void showMapContent(ViewGroup root, int index) {
-        if(!loaded) {
+        if (!loaded) {
             new LoadContentTask(this) {
                 @Override
                 protected void onPostExecute(Void aVoid) {
@@ -234,7 +241,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
     public void buildPersonVita(StoneInfoBioFragment fragment, FragmentManager cfm, LayoutInflater inflater, ViewGroup root, ViewPager bio_pager, int index) {
         ConstraintLayout bio_layout = root.findViewById(R.id.bio_layout);
         bio_pager.setCurrentItem(0);
-        if(!loaded) {
+        if (!loaded) {
             new LoadContentTask(this) {
                 @Override
                 protected void onPostExecute(Void aVoid) {
@@ -250,7 +257,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
 
     public void updateVitaButtons(StoneInfoBioFragment fragment, int index) {
-        for(Button b : fragment.getVitaButtons()) {
+        for (Button b : fragment.getVitaButtons()) {
             b.setBackgroundResource(R.drawable.ic_bio_point_off);
         }
         fragment.getVitaButtons().get(index).setBackgroundResource(R.drawable.ic_bio_point_on);
@@ -261,24 +268,24 @@ public class StoneInfoViewModel extends AndroidViewModel {
         new LoadVitaTask(this) {
             @Override
             protected void onPostExecute(List<Person.Vita> vitas) {
-                if(vitas == null || vitas.size() == 0) {
+                if (vitas == null || vitas.size() == 0) {
                     return;
                 }
                 Person.Vita current_vita = vitas.get(0);
                 int points = current_vita.getSize();
-                if(points < 2) {
+                if (points < 2) {
                     return;
                 }
                 PagerAdapter pagerAdapter = new VitaPagerAdapter(cfm, current_vita.getSize());
                 bio_pager.setAdapter(pagerAdapter);
                 ArrayList<Button> vita_buttons;
                 vita_buttons = new ArrayList<>();
-                Button birth_button = makeVitaButton(inflater,bio_pager,  0);
-                Button death_button = makeVitaButton(inflater,bio_pager, points - 1);
+                Button birth_button = makeVitaButton(inflater, bio_pager, 0);
+                Button death_button = makeVitaButton(inflater, bio_pager, points - 1);
                 vita_buttons.add(birth_button);
                 Button buff;
-                for(int i = 0; i < points - 2; i++) {
-                    vita_buttons.add(buff = makeVitaButton(inflater, bio_pager,i + 1));
+                for (int i = 0; i < points - 2; i++) {
+                    vita_buttons.add(buff = makeVitaButton(inflater, bio_pager, i + 1));
                     bio_layout.addView(buff);
                 }
                 vita_buttons.add(death_button);
@@ -287,20 +294,20 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
                 ConstraintSet cs = new ConstraintSet();
                 cs.clone(bio_layout);
-                cs.connect(birth_button.getId(),ConstraintSet.TOP, bio_layout.getId(),ConstraintSet.TOP);
+                cs.connect(birth_button.getId(), ConstraintSet.TOP, bio_layout.getId(), ConstraintSet.TOP);
                 // cs.connect(birth_button.getId(),ConstraintSet.BOTTOM, vita_buttons.get(1).getId(),ConstraintSet.TOP );
-                cs.connect(birth_button.getId(),ConstraintSet.START,bio_layout.getId(),ConstraintSet.START, 16 );
-                cs.connect(birth_button.getId(),ConstraintSet.END, bio_pager.getId(),ConstraintSet.START, 16 );
-                for(int i = 1; i <= points - 2; i++) {
-                    cs.connect(vita_buttons.get(i).getId(),ConstraintSet.TOP,vita_buttons.get(i-1).getId(),ConstraintSet.BOTTOM );
-                    cs.connect(vita_buttons.get(i).getId(),ConstraintSet.BOTTOM,vita_buttons.get(i+1).getId(),ConstraintSet.TOP );
-                    cs.connect(vita_buttons.get(i).getId(),ConstraintSet.START,bio_layout.getId(),ConstraintSet.START, 16 );
-                    cs.connect(vita_buttons.get(i).getId(),ConstraintSet.END, bio_pager.getId(),ConstraintSet.START, 16 );
+                cs.connect(birth_button.getId(), ConstraintSet.START, bio_layout.getId(), ConstraintSet.START, 16);
+                cs.connect(birth_button.getId(), ConstraintSet.END, bio_pager.getId(), ConstraintSet.START, 16);
+                for (int i = 1; i <= points - 2; i++) {
+                    cs.connect(vita_buttons.get(i).getId(), ConstraintSet.TOP, vita_buttons.get(i - 1).getId(), ConstraintSet.BOTTOM);
+                    cs.connect(vita_buttons.get(i).getId(), ConstraintSet.BOTTOM, vita_buttons.get(i + 1).getId(), ConstraintSet.TOP);
+                    cs.connect(vita_buttons.get(i).getId(), ConstraintSet.START, bio_layout.getId(), ConstraintSet.START, 16);
+                    cs.connect(vita_buttons.get(i).getId(), ConstraintSet.END, bio_pager.getId(), ConstraintSet.START, 16);
                 }
                 // cs.connect(death_button.getId(),ConstraintSet.TOP, vita_buttons.get(points-2).getId(),ConstraintSet.BOTTOM );
-                cs.connect(death_button.getId(),ConstraintSet.BOTTOM, bio_layout.getId(),ConstraintSet.BOTTOM);
-                cs.connect(death_button.getId(),ConstraintSet.START,bio_layout.getId(),ConstraintSet.START, 16 );
-                cs.connect(death_button.getId(),ConstraintSet.END, bio_pager.getId(),ConstraintSet.START, 16 );
+                cs.connect(death_button.getId(), ConstraintSet.BOTTOM, bio_layout.getId(), ConstraintSet.BOTTOM);
+                cs.connect(death_button.getId(), ConstraintSet.START, bio_layout.getId(), ConstraintSet.START, 16);
+                cs.connect(death_button.getId(), ConstraintSet.END, bio_pager.getId(), ConstraintSet.START, 16);
                 cs.applyTo(bio_layout);
                 fragment.setVitaButtons(vita_buttons);
                 updateVitaButtons(fragment, 0);
@@ -316,9 +323,9 @@ public class StoneInfoViewModel extends AndroidViewModel {
         float dp = 16f;
         float fpixels = dm.density * dp;
         int pixels = (int) (fpixels + 0.5f);
-        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(pixels,pixels);
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(pixels, pixels);
         but.setLayoutParams(params);
-        but.setId(bio_index+1000);
+        but.setId(bio_index + 1000);
         return but;
     }
 
@@ -330,10 +337,10 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
     @SuppressLint("StaticFieldLeak")
     private void loadFromDatabase() {
-        if(loaded) {
+        if (loaded) {
             return;
         }
-        new LoadContentTask(this){
+        new LoadContentTask(this) {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
@@ -344,17 +351,17 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
     @SuppressLint("StaticFieldLeak")
     public void showVitaContent(ViewGroup root, int person, int point) {
-        if(!loaded) {
+        if (!loaded) {
             new LoadContentTask(this) {
                 @Override
                 protected void onPostExecute(Void aVoid) {
                     super.onPostExecute(aVoid);
                     loaded = true;
-                    showVitaContentHelper( root, persons.get(person).getPersId(), point);
+                    showVitaContentHelper(root, persons.get(person).getPersId(), point);
                 }
             }.execute();
         } else {
-            showVitaContentHelper( root, persons.get(person).getPersId(),  point);
+            showVitaContentHelper(root, persons.get(person).getPersId(), point);
         }
     }
 
@@ -363,18 +370,30 @@ public class StoneInfoViewModel extends AndroidViewModel {
         new LoadVitaTask(this) {
             @Override
             protected void onPostExecute(List<Person.Vita> vitas) {
-                if(vitas == null || vitas.size() == 0) {
+                if (vitas == null || vitas.size() == 0) {
                     return;
                 }
                 String content = vitas.get(0).getSection(point);
                 AQuery aq = new AQuery(root);
+
+                //highlight terms in text
+                //list with all terms to highlight
+                ArrayList<String> allHighlightTerms = new ArrayList<>();
+                for (String person : personsNames) {
+                    allHighlightTerms.add(person);
+                }
+                for (String term : histoTermsNames) {
+                    allHighlightTerms.add(term);
+                }
+                //call method which identify in a text the terms to highlight
+                SpannableString newContent = StringCreator.makeSpanWith(content, parent, allHighlightTerms);
+
                 /*aq.id(R.id.title_bio_point).text(content);
                 TextView desc_text = (TextView) aq.id(R.id.text_bio_point).getView();
                 desc_text.setText(StringCreator.makeTextFrom(content, (StolperpfadeAppActivity) getActivity()));
                 desc_text.setMovementMethod(LinkMovementMethod.getInstance());
                 */
-                // TODO: parse content string
-                aq.id(R.id.text_bio_point).text(content);
+                aq.id(R.id.text_bio_point).text(newContent);
             }
         }.execute(persId);
     }
@@ -391,6 +410,16 @@ public class StoneInfoViewModel extends AndroidViewModel {
         @Override
         protected Void doInBackground(Void... voids) {
             model.persons = model.repo.getAllPersons();
+            //load data for highlighting
+            model.histoTerms = model.repo.getAllTerms();
+            for (HistoricalTerm term : model.histoTerms) {
+                String current = term.getName();
+                model.histoTermsNames.add(current);
+            }
+            for (Person pers : model.persons) {
+                String current = pers.getEntireName();
+                model.personsNames.add(current);
+            }
             return null;
         }
     }

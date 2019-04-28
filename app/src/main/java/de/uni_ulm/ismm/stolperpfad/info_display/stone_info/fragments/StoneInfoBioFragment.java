@@ -41,6 +41,7 @@ public class StoneInfoBioFragment extends StoneInfoContentFragment {
     public static StoneInfoBioFragment newInstance(StoneInfoViewModel model, int person_index) {
         StoneInfoBioFragment fragment = new StoneInfoBioFragment();
         fragment.index = person_index;
+        fragment.model = model;
         return fragment;
     }
 
@@ -69,6 +70,7 @@ public class StoneInfoBioFragment extends StoneInfoContentFragment {
                 // TODO: Update left and right buttons if persons are before or after
             }
         });
+        vita_buttons = new ArrayList<>();
         model.buildPersonVita(this, getChildFragmentManager(), inflater, root, bio_pager, index);
         return root;
     }

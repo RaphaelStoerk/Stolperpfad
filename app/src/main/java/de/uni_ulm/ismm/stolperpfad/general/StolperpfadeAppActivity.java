@@ -1,8 +1,11 @@
 package de.uni_ulm.ismm.stolperpfad.general;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.res.TypedArray;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -14,8 +17,15 @@ import android.widget.Switch;
 
 import com.androidquery.AQuery;
 
+import java.util.List;
+
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
+import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
+import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
+import de.uni_ulm.ismm.stolperpfad.database.data.Person;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoInfoActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
 
 public abstract class StolperpfadeAppActivity extends AppCompatActivity {
 
@@ -158,7 +168,50 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void reactToLink(String s) {
         // TODO: Handle on Link click
+        new RedirectToInfoPageTask() {
+            @Override
+            protected void onPostExecute(Object object) {
+                if(object instanceof Person) {
+                    int id = ((Person) object).getPersId();
+                    Intent intent = new Intent(StolperpfadeAppActivity.this, StoneInfoMainActivity.class);
+                    intent.setAction("" + id);
+                    Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(StolperpfadeAppActivity.this).toBundle();
+                    startActivity(intent, transitionOptions);
+                } else if(object instanceof HistoricalTerm) {
+                    String name = ((HistoricalTerm) object).getName();
+                    Intent intent = new Intent(StolperpfadeAppActivity.this, HistoInfoActivity.class);
+                    intent.putExtra("termName", name);
+                    Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(StolperpfadeAppActivity.this).toBundle();
+                    startActivity(intent, transitionOptions);
+                }
+            }
+        }.execute(s);
+    }
+
+    private class RedirectToInfoPageTask extends AsyncTask<String, Void, Object> {
+        @Override
+        protected Object doInBackground(String... strings) {
+            if(strings == null || strings.length == 0) {
+                return null;
+            }
+            String tag = strings[0];
+            StolperpfadeRepository repo = new StolperpfadeRepository(getApplication());
+            List<Person> persons = repo.getAllPersons();
+            List<HistoricalTerm> terms = repo.getAllTerms();
+            for(Person p : persons) {
+                if(p.getEntireName().equalsIgnoreCase(tag)) {
+                    return p;
+                }
+            }
+            for(HistoricalTerm h : terms) {
+                if(h.getName().equalsIgnoreCase(tag)) {
+                    return h;
+                }
+            }
+            return null;
+        }
     }
 }

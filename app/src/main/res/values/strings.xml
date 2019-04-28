@@ -80,9 +80,9 @@
     \n
     Suspendisse hendrerit nibh sit amet sollicitudin vulputate. Cras malesuada feugiat augue, a auctor nulla pharetra ut. Cras bibendum laoreet commodo. Quisque sed dui suscipit velit consectetur consequat. Morbi sed convallis nisl. Donec eget urna tortor. Cras et dignissim sem.
     </string>
-    <string name="lorem_ipsum_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit amet lobortis augue. Curabitur nec elementum quam. Fusce rhoncus lobortis mi, et dictum dolor interdum vitae.
+    <string name="lorem_ipsum_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit amet lobortis augue.
     \n
-    In pretium leo non diam eleifend sollicitudin. Mauris maximus, urna non ullamcorper molestie, turpis orci cursus augue, sed laoreet massa eros at eros.
+    In pretium leo non diam eleifend sollicitudin.
     </string>
     <string name="app_name_big">STOLPERPFADE</string>
     <string name="todo">TODO</string>

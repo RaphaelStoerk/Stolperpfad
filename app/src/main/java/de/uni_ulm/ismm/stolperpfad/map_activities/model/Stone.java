@@ -64,16 +64,16 @@ public class Stone {
      * @return a Marker representing this Stone
      */
     public Marker getMarker(MapboxMap mapboxMap) {
-        if(marker == null) {
+        if (marker == null) {
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(location);
-            if(persons != null && persons.size() == 1) {
+            if (persons != null && persons.size() == 1) {
                 Person person = persons.get(0);
                 markerOptions.title(person.getEntireName());
                 markerOptions.snippet(stein.getAddress());
-            } else {
+            } else if (persons != null && persons.size() > 1) {
                 Person person = persons.get(0);
-                markerOptions.title(person.getEntireName() + ", u.w.");
+                markerOptions.title(person.getEntireName() + ", u. w.");
                 markerOptions.snippet(stein.getAddress());
             }
             marker = mapboxMap.addMarker(markerOptions);
@@ -83,6 +83,7 @@ public class Stone {
 
     /**
      * Returns the geographical position of this Stone as a GeoPoint
+     *
      * @return the location of this Stone
      */
     public LatLng getLocation() {
@@ -99,7 +100,7 @@ public class Stone {
 
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof Stone)) {
+        if (!(o instanceof Stone)) {
             return false;
         }
         Stone check = (Stone) o;
@@ -108,8 +109,8 @@ public class Stone {
     }
 
     public boolean hasNeighbour(Stone s_to) {
-        for(Neighbour n : neighbours) {
-            if(n.getStone().equals(s_to)) {
+        for (Neighbour n : neighbours) {
+            if (n.getStone().equals(s_to)) {
                 return true;
             }
         }
@@ -143,7 +144,7 @@ public class Stone {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         LinearLayout list_layout = myDialogView.findViewById(R.id.marker_list_container);
-        for(Person person : persons) {
+        for (Person person : persons) {
             list_layout.addView(addButton(myMapFragment, person));
         }
         TextView t = myDialogView.findViewById(R.id.title_marker);
@@ -151,8 +152,13 @@ public class Stone {
         builder.setView(myDialogView);
         AlertDialog dialog = builder.create();
         dialog.show();
-        myDialogView.findViewById(R.id.marker_info_close).setOnClickListener(view -> {dialog.cancel();});
-        myDialogView.findViewById(R.id.route_marker).setOnClickListener(view -> {dialog.cancel();myMapFragment.createRouteTo(this);});
+        myDialogView.findViewById(R.id.marker_info_close).setOnClickListener(view -> {
+            dialog.cancel();
+        });
+        myDialogView.findViewById(R.id.route_marker).setOnClickListener(view -> {
+            dialog.cancel();
+            myMapFragment.createRouteTo(this);
+        });
     }
 
 

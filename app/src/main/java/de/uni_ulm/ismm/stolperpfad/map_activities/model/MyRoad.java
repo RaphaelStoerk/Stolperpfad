@@ -39,7 +39,7 @@ public class MyRoad extends Road {
     private int time_flag;
 
     public static final int NO_TIME_REQUESTED = -1;
-    public static final int NO_ROAD_FOR_REQ_TIME = -1;
+    public static final int NO_ROAD_FOR_REQ_TIME = -2;
 
     private MyRoad(ArrayList<GeoPoint> points) {
         super(points);

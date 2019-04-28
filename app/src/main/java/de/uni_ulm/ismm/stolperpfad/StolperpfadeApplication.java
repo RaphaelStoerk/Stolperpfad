@@ -13,7 +13,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
-import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRoomDatabase;
 
 public class StolperpfadeApplication extends Application {
 
@@ -23,7 +22,8 @@ public class StolperpfadeApplication extends Application {
     private boolean ocr_language_file_ready = false;
     private boolean image_buffer_ready = false;
     private SharedPreferences prefs;
-    private static StolperpfadeApplication instance;
+    private static volatile StolperpfadeApplication INSTANCE;
+
 
     public static final String DATA_FILES_PATH = Environment.getExternalStorageDirectory() + "/stolperpfade/data";
 
@@ -31,7 +31,7 @@ public class StolperpfadeApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        instance = this;
+        INSTANCE = this;
 
         prefs = this.getSharedPreferences(
                 "de.uni_ulm.ismm.stolperpfad", Context.MODE_PRIVATE);
@@ -125,7 +125,11 @@ public class StolperpfadeApplication extends Application {
     }
 
     public static StolperpfadeApplication getInstance() {
-        return instance;
+        
+        if(INSTANCE == null) {
+            INSTANCE = new StolperpfadeApplication();
+        }
+        return INSTANCE;
     }
 
     public boolean fileTreeIsReady() {

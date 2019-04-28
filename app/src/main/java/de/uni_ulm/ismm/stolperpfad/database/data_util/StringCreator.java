@@ -77,6 +77,9 @@ public class StringCreator {
         return ret;
     }
 
+
+    // TODO: @Ulrike
+
     private static SpannableString makeSpanWith(String text, StolperpfadeAppActivity curr_activity, String... links) {
         SpannableString ret = new SpannableString(text);
         for(String s : links) {

@@ -129,7 +129,6 @@ public class MyButtonClickListener<T extends StolperpfadeAppActivity> implements
                 if (myActivity instanceof RoutePlannerActivity)
                     ((RoutePlannerActivity) myActivity).startGuide();
                 break;
-            case R.id.menu_close_button:
             case R.id.menu_open_button:
                 if (myActivity instanceof RoutePlannerActivity) {
                     ((RoutePlannerActivity) myActivity).toggleMenu();

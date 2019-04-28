@@ -66,22 +66,23 @@
 
     <ImageButton
         android:id="@+id/menu_open_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:adjustViewBounds="true"
         android:background="@drawable/ic_round_back"
-        android:backgroundTint="?attr/colorAppPrimaryContrast"
+        android:backgroundTint="?attr/colorAppAccent"
         android:clickable="true"
-        android:focusable="true"
         android:elevation="5dp"
-        android:translationZ="5dp"
-        android:foreground="@drawable/ic_arrow_up"
-        android:foregroundTint="?attr/colorAppPrimary"
+        android:focusable="true"
+        android:paddingBottom="4dp"
         android:scaleType="fitCenter"
-        android:paddingBottom="16dp"
+        android:src="@drawable/ic_arrow_up"
+        android:tint="?attr/colorAppTextButtonAccent"
+        android:translationZ="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

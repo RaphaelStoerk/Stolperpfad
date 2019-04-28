@@ -106,7 +106,6 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         aq.id(R.id.info_map_options_button).visible().clicked(myClickListener);
         aq.id(R.id.start_guide_button).visible().clicked(myClickListener);
         aq.id(R.id.menu_open_button).visible().clicked(myClickListener).getView();
-        aq.id(R.id.menu_close_button).visible().clicked(myClickListener).getView();
         menu_up = false;
         Log.i("MY_DEBUG_TAG","setup done");
     }
@@ -197,7 +196,6 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         });
 
         reloadPaths(myDialogView, "", true);
-
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -367,32 +365,29 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     toolbar.setVisibility(View.GONE);
-                    menu_open.setAlpha(0f);
-                    menu_open.setVisibility(View.VISIBLE);
-                    menu_open.animate().alpha(1f).setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            super.onAnimationEnd(animation);
-                            animating = false;
-                        }
-                    });
                 }
             });
-        } else {
-            menu_open.animate().alpha(0f).setListener(new AnimatorListenerAdapter() {
+            menu_open.animate().rotation(0).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
-                    menu_open.setVisibility(View.GONE);
-                    toolbar.setAlpha(0f);
-                    toolbar.setVisibility(View.VISIBLE);
-                    toolbar.animate().translationY(0).alpha(1f).setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            super.onAnimationEnd(animation);
-                            animating = false;
-                        }
-                    });
+                    animating = false;
+                }
+            });
+        } else {
+            menu_open.animate().rotation(180f).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                }
+            });
+            toolbar.setAlpha(0f);
+            toolbar.setVisibility(View.VISIBLE);
+            toolbar.animate().translationY(0).alpha(1f).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    animating = false;
                 }
             });
         }

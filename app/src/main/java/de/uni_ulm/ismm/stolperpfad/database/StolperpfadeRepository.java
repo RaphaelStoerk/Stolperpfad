@@ -18,6 +18,7 @@ public class StolperpfadeRepository {
 
     private StolperpfadeDao mDao;
     private List<Person> mAllPersons;
+    private List<Stolperstein> mAllStones;
     private List<HistoricalTerm> mAllTerms;
 
     public StolperpfadeRepository(Application application) {
@@ -34,6 +35,17 @@ public class StolperpfadeRepository {
     //insert person
     public void insertPerson(Person person) {
         new de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository.insertPersonAsyncTask(mDao).execute(person);
+    }
+
+    public List<Stolperstein> getAllStones() {
+        //get a list of all persons
+        if (mAllPersons == null)
+            return mAllStones = mDao.getAllStones();
+        return mAllStones;
+    }
+
+    public List<Person> getPersonsOnStone(int stoneId) {
+        return mDao.getPersonsFromStone(stoneId);
     }
 
     private static class insertPersonAsyncTask extends AsyncTask<Person, Void, Void> {
@@ -144,7 +156,7 @@ public class StolperpfadeRepository {
         }
     }
 
-    public List<Stolperstein> getStone(int stoneId) {
+    public Stolperstein getStone(int stoneId) {
         return mDao.getStone(stoneId);
     }
 

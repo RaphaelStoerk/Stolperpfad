@@ -21,7 +21,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/ic_round_back"
-        android:backgroundTint="?attr/colorAppPrimaryContrast"
+        android:backgroundTint="?attr/colorAppAccent"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -39,7 +39,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/ic_round_back"
-        android:backgroundTint="?attr/colorAppPrimaryContrast"
+        android:backgroundTint="?attr/colorAppAccent"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,8 +64,10 @@
         app:layout_constraintEnd_toStartOf="@+id/route_option_button"
         app:layout_constraintStart_toEndOf="@+id/save_route_button"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_directions_walk_black_24dp"
-        app:tint="?attr/colorAppPrimary" />
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_directions_walk_black_24dp"
+        android:tint="?attr/colorAppPrimaryContrast"
+        android:padding="8dp"/>
 
     <ImageButton
         android:id="@+id/route_option_button"
@@ -75,11 +77,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/ic_round_back"
-        android:backgroundTint="?attr/colorAppPrimaryContrast"
+        android:backgroundTint="?attr/colorAppAccent"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/menu_close_button"
+        app:layout_constraintEnd_toStartOf="@+id/menu_close_button_buff"
         app:layout_constraintStart_toEndOf="@+id/start_guide_button"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_plus"
@@ -88,7 +90,7 @@
         app:tint="?attr/colorAppPrimary" />
 
     <ImageButton
-        android:id="@+id/menu_close_button"
+        android:id="@+id/menu_close_button_buff"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="1:1"
@@ -96,7 +98,7 @@
         android:layout_marginEnd="24dp"
         android:adjustViewBounds="true"
         android:background="@drawable/ic_round_back"
-        android:backgroundTint="?attr/colorAppPrimaryContrast"
+        android:backgroundTint="#0000"
         android:clickable="true"
         android:focusable="true"
         android:paddingTop="8dp"
@@ -106,7 +108,7 @@
         app:layout_constraintStart_toEndOf="@+id/route_option_button"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_down"
-        app:tint="?attr/colorAppPrimary" />
+        app:tint="#0000" />
 
 
 </android.support.constraint.ConstraintLayout>

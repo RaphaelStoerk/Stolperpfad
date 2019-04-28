@@ -102,9 +102,11 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
             String address;
             double latitude;
             double longitude;
+            ArrayList<Integer> stoneIds = new ArrayList<>();
 
             for (JSONObject json : persons) {
                 try {
+
                     //insert person
                     id = json.getInt("id");
                     firstname = json.getString("vorname");
@@ -133,11 +135,12 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     address = stone.getString("addresse");
                     latitude = stone.getDouble("latitude");
                     longitude = stone.getDouble("longitude");
-                    Stolperstein stostei = new Stolperstein(id, address, latitude, longitude);
-                    if (stoneExists(stoneId)) {
+                    Stolperstein stostei = new Stolperstein(stoneId, address, latitude, longitude);
+                    if (stoneIds.contains(stoneId)) {
 
                     } else {
                         mDao.insert(stostei);
+                        stoneIds.add(stoneId);
                     }
 
                 } catch (JSONException e) {

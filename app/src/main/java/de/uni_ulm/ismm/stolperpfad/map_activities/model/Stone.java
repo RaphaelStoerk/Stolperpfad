@@ -6,7 +6,9 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 
 /**
@@ -16,19 +18,26 @@ import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 public class Stone {
 
     private LatLng location;
-    private String first_name, last_name, short_desc;
     private int stoneId;
     private Marker marker;
+    private Stolperstein stein;
+    List<Person> persons;
     ArrayList<Neighbour> neighbours;
 
 
-    public Stone(Stolperstein stein, String first_name, String last_name) {
+    public Stone(Stolperstein stein) {
         this.stoneId = stein.getStoneId();
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.short_desc = stein.getAddress();
         this.location = new LatLng(stein.getLatitude(), stein.getLongitude());
         this.neighbours = new ArrayList<>();
+    }
+
+    public Stone(Stolperstein stein, List<Person> persons_on_stone) {
+        this.stein = stein;
+        this.persons = persons_on_stone;
+        this.location = new LatLng(stein.getLatitude(), stein.getLongitude());
+        this.neighbours = new ArrayList<>();
+        this.stoneId = stein.getStoneId();
+
     }
 
     /**
@@ -41,8 +50,15 @@ public class Stone {
         if(marker == null) {
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(location);
-            markerOptions.title(last_name + ", " + first_name);
-            markerOptions.snippet(short_desc);
+            if(persons != null && persons.size() == 1) {
+                Person person = persons.get(0);
+                markerOptions.title(person.getEntireName());
+                markerOptions.snippet(stein.getAddress());
+            } else {
+                Person person = persons.get(0);
+                markerOptions.title(person.getEntireName() + ", u.w.");
+                markerOptions.snippet(stein.getAddress());
+            }
             marker = mapboxMap.addMarker(markerOptions);
         }
         return marker;
@@ -61,7 +77,7 @@ public class Stone {
     }
 
     public String toString() {
-        return last_name + ", " + first_name;
+        return marker == null ? "" : marker.getTitle();
     }
 
     @Override

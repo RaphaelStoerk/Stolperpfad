@@ -402,6 +402,8 @@ public class MapQuestFragment extends Fragment {
     private MyRoad addStonesToRoute(Marker start_route_from, Marker end_route_at, int time_in_seconds) {
         if(time_in_seconds < 60) {
             time_in_seconds = 60 * (getRandomtPathTime());
+        } else if(time_in_seconds > 24 * 60 * 60) {
+            time_in_seconds = 24 * 60 * 60;
         }
         return stone_handler.createPathWith(start_route_from, end_route_at, time_in_seconds);
     }
@@ -556,11 +558,15 @@ public class MapQuestFragment extends Fragment {
         if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        if(locationPresenter == null) {
+        if(lastLocation == null) {
             return;
-        } else if(!locationPresenter.isFollowing()) {
+        }
+        if(current_path_polyline != null && (locationPresenter == null || !locationPresenter.isFollowing())) {
             enterFollowMode();
         } else {
+            if(locationPresenter == null) {
+                return;
+            }
             locationPresenter.setFollow(false);
             locationPresenter.onStop();
         }

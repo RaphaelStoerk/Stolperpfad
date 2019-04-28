@@ -54,6 +54,10 @@ public interface StolperpfadeDao {
     @Query("SELECT stolperstein from persons WHERE pers_id = :persId")
     int getStolperstein(int persId);
 
+    //get all persons with stoneId
+    @Query("SELECT * from persons WHERE stolperstein = :stoneId")
+    List<Person> getPersonsFromStone(int stoneId);
+
 
     //VITA
     @Insert
@@ -107,7 +111,7 @@ public interface StolperpfadeDao {
     List<Stolperstein> getAllStones();
 
     @Query("SELECT * from stolpersteine WHERE stone_id = :stoneId")
-    List<Stolperstein> getStone(int stoneId);
+    Stolperstein getStone(int stoneId);
 
     @Query("SELECT street_and_number from stolpersteine WHERE stone_id = :stoneId")
     String getAddress(int stoneId);

@@ -5,6 +5,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -15,6 +16,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -400,11 +402,14 @@ public class StoneInfoViewModel extends AndroidViewModel {
                 }
                 //call method which identify in a text the terms to highlight
                 SpannableString newContent = StringCreator.makeSpanWith(text, parent, allHighlightTerms);
-                if (title != null && title.length() > 0) {
+                if(title != null && title.length()>0){
                     aq.id(R.id.title_bio_point).text(title);
                 }
-                if (text != null && text.length() > 0) {
-                    aq.id(R.id.text_bio_point).text(newContent);
+                if(text != null && text.length()>0){
+                    TextView textContentView = root.findViewById(R.id.text_bio_point);
+                    textContentView.setText(newContent);
+                    textContentView.setMovementMethod(LinkMovementMethod.getInstance());
+                    textContentView.setHighlightColor(Color.TRANSPARENT);
                 }
             }
         }.execute(persId);

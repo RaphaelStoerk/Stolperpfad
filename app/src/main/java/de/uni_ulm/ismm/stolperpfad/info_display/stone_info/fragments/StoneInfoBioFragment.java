@@ -41,6 +41,7 @@ public class StoneInfoBioFragment extends StoneInfoContentFragment {
     public static StoneInfoBioFragment newInstance(StoneInfoViewModel model, int person_index) {
         StoneInfoBioFragment fragment = new StoneInfoBioFragment();
         fragment.index = person_index;
+        fragment.model = model;
         return fragment;
     }
 

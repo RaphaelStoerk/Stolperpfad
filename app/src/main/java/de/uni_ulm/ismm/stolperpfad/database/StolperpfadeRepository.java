@@ -1,18 +1,14 @@
 package de.uni_ulm.ismm.stolperpfad.database;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.os.AsyncTask;
-import android.util.Log;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
-import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoInfoActivity;
 
 public class StolperpfadeRepository {
 
@@ -67,6 +63,11 @@ public class StolperpfadeRepository {
         if (mAllPersons == null)
             return mAllPersons = mDao.getAllPersons();
         return mAllPersons;
+    }
+
+    //get a list of all persons who are concerned by a given historical term
+    public List<Person> getAllConcernedPersons(String histoTerm){
+        return mDao.getAllConcernedPersons(histoTerm);
     }
 
     //get a person's first name
@@ -198,72 +199,10 @@ public class StolperpfadeRepository {
         return mAllTerms;
     }
 
-    //get histoInfoPage content
-
     //get explanation
-    @SuppressLint("StaticFieldLeak")
-    public void getExplanation(String termName, HistoInfoActivity parent) {
-        new StolperpfadeRepository.getExplantionAsyncTask(mDao) {
-            @Override
-            protected void onPostExecute(String explanation) {
-                parent.setPrimaryContentText(termName, explanation);
-            }
-        }.execute(new String[]{termName});
+    public String getExplanation(String name){
+        return mDao.getExplanation(name);
     }
 
-    private static class getExplantionAsyncTask extends AsyncTask<String[], Void, String> {
 
-        private StolperpfadeDao mAsyncTaskDao;
-
-        getExplantionAsyncTask(StolperpfadeDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected String doInBackground(String[]... termName) {
-            String explanation = mAsyncTaskDao.getExplanation(termName[0][0]);
-            return explanation;
-        }
-    }
-
-    //get list of concerned persons and their names
-    //get List<Person>
-    @SuppressLint("StaticFieldLeak")
-    public void getConcernedPersons(String termName, HistoInfoActivity parent) {
-        Log.i("LOG_REQUEST_CONC_PERS", "started in Repo");
-        new StolperpfadeRepository.getConcPersAsyncTask(mDao) {
-            @Override
-            protected void onPostExecute(String concPers){
-                parent.setSecondaryContentText(concPers);
-            }
-        }.execute(new String[]{termName});
-    }
-
-    public static class getConcPersAsyncTask extends AsyncTask<String[], Void, String> {
-
-        private StolperpfadeDao mAsyncTaskDao;
-
-        getConcPersAsyncTask(StolperpfadeDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected String doInBackground(String[]... termName) {
-            String concPers = "";
-            Log.i("LOG_REQUEST_CONC_PERS", "started in doInBackground 1");
-            List<Person> persons = mAsyncTaskDao.getAllConcernedPersons(termName[0][0]);
-            Log.i("LIST_OF_CONC_PERS:", "got it");
-            for (Person pers : persons) {
-                String entName = pers.getEntireName();
-                if(concPers == null || concPers.equals("")){
-                    concPers = entName;
-                }else{
-                    concPers = concPers + ", " + entName;
-                }
-            }
-            Log.i("LIST_OF_CONC_PERS:", concPers);
-            return concPers;
-            //return persons;
-        }
-    }
 }

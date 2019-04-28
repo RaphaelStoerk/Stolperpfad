@@ -27,6 +27,8 @@ import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
 import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
+import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
 
 public abstract class StolperpfadeAppActivity extends AppCompatActivity {
 
@@ -194,6 +196,46 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
         }.execute(s);
     }
 
+    @SuppressLint("StaticFieldLeak")
+    protected boolean tryToRedirect(String bulk_text) {
+        ScannerActivity a;
+        if(this instanceof ScannerActivity) {
+            a = ((ScannerActivity) StolperpfadeAppActivity.this);
+        } else {
+            return false;
+        }
+        new SearchForTagTask() {
+            @Override
+            protected void onPostExecute(Object object) {
+                if(object instanceof Person) {
+                    Log.i("MY_LINK_TAG", "scanner found person");
+                    int id = ((Person) object).getPersId();
+                    Intent intent = new Intent(a, StoneInfoMainActivity.class);
+                    intent.setAction("" + id);
+                    Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(a).toBundle();
+                    startActivity(intent, transitionOptions);
+                } else {
+                    Log.i("MY_LINK_TAG", "scanner no result");
+                    dialog.cancel();
+                    AlertDialog.Builder builder =  new AlertDialog.Builder(a);
+                    builder.setTitle("Kein Ergebnis");
+                    builder.setMessage("Es konnte kein Name erkannt werden...");
+                    builder.setNegativeButton("Abbrechen", (dialogInterface, i) -> {
+                        a.createCameraPreview();
+                        dialogInterface.cancel();
+                    });
+                    builder.setPositiveButton("Liste anzeigen", (dialogInterface, i) -> {
+                        dialogInterface.cancel();
+                        startActivity(new Intent(a, StoneListActivity.class));
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+        }.execute(bulk_text);
+        return true;
+    }
+
     private class RedirectToInfoPageTask extends AsyncTask<String, Void, Object> {
         @Override
         protected Object doInBackground(String... strings) {
@@ -222,6 +264,35 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
             Log.i("MY_LINK_TAG", "no term found");
 
             return null;
+        }
+    }
+
+    private class SearchForTagTask extends AsyncTask<String, Void, Object> {
+        @Override
+        protected Object doInBackground(String... strings) {
+            if(strings == null || strings.length == 0) {
+                Log.i("MY_LINK_TAG", "Wrong one");
+                return null;
+            }
+            String bulk = strings[0].toLowerCase().replace("\n", "");
+            Log.i("MY_LINK_TAG", bulk);
+            StolperpfadeRepository repo = new StolperpfadeRepository(getApplication());
+            List<Person> persons = repo.getAllPersons();
+            Person best_guess = null;
+            for(Person p : persons) {
+                if(p.getFamName().equalsIgnoreCase("kroner")) {
+                    Log.i("MY_LINK_TAG", p.getEntireName());
+                }
+                Log.i("MY_LINK_TAG", bulk);
+                if(bulk.contains(p.getFamName().toLowerCase()) && bulk.contains(p.getFstName().toLowerCase())) {
+                    return p;
+                }
+                if(bulk.contains(p.getFamName().toLowerCase()) || bulk.contains(p.getFstName().toLowerCase())) {
+                    best_guess = p;
+                }
+            }
+            Log.i("MY_LINK_TAG", "no person found");
+            return best_guess;
         }
     }
 }

@@ -61,6 +61,9 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
         myDialogView.requestFocus();
         // Create the AlertDialog
         dialog = builder.create();
+        myDialogView.findViewById(R.id.quick_acces_close).setOnClickListener(view -> {
+            dialog.cancel();
+        });
         dialog.show();
     }
 

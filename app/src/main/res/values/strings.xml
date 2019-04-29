@@ -60,8 +60,8 @@
     <string name="header_content_desc">Header of the app with a small logo and the title</string>
     <string name="text_artist_info">Hier stehen nacher genaue Informationen zum Künstler hinter dem Projekt Stolpersteine, auch eventuelle Bilder und Zitate können hier eingebaut werden</string>
     <string name="text_project_info">Hier steht später alles wichtige zum Projekt. Alle interessanten Hintergründe, Orte, etc und auch evtl noch Links und Bilder und Zitate könnten hier eingebuat werden</string>
-    <string name="text_artist_overview">Hier stehen nacher genaue Informationen zum Künstler hinter dem Projekt Stolpersteine, auch eventuelle Bilder und Zitate können hier eingebaut werden</string>
-    <string name="text_project_overview">Hier steht später alles wichtige zum Projekt. Alle interessanten Hintergründe, Orte, etc und auch evtl noch Links und Bilder und Zitate könnten hier eingebuat werden</string>
+    <string name="text_artist_overview">Gunter Demnig wurde 1947 in Berlin geboren und sollte eigentlich Pilot werden, stattdessen studierte er Kunst-Pädogik und Design. Der heute in Köln lebende Künstler möchte mit seiner Kunst Zeichen setzen, was ihm schon 1968 mit einer gehissten amerikanischen Flagge gelang, auf die er statt Sternen Totenköpfe malte.\nBekannt wurde Gunter Demnig durch sein Großprojekt \"Stolpersteine\".</string>
+    <string name="text_project_overview">Die \"Stolpersteine\" sind ein Projekt des Künstlers Gunter Demnig und das größte dezentrale Mahnmal der Welt. Er begann das Projekt 1992, um an die Menschen zu erinnern, die unter Hitlers Gewaltherrschaft verfolgt, deportiert oder ermordet wurden. Meistens werden die 10 x 10 x 10 cm großen Pflastersteine vor den ehemaligen Wohnhäusern der Opfer in den Boden eingelassen. Auf den Steinen befindet sich eine Messingplatte, in die der Name und die Lebensdaten des Opfers eingraviert sind.\nMittlerweile gibt es über 70.000 Stolpersteine, die in Deutschland und weiteren 23 europäischen Ländern verlegt wurden.</string>
 
     <string name="def_content_description">This is a content description</string>
 

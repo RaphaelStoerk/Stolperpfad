@@ -298,7 +298,7 @@ public class MapQuestFragment extends Fragment {
                 break;
             case RoutePlannerActivity.START_CHOICE_GPS:
                 if(user_position_marker == null) {
-                    //errorDialog("Keinen Standort gefunden");
+                    errorDialog("Keinen Standort gefunden");
                     return;
                 }
                 start_route_from = user_position_marker;
@@ -321,7 +321,7 @@ public class MapQuestFragment extends Fragment {
                 break;
             case RoutePlannerActivity.END_CHOICE_MAP:
                 if(chosen_marker_end == null) {
-                    errorDialog("Keinen Start-Marker gesetzt");
+                    errorDialog("Keinen End-Marker gesetzt");
                     return;
                 }
                 end_route_at = chosen_marker_end;
@@ -700,6 +700,7 @@ public class MapQuestFragment extends Fragment {
             try {
                 path = roadManager.getRoad(current_path.getWaypoints());
             }catch(IndexOutOfBoundsException ioobe) {
+                errorDialog( "Fehler", "Bei der Pfad Generierung ist ein Fehler aufgetreten");
                 return null;
             }
             current_path.addRoadInformation(path);

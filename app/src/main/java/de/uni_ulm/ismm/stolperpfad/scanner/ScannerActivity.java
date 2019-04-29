@@ -278,12 +278,18 @@ public class ScannerActivity extends StolperpfadeAppActivity {
             if(scan_task != null) {
                 scan_task.cancel(true);
             }
+            if(redirect_task != null) {
+                redirect_task.cancel(true);
+            }
             dialogInterface.cancel();
         });
         builder.setPositiveButton("Liste anzeigen", (dialogInterface, i) -> {
             dialogInterface.cancel();
             if(scan_task != null) {
                 scan_task.cancel(true);
+            }
+            if(redirect_task != null) {
+                redirect_task.cancel(true);
             }
             startActivity(new Intent(this, StoneListActivity.class));
         });

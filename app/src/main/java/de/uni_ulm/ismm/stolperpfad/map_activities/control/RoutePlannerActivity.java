@@ -261,7 +261,6 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         if(!stub) {
             but.setOnClickListener(view -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                save_dialog = null;
                 builder.setTitle(path_name);
                 builder.setMessage(getInfoFor(path_name));
                 builder.setPositiveButton("Auswählen", (dialogInterface, i) -> {

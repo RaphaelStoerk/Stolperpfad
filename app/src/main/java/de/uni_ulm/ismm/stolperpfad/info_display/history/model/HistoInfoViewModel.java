@@ -124,7 +124,10 @@ public class HistoInfoViewModel extends AndroidViewModel {
             model.allHistoTerms = model.repo.getAllTerms();
             for (HistoricalTerm term : model.allHistoTerms) {
                 String current = term.getName();
-                model.histoTermNames.add(current);
+                if (term.equals(current)) {
+                } else {
+                    model.histoTermNames.add(current);
+                }
             }
             for (Person pers : model.allPersons) {
                 String current = pers.getEntireName();

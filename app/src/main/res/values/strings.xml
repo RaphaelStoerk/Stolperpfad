@@ -61,10 +61,12 @@
     <string name="impressum_text_team">Raphael Störk\nraphael.stoerk@uni-ulm.de\n\nMarkus Lederer\nmarkus.lederer@uni-ulm.de\n\nUlrike Kulzer\nulrike.kulzer@uni-ulm.de</string>
     <string name="privacy_text">Die Nutzung unserer Anwendung ist in der Regel ohne Angabe personenbezogener Daten möglich. Soweit auf unseren Seiten personenbezogene Daten (beispielsweise Name oder E-Mail-Adressen) erhoben werden, erfolgt dies, soweit möglich, stets auf freiwilliger Basis. Diese Daten werden ohne Ihre ausdrückliche Zustimmung nicht an Dritte weitergegeben.\n Wir weisen darauf hin, dass die Datenübertragung im Internet (z.B. bei der Kommunikation per E-Mail) Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.\nDer Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten durch Dritte zur Übersendung von nicht angeforderter Werbung und Informationsmaterialien wird hiermit ausdrücklich widersprochen. Die Betreiber dieser Anwendung behalten sich vor, im Falle der unverlangten Zusendung von Werbeinformationen oder Spam-Mails rechtliche Schritte einzuleiten.</string>
 
-    <string name="header_content_desc">Header of the app with a small logo and the title</string>
+    <!-- artist and project-->
     <string name="text_artist_info">Gunter Demnig wurde 1947 in Berlin geboren und sollte eigentlich Pilot werden, stattdessen studierte er Kunst-Pädogik und Design. Der heute in Köln lebende Künstler möchte mit seiner Kunst Zeichen setzen, was ihm schon 1968 mit einer gehissten amerikanischen Flagge gelang, auf die er statt Sternen Totenköpfe malte.\nBekannt wurde Gunter Demnig durch sein Großprojekt \"Stolpersteine\".</string>
     <string name="text_project_info">Die \"Stolpersteine\" sind ein Projekt des Künstlers Gunter Demnig und das größte dezentrale Mahnmal der Welt. Er begann das Projekt 1992, um an die Menschen zu erinnern, die unter Hitlers Gewaltherrschaft verfolgt, deportiert oder ermordet wurden. Meistens werden die 10 x 10 x 10 cm großen Pflastersteine vor den ehemaligen Wohnhäusern der Opfer in den Boden eingelassen. Auf den Steinen befindet sich eine Messingplatte, in die der Name und die Lebensdaten des Opfers eingraviert sind.\nMittlerweile gibt es über 70.000 Stolpersteine, die in Deutschland und weiteren 23 europäischen Ländern verlegt wurden.</string>
 
+
+    <string name="header_content_desc">Header of the app with a small logo and the title</string>
     <string name="def_content_description">This is a content description</string>
 
     <string name="lorem_ipsum">
@@ -100,26 +102,6 @@
     <string name="end_choice_marker">Gewählte Markierung</string>
     <string name="end_choice_center">Am Münsterplatz</string>
     <string name="button_back">Zurück</string>
-    <string name="project_info_text">
-        Das ist der Info Text für das Projekt
-        Lorem hallo ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit amet lobortis augue. Curabitur nec elementum quam. Fusce rhoncus lobortis mi, et dictum dolor interdum vitae. Sed congue, nunc sed lobortis laoreet, diam nunc aliquet nibh, nec cursus nisl neque vel diam. Cras a pharetra ipsum, vitae scelerisque tellus. Praesent id ullamcorper nunc. Aenean tristique est diam, id convallis urna sagittis sit amet. Phasellus auctor orci at nibh pretium tempus. Nulla dictum ante sed libero ultricies pellentesque. Vivamus at imperdiet magna.
-        \n
-        In pretium leo non diam eleifend sollicitudin. Mauris maximus, urna non ullamcorper molestie, turpis orci cursus augue, sed laoreet massa eros at eros. Fusce eu blandit metus. Donec porta magna eros, eu pharetra risus pellentesque in. Aliquam erat volutpat. Sed ac leo pulvinar, aliquet massa a, rhoncus augue. Nunc sapien arcu, auctor eget porta vitae, lobortis at risus. Integer et feugiat nibh, et varius lacus. Integer luctus laoreet nibh fermentum blandit. Suspendisse lobortis malesuada tristique. In scelerisque sodales ex, ut auctor ipsum sagittis vel.
-        \n
-        Suspendisse lacinia nulla vitae turpis molestie imperdiet. Phasellus consequat eros sit amet dignissim fermentum. Nulla non efficitur urna. Curabitur laoreet, mi in ultrices varius, felis nisi rhoncus augue, et blandit quam massa blandit neque. Morbi tincidunt ipsum nec est tincidunt, mattis tempus elit pulvinar. Curabitur ut elementum lectus. Etiam egestas tellus leo, ut malesuada felis vestibulum at. Vestibulum suscipit pellentesque sapien, nec pharetra elit varius eu. Suspendisse potenti. Etiam nec porta nisl. Etiam vel nunc augue. Vivamus sed lobortis urna. Maecenas tempor blandit nunc et scelerisque.
-         \n
-        Suspendisse hendrerit nibh sit amet sollicitudin vulputate. Cras malesuada feugiat augue, a auctor nulla pharetra ut. Cras bibendum laoreet commodo. Quisque sed dui suscipit velit consectetur consequat. Morbi sed convallis nisl. Donec eget urna tortor. Cras et dignissim sem.
-
-    </string>
-    <string name="artist_info_text">
-        Das ist der Info Text für den Künstler
-    Suspendisse lacinia nulla vitae turpis molestie imperdiet. Phasellus consequat eros sit amet dignissim fermentum. Nulla non efficitur urna. Curabitur laoreet, mi in ultrices varius, felis nisi rhoncus augue, et blandit quam massa blandit neque. Morbi tincidunt ipsum nec est tincidunt, mattis tempus elit pulvinar. Curabitur ut elementum lectus. Etiam egestas tellus leo, ut malesuada felis vestibulum at. Vestibulum suscipit pellentesque sapien, nec pharetra elit varius eu. Suspendisse potenti. Etiam nec porta nisl. Etiam vel nunc augue. Vivamus sed lobortis urna. Maecenas tempor blandit nunc et scelerisque.
-    \n
-    Suspendisse hendrerit nibh sit amet sollicitudin vulputate. Cras malesuada feugiat augue, a auctor nulla pharetra ut. Cras bibendum laoreet commodo. Quisque sed dui suscipit velit consectetur consequat. Morbi sed convallis nisl. Donec eget urna tortor. Cras et dignissim sem.
-    Suspendisse lacinia nulla vitae turpis molestie imperdiet. Phasellus consequat eros sit amet dignissim fermentum. Nulla non efficitur urna. Curabitur laoreet, mi in ultrices varius, felis nisi rhoncus augue, et blandit quam massa blandit neque. Morbi tincidunt ipsum nec est tincidunt, mattis tempus elit pulvinar. Curabitur ut elementum lectus. Etiam egestas tellus leo, ut malesuada felis vestibulum at. Vestibulum suscipit pellentesque sapien, nec pharetra elit varius eu. Suspendisse potenti. Etiam nec porta nisl. Etiam vel nunc augue. Vivamus sed lobortis urna. Maecenas tempor blandit nunc et scelerisque.
-    \n
-    Suspendisse hendrerit nibh sit amet sollicitudin vulputate. Cras malesuada feugiat augue, a auctor nulla pharetra ut. Cras bibendum laoreet commodo. Quisque sed dui suscipit velit consectetur consequat. Morbi sed convallis nisl. Donec eget urna tortor. Cras et dignissim sem.
- </string>
 
     <string name="title_stone_info_default">Nachname, Vorname</string>
     <string name="button_bio">Schicksal</string>

@@ -247,12 +247,8 @@ public class ScannerActivity extends StolperpfadeAppActivity {
 
     private AlertDialog createAndShowScanInfoDialog() {
         AlertDialog.Builder builder =  new AlertDialog.Builder(this);
-        builder.setTitle("Scanning Image");
-        builder.setMessage("The image you captured is being scanned...");
-        builder.setNegativeButton("Abbrechen", (dialogInterface, i) -> {
-            createCameraPreview();
-            dialogInterface.cancel();
-        });
+        builder.setTitle("Scanner aktiviert");
+        builder.setMessage("Bild wird nach Namen durchsucht, bitte haben Sie Geduld...");
         AlertDialog dialog = builder.create();
         dialog.show();
         return dialog;

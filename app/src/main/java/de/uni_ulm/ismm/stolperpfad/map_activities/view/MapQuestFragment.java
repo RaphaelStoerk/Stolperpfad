@@ -282,8 +282,6 @@ public class MapQuestFragment extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public void createRoute(String start_choice, String end_choice, String time_in_minutes) {
 
-        alertUser("Pfad wird berechnet...");
-
         // TODO: create a good route through ulm
         Marker start_route_from;
         Marker end_route_at = null;

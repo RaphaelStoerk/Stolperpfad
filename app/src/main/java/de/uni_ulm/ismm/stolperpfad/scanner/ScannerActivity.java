@@ -208,23 +208,9 @@ public class ScannerActivity extends StolperpfadeAppActivity {
                         protected Object doInBackground(Object[] objects) {
                             String result = scanImage();
 
+                            tryToRedirect(result);
                             // TODO: try to find a person in this text and open their info page
                             //for p in persons if string contains entire name
-
-                            dialog.cancel();
-                            AlertDialog.Builder builder =  new AlertDialog.Builder(ScannerActivity.this);
-                            builder.setTitle("Kein Ergebnis");
-                            builder.setMessage("Es konnte kein Name erkannt werden...");
-                            builder.setNegativeButton("Abbrechen", (dialogInterface, i) -> {
-                                createCameraPreview();
-                                dialogInterface.cancel();
-                            });
-                            builder.setPositiveButton("Liste anzeigen", (dialogInterface, i) -> {
-                                dialogInterface.cancel();
-                                startActivity(new Intent(ScannerActivity.this, StoneListActivity.class));
-                            });
-                            AlertDialog dialog = builder.create();
-                            dialog.show();
                             return null;
                         }
                     }.doInBackground(null);
@@ -288,7 +274,7 @@ public class ScannerActivity extends StolperpfadeAppActivity {
         return recognizedText;
     }
 
-    protected void createCameraPreview() {
+    public void createCameraPreview() {
         try {
             SurfaceTexture texture = textureView.getSurfaceTexture();
             assert texture != null;

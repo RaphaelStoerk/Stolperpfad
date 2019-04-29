@@ -116,6 +116,7 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     history = json.getString("geschichte");
                     stone = json.getJSONObject("stein");
                     stoneId = stone.getInt("id");
+                    Log.i("person_found", familyname);
                     Person person = new Person(id, firstname, familyname, birthname, history, stoneId);
                     mDao.insert(person);
 

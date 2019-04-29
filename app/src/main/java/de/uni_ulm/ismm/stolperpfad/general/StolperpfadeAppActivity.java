@@ -213,23 +213,12 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
                     Intent intent = new Intent(a, StoneInfoMainActivity.class);
                     intent.setAction("" + id);
                     Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(a).toBundle();
+                    a.endDialog();
                     startActivity(intent, transitionOptions);
                 } else {
                     Log.i("MY_LINK_TAG", "scanner no result");
                     // dialog.cancel();
-                    AlertDialog.Builder builder =  new AlertDialog.Builder(a);
-                    builder.setTitle("Kein Ergebnis");
-                    builder.setMessage("Es konnte kein Name erkannt werden...");
-                    builder.setNegativeButton("Abbrechen", (dialogInterface, i) -> {
-                        a.createCameraPreview();
-                        dialogInterface.cancel();
-                    });
-                    builder.setPositiveButton("Liste anzeigen", (dialogInterface, i) -> {
-                        dialogInterface.cancel();
-                        startActivity(new Intent(a, StoneListActivity.class));
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    a.error();
                 }
             }
         }.execute(bulk_text);

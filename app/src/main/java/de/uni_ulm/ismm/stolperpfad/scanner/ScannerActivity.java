@@ -74,6 +74,7 @@ public class ScannerActivity extends StolperpfadeAppActivity {
     private boolean mFlashSupported;
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
+    private AsyncTask<Object, Object, Object> scan_task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,7 +154,7 @@ public class ScannerActivity extends StolperpfadeAppActivity {
         if(null == cameraDevice) {
             return;
         }
-        AlertDialog dialog = createAndShowScanInfoDialog();
+        createAndShowScanInfoDialog();
         CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         try {
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraDevice.getId());
@@ -202,7 +203,7 @@ public class ScannerActivity extends StolperpfadeAppActivity {
                 }
                 @SuppressLint("StaticFieldLeak")
                 private void scan(byte[] bytes) {
-                    new AsyncTask<Object, Object, Object>() {
+                    scan_task = new AsyncTask<Object, Object, Object>() {
 
                         @Override
                         protected Object doInBackground(Object[] objects) {
@@ -213,7 +214,8 @@ public class ScannerActivity extends StolperpfadeAppActivity {
                             //for p in persons if string contains entire name
                             return null;
                         }
-                    }.doInBackground(null);
+                    };
+                    scan_task.execute();
                 }
             };
 
@@ -245,13 +247,49 @@ public class ScannerActivity extends StolperpfadeAppActivity {
         }
     }
 
+    private AlertDialog dialog;
+
     private AlertDialog createAndShowScanInfoDialog() {
+        if(dialog != null) {
+            dialog.cancel();
+            dialog = null;
+        }
         AlertDialog.Builder builder =  new AlertDialog.Builder(this);
         builder.setTitle("Scanner aktiviert");
         builder.setMessage("Bild wird nach Namen durchsucht, bitte haben Sie Geduld...");
-        AlertDialog dialog = builder.create();
+        builder.setOnCancelListener(dialogInterface ->  {
+            createCameraPreview();
+        });
+        dialog = builder.create();
         dialog.show();
         return dialog;
+    }
+
+    public void error(){
+        if(dialog != null) {
+            dialog.cancel();
+            dialog = null;
+        }
+        AlertDialog.Builder builder =  new AlertDialog.Builder(this);
+        builder.setTitle("Kein Ergebnis");
+        builder.setMessage("Es konnte kein Name erkannt werden...");
+        builder.setNegativeButton("Abbrechen", (dialogInterface, i) -> {
+            createCameraPreview();
+            if(scan_task != null) {
+                scan_task.cancel(true);
+            }
+            dialogInterface.cancel();
+        });
+        builder.setPositiveButton("Liste anzeigen", (dialogInterface, i) -> {
+            dialogInterface.cancel();
+            if(scan_task != null) {
+                scan_task.cancel(true);
+            }
+            startActivity(new Intent(this, StoneListActivity.class));
+        });
+        builder.setOnCancelListener(dialogInterface -> createCameraPreview());
+        dialog = builder.create();
+        dialog.show();
     }
 
     private String scanImage() {
@@ -372,5 +410,12 @@ public class ScannerActivity extends StolperpfadeAppActivity {
         closeCamera();
         stopBackgroundThread();
         super.onPause();
+    }
+
+    public void endDialog() {
+        if(dialog != null) {
+            dialog.cancel();
+            dialog = null;
+        }
     }
 }

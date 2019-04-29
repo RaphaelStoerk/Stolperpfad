@@ -121,7 +121,7 @@ public class MyRoad extends Road {
 
     public ArrayList<GeoPoint> getWaypoints() {
         if(!isValid()) {
-            return null;
+            return new ArrayList<>();
         }
         ArrayList<GeoPoint> points = new ArrayList<>();
         points.add(new GeoPoint(start.getPosition().getLatitude(), start.getPosition().getLongitude()));

@@ -216,7 +216,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
                     startActivity(intent, transitionOptions);
                 } else {
                     Log.i("MY_LINK_TAG", "scanner no result");
-                    dialog.cancel();
+                    // dialog.cancel();
                     AlertDialog.Builder builder =  new AlertDialog.Builder(a);
                     builder.setTitle("Kein Ergebnis");
                     builder.setMessage("Es konnte kein Name erkannt werden...");

@@ -218,8 +218,25 @@ public class StoneFactory {
 
     private Neighbour choseGoodNeighbour(ArrayList<Neighbour> valid_neighs, MyRoad path, Marker curr_pos, int time_in_seconds) {
         int size = valid_neighs.size();
-        int index = (int) (Math.random() * size); // TODO: chose on basis of distances and times
-        return valid_neighs.get(index);
+        if(Math.random() > 0.3) {
+            double dist = -1;
+            Neighbour nearest = null;
+            for(Neighbour n : valid_neighs) {
+                if(dist < 0 || n.getDist() < dist) {
+                    nearest = n;
+                    dist = n.getDist();
+                }
+            }
+            if(nearest != null) {
+                return nearest;
+            } else {
+                int index = (int) (Math.random() * size); // TODO: chose on basis of distances and times
+                return valid_neighs.get(index);
+            }
+        } else {
+            int index = (int) (Math.random() * size); // TODO: chose on basis of distances and times
+            return valid_neighs.get(index);
+        }
     }
 
     private ArrayList<Neighbour> getValidNeighbours(ArrayList<Neighbour> neighbours, MyRoad path, Marker end_route_at, int time_in_seconds) {

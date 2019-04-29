@@ -399,4 +399,16 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     public void activatePathPlanner(boolean b1) {
         aq.id(R.id.start_guide_button).getView().getBackground().setTint(getResources().getColor(R.color.colorAccentLightMode, null));
     }
+
+    public void deactivateGuide(){
+        if(StolperpfadeApplication.getInstance().isDarkMode()) {
+            aq.id(R.id.start_guide_button).getView().getBackground().setTint(getResources().getColor(R.color.colorPrimaryDarkMode, null));
+            ImageButton b = (ImageButton) aq.id(R.id.start_guide_button).getView();
+            b.getDrawable().setTint(getResources().getColor(R.color.colorPrimaryContrastDarkMode, null));
+        } else {
+            aq.id(R.id.start_guide_button).getView().getBackground().setTint(getResources().getColor(R.color.colorPrimaryLightMode, null));
+            ImageButton b = (ImageButton) aq.id(R.id.start_guide_button).getView();
+            b.getDrawable().setTint(getResources().getColor(R.color.colorPrimaryContrastLightMode, null));
+        }
+    }
 }

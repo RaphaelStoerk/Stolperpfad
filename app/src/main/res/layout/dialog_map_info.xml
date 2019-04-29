@@ -6,8 +6,7 @@
     android:id="@+id/linearLayout3"
     android:background="?attr/colorAppSecondary"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:theme="@style/AppTheme.Dark">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView9"

@@ -1,0 +1,31 @@
+{
+  "id": 32,
+  "vorname": "Ludwig",
+  "nachname": "Hecht",
+  "geburtsname": "",
+  "stein": {
+    "id": 7,
+    "addresse": "Olgastraße 85",
+    "latitude": 48.401455,
+    "longitude": 9.988625
+  },
+  "geschichte": "Judenhäuser, Zwangsaltersheim Oberstotzingen",
+  "bio": [
+    {
+      "content": "Geburt#Dr. med. Ludwig Hecht wurde am 14. Oktober 1866 in Bonnland bei Würzburg geboren."
+    },
+    {
+      "content": "Ausbildung#Er wurde Arzt und bekam 1891 eine Stelle als Assistenzarzt in Ulm. Ab 1893 arbeitete er als praktischer Arzt und Geburtshelfer."
+    },
+    {
+      "content": "Hochzeit#Am 7. September 1893 heiratete er Rosa Hecht, geborene Thalmessinger und bekam mit ihr drei Kinder. Paul, Otto und Anneliese Hecht konnten sich vor der Verfolgung retten."
+    },
+    {
+      "content": "Verfolgung#1937 wurde Ludwig Hecht gezwungen, seine Praxis aufzugeben. 1938 musste er gemeinsam mit seiner Frau Rosa Hecht die Wohnung in der Olgastraße verlassen und in eines der Judenhäuser (Ensingerstraße) umziehen. 1942 zog das Ehepaar Hecht gezwungenermaßen in das Zwangsaltersheim Oberstotzingen um."
+    },
+    {
+      "content": "Deportation und Tod#Am 19. August 1942 wurden Ludwig und Rosa Hecht nach Theresienstadt deportiert. Ludwig Hecht starb dort, wie seine Frau wenige Tage vor ihm, am 21. Januar 1943 an Kräfteverfall durch Unterernährung."
+    }
+  ]
+}
+		

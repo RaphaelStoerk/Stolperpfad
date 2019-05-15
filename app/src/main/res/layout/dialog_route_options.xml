@@ -1,0 +1,114 @@
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorAppPrimary">
+
+    <ImageButton
+        android:id="@+id/dialog_left"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="#0000"
+        android:alpha="0.5"
+        android:translationZ="5dp"
+        android:tint="?attr/colorAppPrimaryContrast"
+        app:layout_constraintBottom_toBottomOf="@+id/route_option_pager"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/route_option_pager"
+        app:layout_constraintVertical_bias="0.75"
+        app:srcCompat="@drawable/ic_left" />
+
+    <ImageButton
+        android:id="@+id/dialog_right"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:background="#0000"
+        android:alpha="0.5"
+        android:translationZ="5dp"
+        android:tint="?attr/colorAppPrimaryContrast"
+        app:layout_constraintBottom_toBottomOf="@+id/route_option_pager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/route_option_pager"
+        app:layout_constraintVertical_bias="0.75"
+        app:srcCompat="@drawable/ic_right" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/route_option_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </android.support.v4.view.ViewPager>
+
+    <View
+        android:id="@+id/line_one_dialog"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:background="?attr/colorAppPrimaryContrast"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/route_option_pager" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line_one_dialog">
+
+
+        <ImageButton
+            android:id="@+id/dialog_one"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="#0000"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_bio_point_off" />
+
+
+        <ImageButton
+            android:id="@+id/dialog_two"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="#0000"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_bio_point_off" />
+
+
+        <ImageButton
+            android:id="@+id/dialog_three"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="#0000"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_bio_point_off" />
+
+
+        <ImageButton
+            android:id="@+id/dialog_four"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="#0000"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_bio_point_off" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

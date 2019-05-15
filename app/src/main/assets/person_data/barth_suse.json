@@ -1,0 +1,28 @@
+{
+  "id": 22,
+  "vorname": "Suse",
+  "nachname": "Barth",
+  "geburtsname": "",
+  "stein": {
+    "id": 24,
+    "addresse": "Ensingerstraße 21",
+    "latitude": 48.403352 ,
+    "longitude": 9.988647 
+  },
+  "geschichte": "Judenhäuser, Riga",
+  "bio": [
+    {
+      "content": "Geburt#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

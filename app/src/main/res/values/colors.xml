@@ -1,7 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4D4D4D</color>
-    <color name="colorPrimaryDark">#1A1A1A</color>
-    <color name="colorAccent">#0F3544</color>
-    <color name="black_overlay">#7A000000</color>
+    <color name="black_overlay">#83000000</color>
+
+    <color name="colorPrimaryDarkMode">#4d4d4d</color>
+    <color name="colorPrimaryLightMode">#FFFFFF</color>
+
+    <color name="colorPrimaryContrastDarkMode">#FAFAFA</color>
+    <color name="colorPrimaryContrastLightMode">#4d4d4d</color>
+
+    <color name="colorSecondaryDarkMode">#333333</color>
+    <color name="colorSecondaryLightMode">#FFFFFF</color>
+
+    <color name="colorSecondaryContrastDarkMode">#FAFAFA</color>
+    <color name="colorSecondaryContrastLightMode">#4d4d4d</color>
+
+    <color name="colorAccentDarkMode">#FBB03B</color>
+    <color name="colorAccentLightMode">#FBB03B</color>
+
+    <color name="colorTextButtonDarkMode">#FAFAFA</color>
+    <color name="colorTextButtonLightMode">#4d4d4d</color>
+
+    <color name="colorTextButtonContrastDarkMode">#4d4d4d</color>
+    <color name="colorTextButtonContrastLightMode">#FFFFFF</color>
+
+    <color name="colorTextButtonAccentDarkMode">#4d4d4d</color>
+    <color name="colorTextButtonAccentLightMode">#4d4d4d</color>
+
+    <color name="colorTextLinkDarkMode">#FBB03B</color>
+    <color name="colorTextLinkLightMode">#FBB03B</color>
+
+    <color name="colorTextPrimaryDarkMode">#FAFAFA</color>
+    <color name="colorTextPrimaryLightMode">#4d4d4d</color>
+
+    <color name="colorTextSecondaryDarkMode">#FAFAFA</color>
+    <color name="colorTextSecondaryLightMode">#4d4d4d</color>
+
+    <color name="colorTitleDarkMode">#FFFFFF</color>
+    <color name="colorTitleLightMode">#4d4d4d</color>
+
+    <color name="colorSubTitleDarkMode">#FFFFFF</color>
+    <color name="colorSubTitleLightMode">#4d4d4d</color>
+
 </resources>

@@ -1,0 +1,28 @@
+{
+  "id": 30,
+  "vorname": "Emmy",
+  "nachname": "Frankfurter",
+  "geburtsname": "",
+  "stein": {
+    "id": 18,
+    "addresse": "Parkstraße 2",
+    "latitude": 48.402990,
+    "longitude": 9.998868
+  },
+  "geschichte": "Judenhäuser, Izbica",
+  "bio": [
+    {
+      "content": "Geburt#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

@@ -1,0 +1,28 @@
+{
+  "id": 17,
+  "vorname": "Dora",
+  "nachname": "Barth",
+  "geburtsname": "Wolf",
+  "stein": {
+    "id": 25,
+    "addresse": "König-Wilhelm-Straße 35",
+    "latitude": 48.4062656,
+    "longitude": 9.9998229
+  },
+  "geschichte": "",
+  "bio": [
+    {
+      "content": "Geburt#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

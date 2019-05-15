@@ -1,13 +1,111 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowExitTransition">@android:transition/no_transition</item>
+        <item name="android:windowEnterTransition">@android:transition/no_transition</item>
+        <item name="android:fontFamily">@font/fira_sans</item>
     </style>
+
+    <!-- Light mode activity theme -->
+    <style name="AppTheme.Light" parent="AppTheme">
+        <item name="colorAppTextPrimary">@color/colorTextPrimaryLightMode</item>
+        <item name="colorAppTextSecondary">@color/colorTextSecondaryLightMode</item>
+        <item name="colorAppPrimary">@color/colorPrimaryLightMode</item>
+        <item name="colorAppPrimaryContrast">@color/colorPrimaryContrastLightMode</item>
+        <item name="colorAppSecondary">@color/colorSecondaryLightMode</item>
+        <item name="colorAppSecondaryContrast">@color/colorSecondaryContrastLightMode</item>
+        <item name="colorAppAccent">@color/colorAccentLightMode</item>
+        <item name="colorAppTextLink">@color/colorTextLinkLightMode</item>
+        <item name="colorAppTitle">@color/colorTitleLightMode</item>
+        <item name="colorAppSubTitle">@color/colorSubTitleLightMode</item>
+        <item name="colorAppTextButton">@color/colorTextButtonLightMode</item>
+        <item name="colorAppTextButtonAccent">@color/colorTextButtonAccentLightMode</item>
+        <item name="colorAppTextButtonContrast">@color/colorTextButtonContrastLightMode</item>
+        <item name="logoAppHeader">@drawable/ic_logo</item>
+        <item name="logoScanner">@drawable/ic_scanner</item>
+    </style>
+
+    <!-- Dark mode activity theme -->
+    <style name="AppTheme.Dark" parent="AppTheme">
+        <item name="colorAppTextPrimary">@color/colorTextPrimaryDarkMode</item>
+        <item name="colorAppTextSecondary">@color/colorTextSecondaryDarkMode</item>
+        <item name="colorAppPrimary">@color/colorPrimaryDarkMode</item>
+        <item name="colorAppPrimaryContrast">@color/colorPrimaryContrastDarkMode</item>
+        <item name="colorAppSecondary">@color/colorSecondaryDarkMode</item>
+        <item name="colorAppSecondaryContrast">@color/colorSecondaryContrastDarkMode</item>
+        <item name="colorAppAccent">@color/colorAccentDarkMode</item>
+        <item name="colorAppTextLink">@color/colorTextLinkDarkMode</item>
+        <item name="colorAppTitle">@color/colorTitleDarkMode</item>
+        <item name="colorAppSubTitle">@color/colorSubTitleDarkMode</item>
+        <item name="colorAppTextButton">@color/colorTextButtonDarkMode</item>
+        <item name="colorAppTextButtonAccent">@color/colorTextButtonAccentDarkMode</item>
+        <item name="colorAppTextButtonContrast">@color/colorTextButtonContrastDarkMode</item>
+        <item name="logoAppHeader">@drawable/ic_logo_dark</item>
+        <item name="logoScanner">@drawable/ic_scanner_dark</item>
+    </style>
+
+    <style name="AppTheme.Launcher">
+       <!-- <item name="android:windowBackground">@drawable/launch_screen</item>-->
+        <item name="colorAppTextPrimary">@color/colorTextPrimaryLightMode</item>
+        <item name="colorAppTextSecondary">@color/colorTextSecondaryLightMode</item>
+        <item name="colorAppPrimary">@color/colorPrimaryLightMode</item>
+        <item name="colorAppPrimaryContrast">@color/colorPrimaryContrastLightMode</item>
+        <item name="colorAppSecondary">@color/colorSecondaryLightMode</item>
+        <item name="colorAppSecondaryContrast">@color/colorSecondaryContrastLightMode</item>
+        <item name="colorAppAccent">@color/colorAccentLightMode</item>
+        <item name="colorAppTextLink">@color/colorTextLinkLightMode</item>
+        <item name="colorAppTitle">@color/colorTitleLightMode</item>
+        <item name="colorAppSubTitle">@color/colorSubTitleLightMode</item>
+        <item name="colorAppTextButton">@color/colorTextButtonLightMode</item>
+        <item name="colorAppTextButtonAccent">@color/colorTextButtonAccentLightMode</item>
+        <item name="colorAppTextButtonContrast">@color/colorTextButtonContrastLightMode</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="DialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+
+    </style>
+
+    <style name="DialogTheme.Light" parent="DialogTheme">
+        <item name="colorAppTextPrimary">@color/colorTextPrimaryLightMode</item>
+        <item name="colorAppTextSecondary">@color/colorTextSecondaryLightMode</item>
+        <item name="colorAppPrimary">@color/colorPrimaryLightMode</item>
+        <item name="colorAppPrimaryContrast">@color/colorPrimaryContrastLightMode</item>
+        <item name="colorAppSecondary">@color/colorSecondaryLightMode</item>
+        <item name="colorAppSecondaryContrast">@color/colorSecondaryContrastLightMode</item>
+        <item name="colorAppAccent">@color/colorAccentLightMode</item>
+        <item name="colorAppTextLink">@color/colorTextLinkLightMode</item>
+        <item name="colorAppTitle">@color/colorTitleLightMode</item>
+        <item name="colorAppSubTitle">@color/colorSubTitleLightMode</item>
+        <item name="colorAppTextButton">@color/colorTextButtonLightMode</item>
+        <item name="colorAppTextButtonAccent">@color/colorTextButtonAccentLightMode</item>
+        <item name="colorAppTextButtonContrast">@color/colorTextButtonContrastLightMode</item>
+        <item name="logoAppHeader">@drawable/ic_logo</item>
+    </style>
+
+    <style name="DialogTheme.Dark" parent="DialogTheme">
+        <item name="colorAppTextPrimary">@color/colorTextPrimaryDarkMode</item>
+        <item name="colorAppTextSecondary">@color/colorTextSecondaryDarkMode</item>
+        <item name="colorAppPrimary">@color/colorPrimaryDarkMode</item>
+        <item name="colorAppPrimaryContrast">@color/colorPrimaryContrastDarkMode</item>
+        <item name="colorAppSecondary">@color/colorSecondaryDarkMode</item>
+        <item name="colorAppSecondaryContrast">@color/colorSecondaryContrastDarkMode</item>
+        <item name="colorAppAccent">@color/colorAccentDarkMode</item>
+        <item name="colorAppTextLink">@color/colorTextLinkDarkMode</item>
+        <item name="colorAppTitle">@color/colorTitleDarkMode</item>
+        <item name="colorAppSubTitle">@color/colorSubTitleDarkMode</item>
+        <item name="colorAppTextButton">@color/colorTextButtonDarkMode</item>
+        <item name="colorAppTextButtonAccent">@color/colorTextButtonAccentDarkMode</item>
+        <item name="colorAppTextButtonContrast">@color/colorTextButtonContrastDarkMode</item>
+        <item name="logoAppHeader">@drawable/ic_logo_dark</item>
+    </style>
+
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -38,5 +136,13 @@
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="MyRadioButtonStyle" parent="AppTheme">
+        <item name="android:colorControlNormal">@color/colorTextPrimaryLightMode</item>
+        <item name="android:colorControlHighlight">@color/colorTextPrimaryLightMode</item>
+        <item name="android:colorControlActivated">@color/colorAccentLightMode</item>
+        <item name="android:colorAccent">@color/colorAccentLightMode</item>
+        <item name="android:color">@color/colorTextPrimaryLightMode</item>
     </style>
 </resources>

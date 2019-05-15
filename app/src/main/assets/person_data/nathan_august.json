@@ -1,0 +1,27 @@
+{
+  "id": 49,
+  "vorname": "August",
+  "nachname": "Nathan",
+  "geburtsname": "",
+  "stein": {
+    "id": 26,
+    "addresse": "Heimstraße 29",
+    "latitude": 48.4018974,
+    "longitude": 9.9977866
+  },
+  "geschichte": "Pogromnacht, Dachau",
+    "bio": [
+    {
+      "content": "Geburt#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}	

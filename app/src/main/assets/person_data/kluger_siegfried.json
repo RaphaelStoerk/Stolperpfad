@@ -1,0 +1,27 @@
+{
+  "id": 43,
+  "vorname": "Siegfried",
+  "nachname": "Kluger",
+  "geburtsname": "",
+  "stein": {
+    "id": 23,
+    "addresse": "Hasslerstraße 42",
+    "latitude": 48.389749,
+    "longitude": 9.980909
+  },
+  "geschichte": "Minsk",
+  "bio": [
+    {
+      "content": "Geburt#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}

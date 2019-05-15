@@ -1,0 +1,28 @@
+{
+  "id": 3,
+  "vorname": "Martha",
+  "nachname": "Frenkel",
+  "geburtsname": "Einstein",
+  "stein": {
+    "id": 0,
+    "addresse": "Olgastraße 114",
+    "latitude": 48.402106,
+    "longitude": 9.994395
+  },
+  "geschichte": "Polenaktion",
+  "bio": [
+    {
+      "content": "Geburt#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}
+		

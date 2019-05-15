@@ -1,0 +1,27 @@
+{
+  "id": 83,
+  "vorname": "Bertha",
+  "nachname": "Neuburger",
+  "geburtsname": "Bernheim",
+  "stein": {
+    "id": 33,
+    "addresse": "Schuhhausgasse 9",
+    "latitude": 48.3983037,
+    "longitude": 9.9951667
+  },
+  "geschichte": "Judenhäuser, Zwangsaltersheim Herrlingen, Zwangsaltersheim Oberstotzingen, Theresienstadt, Treblinka",
+    "bio": [
+    {
+      "content": "Geburt#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}	

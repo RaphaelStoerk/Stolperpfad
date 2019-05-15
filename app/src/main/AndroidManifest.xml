@@ -3,54 +3,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="de.uni_ulm.ismm.stolperpfad">
 
+    <uses-feature
+        android:name="android.hardware.camera2.full"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
+        android:name=".StolperpfadeApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_stolperpfade_app"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_stolperpfade_app_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <!-- Declares the entry point to the app -->
-        <activity android:name=".MainMenuActivity">
+        <activity
+            android:name=".SplashScreenActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Light" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <!--
-            Every used activity has to be listed here, additionally there can be declared what
-            hirarchy the activities are in
-        -->
+        <!-- Declares the entry point to the app -->
         <activity
-            android:name=".info_display.ScrollingInfoActivity"
-            android:label="@string/title_activity_scrolling_info"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".MainMenuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".info_display.stone_info.StoneInfoMainActivity"
+            android:label="@string/title_activity_stone_info"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".map_activities.control.RoutePlannerActivity"
-            android:label="@string/title_activity_route_planner" />
-        <activity android:name=".database.ShowPersonItemPage" />
-        <activity
-            android:name=".filter_search.FilterSearchActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_filter_search"
-            android:theme="@style/FullscreenTheme" />
-        <activity
-            android:name=".database.DbActivity"
-            android:label="@string/title_activity_db" />
+            android:label="@string/title_activity_route_planner"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Light" />
         <activity
             android:name=".scanner.ScannerActivity"
             android:label="@string/title_activity_scanner"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Light" />
         <activity
-            android:name=".map_activities.control.NextStoneActivity"
-            android:label="@string/title_activity_next_stone" />
+            android:name=".info_display.history.HistoListActivity"
+            android:label="@string/title_activity_history_info"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Light" />
+        <activity
+            android:name=".info_display.history.HistoInfoActivity"
+            android:label="TermInfoPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Light" />
+        <activity
+            android:name=".info_display.impressum.ImpressumViewActivity"
+            android:label="@string/title_activity_impressum"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Light" />
+        <activity
+            android:name=".info_display.impressum.PrivacyInfoActivity"
+            android:label="@string/title_activity_privacy"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Light" />
+        <activity
+            android:name=".info_display.project_and_artist.ProjectAndArtistOverviewActivity"
+            android:label="@string/title_activity_project_and_artist_overview"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Light" />
+        <activity
+            android:name=".info_display.stone_info.StoneListActivity"
+            android:label="@string/title_stone_list"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Light" />
+        <activity android:name=".map_activities.StolperpfadAppMapActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

@@ -1,0 +1,27 @@
+{
+  "id": 61,
+  "vorname": "Josef",
+  "nachname": "Seibold",
+  "geburtsname": "",
+  "stein": {
+    "id": 21,
+    "addresse": "Kapellengasse 25",
+    "latitude": 48.395299,
+    "longitude": 9.954563
+  },
+  "geschichte": "Zeugen Jehovas, Welzheim, Dachau, Mauthausen",
+    "bio": [
+    {
+      "content": "Geburt#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}	

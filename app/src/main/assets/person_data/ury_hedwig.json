@@ -1,0 +1,27 @@
+{
+  "id": 66,
+  "vorname": "Hedwig",
+  "nachname": "Ury",
+  "geburtsname": "Ullmann",
+  "stein": {
+    "id": 16,
+    "addresse": "Zinglerstraße 44",
+    "latitude": 48.394012,
+    "longitude": 9.982236
+  },
+  "geschichte": "Judenhäuser, Theresienstadt, Auschwitz",
+  "bio": [
+    {
+      "content": "Geburt#"
+    },
+    {
+      "content": "1#"
+    },
+    {
+      "content": "2#"
+    },
+    {
+      "content": "3#"
+    }
+  ]
+}	

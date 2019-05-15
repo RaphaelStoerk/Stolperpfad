@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/fira_sans_condensed_semibold"
+        android:text="@string/walk_time_title"
+        android:textColor="?attr/colorAppTextPrimary"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/time_input"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="?attr/colorAppTextPrimary"
+        android:fontFamily="@font/fira_sans"
+        android:hint="@string/walk_time"
+        android:inputType="number"
+        android:selectAllOnFocus="true"
+        android:shadowColor="?attr/colorAppTextPrimary"
+        android:singleLine="true"
+        android:textColor="?attr/colorAppTextPrimary"
+        android:textColorHighlight="?attr/colorAppAccent"
+        android:textColorHint="?attr/colorAppPrimaryContrast"
+        android:textColorLink="?attr/colorAppAccent"
+        android:textSize="18sp" />
+</LinearLayout>

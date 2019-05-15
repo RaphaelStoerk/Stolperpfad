@@ -9,7 +9,7 @@ import android.widget.Switch;
 import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoListActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumViewActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ProjectAndArtistOverviewActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
@@ -110,7 +110,7 @@ public class AppClickListener<T extends StolperpfadeAppActivity> implements View
                 intent = intentFromQuickAccess(ProjectAndArtistOverviewActivity.class);
                 break;
             case R.id.quick_access_impressum:
-                intent = intentFromQuickAccess(ImpressumViewActivity.class);
+                intent = intentFromQuickAccess(ImpressumActivity.class);
                 break;
             case R.id.quick_access_privacy:
                 intent = intentFromQuickAccess(PrivacyInfoActivity.class);
@@ -162,13 +162,13 @@ public class AppClickListener<T extends StolperpfadeAppActivity> implements View
                 }
                 break;
             case R.id.impressum_to_rights_button:
-                if (parent_activity instanceof ImpressumViewActivity) {
-                    ((ImpressumViewActivity) parent_activity).setInfoDisplay(0);
+                if (parent_activity instanceof ImpressumActivity) {
+                    ((ImpressumActivity) parent_activity).setInfoDisplay(0);
                 }
                 break;
             case R.id.impressum_to_contact_button:
-                if (parent_activity instanceof ImpressumViewActivity) {
-                    ((ImpressumViewActivity) parent_activity).setInfoDisplay(1);
+                if (parent_activity instanceof ImpressumActivity) {
+                    ((ImpressumActivity) parent_activity).setInfoDisplay(1);
                 }
                 break;
             case R.id.button_back:

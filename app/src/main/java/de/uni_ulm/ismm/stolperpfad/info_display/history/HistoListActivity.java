@@ -11,8 +11,8 @@ public class HistoListActivity extends StolperpfadeAppActivity {
     private static volatile HistoListViewModel model;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle saved_state) {
+        super.onCreate(saved_state);
         initializeGeneralControls(R.layout.activity_histo_list);
         model = HistoListViewModel.getInstance(this);
         model.setUpIndex(this);

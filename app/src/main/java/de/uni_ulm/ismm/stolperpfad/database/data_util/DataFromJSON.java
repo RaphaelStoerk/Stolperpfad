@@ -13,7 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -122,7 +121,7 @@ public class DataFromJSON {
         String json = "";
         JSONObject pers = null;
         try {
-            if(!StolperpfadeApplication.getInstance().fileTreeIsReady()) {
+            if(StolperpfadeApplication.getInstance().fileTreeIsNotReady()) {
                 // TODO: inform the user that something is wrong
                 StolperpfadeApplication.getInstance().setupFileTree();
             }

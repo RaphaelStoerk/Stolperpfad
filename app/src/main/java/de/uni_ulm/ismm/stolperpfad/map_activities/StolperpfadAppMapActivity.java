@@ -24,8 +24,8 @@ public class StolperpfadAppMapActivity extends StolperpfadeAppActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle saved_state) {
+        super.onCreate(saved_state);
         is_first_call = true;
     }
 

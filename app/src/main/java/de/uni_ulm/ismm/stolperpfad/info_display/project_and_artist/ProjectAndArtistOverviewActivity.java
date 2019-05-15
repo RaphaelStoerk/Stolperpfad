@@ -3,14 +3,11 @@ package de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist;
 import android.annotation.SuppressLint;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.ViewGroup;
-import android.view.ViewStub;
 import android.widget.Button;
 
 import de.uni_ulm.ismm.stolperpfad.R;
@@ -25,14 +22,14 @@ public class ProjectAndArtistOverviewActivity extends StolperpfadeAppActivity {
     private ViewPager mPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle saved_state) {
+        super.onCreate(saved_state);
 
         initializeGeneralControls(R.layout.activity_project_and_artist_overview);
 
         // add the listener to the buttons on screen and make them visible
-        aq.id(R.id.overview_to_project_info_button).visible().clicked(myClickListener);
-        aq.id(R.id.overview_to_artist_info_button).visible().clicked(myClickListener);
+        aq.id(R.id.overview_to_project_info_button).visible().clicked(my_click_listener);
+        aq.id(R.id.overview_to_artist_info_button).visible().clicked(my_click_listener);
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.project_and_artist_info_pager);

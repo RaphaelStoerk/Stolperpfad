@@ -23,14 +23,14 @@ public class ImpressumViewActivity extends StolperpfadeAppActivity {
     private ViewPager mPager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle saved_state) {
+        super.onCreate(saved_state);
 
         initializeGeneralControls(R.layout.activity_impressum_view);
 
         // add the listener to the buttons on screen and make them visible
-        aq.id(R.id.impressum_to_rights_button).visible().clicked(myClickListener);
-        aq.id(R.id.impressum_to_contact_button).visible().clicked(myClickListener);
+        aq.id(R.id.impressum_to_rights_button).visible().clicked(my_click_listener);
+        aq.id(R.id.impressum_to_contact_button).visible().clicked(my_click_listener);
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.impressum_pager);

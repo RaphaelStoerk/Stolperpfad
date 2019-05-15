@@ -497,6 +497,7 @@ public class MapQuestFragment extends Fragment {
         locationEngine.activate();
         locationEngine.requestLocationUpdates();
         lastLocation = locationEngine.getLastLocation();
+        setUserMarker();
     }
 
     public void setUserMarker() {

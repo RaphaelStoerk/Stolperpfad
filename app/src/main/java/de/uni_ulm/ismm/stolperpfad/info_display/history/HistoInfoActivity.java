@@ -11,8 +11,8 @@ public class HistoInfoActivity extends StolperpfadeAppActivity {
     HistoInfoViewModel model;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle saved_state) {
+        super.onCreate(saved_state);
 
         initializeGeneralControls(R.layout.activity_histo_info_page);
         model = HistoInfoViewModel.getInstance(this);

@@ -77,10 +77,10 @@ public class ScannerActivity extends StolperpfadeAppActivity {
     private AsyncTask<Object, Object, Object> scan_task;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle saved_state) {
+        super.onCreate(saved_state);
         initializeGeneralControls(R.layout.activity_scanner);
-        aq.id(R.id.scan_button).visible().clicked(myClickListener);
+        aq.id(R.id.scan_button).visible().clicked(my_click_listener);
 
         textureView = (TextureView) aq.id(R.id.camera_preview).getView();
         assert textureView != null;
@@ -278,8 +278,8 @@ public class ScannerActivity extends StolperpfadeAppActivity {
             if(scan_task != null) {
                 scan_task.cancel(true);
             }
-            if(redirect_task != null) {
-                redirect_task.cancel(true);
+            if(search_tag_and_redirect_task != null) {
+                search_tag_and_redirect_task.cancel(true);
             }
             dialogInterface.cancel();
         });
@@ -288,8 +288,8 @@ public class ScannerActivity extends StolperpfadeAppActivity {
             if(scan_task != null) {
                 scan_task.cancel(true);
             }
-            if(redirect_task != null) {
-                redirect_task.cancel(true);
+            if(search_tag_and_redirect_task != null) {
+                search_tag_and_redirect_task.cancel(true);
             }
             startActivity(new Intent(this, StoneListActivity.class));
         });
@@ -301,7 +301,7 @@ public class ScannerActivity extends StolperpfadeAppActivity {
     private String scanImage() {
         Bitmap image_bitmap = BitmapFactory.decodeFile(StolperpfadeApplication.DATA_FILES_PATH + "/img/last_scanned_stone.jpg");
 
-        if(!StolperpfadeApplication.getInstance().fileTreeIsReady()) {
+        if(StolperpfadeApplication.getInstance().fileTreeIsNotReady()) {
             // TODO: inform the user that something is wrong
             StolperpfadeApplication.getInstance().setupFileTree();
         }

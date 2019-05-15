@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".SplashActivity"
+            android:name=".SplashScreenActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Light" >
             <intent-filter>
@@ -35,12 +35,7 @@
         <!-- Declares the entry point to the app -->
         <activity
             android:name=".MainMenuActivity"
-            android:screenOrientation="portrait">
-        </activity>
-        <!--
-            Every used activity has to be listed here, additionally there can be declared what
-            hirarchy the activities are in
-        -->
+            android:screenOrientation="portrait" />
         <activity
             android:name=".info_display.stone_info.StoneInfoMainActivity"
             android:label="@string/title_activity_stone_info"

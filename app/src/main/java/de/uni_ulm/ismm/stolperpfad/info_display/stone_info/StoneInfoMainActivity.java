@@ -37,8 +37,8 @@ public class StoneInfoMainActivity extends StolperpfadeAppActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle saved_state) {
+        super.onCreate(saved_state);
         initializeGeneralControls(R.layout.activity_stone_info_main);
         Button left = (Button) aq.id(R.id.left_button).clicked(view -> left_click()).getView();
         Button right = (Button) aq.id(R.id.right_button).clicked(view -> right_click()).getView();

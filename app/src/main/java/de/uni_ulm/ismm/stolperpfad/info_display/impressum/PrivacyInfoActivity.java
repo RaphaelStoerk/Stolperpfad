@@ -8,8 +8,8 @@ import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 public class PrivacyInfoActivity extends StolperpfadeAppActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle saved_state) {
+        super.onCreate(saved_state);
 
         initializeGeneralControls(R.layout.activity_privacy_info);
     }

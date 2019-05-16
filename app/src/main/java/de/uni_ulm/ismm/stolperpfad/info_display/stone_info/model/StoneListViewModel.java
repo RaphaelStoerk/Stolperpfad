@@ -46,7 +46,7 @@ public class StoneListViewModel extends AndroidViewModel {
     private StoneListActivity parent;
     private static volatile StoneListViewModel INSTANCE;
 
-    public StoneListViewModel(@NonNull Application application, StoneListActivity activity) {
+    private StoneListViewModel(@NonNull Application application, StoneListActivity activity) {
         super(application);
         this.parent = activity;
         repo = new StolperpfadeRepository(application);

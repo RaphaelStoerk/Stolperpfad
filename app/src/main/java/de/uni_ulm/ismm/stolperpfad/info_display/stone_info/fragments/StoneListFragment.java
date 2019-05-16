@@ -59,8 +59,4 @@ public class StoneListFragment extends Fragment {
         model = StoneListViewModel.getInstance((StoneListActivity) getActivity());
         model.setUpList(root, initial);
     }
-
-    public char getInitial() {
-        return initial;
-    }
 }

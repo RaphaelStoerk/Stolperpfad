@@ -4,10 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +15,7 @@ import java.util.ArrayList;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewModel;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.RotatedViewPager;
 
 /**
  * The main fragment for the biography display of a specific person,
@@ -31,7 +27,7 @@ public class StoneInfoBioFragment extends StoneInfoContentFragment {
 
     private StoneInfoViewModel model;
     private int index;
-    private VerticalViewPager bio_pager;
+    private RotatedViewPager bio_pager;
     ArrayList<Button> vita_buttons;
 
     public StoneInfoBioFragment() {

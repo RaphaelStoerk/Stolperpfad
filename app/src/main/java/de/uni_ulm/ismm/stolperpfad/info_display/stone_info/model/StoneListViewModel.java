@@ -39,7 +39,7 @@ public class StoneListViewModel extends AndroidViewModel {
     private ArrayList<Character> initials;
     private ArrayList<Button> index_buttons;
     private Button last_pressed;
-    private VerticalViewPager list_pager;
+    private RotatedViewPager list_pager;
     private StoneListActivity parent;
 
     private StoneListViewModel(@NonNull Application application, StoneListActivity activity) {

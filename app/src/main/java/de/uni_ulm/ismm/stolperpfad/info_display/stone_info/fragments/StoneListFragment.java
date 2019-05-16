@@ -47,7 +47,7 @@ public class StoneListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saved_state) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_stone_list, container, false);
-        setupListDisplay();
+        setupListDisplay(root);
         return root;
     }
 
@@ -55,9 +55,9 @@ public class StoneListFragment extends Fragment {
      * Grabs the ViewModel for the StoneList from the calling activity and starts to
      * initialize the list
      */
-    private void setupListDisplay() {
+    private void setupListDisplay(ViewGroup root) {
         model = StoneListViewModel.getInstance((StoneListActivity) getActivity());
-        model.setUpList(this);
+        model.setUpList(root, initial);
     }
 
     public char getInitial() {

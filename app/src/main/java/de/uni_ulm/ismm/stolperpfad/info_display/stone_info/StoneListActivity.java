@@ -15,6 +15,6 @@ public class StoneListActivity extends StolperpfadeAppActivity {
     protected void onCreate(Bundle saved_state) {
         super.onCreate(saved_state);
         initializeGeneralControls(R.layout.activity_stone_list);
-        StoneListViewModel.getInstance(this).setUpIndex(this);
+        StoneListViewModel.getInstance(this).setUpIndex();
     }
 }

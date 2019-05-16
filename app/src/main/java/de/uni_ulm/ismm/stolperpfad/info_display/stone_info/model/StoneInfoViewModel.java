@@ -183,7 +183,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void setUpPersonPage(NoSwipeViewPager infoPager, String action) {
+    public void setUpPersonPage(PersonInfoPager infoPager, String action) {
         new LoadContentTask(this) {
             @Override
             protected void onPostExecute(Void aVoid) {

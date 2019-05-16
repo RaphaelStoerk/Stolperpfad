@@ -1,26 +1,16 @@
 package de.uni_ulm.ismm.stolperpfad.info_display.stone_info;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.widget.Button;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
-import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneInfoPersonFragment;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.NoSwipeViewPager;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.PersonInfoPager;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewModel;
 
 /**
@@ -31,7 +21,7 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewMo
 public class StoneInfoMainActivity extends StolperpfadeAppActivity {
 
     private StoneInfoPersonFragment fragment;
-    private NoSwipeViewPager infoPager;
+    private PersonInfoPager infoPager;
     private int current_person_index;
     private static volatile StoneInfoViewModel model;
 
@@ -50,7 +40,7 @@ public class StoneInfoMainActivity extends StolperpfadeAppActivity {
             right.setBackgroundResource(R.drawable.ic_arrow_right);
         }
         // Instantiate a ViewPager and a PagerAdapter.
-        infoPager = (NoSwipeViewPager) findViewById(R.id.stone_pager);
+        infoPager = (PersonInfoPager) findViewById(R.id.stone_pager);
         infoPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {

@@ -22,55 +22,51 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewMo
  */
 public class StoneInfoPersonFragment extends Fragment {
 
-    private AQuery aq;
-    private ViewPager infoPager;
+    private int current_person; // the current person as the position in the list of all persons
     private StoneInfoViewModel model;
-    private int index;
 
     public StoneInfoPersonFragment() {
-
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState);
-        int buff;
-        if(savedInstanceState != null) {
-            if((buff = savedInstanceState.getInt("current_person")) != -1) {
-                index = buff;
-            }
-        }
-    }
-
-    @Override
-    public View onCreateView (LayoutInflater inflater, ViewGroup container,
-                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_stone_info, container, false);
-        aq = new AQuery(root);
-        infoPager = (ViewPager) aq.id(R.id.stone_info_pager).getView();
-        PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
-        infoPager.setAdapter(pagerAdapter);
-        infoPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                model.updatePersonInfoContent(root, position);
-            }
-        });
-        model.showBasicPersonInfo(root, infoPager, index);
-        return root;
+        // required empty constructor
     }
 
     public static StoneInfoPersonFragment newInstance(StoneInfoViewModel model, int pos) {
         StoneInfoPersonFragment ret = new StoneInfoPersonFragment();
         ret.model = model;
-        ret.index = pos;
+        ret.current_person = pos;
         return ret;
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt("current_person", index);
-        super.onSaveInstanceState(outState);
+    public void onCreate(Bundle saved_state) { super.onCreate(saved_state);
+        if(saved_state != null) {
+            int buff;
+            if((buff = saved_state.getInt("current_person")) != -1) {
+                current_person = buff;
+            }
+        }
+    }
+
+    @Override
+    public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle saved_state) {
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_stone_info, container, false);
+        AQuery aq = new AQuery(root);
+        ViewPager info_pager = (ViewPager) aq.id(R.id.stone_info_pager).getView();
+        PagerAdapter pager_adapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
+        info_pager.setAdapter(pager_adapter);
+        info_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                model.updatePersonInfoContent(root, position);
+            }
+        });
+        model.showBasicPersonInfo(root, info_pager, current_person);
+        return root;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle out_state) {
+        out_state.putInt("current_person", current_person);
+        super.onSaveInstanceState(out_state);
     }
 
     /**
@@ -86,9 +82,9 @@ public class StoneInfoPersonFragment extends Fragment {
         public Fragment getItem(int position) {
             Fragment f;
             if(position == 0) {
-                f = StoneInfoBioFragment.newInstance(model, index);
+                f = StoneInfoBioFragment.newInstance(current_person);
             } else {
-                f = StoneInfoMapFragment.newInstance(model, index);
+                f = StoneInfoMapFragment.newInstance(current_person);
             }
             f.setRetainInstance(true);
             return f;

@@ -42,6 +42,10 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneInfoBi
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneInfoPersonFragment;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
 
+/**
+ * This class represents the ViewModel for the person info page with their biography and map position
+ */
+@SuppressLint("StaticFieldLeak")
 public class StoneInfoViewModel extends AndroidViewModel {
 
     private List<Person> persons;
@@ -76,7 +80,6 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
     public int getIndexFromId(String action) {
         if (action == null || action.length() == 0) {
-            Log.i("MY_DATA_TAG", "Empty action");
             return 0;
         }
         int id;
@@ -84,7 +87,6 @@ public class StoneInfoViewModel extends AndroidViewModel {
             id = Integer.parseInt(action);
 
         } catch (NumberFormatException e) {
-            Log.i("MY_DATA_TAG", "String could not be parsed: " + action);
             return 0;
         }
         int ind = 0;
@@ -94,7 +96,6 @@ public class StoneInfoViewModel extends AndroidViewModel {
             }
             ind++;
         }
-        Log.i("MY_DATA_TAG", "No person found with id: " + id);
         return 0;
     }
 
@@ -193,7 +194,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
                 PagerAdapter pagerAdapter = new MainPagerAdapter(parent.getSupportFragmentManager(), persons.size());
                 infoPager.setAdapter(pagerAdapter);
                 infoPager.setCurrentItem(current_person_index);
-                parent.setPerson(current_person_index); // TODO: unnecessary??
+                parent.setPerson(current_person_index);
             }
         }.execute();
     }

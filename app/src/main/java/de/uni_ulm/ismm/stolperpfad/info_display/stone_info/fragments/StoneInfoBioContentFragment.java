@@ -60,7 +60,7 @@ public class StoneInfoBioContentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_bio_point, container, false);
-        model = StoneInfoMainActivity.getModelInstance();
+        model = StoneInfoViewModel.getInstance((StoneInfoMainActivity) getActivity());
         model.showVitaContent(root, position, point);
         return root;
     }

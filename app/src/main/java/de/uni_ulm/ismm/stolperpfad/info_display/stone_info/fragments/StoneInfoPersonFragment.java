@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.R;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewModel;
 
 /**
@@ -22,16 +23,16 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewMo
  */
 public class StoneInfoPersonFragment extends Fragment {
 
+    private static final int PAGE_COUNT = 2;
     private int current_person; // the current person as the position in the list of all persons
-    private StoneInfoViewModel model;
+    // TODO: maybe work with person id instead
 
     public StoneInfoPersonFragment() {
         // required empty constructor
     }
 
-    public static StoneInfoPersonFragment newInstance(StoneInfoViewModel model, int pos) {
+    public static StoneInfoPersonFragment newInstance(int pos) {
         StoneInfoPersonFragment ret = new StoneInfoPersonFragment();
-        ret.model = model;
         ret.current_person = pos;
         return ret;
     }
@@ -49,17 +50,18 @@ public class StoneInfoPersonFragment extends Fragment {
     @Override
     public View onCreateView (@NonNull LayoutInflater inflater, ViewGroup container, Bundle saved_state) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.fragment_stone_info, container, false);
+        StoneInfoViewModel model = StoneInfoViewModel.getInstance((StoneInfoMainActivity) getActivity());
         AQuery aq = new AQuery(root);
-        ViewPager info_pager = (ViewPager) aq.id(R.id.stone_info_pager).getView();
-        PagerAdapter pager_adapter = new ScreenSlidePagerAdapter(getChildFragmentManager());
-        info_pager.setAdapter(pager_adapter);
-        info_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        ViewPager bio_and_map_pager = (ViewPager) aq.id(R.id.bio_and_map_pager).getView();
+        PagerAdapter info_pager_adapter = new PersonInfoContentPagerAdapter(getChildFragmentManager());
+        bio_and_map_pager.setAdapter(info_pager_adapter);
+        bio_and_map_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
-                model.updatePersonInfoContent(root, position);
+                model.updateContentButtons(root, position);
             }
         });
-        model.showBasicPersonInfo(root, info_pager, current_person);
+        model.showBasicPersonInfo(root, current_person);
         return root;
     }
 
@@ -73,14 +75,13 @@ public class StoneInfoPersonFragment extends Fragment {
      * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
      * sequence.
      */
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        ScreenSlidePagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
+    private class PersonInfoContentPagerAdapter extends FragmentStatePagerAdapter {
+        PersonInfoContentPagerAdapter(FragmentManager fm) { super(fm); }
 
         @Override
         public Fragment getItem(int position) {
             Fragment f;
+            // position 0 = bio, 1 = map
             if(position == 0) {
                 f = StoneInfoBioFragment.newInstance(current_person);
             } else {
@@ -92,7 +93,7 @@ public class StoneInfoPersonFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 2;
+            return PAGE_COUNT;
         }
     }
 }

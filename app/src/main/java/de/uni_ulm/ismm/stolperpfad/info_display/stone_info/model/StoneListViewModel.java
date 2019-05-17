@@ -92,7 +92,7 @@ public class StoneListViewModel extends AndroidViewModel {
             index_buttons.add(buff = makeIndexButton(i));
             index_container.addView(buff);
         }
-        // index_buttons.get(0).setBackgroundResource(R.drawable.ic_index_highlight);
+        index_buttons.get(0).setBackgroundResource(R.drawable.ic_index_highlight);
         Button first = index_buttons.get(0);
         DisplayMetrics dm = parent.getResources().getDisplayMetrics();
         int margin = (int) (dm.density * 16f + 0.5f);
@@ -237,7 +237,7 @@ public class StoneListViewModel extends AndroidViewModel {
 
         @Override
         public Fragment getItem(int position) {
-            return StoneListFragment.newInstance(StoneListViewModel.this, initials.get(position));
+            return StoneListFragment.newInstance(initials.get(position));
         }
 
         @Override

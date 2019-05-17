@@ -96,10 +96,10 @@ public class ImpressumActivity extends StolperpfadeAppActivity {
              attr = new int[]{ R.attr.colorAppPrimaryContrast, R.attr.colorAppTextButtonContrast};
         }
         TypedArray ta = this.obtainStyledAttributes(attr);
-        int bg_color_active = ta.getResourceId(0, android.R.color.black);
-        int text_color_active = ta.getResourceId(1, android.R.color.black);
-        button.setBackgroundColor(getResources().getColor(bg_color_active, getTheme()));
-        button.setTextColor(getResources().getColor(text_color_active, getTheme()));
+        int bg_color = ta.getResourceId(0, android.R.color.black);
+        int text_color = ta.getResourceId(1, android.R.color.black);
+        button.setBackgroundColor(getResources().getColor(bg_color, getTheme()));
+        button.setTextColor(getResources().getColor(text_color, getTheme()));
         ta.recycle();
     }
 

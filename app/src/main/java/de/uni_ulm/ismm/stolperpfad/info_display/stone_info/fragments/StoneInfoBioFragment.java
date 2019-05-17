@@ -39,11 +39,11 @@ public class StoneInfoBioFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(@Nullable Bundle saved_state) {
+        super.onCreate(saved_state);
         int buff;
-        if(savedInstanceState != null) {
-            if((buff = savedInstanceState.getInt("current_person")) != -1) {
+        if(saved_state != null) {
+            if((buff = saved_state.getInt("current_person")) != -1) {
                 index = buff;
             }
         }
@@ -51,7 +51,7 @@ public class StoneInfoBioFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle svaed_state) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_stone_info_bio, container, false);
         StoneInfoViewModel model = StoneInfoViewModel.getInstance((StoneInfoMainActivity) getActivity());
         RotatedViewPager bio_pager = root.findViewById(R.id.bio_view_pager);
@@ -64,7 +64,7 @@ public class StoneInfoBioFragment extends Fragment {
             }
         });
         vita_buttons = new ArrayList<>();
-        model.buildPersonVita(this, getChildFragmentManager(), inflater, root, bio_pager, index);
+        model.buildPersonVita(this, root, index);
         return root;
     }
 

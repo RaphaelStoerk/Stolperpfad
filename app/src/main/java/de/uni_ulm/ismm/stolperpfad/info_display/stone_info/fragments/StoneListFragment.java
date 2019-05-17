@@ -26,11 +26,10 @@ public class StoneListFragment extends Fragment {
     /**
      * Creates a new StoneListFragment instance with the corresponding initial
      *
-     * @param model the ViewModel of the displayed list
      * @param initial the initial of the last names to display
      * @return a new StoneListFragment
      */
-    public static StoneListFragment newInstance(StoneListViewModel model, char initial){
+    public static StoneListFragment newInstance(char initial){
         StoneListFragment frag = new StoneListFragment();
         frag.initial = initial;
         return frag;

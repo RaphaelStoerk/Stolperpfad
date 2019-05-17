@@ -1,6 +1,5 @@
 package de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,8 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
@@ -21,7 +18,7 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewMo
  */
 public class StoneInfoMapFragment extends Fragment {
 
-    private int index;
+    private int current_person_index;
 
     public StoneInfoMapFragment() {
 
@@ -29,33 +26,32 @@ public class StoneInfoMapFragment extends Fragment {
 
     public static StoneInfoMapFragment newInstance(int person_page) {
         StoneInfoMapFragment fragment = new StoneInfoMapFragment();
-        fragment.index = person_page;
+        fragment.current_person_index = person_page;
         return fragment;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(@Nullable Bundle saved_state) {
+        super.onCreate(saved_state);
         int buff;
-        if(savedInstanceState != null) {
-            if((buff = savedInstanceState.getInt("current_person")) != -1) {
-                index = buff;
+        if(saved_state != null) {
+            if((buff = saved_state.getInt("current_person")) != -1) {
+                current_person_index = buff;
             }
         }
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saved_state) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_stone_info_map, container, false);
         StoneInfoViewModel model = StoneInfoViewModel.getInstance((StoneInfoMainActivity) getActivity());
-        model.showMapContent(root, index);
+        model.showMapContent(root, current_person_index);
         return root;
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt("current_person", index);
-        super.onSaveInstanceState(outState);
+    public void onSaveInstanceState(@NonNull Bundle out_state) {
+        out_state.putInt("current_person", current_person_index);
+        super.onSaveInstanceState(out_state);
     }
 }

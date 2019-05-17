@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,29 +16,25 @@ import java.util.ArrayList;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewModel;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager;
+import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.RotatedViewPager;
 
 /**
  * The main fragment for the biography display of a specific person,
  * holds the information of which timestep in the bio of this person
  * is currently displayed
  */
-public class StoneInfoBioFragment extends StoneInfoContentFragment {
+public class StoneInfoBioFragment extends Fragment {
 
-
-    private StoneInfoViewModel model;
     private int index;
-    private VerticalViewPager bio_pager;
     ArrayList<Button> vita_buttons;
 
     public StoneInfoBioFragment() {
 
     }
 
-    public static StoneInfoBioFragment newInstance(StoneInfoViewModel model, int person_index) {
+    public static StoneInfoBioFragment newInstance(int person_index) {
         StoneInfoBioFragment fragment = new StoneInfoBioFragment();
         fragment.index = person_index;
-        fragment.model = model;
         return fragment;
     }
 
@@ -60,8 +53,8 @@ public class StoneInfoBioFragment extends StoneInfoContentFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_stone_info_bio, container, false);
-        model = StoneInfoMainActivity.getModelInstance();
-        bio_pager = root.findViewById(R.id.bio_view_pager);
+        StoneInfoViewModel model = StoneInfoViewModel.getInstance((StoneInfoMainActivity) getActivity());
+        RotatedViewPager bio_pager = root.findViewById(R.id.bio_view_pager);
         bio_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {

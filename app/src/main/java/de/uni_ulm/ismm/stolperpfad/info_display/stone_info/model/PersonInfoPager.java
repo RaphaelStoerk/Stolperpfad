@@ -7,9 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-public class NoSwipeViewPager extends ViewPager {
+public class PersonInfoPager extends ViewPager {
 
-    public NoSwipeViewPager(@NonNull Context context, AttributeSet attrs) {
+    public PersonInfoPager(@NonNull Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

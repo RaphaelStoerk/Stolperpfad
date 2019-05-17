@@ -18,7 +18,6 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneListViewMo
 public class StoneListFragment extends Fragment {
 
     private char initial;
-    private StoneListViewModel model;
 
     public StoneListFragment() {
         // required empty constructor
@@ -33,7 +32,6 @@ public class StoneListFragment extends Fragment {
      */
     public static StoneListFragment newInstance(StoneListViewModel model, char initial){
         StoneListFragment frag = new StoneListFragment();
-        frag.model = model;
         frag.initial = initial;
         return frag;
     }
@@ -47,7 +45,7 @@ public class StoneListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saved_state) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_stone_list, container, false);
-        setupListDisplay();
+        setupListDisplay(root);
         return root;
     }
 
@@ -55,12 +53,8 @@ public class StoneListFragment extends Fragment {
      * Grabs the ViewModel for the StoneList from the calling activity and starts to
      * initialize the list
      */
-    private void setupListDisplay() {
-        model = StoneListViewModel.getInstance((StoneListActivity) getActivity());
-        model.setUpList(this);
-    }
-
-    public char getInitial() {
-        return initial;
+    private void setupListDisplay(ViewGroup root) {
+        StoneListViewModel model = StoneListViewModel.getInstance((StoneListActivity) getActivity());
+        model.setUpList(root, initial);
     }
 }

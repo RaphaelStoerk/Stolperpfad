@@ -238,7 +238,7 @@ public class RouteOptionsDialog extends DialogFragment {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            myMapFragment.createRoute(selected_category, time_in_minutes, starting_choice, ending_choice);
+            map_quest.createRoute(selected_category, time_in_minutes, starting_choice, ending_choice);
             dialog.cancel();
         });
 

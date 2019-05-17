@@ -21,6 +21,7 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -61,6 +62,9 @@ import org.osmdroid.util.GeoPoint;
  */
 public class MapQuestFragment extends Fragment {
 
+    private static final double FOLLOW_MODE_TILT_VALUE_DEGREES = 50;
+    private static final double CENTER_ON_USER_ZOOM_LEVEL = 18;
+
     // the map visual
     private MapView map;
     //the map controller
@@ -73,76 +77,61 @@ public class MapQuestFragment extends Fragment {
 
     // flag, for wether the calling Activity is the next_stone_activity
     private boolean NEXT;
-    private boolean icons_loaded = false;
-
-    AQuery aq;
-
-    private static final double FOLLOW_MODE_TILT_VALUE_DEGREES = 50;
-    private static final double CENTER_ON_USER_ZOOM_LEVEL = 18;
+    // the next persons id
+    private int next_id;
 
     // App specific values storing preferences for the routing
     private StoneFactory stone_handler;
-    private LatLng chosen_position_start;
     private Marker chosen_marker_start;
-    private LatLng chosen_position_end;
     private Marker chosen_marker_end;
     private LatLng ulm_center;
     private Marker ulm_center_marker;
-
     private Marker user_position_marker;
-
     private MyRoad current_path;
     private Polyline current_path_polyline;
-
-    private Polyline store_current_drawn_path;
     private MyLocationPresenter locationPresenter;
-    protected LocationEngine locationEngine;
+    private LocationEngine locationEngine;
     private Location lastLocation;
     private Marker nearest_stone_marker;
     private MyMapActionsListener myActionListener;
-    private IconFactory icon_factory;
     private Icon icon_start_end_low, icon_user_low, icon_stone_low, icon_default_low;
     private AlertDialog info_dialog;
-    private int next_id;
+    private AQuery aq;
 
     public MapQuestFragment() {
-        // Required empty public constructor
         API_KEY = String.valueOf(R.string.mapquest_api_key);
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @return A new instance of fragment MapQuestFragment.
      */
-    public static MapQuestFragment newInstance(int id, boolean next, AQuery aq) {
+    public static MapQuestFragment newInstance(int next_person_id, boolean next, AQuery aq) {
         MapQuestFragment fragment = new MapQuestFragment();
         fragment.NEXT = next;
-        fragment.next_id = id;
+        fragment.next_id = next_person_id;
         fragment.aq = aq;
-        Log.i("MY_DEBUG_TAG","new instance done");
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle saved_state) {
+        super.onCreate(saved_state);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saved_state) {
 
         ctx = inflater.getContext();
-        Log.i("MY_DEBUG_TAG","fragment create view");
-
         // Important Mapquest Initialization
         MapQuest.start(ctx);
 
         map = new MapView(ctx, null, 0, API_KEY);
 
         // Initialize the map visuals
-        map.onCreate(savedInstanceState);
+        map.onCreate(saved_state);
         map.getMapAsync(mapboxMap -> {
             mMapboxMap = mapboxMap;
             if (StolperpfadeApplication.getInstance().isDarkMode()) {
@@ -151,35 +140,22 @@ public class MapQuestFragment extends Fragment {
                 map.setStreetMode();
             }
             loadIconsLow();
-            Log.i("MY_DEBUG_TAG","icons loaded");
-
             stone_handler = StoneFactory.initialize(this, mMapboxMap);
-
-            chosen_position_start = new LatLng(0, 0);
-            chosen_marker_start = null;
-            chosen_position_end = new LatLng(0, 0);
-            chosen_marker_end = null;
             ulm_center = new LatLng(48.39855, 9.99123);
             MarkerOptions ulm_center_options = new MarkerOptions();
             ulm_center_options.setPosition(ulm_center);
             ulm_center_options.setIcon(icon_default_low);
             ulm_center_options.setTitle("Münsterplatz");
             ulm_center_marker = mMapboxMap.addMarker(ulm_center_options);
-
             if (myActionListener == null) {
                 myActionListener = new MyMapActionsListener(this);
             }
-
             mMapboxMap.setOnInfoWindowClickListener(myActionListener);
-
             mapboxMap.addOnMapLongClickListener(myActionListener);
-
             moveCameraTo(ulm_center, 13.5f, 60);
-
             if (locationEngine != null && locationEngine.isConnected()) {
                 setUserMarker();
             }
-            Log.i("MY_DEBUG_TAG","loaded map");
         });
 
 
@@ -187,32 +163,11 @@ public class MapQuestFragment extends Fragment {
     }
 
     private void loadIconsLow() {
-        icon_factory = IconFactory.getInstance(ctx);
+        IconFactory icon_factory = IconFactory.getInstance(ctx);
         icon_default_low = icon_factory.fromResource(R.drawable.marker_icon_default_round);
         icon_start_end_low = icon_factory.fromResource(R.drawable.marker_icon_start_end);
         icon_stone_low = icon_factory.fromResource(R.drawable.marker_icon_stone);
         icon_user_low = icon_factory.fromResource(R.drawable.marker_icon_default);
-    }
-
-    private void attemptRedraw() {
-        if (user_position_marker != null) {
-            user_position_marker.setIcon(icon_user_low);
-        }
-        if (chosen_marker_start != null) {
-            chosen_marker_start.setIcon(icon_start_end_low);
-        }
-        if (chosen_marker_end != null) {
-            chosen_marker_end.setIcon(icon_start_end_low);
-        }
-        if (stone_handler != null) {
-            if (stone_handler.isReady()) {
-                for (Marker m : stone_handler.getMarkers()) {
-                    if (m != null) {
-                        m.setIcon(icon_stone_low);
-                    }
-                }
-            }
-        }
     }
 
     @Override
@@ -541,9 +496,9 @@ public class MapQuestFragment extends Fragment {
 
     public void setStartOrEndMarker(LatLng point, boolean asStart) {
         if (asStart) {
-            setStartOrEndMarker(chosen_position_start = point, chosen_marker_start, true);
+            setStartOrEndMarker(point, chosen_marker_start, true);
         } else {
-            setStartOrEndMarker(chosen_position_end = point, chosen_marker_end, false);
+            setStartOrEndMarker(point, chosen_marker_end, false);
         }
     }
 

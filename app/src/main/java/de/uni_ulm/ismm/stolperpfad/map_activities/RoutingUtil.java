@@ -46,12 +46,17 @@ public class RoutingUtil {
      *
      * @return the distance between g1 and g2
      */
-    public static double getDist(@NonNull LatLng g1, @NonNull LatLng g2) {
+    private static double getDist(@NonNull LatLng g1, @NonNull LatLng g2) {
         double lat_dif = g1.getLatitude() - g2.getLatitude();
         double lng_diff = g1.getLongitude() - g2.getLongitude();
         return lat_dif * lat_dif + lng_diff * lng_diff;
     }
 
+    /**
+     * Converts a basic Loaction to a LatLng Object
+     * @param loc the location to convert
+     * @return the corresponding LatLng Object
+     */
     public static LatLng convertLocationToLatLng(Location loc) {
         if(loc == null) {
             return null;

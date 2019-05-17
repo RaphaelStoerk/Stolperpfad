@@ -200,15 +200,15 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
                     int id = ((Person) object).getPersId();
                     Intent intent = new Intent(StolperpfadeAppActivity.this, StoneInfoMainActivity.class);
                     intent.setAction("" + id);
-                    Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(StolperpfadeAppActivity.this).toBundle();
-                    startActivity(intent, transitionOptions);
+                    Bundle transition_options = ActivityOptions.makeSceneTransitionAnimation(StolperpfadeAppActivity.this).toBundle();
+                    startActivity(intent, transition_options);
                 } else if(object instanceof HistoricalTerm) {
                     // redirect to historical info page
                     String name = ((HistoricalTerm) object).getName();
                     Intent intent = new Intent(StolperpfadeAppActivity.this, HistoInfoActivity.class);
                     intent.putExtra("termName", name);
-                    Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(StolperpfadeAppActivity.this).toBundle();
-                    startActivity(intent, transitionOptions);
+                    Bundle transition_options = ActivityOptions.makeSceneTransitionAnimation(StolperpfadeAppActivity.this).toBundle();
+                    startActivity(intent, transition_options);
                 }
             }
         }.execute(tag);
@@ -237,9 +237,9 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
                     int id = ((Person) object).getPersId();
                     Intent intent = new Intent(scanner_activity, StoneInfoMainActivity.class);
                     intent.setAction("" + id);
-                    Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(scanner_activity).toBundle();
+                    Bundle transition_options = ActivityOptions.makeSceneTransitionAnimation(scanner_activity).toBundle();
                     scanner_activity.endDialog();
-                    startActivity(intent, transitionOptions);
+                    startActivity(intent, transition_options);
                 } else {
                     scanner_activity.error();
                 }

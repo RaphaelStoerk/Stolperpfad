@@ -31,12 +31,12 @@ import de.uni_ulm.ismm.stolperpfad.map_activities.StolperpfadAppMapActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.MyRoad;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.RouteOptionsDialog;
 
+/**
+ * This class represents the Route Planner Activity where the user can interact with a
+ * map on which all stones can be found and routes based on these stones can be created
+ */
+@SuppressLint("InflateParams")
 public class RoutePlannerActivity extends StolperpfadAppMapActivity {
-
-    private String[] categories = new String[]{"Nein", "Jüdische Verfolgte", "Politisch Verfolgte", "Andere"};
-    private String selected_category;
-
-    private static RoutePlannerActivity instance;
 
     public static final int START_CHOICE_GPS = 0;
     public static final int START_CHOICE_MAP = 1;
@@ -46,11 +46,9 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     public static final int END_CHOICE_STN = 0;
     public static final int END_CHOICE_MAP = 1;
     public static final int END_CHOICE_CTR = 2;
-    public static final int END_CHOICE_NAN = -1;
 
     private boolean menu_up;
     private boolean animating;
-    private boolean loadable;
     private String current_file_name;
     private ArrayList<MyRoad> saved_paths;
 
@@ -59,16 +57,10 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     private AlertDialog save_dialog;
     private AlertDialog buff_dialog;
 
-
     @Override
     protected void onCreate(Bundle saved_state) {
         super.onCreate(saved_state);
-        Log.i("MY_DEBUG_TAG","onCreate started");
-        if (instance == null) {
-            instance = this;
-        }
         initializeGeneralControls(R.layout.activity_route_planner);
-        Log.i("MY_DEBUG_TAG","General controls done");
         Bundle b = getIntent().getExtras();
         int id = -1;
         boolean next = false;
@@ -76,20 +68,14 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             id = b.getInt("id");
             next = b.getBoolean("next");
         }
-        Log.i("MY_DEBUG_TAG","getExtras done");
         initializeMapQuestFragment(id, next);
-        Log.i("MY_DEBUG_TAG","Fragment done");
-
         // Route Planner specific setups
-        //aq.id(R.id.header_route_planner).getView().setTranslationZ(HEADER_TRANSLATION_Z / 2);
-        //aq.id(R.id.route_option_button).visible().clicked(my_click_listener);
         aq.id(R.id.save_route_button).visible().clicked(my_click_listener);
         aq.id(R.id.info_map_options_button).visible().clicked(my_click_listener);
         aq.id(R.id.start_guide_button).visible().clicked(my_click_listener);
         aq.id(R.id.menu_open_button).visible().clicked(my_click_listener).getView();
         aq.id(R.id.route_option_button).visible().clicked(my_click_listener).getView();
         menu_up = false;
-        Log.i("MY_DEBUG_TAG","setup done");
     }
 
     @Override
@@ -101,18 +87,17 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         super.onPause();
     }
 
-    public static RoutePlannerActivity getInstance() {
-        if (instance == null) {
-            return instance = new RoutePlannerActivity();
-        }
-        return instance;
-    }
-
+    /**
+     * Create a new route option dialog
+     */
     public void routeOptionDialog() {
         dialog = RouteOptionsDialog.newInstance(this);
         dialog.show(getSupportFragmentManager(), "dialog");
     }
 
+    /**
+     * Display the information dialog with all necessary map informations
+     */
     public void informationDialog() {
         AlertDialog.Builder builder;
         if (StolperpfadeApplication.getInstance().isDarkMode()) {
@@ -120,21 +105,17 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         } else {
             builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
         }
-        // Get the layout inflater
-        LayoutInflater inflater = myMapFragment.getLayoutInflater();
-
-        View myDialogView = inflater.inflate(R.layout.dialog_map_info, null);
-
-        myDialogView.findViewById(R.id.info_close).setOnClickListener(view -> {if(info_dialog != null)info_dialog.cancel();});
-
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setView(myDialogView);
-
+        LayoutInflater inflater = map_quest.getLayoutInflater();
+        View info_dialog_view = inflater.inflate(R.layout.dialog_map_info, null);
+        info_dialog_view.findViewById(R.id.info_close).setOnClickListener(view -> {if(info_dialog != null)info_dialog.cancel();});
+        builder.setView(info_dialog_view);
         info_dialog = builder.create();
         info_dialog.show();
     }
 
+    /**
+     * Display the save and load dialog for routes
+     */
     public void saveOrLoadRouteDialog() {
         AlertDialog.Builder builder;
         current_file_name = "";
@@ -143,47 +124,55 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         } else {
             builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
         }
-        // Get the layout inflater
-        LayoutInflater inflater = myMapFragment.getLayoutInflater();
-
-        View myDialogView = inflater.inflate(R.layout.dialog_save_load, null);
-
-        myDialogView.findViewById(R.id.save_close).setOnClickListener(view -> {if(save_dialog != null)save_dialog.cancel();});
-
-        myDialogView.findViewById(R.id.save_button).setOnClickListener(view -> {
+        LayoutInflater inflater = map_quest.getLayoutInflater();
+        View load_dialog_view = inflater.inflate(R.layout.dialog_save_load, null);
+        load_dialog_view.findViewById(R.id.save_close).setOnClickListener(view -> {if(save_dialog != null)save_dialog.cancel();});
+        load_dialog_view.findViewById(R.id.save_button).setOnClickListener(view -> {
             if(save_dialog != null)save_dialog.cancel();
-            myMapFragment.saveRoute(current_file_name);
+            map_quest.saveRoute(current_file_name);
         });
-
-        EditText time_input = myDialogView.findViewById(R.id.path_name_input);
-
+        EditText time_input = load_dialog_view.findViewById(R.id.path_name_input);
         time_input.addTextChangedListener(new TextWatcher() {
-
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { /*---*/ }
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 current_file_name = charSequence.toString();
-                reloadPaths(myDialogView, current_file_name, false);
+                reloadPaths(load_dialog_view, current_file_name, false);
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
                 current_file_name = editable.toString();
-                reloadPaths(myDialogView, current_file_name, false);
+                reloadPaths(load_dialog_view, current_file_name, false);
             }
         });
-
-        reloadPaths(myDialogView, "", true);
-
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setView(myDialogView);
+        reloadPaths(load_dialog_view, "", true);
+        builder.setView(load_dialog_view);
         save_dialog = builder.create();
         save_dialog.show();
+    }
+
+    /**
+     * Checks the external storage if there has been changes in the saved routes
+     *
+     * @param load_dialog_view the current dialog view
+     * @param current_user_input the currently selected file
+     * @param from_storage if the routes in the external memory should be reloaded
+     */
+    @SuppressLint("StaticFieldLeak")
+    private void reloadPaths(View load_dialog_view, String current_user_input, boolean from_storage) {
+        LinearLayout path_container = load_dialog_view.findViewById(R.id.container_loaded_paths);
+        path_container.removeAllViews();
+        if(from_storage) {
+            new LoadPathsTask() {
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    showPaths(path_container, current_user_input);
+                }
+            }.execute();
+        } else {
+            showPaths(path_container, current_user_input);
+        }
     }
 
     private MyRoad getCurrentRoute(String stub) {
@@ -204,40 +193,23 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         return null;
     }
 
-    @SuppressLint("StaticFieldLeak")
-    private void reloadPaths(View myDialogView, String current_file_name, boolean from_storage) {
-        LinearLayout path_container = myDialogView.findViewById(R.id.container_loaded_paths);
-        path_container.removeAllViews();
-        if(from_storage) {
-            new LoadPathsTask() {
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    showPaths(myDialogView, path_container, current_file_name);
-                }
-            }.execute();
-        } else {
-            showPaths(myDialogView, path_container, current_file_name);
-        }
-    }
-
-    private void showPaths(View myDialogView, LinearLayout container, String current_file_name) {
+    private void showPaths(LinearLayout container, String current_user_input) {
         ArrayList<String> show_paths = new ArrayList<>();
         for(MyRoad path : saved_paths) {
-            if(path.getName().toLowerCase().contains(current_file_name.toLowerCase())) {
+            if(path.getName().toLowerCase().contains(current_user_input.toLowerCase())) {
                 show_paths.add(path.getName());
             }
         }
-
         if(show_paths.size() > 0) {
             for(String s : (show_paths)) {
-                container.addView(addPathButton(myDialogView, container, s, current_file_name, false));
+                container.addView(addPathButton(container, s, current_user_input, false));
             }
         } else {
-            container.addView(addPathButton(myDialogView, container, "< als neuen Pfad anlegen >", "", true));
+            container.addView(addPathButton(container, "< als neuen Pfad anlegen >", "", true));
         }
     }
 
-    private Button addPathButton(View myDialogView, LinearLayout container, String path_name, String search_by, boolean stub) {
+    private Button addPathButton(LinearLayout container, String path_name, String search_by, boolean stub) {
         Button but = (Button) LayoutInflater.from(container.getContext()).inflate(R.layout.button_path_list, null);
         if(!stub) {
             but.setOnClickListener(view -> {
@@ -247,7 +219,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
                 builder.setPositiveButton("Auswählen", (dialogInterface, i) -> {
                     current_file_name = path_name;
                     closeDialogs();
-                    myMapFragment.loadRoute(getCurrentRoute(path_name));
+                    map_quest.loadRoute(getCurrentRoute(path_name));
                 });
                 builder.setNegativeButton("Zurück", (dialogInterface, i) -> dialogInterface.cancel());
                 buff_dialog = builder.create();
@@ -262,7 +234,6 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             show_text = formatText(path_name, search_by);
             but.setText(Html.fromHtml(show_text));
         }
-        //int height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 42, getResources().getDisplayMetrics());
         return but;
     }
 
@@ -311,7 +282,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     }
 
     public void startGuide() {
-        myMapFragment.startGuide();
+        map_quest.startGuide();
     }
 
     public void calcRoute(String start_choice, String end_choice, String time_choice) {
@@ -322,7 +293,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        myMapFragment.createRoute(start_choice.startsWith("#") ? "-1" : start_choice,
+        map_quest.createRoute(start_choice.startsWith("#") ? "-1" : start_choice,
                 end_choice.startsWith("#") ? "-1" : end_choice,
                 time_choice.startsWith("#") ? "-1" : time_choice);
     }

@@ -23,6 +23,7 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewMo
  */
 public class StoneInfoPersonFragment extends Fragment {
 
+    private static final int DEFAULT_ERROR = -1;
     private static final int PAGE_COUNT = 2;
     private int current_person; // the current person as the position in the list of all persons
     // TODO: maybe work with person id instead
@@ -41,7 +42,7 @@ public class StoneInfoPersonFragment extends Fragment {
     public void onCreate(Bundle saved_state) { super.onCreate(saved_state);
         if(saved_state != null) {
             int buff;
-            if((buff = saved_state.getInt("current_person")) != -1) {
+            if((buff = saved_state.getInt("current_person")) != DEFAULT_ERROR) {
                 current_person = buff;
             }
         }

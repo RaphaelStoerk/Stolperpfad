@@ -33,7 +33,11 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneListFr
 @SuppressLint("StaticFieldLeak")
 public class StoneListViewModel extends AndroidViewModel {
 
+    private static final float INDEX_BUTTON_SIZE = 50f;
     private static volatile StoneListViewModel INSTANCE;
+    private static final float INDEX_MARGIN_SIZE = 16f;
+    private static final float HALF_PIXEL = 0.5f;
+    private static final int DEFAULT_ID_OFFSET = 1000;
 
     private List<Person> persons;
     private ArrayList<Character> initials;
@@ -95,8 +99,7 @@ public class StoneListViewModel extends AndroidViewModel {
         index_buttons.get(0).setBackgroundResource(R.drawable.ic_index_highlight);
         Button first = index_buttons.get(0);
         DisplayMetrics dm = parent.getResources().getDisplayMetrics();
-        int margin = (int) (dm.density * 16f + 0.5f);
-
+        int margin = (int) (dm.density * INDEX_MARGIN_SIZE + HALF_PIXEL);
         // define the constraints for all buttons to one another
         ConstraintSet cs = new ConstraintSet();
         cs.clone(index_container);
@@ -124,10 +127,10 @@ public class StoneListViewModel extends AndroidViewModel {
         but.setOnClickListener(view -> updateIndex(position));
         but.setText(initials.get(position).toString());
         DisplayMetrics dm = parent.getResources().getDisplayMetrics();
-        int pixels = (int) (dm.density * 50f + 0.5f);
+        int pixels = (int) (dm.density * INDEX_BUTTON_SIZE + HALF_PIXEL);
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(pixels,pixels);
         but.setLayoutParams(params);
-        but.setId(position+1000);
+        but.setId(position + DEFAULT_ID_OFFSET);
         return but;
     }
 

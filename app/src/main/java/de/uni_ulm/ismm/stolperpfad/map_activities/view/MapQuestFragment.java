@@ -72,6 +72,8 @@ public class MapQuestFragment extends Fragment {
     private static final int SMALLEST_LOCATION_DISPLACEMENT = 2;
     private static final int CAMERA_MOVEMENT_TIME = 1000;
     private static final LatLng ULM_CTR = new LatLng(48.39855, 9.99123);
+    private static final double HALF_HOUR = 30;
+    private static final double ONE_AND_A_HALF_HOURS = 90;
 
     // the map_view visual
     private MapView map_view;
@@ -403,7 +405,7 @@ public class MapQuestFragment extends Fragment {
      * @return a random time in minutes
      */
     private int getRandomtPathTime() {
-        return (int) (30 + Math.random() * 90);
+        return (int) (HALF_HOUR + Math.random() * ONE_AND_A_HALF_HOURS);
     }
 
     /* UTILITY METHODS */

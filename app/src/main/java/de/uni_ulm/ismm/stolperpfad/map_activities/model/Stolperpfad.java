@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
 
+import static de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory.SECONDS_PER_MINUTE;
+
 /**
  * Extends the OSM class Road to allow for JSON compatability and to help save routes
  * in the external storage
@@ -29,6 +31,7 @@ public class Stolperpfad extends Road {
 
     private static final int NO_TIME_REQUESTED = -1;
     private static final int NO_ROAD_FOR_REQ_TIME = -2;
+    private static final int DEFAULT_PATH_COLOR = Color.argb(255, 251, 178, 75);
 
     private int requested_time;
     private int time_flag;
@@ -238,7 +241,7 @@ public class Stolperpfad extends Road {
 
     public String getTime() {
         if(time_flag == 0) {
-            return "" + (requested_time / 60) + " min";
+            return "" + (requested_time / SECONDS_PER_MINUTE) + " min";
         }
         return "-";
     }
@@ -312,7 +315,7 @@ public class Stolperpfad extends Road {
         }
         polyline.addAll(points);
         polyline.width(3);
-        polyline.color(Color.argb(255, 251,178,75));
+        polyline.color(DEFAULT_PATH_COLOR);
         return mMapboxMap.addPolyline(polyline);
     }
 }

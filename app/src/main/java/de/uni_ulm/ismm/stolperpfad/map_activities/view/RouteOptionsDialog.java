@@ -27,6 +27,8 @@ import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
  */
 public class RouteOptionsDialog extends DialogFragment {
 
+    private static final float NO_ALPHA = 0;
+    private static final float SOME_ALPHA = 0.7f;
     private ImageButton[] shortcut_index;
     private ImageButton left, right;
 
@@ -102,14 +104,14 @@ public class RouteOptionsDialog extends DialogFragment {
         }
         shortcut_index[page].setImageResource(R.drawable.ic_bio_point_on);
         if(page <= 0) {
-            left.setAlpha(0f);
+            left.setAlpha(NO_ALPHA);
         } else {
-            left.setAlpha(0.7f);
+            left.setAlpha(SOME_ALPHA);
         }
         if(page >= shortcut_index.length - 1) {
-            right.setAlpha(0f);
+            right.setAlpha(NO_ALPHA);
         } else {
-            right.setAlpha(0.7f);
+            right.setAlpha(SOME_ALPHA);
         }
     }
 

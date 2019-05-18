@@ -57,6 +57,8 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
 public class ScannerActivity extends StolperpfadeAppActivity {
 
     private static final int REQUEST_CAMERA_PERMISSION = 200;
+    private static final int DEFAULT_WIDTH = 640;
+    private static final int DEFAULT_HEIGHT = 480;
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
 
     static {
@@ -133,8 +135,8 @@ public class ScannerActivity extends StolperpfadeAppActivity {
             assert manager != null;
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(camera_device.getId());
             Size[] jpegSizes = Objects.requireNonNull(characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP)).getOutputSizes(ImageFormat.JPEG);
-            int width = 640;
-            int height = 480;
+            int width = DEFAULT_WIDTH;
+            int height = DEFAULT_HEIGHT;
             if (jpegSizes != null && 0 < jpegSizes.length) {
                 width = jpegSizes[0].getWidth();
                 height = jpegSizes[0].getHeight();

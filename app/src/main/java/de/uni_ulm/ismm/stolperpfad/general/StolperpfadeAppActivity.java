@@ -82,24 +82,20 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
      * @param toggle true, if dark mode should be toggled or set
      * @param is_now_dark_mode true, if the app is currently in dark mode
      */
+    @SuppressLint("ResourceType")
     private void toggleDarkMode(Switch theme_switch, boolean toggle, boolean is_now_dark_mode) {
         int[] attr = {R.attr.colorAppPrimary, R.attr.colorAppAccent};
         TypedArray ta = this.obtainStyledAttributes(attr);
+        int color;
         if(is_now_dark_mode){
-            @SuppressLint("ResourceType")
-            int color = ta.getResourceId(1, android.R.color.black);
-            theme_switch.getThumbDrawable().setTint(getResources().getColor(color, getTheme()));
-            theme_switch.getTrackDrawable().setTint(getResources().getColor(color, getTheme()));
-            theme_switch.setChecked(true);
-            StolperpfadeApplication.getInstance().setDarkMode(true);
+            color = ta.getResourceId(1, android.R.color.black);
         } else {
-            int color = ta.getResourceId(0, android.R.color.black);
-            theme_switch.getThumbDrawable().setTint(getResources().getColor(color, getTheme()));
-            theme_switch.getTrackDrawable().setTint(getResources().getColor(color, getTheme()));
-            StolperpfadeApplication.getInstance().setDarkMode(false);
-            theme_switch.setChecked(false);
+            color = ta.getResourceId(0, android.R.color.black);
         }
-        currently_in_dark_mode = is_now_dark_mode;
+        theme_switch.getThumbDrawable().setTint(getResources().getColor(color, getTheme()));
+        theme_switch.getTrackDrawable().setTint(getResources().getColor(color, getTheme()));
+        theme_switch.setChecked(is_now_dark_mode);
+        StolperpfadeApplication.getInstance().setDarkMode(currently_in_dark_mode = is_now_dark_mode);
         ta.recycle();
         if(toggle) {
             recreate();

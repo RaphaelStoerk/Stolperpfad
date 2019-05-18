@@ -49,6 +49,11 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
     private static final int DISPLAY_BIO = 0;
     private static final int DISPLAY_MAP = 1;
+    private static final int DEFAULT_OFFSCREEN_PAGE_LIMIT = 1;
+    private static final int VITA_POINTS_MIN = 2;
+    private static final float VITA_POINT_SIZE = 16f;
+    private static final float HALF_PIXEL = 0.5f;
+    private static final int DEFAULT_ID_OFFSET = 1000;
     private static StoneInfoViewModel INSTANCE;
 
     private List<String> person_names;
@@ -142,7 +147,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
         aq.id(R.id.sub_title_stone_info).text(geb_nam.length() == 0 ? "" : ("geb. " + geb_nam));
         aq.id(R.id.stone_info_to_bio_button).clicked(view -> setInfoDisplay(root, bio_and_map_pager, DISPLAY_BIO));
         aq.id(R.id.stone_info_to_map_button).clicked(view -> setInfoDisplay(root, bio_and_map_pager, DISPLAY_MAP));
-        bio_and_map_pager.setOffscreenPageLimit(1); // TODO: test if this breaks the info pages
+        bio_and_map_pager.setOffscreenPageLimit(DEFAULT_OFFSCREEN_PAGE_LIMIT); // TODO: test if this breaks the info pages
     }
 
     /**
@@ -258,7 +263,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
                 }
                 Person.Vita current_vita = vitas.get(0);
                 int points = current_vita.getSize();
-                if (points < 2) {
+                if (points < VITA_POINTS_MIN) {
                     return;
                 }
                 // initialize the vita content pager with the size of all vita points
@@ -317,10 +322,10 @@ public class StoneInfoViewModel extends AndroidViewModel {
         but.setOnClickListener(view -> showInfo(bio_pager, bio_index));
         but.setBackgroundResource(R.drawable.ic_bio_point_off);
         DisplayMetrics dm = parent.getResources().getDisplayMetrics();
-        int pixels = (int) (dm.density * 16f + 0.5f);
+        int pixels = (int) (dm.density * VITA_POINT_SIZE + HALF_PIXEL);
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(pixels, pixels);
         but.setLayoutParams(params);
-        but.setId(bio_index + 1000);
+        but.setId(bio_index + DEFAULT_ID_OFFSET);
         return but;
     }
 

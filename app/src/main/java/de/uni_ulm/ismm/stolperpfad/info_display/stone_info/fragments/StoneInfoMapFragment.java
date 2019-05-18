@@ -18,6 +18,8 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewMo
  */
 public class StoneInfoMapFragment extends Fragment {
 
+    private static final int DEFAULT_ERROR = -1;
+
     private int current_person_index;
 
     public StoneInfoMapFragment() {
@@ -35,7 +37,7 @@ public class StoneInfoMapFragment extends Fragment {
         super.onCreate(saved_state);
         int buff;
         if(saved_state != null) {
-            if((buff = saved_state.getInt("current_person")) != -1) {
+            if((buff = saved_state.getInt("current_person")) != DEFAULT_ERROR) {
                 current_person_index = buff;
             }
         }

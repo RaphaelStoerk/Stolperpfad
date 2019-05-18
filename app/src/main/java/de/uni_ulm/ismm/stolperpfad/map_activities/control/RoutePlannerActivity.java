@@ -41,6 +41,11 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     public static final int END_CHOICE_MAP = 1;
     public static final int END_CHOICE_CTR = 2;
     public static final int CHOICE_NAN = -1;
+    public static final int NO_NEXT_STONE_FLAG = -1;
+    private static final float HALF_ROTATION = 180f;
+    private static final float NO_ALPHA = 0f;
+    private static final float NO_ROTATION = 0;
+    private static final float FULL_ALPHA = 1f;
     private boolean menu_up;
     private boolean animating;
     private String current_file_name;
@@ -367,14 +372,14 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             return;
         }
         if(menu_up) {
-            toolbar.animate().translationY(toolbar.getHeight()).alpha(0f).setListener(new AnimatorListenerAdapter() {
+            toolbar.animate().translationY(toolbar.getHeight()).alpha(NO_ALPHA).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     toolbar.setVisibility(View.GONE);
                 }
             });
-            menu_open.animate().rotation(0).setListener(new AnimatorListenerAdapter() {
+            menu_open.animate().rotation(NO_ROTATION).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
@@ -382,15 +387,15 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
                 }
             });
         } else {
-            menu_open.animate().rotation(180f).setListener(new AnimatorListenerAdapter() {
+            menu_open.animate().rotation(HALF_ROTATION).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                 }
             });
-            toolbar.setAlpha(0f);
+            toolbar.setAlpha(NO_ALPHA);
             toolbar.setVisibility(View.VISIBLE);
-            toolbar.animate().translationY(0).alpha(1f).setListener(new AnimatorListenerAdapter() {
+            toolbar.animate().translationY(0).alpha(FULL_ALPHA).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);

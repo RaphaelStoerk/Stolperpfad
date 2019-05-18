@@ -15,6 +15,7 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewMo
  */
 public class StoneInfoMainActivity extends StolperpfadeAppActivity {
 
+    private static final int DEFAULT_ERROR = -1;
     private int current_person_index = -1;
     private PersonInfoPager infoPager;
 
@@ -70,7 +71,7 @@ public class StoneInfoMainActivity extends StolperpfadeAppActivity {
         if(infoPager == null || infoPager.getAdapter() == null) {
             return;
         }
-        if (current_person_index == -1 || current_person_index == infoPager.getAdapter().getCount() - 1) {
+        if (current_person_index == DEFAULT_ERROR || current_person_index == infoPager.getAdapter().getCount() - 1) {
             return;
         }
         infoPager.setCurrentItem(++current_person_index);

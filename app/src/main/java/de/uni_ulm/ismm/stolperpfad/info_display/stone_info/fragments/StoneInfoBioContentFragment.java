@@ -18,6 +18,7 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewMo
  */
 public class StoneInfoBioContentFragment extends Fragment {
 
+    private static final int DEFAULT_ERROR = -1;
     private int person_index_in_list;
     private int vita_point_index;
 
@@ -37,10 +38,10 @@ public class StoneInfoBioContentFragment extends Fragment {
         super.onCreate(saved_state);
         int buff;
         if(saved_state != null) {
-            if((buff = saved_state.getInt("current_person")) != -1) {
+            if((buff = saved_state.getInt("current_person")) != DEFAULT_ERROR) {
                 person_index_in_list = buff;
             }
-            if((buff = saved_state.getInt("current_vita_point")) != -1) {
+            if((buff = saved_state.getInt("current_vita_point")) != DEFAULT_ERROR) {
                 vita_point_index = buff;
             }
         }

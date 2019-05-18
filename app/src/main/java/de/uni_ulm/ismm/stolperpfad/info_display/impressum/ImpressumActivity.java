@@ -18,8 +18,8 @@ import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
  */
 public class ImpressumActivity extends StolperpfadeAppActivity {
 
-    private final int DISPLAY_RIGHTS = 0;
-    private final int DISPLAY_CONTACT = 1;
+    public static final int DISPLAY_RIGHTS = 0;
+    public static final int DISPLAY_CONTACT = 1;
     private static final int TOTAL_PAGES = 2;
     private int current_display;
     private ViewPager impressum_pager;

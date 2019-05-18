@@ -25,6 +25,8 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.RotatedViewPage
  */
 public class StoneInfoBioFragment extends Fragment {
 
+    private static final int DEFAULT_ERROR = -1;
+
     private int index;
     ArrayList<Button> vita_buttons;
 
@@ -43,7 +45,7 @@ public class StoneInfoBioFragment extends Fragment {
         super.onCreate(saved_state);
         int buff;
         if(saved_state != null) {
-            if((buff = saved_state.getInt("current_person")) != -1) {
+            if((buff = saved_state.getInt("current_person")) != DEFAULT_ERROR) {
                 index = buff;
             }
         }

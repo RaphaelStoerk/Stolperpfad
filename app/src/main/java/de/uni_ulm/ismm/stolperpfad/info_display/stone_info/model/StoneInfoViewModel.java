@@ -49,7 +49,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
 
     private static final int DISPLAY_BIO = 0;
     private static final int DISPLAY_MAP = 1;
-    private static final int DEFAULT_OFFSCREEN_PAGE_LIMIT = 1;
+    private static final int DEFAULT_OFFSCREEN_PAGE_LIMIT = 0;
     private static final int VITA_POINTS_MIN = 2;
     private static final float VITA_POINT_SIZE = 16f;
     private static final float HALF_PIXEL = 0.5f;
@@ -237,11 +237,11 @@ public class StoneInfoViewModel extends AndroidViewModel {
      * @param person_index the current persons index in the list of all persons
      */
     @SuppressLint("StaticFieldLeak")
-    public void buildPersonVita(StoneInfoBioFragment fragment, ViewGroup root, int person_index) {
+    public void buildPersonVita(StoneInfoBioFragment fragment, FragmentManager cfm, ViewGroup root, int person_index) {
         ConstraintLayout bio_layout = root.findViewById(R.id.bio_layout);
         RotatedViewPager bio_pager = root.findViewById(R.id.bio_view_pager);
         bio_pager.setCurrentItem(0);
-        createVitaButtons(fragment, bio_pager, bio_layout, person_index);
+        createVitaButtons(fragment, cfm, bio_pager, bio_layout, person_index);
     }
 
     /**
@@ -253,7 +253,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
      * @param person_index the current persons index in the list of all persons
      */
     @SuppressLint("StaticFieldLeak")
-    private void createVitaButtons(StoneInfoBioFragment fragment, ViewPager bio_pager, ConstraintLayout bio_layout, int person_index) {
+    private void createVitaButtons(StoneInfoBioFragment fragment, FragmentManager cfm, ViewPager bio_pager, ConstraintLayout bio_layout, int person_index) {
         new LoadVitaTask(this) {
             @Override
             protected void onPostExecute(Person.Vita current_vita) {
@@ -266,19 +266,18 @@ public class StoneInfoViewModel extends AndroidViewModel {
                     return;
                 }
                 // initialize the vita content pager with the size of all vita points
-                FragmentManager cfm = fragment.getChildFragmentManager();
                 PagerAdapter pagerAdapter = new VitaPagerAdapter(cfm, current_vita.getSize(), person_index);
                 bio_pager.setAdapter(pagerAdapter);
 
                 // initialize the buttons
                 ArrayList<Button> vita_buttons;
                 vita_buttons = new ArrayList<>();
-                Button first_button = makeVitaButton(LayoutInflater.from(fragment.getContext()), bio_pager, 0);
-                Button last_button = makeVitaButton(LayoutInflater.from(fragment.getContext()), bio_pager, points - 1);
+                Button first_button = makeVitaButton(LayoutInflater.from(parent), bio_pager, 0);
+                Button last_button = makeVitaButton(LayoutInflater.from(parent), bio_pager, points - 1);
                 vita_buttons.add(first_button);
                 Button buff;
                 for (int i = 0; i < points - 2; i++) {
-                    vita_buttons.add(buff = makeVitaButton(LayoutInflater.from(fragment.getContext()), bio_pager, i + 1));
+                    vita_buttons.add(buff = makeVitaButton(LayoutInflater.from(parent), bio_pager, i + 1));
                     bio_layout.addView(buff);
                 }
                 vita_buttons.add(last_button);

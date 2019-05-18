@@ -93,5 +93,6 @@
     <string name="def_text_concerned_persons">concerned persons</string>
     <string name="no_title"><![CDATA[< Kein Titel gefunden >]]></string>
     <string name="buff_string_address">addresse</string>
+    <string name="null_placeholder" />
 
 </resources>

@@ -119,7 +119,6 @@ public class AppClickListener<T extends StolperpfadeAppActivity> implements View
                 clicked_element = null;
             case R.id.dark_mode_switch:
                 parent_activity.toggleDarkMode(clicked_element == null ? null : (Switch) clicked_element, true);
-            case R.id.header_quick_access_cancel_button:
                 parent_activity.endQuickAccesDialog();
                 break;
 

@@ -1,6 +1,7 @@
 package de.uni_ulm.ismm.stolperpfad.database;
 
 import android.app.Application;
+import android.os.AsyncTask;
 
 
 import java.util.List;
@@ -22,6 +23,25 @@ public class StolperpfadeRepository {
     }
 
     //PERSONS
+
+    public void insertPerson(Person person) {
+        new InsertPersonAsyncTask(stolperpfade_dao).execute(person);
+    }
+
+    private static class InsertPersonAsyncTask extends AsyncTask<Person, Void, Void> {
+
+        private StolperpfadeDao task_dao;
+
+        InsertPersonAsyncTask(StolperpfadeDao dao) {
+            task_dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Person... persons) {
+            task_dao.insert(persons[0]);
+            return null;
+        }
+    }
 
     /**
      * Get a list of all persons
@@ -54,6 +74,25 @@ public class StolperpfadeRepository {
 
 
     //VITAS
+    // insert vita
+    public void insertVita(Person.Vita vita) {
+        new InsertVitaAsyncTask(stolperpfade_dao).execute(vita);
+    }
+
+    private static class InsertVitaAsyncTask extends AsyncTask<Person.Vita, Void, Void> {
+
+        private StolperpfadeDao task_dao;
+
+        InsertVitaAsyncTask(StolperpfadeDao dao) {
+            task_dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Person.Vita... vitas) {
+            task_dao.insert(vitas[0]);
+            return null;
+        }
+    }
 
     /**
      * Get all vitas from an id
@@ -66,6 +105,26 @@ public class StolperpfadeRepository {
     }
 
     //STOLPERSTEINE
+
+    // insert stone
+    public void insertStone(Stolperstein stone) {
+        new InsertStoneAsyncTask(stolperpfade_dao).execute(stone);
+    }
+
+    private static class InsertStoneAsyncTask extends AsyncTask<Stolperstein, Void, Void> {
+
+        private StolperpfadeDao task_dao;
+
+        InsertStoneAsyncTask(StolperpfadeDao dao) {
+            task_dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Stolperstein... vitas) {
+            task_dao.insert(vitas[0]);
+            return null;
+        }
+    }
 
     /**
      * Get all stones in the data base
@@ -89,6 +148,26 @@ public class StolperpfadeRepository {
     }
 
     //HISTORICAL TERMS
+
+    // insert term
+    public void insertTerm(HistoricalTerm term) {
+        new InsertTermAsyncTask(stolperpfade_dao).execute(term);
+    }
+
+    private static class InsertTermAsyncTask extends AsyncTask<HistoricalTerm, Void, Void> {
+
+        private StolperpfadeDao task_dao;
+
+        InsertTermAsyncTask(StolperpfadeDao dao) {
+            task_dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(HistoricalTerm... terms) {
+            task_dao.insert(terms[0]);
+            return null;
+        }
+    }
 
     /**
      * Get a list of all historical terms

@@ -43,7 +43,7 @@
             android:textColorLink="?attr/colorAppAccent"
             android:textColor="?attr/colorAppTextPrimary"
             android:textSize="18sp"
-            android:text="@string/lorem_ipsum_short"
+            android:text="@string/null_placeholder"
             android:clickable="true"
             android:focusable="true"
             android:linksClickable="true"

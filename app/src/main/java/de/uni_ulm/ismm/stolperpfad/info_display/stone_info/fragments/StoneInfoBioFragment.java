@@ -66,7 +66,7 @@ public class StoneInfoBioFragment extends Fragment {
             }
         });
         vita_buttons = new ArrayList<>();
-        model.buildPersonVita(this, root, index);
+        model.buildPersonVita(this, getChildFragmentManager(), root, index);
         return root;
     }
 

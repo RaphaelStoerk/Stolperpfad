@@ -97,7 +97,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/fira_sans_condensed"
-                android:text="@string/lorem_ipsum_short"
+                android:text="@string/null_placeholder"
                 android:textColor="?attr/colorAppTitle"
                 android:textColorHighlight="?attr/colorAppPrimaryContrast"
                 android:textColorLink="?attr/colorAppAccent"

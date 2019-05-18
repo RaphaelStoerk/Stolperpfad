@@ -19,6 +19,7 @@ import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 
 @Dao
 public interface StolperpfadeDao {
+
     /**
      * Overview over the database tables:
      * Table 1: Persons
@@ -26,7 +27,6 @@ public interface StolperpfadeDao {
      * Table 3: Stolpersteine
      * Table 4: Historical Terms
      */
-
     //PERSONS
     @Insert
     void insert(Person pers);

@@ -15,7 +15,7 @@
     <string name="next_stone_button">Nächster Stein</string>
     <string name="scan_button">Stein-Scanner</string>
     <string name="route_button">Pfadplaner</string>
-    <string name="info_button">Stolpersteine</string>
+    <string name="info_button">Stolpersteine A bis Z</string>
     <string name="history_button">Geschichtliches</string>
     <string name="project_and_artist_button_text">Projekt und Künstler</string>
 
@@ -107,8 +107,8 @@
     <string name="button_bio">Schicksal</string>
     <string name="button_stone_info_map">Stolperstein</string>
     <string name="sub_title_stone_info_default">geb. oder verw. Geburtsname</string>
-    <string name="title_activity_stone_info">Stolpersteine</string>
-    <string name="title_stone_list">Stolpersteine</string>
+    <string name="title_activity_stone_info">Stolpersteine A bis Z</string>
+    <string name="title_stone_list">Stolpersteine A bis Z</string>
     <string name="quest_start">Wo möchten Sie den Pfad beginnen?</string>
     <string name="title_summary">Zusammenfassung</string>
     <string name="route_option_positive">Pfad berechnen</string>

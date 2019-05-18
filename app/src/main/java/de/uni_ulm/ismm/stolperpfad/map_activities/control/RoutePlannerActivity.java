@@ -12,18 +12,14 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-
 import org.json.JSONObject;
-
 import java.util.ArrayList;
-
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
@@ -41,17 +37,14 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     public static final int START_CHOICE_GPS = 0;
     public static final int START_CHOICE_MAP = 1;
     public static final int START_CHOICE_CTR = 2;
-    public static final int START_CHOICE_NAN = -1;
-
     public static final int END_CHOICE_STN = 0;
     public static final int END_CHOICE_MAP = 1;
     public static final int END_CHOICE_CTR = 2;
-
+    public static final int CHOICE_NAN = -1;
     private boolean menu_up;
     private boolean animating;
     private String current_file_name;
     private ArrayList<MyRoad> saved_paths;
-
     private RouteOptionsDialog dialog;
     private AlertDialog info_dialog;
     private AlertDialog save_dialog;
@@ -91,7 +84,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
      * Create a new route option dialog
      */
     public void routeOptionDialog() {
-        dialog = RouteOptionsDialog.newInstance(this);
+        dialog = RouteOptionsDialog.newInstance();
         dialog.show(getSupportFragmentManager(), "dialog");
     }
 
@@ -175,24 +168,12 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         }
     }
 
-    private MyRoad getCurrentRoute(String stub) {
-        if(saved_paths == null) {
-            return null;
-        }
-        if(stub == null || stub.length() == 0) {
-            if(current_file_name == null || current_file_name.length() == 0) {
-                return null;
-            }
-            stub = current_file_name;
-        }
-        for(MyRoad path : saved_paths) {
-            if(path.getName().equalsIgnoreCase(stub)) {
-                return path;
-            }
-        }
-        return null;
-    }
-
+    /**
+     * Displays the saved paths that match the input from the search bar
+     *
+     * @param container the layout that contains the path buttons
+     * @param current_user_input the user input from the search bar
+     */
     private void showPaths(LinearLayout container, String current_user_input) {
         ArrayList<String> show_paths = new ArrayList<>();
         for(MyRoad path : saved_paths) {
@@ -209,9 +190,18 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         }
     }
 
-    private Button addPathButton(LinearLayout container, String path_name, String search_by, boolean stub) {
+    /**
+     * Creates a new button for a specific route that was saved in the external storage
+     *
+     * @param container the layout that contains the buttons
+     * @param path_name the name of the saved route
+     * @param search_by the user input
+     * @param no_pathname_found true, if the input doesn't match any saved route names
+     * @return a new button
+     */
+    private Button addPathButton(LinearLayout container, String path_name, String search_by, boolean no_pathname_found) {
         Button but = (Button) LayoutInflater.from(container.getContext()).inflate(R.layout.button_path_list, null);
-        if(!stub) {
+        if(!no_pathname_found) {
             but.setOnClickListener(view -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(path_name);
@@ -227,7 +217,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             });
         }
         String show_text;
-        if(search_by == null || search_by.equals("") || stub) {
+        if(search_by == null || search_by.equals("") || no_pathname_found) {
             show_text = path_name;
             but.setText(show_text);
         } else {
@@ -237,7 +227,10 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         return but;
     }
 
-    private void closeDialogs() {
+    /**
+     * Closes all currently open dialogs
+     */
+    public void closeDialogs() {
         if(buff_dialog != null) {
             buff_dialog.cancel();
             buff_dialog = null;
@@ -246,8 +239,18 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             save_dialog.cancel();
             save_dialog = null;
         }
+        if(dialog != null) {
+            dialog.dismiss();
+            dialog = null;
+        }
     }
 
+    /**
+     * Retrieves the information of a path
+     *
+     * @param path_name the path to search for
+     * @return the information of that path
+     */
     private String getInfoFor(String path_name) {
         MyRoad road = getCurrentRoute(path_name);
         if(road == null) {
@@ -256,40 +259,64 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         return "Zeit: " + road.getTime() + "\nStart: " + road.getBasicStart() + "\nAnzahl Steine: " + road.getStoneCount();
     }
 
+    /**
+     * Highlights the input text in path names that match this string
+     *
+     * @param path_name the name of a saved route
+     * @param search_by the user input
+     * @return the highlighted version of the path name
+     */
     private String formatText(String path_name, String search_by) {
         int index = path_name.indexOf(search_by);
-        String ret = "";
-        if(index > 0 && index + search_by.length() < path_name.length()){
-            ret = path_name.substring(0, index) + "<b>" + path_name.substring(index, index+search_by.length()) + "</b>" + path_name.substring(index+search_by.length());
+        String ret;
+        if(index >= 0 && index + search_by.length() < path_name.length()){
+            ret = path_name.substring(0, index) + "<b>" + path_name.substring(index, index+search_by.length() + 1) + "</b>" + path_name.substring(index+search_by.length() + 1);
         } else {
             ret = path_name;
         }
         return ret;
     }
 
-    private class LoadPathsTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-                ArrayList<JSONObject> jsons = DataFromJSON.loadAllJSONFromExternalDirectory(RoutePlannerActivity.this, "paths");
-                saved_paths = new ArrayList<>();
-                for(JSONObject path : jsons) {
-                    saved_paths.add(MyRoad.newFromJson(path));
-                }
-            Log.i("MY_SAVE_TAG", "paths: " + saved_paths.size());
+    /**
+     * Finds the saved route with the same name the user has put in the search field
+     *
+     * @param user_input the user input
+     * @return the corresponding path
+     */
+    private MyRoad getCurrentRoute(String user_input) {
+        if(saved_paths == null) {
             return null;
         }
+        if(user_input == null || user_input.length() == 0) {
+            if(current_file_name == null || current_file_name.length() == 0) {
+                return null;
+            }
+            user_input = current_file_name;
+        }
+        for(MyRoad path : saved_paths) {
+            if(path.getName().equalsIgnoreCase(user_input)) {
+                return path;
+            }
+        }
+        return null;
     }
 
+    /**
+     * Starts the route guide on the map
+     */
     public void startGuide() {
         map_quest.startGuide();
     }
 
+    /**
+     * Prepares the route calculations on the map
+     *
+     * @param start_choice the chosen start of the next route
+     * @param end_choice the chosen end of the next route
+     * @param time_choice the time the user has for the next route
+     */
     public void calcRoute(String start_choice, String end_choice, String time_choice) {
-        if(dialog != null) {
-            dialog.dismiss();
-            dialog = null;
-        }
+        closeDialogs();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -298,13 +325,9 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
                 time_choice.startsWith("#") ? "-1" : time_choice);
     }
 
-    public void endDialog() {
-        if(dialog != null) {
-            dialog.dismiss();
-            dialog = null;
-        }
-    }
-
+    /**
+     * Animates the opening and closing of the bottom menu on the map
+     */
     public void toggleMenu() {
         View toolbar = aq.id(R.id.map_toolbar).getView();
         View menu_open = aq.id(R.id.menu_open_button).getView();
@@ -347,19 +370,42 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         menu_up = !menu_up;
     }
 
-    public void activatePathPlanner(boolean b1) {
+    /**
+     * Highlights the guide button and makes it usable
+     */
+    public void activatePathGuide() {
         aq.id(R.id.start_guide_button).getView().getBackground().setTint(getResources().getColor(R.color.colorAccentLightMode, null));
     }
 
+    /**
+     * Deactivates the guide button
+     */
     public void deactivateGuide(){
         if(StolperpfadeApplication.getInstance().isDarkMode()) {
             aq.id(R.id.start_guide_button).getView().getBackground().setTint(getResources().getColor(R.color.colorPrimaryDarkMode, null));
-            ImageButton b = (ImageButton) aq.id(R.id.start_guide_button).getView();
-            b.getDrawable().setTint(getResources().getColor(R.color.colorPrimaryContrastDarkMode, null));
+            ImageButton guide_button = (ImageButton) aq.id(R.id.start_guide_button).getView();
+            guide_button.getDrawable().setTint(getResources().getColor(R.color.colorPrimaryContrastDarkMode, null));
         } else {
             aq.id(R.id.start_guide_button).getView().getBackground().setTint(getResources().getColor(R.color.colorPrimaryLightMode, null));
-            ImageButton b = (ImageButton) aq.id(R.id.start_guide_button).getView();
-            b.getDrawable().setTint(getResources().getColor(R.color.colorPrimaryContrastLightMode, null));
+            ImageButton guide_button = (ImageButton) aq.id(R.id.start_guide_button).getView();
+            guide_button.getDrawable().setTint(getResources().getColor(R.color.colorPrimaryContrastLightMode, null));
         }
     }
+
+    /**
+     * A helper task that loads the routes saved in the external storage
+     */
+    @SuppressLint("StaticFieldLeak")
+    private class LoadPathsTask extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            ArrayList<JSONObject> paths_as_json = DataFromJSON.loadAllJSONFromExternalDirectory(RoutePlannerActivity.this, "paths");
+            saved_paths = new ArrayList<>();
+            for(JSONObject path : paths_as_json) {
+                saved_paths.add(MyRoad.newFromJson(path));
+            }
+            return null;
+        }
+    }
+
 }

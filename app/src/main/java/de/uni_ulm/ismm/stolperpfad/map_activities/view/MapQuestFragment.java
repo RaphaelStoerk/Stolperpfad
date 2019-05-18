@@ -39,7 +39,6 @@ import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.annotations.Polyline;
-import com.mapbox.mapboxsdk.annotations.PolylineOptions;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
@@ -51,7 +50,6 @@ import com.mapquest.mapping.maps.MyLocationPresenter;
 import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
-import org.osmdroid.util.GeoPoint;
 
 /**
  * A Fragment class representing all our map visualizations.
@@ -265,7 +263,7 @@ public class MapQuestFragment extends Fragment {
                 }
                 start_route_from = chosen_marker_start;
                 break;
-            case RoutePlannerActivity.START_CHOICE_NAN:
+            case RoutePlannerActivity.CHOICE_NAN:
             default:
                 start_route_from = ulm_center_marker;
         }
@@ -302,7 +300,7 @@ public class MapQuestFragment extends Fragment {
                     mMapboxMap.removePolyline(current_path_polyline);
                 }
                 current_path_polyline = current_path.addPathToMap(mMapboxMap);
-                ((RoutePlannerActivity)getActivity()).activatePathPlanner(true);
+                ((RoutePlannerActivity)getActivity()).activatePathGuide(true);
                 moveCameraTo(road.getStartPosition(), 15, 45);
                 aq.id(R.id.start_guide_button).visible();
                 // dismissAlert();
@@ -403,7 +401,7 @@ public class MapQuestFragment extends Fragment {
                     mMapboxMap.removePolyline(current_path_polyline);
                 }
                 current_path_polyline = current_path.addPathToMap(mMapboxMap);
-                ((RoutePlannerActivity)getActivity()).activatePathPlanner(true);
+                ((RoutePlannerActivity)getActivity()).activatePathGuide(true);
                 moveCameraTo(current_path.getStartPosition(), 15, 45);
                 aq.id(R.id.start_guide_button).visible();
                 dismissAlert();
@@ -426,7 +424,7 @@ public class MapQuestFragment extends Fragment {
             mMapboxMap.removeMarker(user_position_marker);
         }
         if(locationPresenter != null) {
-            ((RoutePlannerActivity)getActivity()).activatePathPlanner(true);
+            ((RoutePlannerActivity)getActivity()).activatePathGuide(true);
         } else {
             locationPresenter = new MyLocationPresenter(map, mMapboxMap, locationEngine);
         }
@@ -577,7 +575,7 @@ public class MapQuestFragment extends Fragment {
     public void activatePathPlanner(boolean bool) {
         StolperpfadAppMapActivity a = (StolperpfadAppMapActivity) getActivity();
         if(a instanceof RoutePlannerActivity) {
-            ((RoutePlannerActivity) a).activatePathPlanner(bool);
+            ((RoutePlannerActivity) a).activatePathGuide(bool);
         } else {
 
         }
@@ -603,7 +601,7 @@ public class MapQuestFragment extends Fragment {
                     mMapboxMap.removePolyline(current_path_polyline);
                 }
                 current_path_polyline = current_path.addPathToMap(mMapboxMap);
-                ((RoutePlannerActivity)getActivity()).activatePathPlanner(true);
+                ((RoutePlannerActivity)getActivity()).activatePathGuide(true);
                 moveCameraTo(current_path.getStartPosition(), 15, 45);
             }
         }.execute();
@@ -629,7 +627,7 @@ public class MapQuestFragment extends Fragment {
                     mMapboxMap.removePolyline(current_path_polyline);
                 }
                 current_path_polyline = current_path.addPathToMap(mMapboxMap);
-                ((RoutePlannerActivity)getActivity()).activatePathPlanner(true);
+                ((RoutePlannerActivity)getActivity()).activatePathGuide(true);
                 moveCameraTo(current_path.getStartPosition(), 15, 45);
                 aq.id(R.id.start_guide_button).visible();
                 dismissAlert();

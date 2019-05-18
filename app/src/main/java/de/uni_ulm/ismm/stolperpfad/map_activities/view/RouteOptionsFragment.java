@@ -203,7 +203,7 @@ public class RouteOptionsFragment extends Fragment {
                 );
 
         summary.findViewById(R.id.route_option_button_neg).setOnClickListener(
-                view -> ((RoutePlannerActivity)getActivity()).endDialog()
+                view -> ((RoutePlannerActivity)getActivity()).closeDialogs()
                 );
 
         return root;

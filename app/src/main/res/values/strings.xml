@@ -127,5 +127,13 @@
     <string name="info_special_marker">Besondere Orte</string>
     <string name="title_quick_access">Hauptmenü</string>
     <string name="button_save">Speichern</string>
+    <string name="route_dialog_start_pos">Pfad bei aktueller Position beginnen.</string>
+    <string name="route_dialog_start_mrk">Pfad bei gesetzter Markierung beginnen.</string>
+    <string name="route_dialog_start_ctr">Pfad am Ulmer Münster beginnen.</string>
+    <string name="route_dialog_start_def">Keine Angaben zum Start des Pfades.</string>
+    <string name="route_dialog_end_pos">Pfad endet bei einem Stolperstein.</string>
+    <string name="route_dialog_end_mrk">Pfad endet bei gesetzter Markierung.</string>
+    <string name="route_dialog_end_ctr">Pfad endet am Ulmer Münster.</string>
+    <string name="route_dialog_end_def">Keine Angaben zum Ende des Pfades.</string>
 
 </resources>

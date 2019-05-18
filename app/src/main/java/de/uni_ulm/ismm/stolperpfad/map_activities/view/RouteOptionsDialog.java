@@ -1,5 +1,6 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class RouteOptionsDialog extends DialogFragment {
     public static RouteOptionsDialog newInstance() {
         return new RouteOptionsDialog();
     }
+
     @Override
     public void onCreate(Bundle saved_state) {
         super.onCreate(saved_state);
@@ -43,6 +45,7 @@ public class RouteOptionsDialog extends DialogFragment {
 
     @Nullable
     @Override
+    @SuppressLint("InflateParams")
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle saved_state) {
         SharedPreferences prefs = Objects.requireNonNull(getActivity()).getApplicationContext().getSharedPreferences("de.uni_ulm.ismm.stolperpfad", Context.MODE_PRIVATE);
         prefs.edit().putString("de.uni_ulm.ismm.stolperpfad.route_time", "#").apply();
@@ -53,15 +56,15 @@ public class RouteOptionsDialog extends DialogFragment {
         } else {
             setStyle(STYLE_NO_TITLE, R.style.DialogTheme_Light);
         }
-        View myDialogView = inflater.inflate(R.layout.dialog_route_options, null);
+        View route_options_dialog_view = inflater.inflate(R.layout.dialog_route_options, null);
         getDialog().setTitle("");
-        ViewPager options_pager = myDialogView.findViewById(R.id.route_option_pager);
+        ViewPager options_pager = route_options_dialog_view.findViewById(R.id.route_option_pager);
         options_pager.setMinimumHeight(options_pager.getWidth());
-        PagerAdapter pagerAdapter = new RouteOptionsPagerAdapter(getChildFragmentManager());
-        options_pager.setAdapter(pagerAdapter);
-        left = myDialogView.findViewById(R.id.dialog_left);
+        PagerAdapter dialog_pager_adapter = new RouteOptionsPagerAdapter(getChildFragmentManager());
+        options_pager.setAdapter(dialog_pager_adapter);
+        left = route_options_dialog_view.findViewById(R.id.dialog_left);
         left.setOnClickListener(view -> options_pager.setCurrentItem(options_pager.getCurrentItem() - 1));
-        right = myDialogView.findViewById(R.id.dialog_right);
+        right = route_options_dialog_view.findViewById(R.id.dialog_right);
         right.setOnClickListener(view -> options_pager.setCurrentItem(options_pager.getCurrentItem() + 1));
         options_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
@@ -71,20 +74,25 @@ public class RouteOptionsDialog extends DialogFragment {
             }
         });
         shortcut_index = new ImageButton[] {
-                myDialogView.findViewById(R.id.dialog_one),
-                myDialogView.findViewById(R.id.dialog_two),
-                myDialogView.findViewById(R.id.dialog_three),
-                myDialogView.findViewById(R.id.dialog_four)};
+                route_options_dialog_view.findViewById(R.id.dialog_one),
+                route_options_dialog_view.findViewById(R.id.dialog_two),
+                route_options_dialog_view.findViewById(R.id.dialog_three),
+                route_options_dialog_view.findViewById(R.id.dialog_four)};
         shortcut_index[0].setOnClickListener(view -> options_pager.setCurrentItem(0));
         shortcut_index[1].setOnClickListener(view -> options_pager.setCurrentItem(1));
         shortcut_index[2].setOnClickListener(view -> options_pager.setCurrentItem(2));
         shortcut_index[3].setOnClickListener(view -> options_pager.setCurrentItem(3));
         options_pager.setOffscreenPageLimit(1);
         updateIndex(0);
-        return myDialogView;
+        return route_options_dialog_view;
     }
 
-    private void updateIndex(int pos) {
+    /**
+     * Updates the navigation interface depending on what page the dialog is at
+     *
+     * @param page the dialog page that is currently displayed
+     */
+    private void updateIndex(int page) {
         for(ImageButton ib : shortcut_index) {
             if(StolperpfadeApplication.getInstance().isDarkMode()) {
                 ib.setImageResource(R.drawable.ic_bio_off_dark);
@@ -92,13 +100,13 @@ public class RouteOptionsDialog extends DialogFragment {
                 ib.setImageResource(R.drawable.ic_bio_point_off);
             }
         }
-        shortcut_index[pos].setImageResource(R.drawable.ic_bio_point_on);
-        if(pos <= 0) {
+        shortcut_index[page].setImageResource(R.drawable.ic_bio_point_on);
+        if(page <= 0) {
             left.setAlpha(0f);
         } else {
             left.setAlpha(0.7f);
         }
-        if(pos >= shortcut_index.length - 1) {
+        if(page >= shortcut_index.length - 1) {
             right.setAlpha(0f);
         } else {
             right.setAlpha(0.7f);
@@ -106,8 +114,7 @@ public class RouteOptionsDialog extends DialogFragment {
     }
 
     /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
+     * The pager adapter for the route optionas dialog
      */
     private class RouteOptionsPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -123,11 +130,11 @@ public class RouteOptionsDialog extends DialogFragment {
         }
 
         @Override
-        public void setPrimaryItem(ViewGroup containter, int pos, Object obj) {
-            if(getMyCurrentFragment() != obj) {
-                myCurrentFragment = (Fragment) obj;
+        public void setPrimaryItem(ViewGroup container, int pos, Object prim_fragment) {
+            if(getMyCurrentFragment() != prim_fragment) {
+                myCurrentFragment = (Fragment) prim_fragment;
             }
-            super.setPrimaryItem(containter,pos,obj);
+            super.setPrimaryItem(container, pos, prim_fragment);
         }
 
         RouteOptionsPagerAdapter(FragmentManager fm) {

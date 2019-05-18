@@ -202,7 +202,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
                     // redirect to historical info page
                     String name = ((HistoricalTerm) object).getName();
                     Intent intent = new Intent(StolperpfadeAppActivity.this, HistoInfoActivity.class);
-                    intent.putExtra("termName", name);
+                    intent.putExtra("term_name", name);
                     Bundle transition_options = ActivityOptions.makeSceneTransitionAnimation(StolperpfadeAppActivity.this).toBundle();
                     startActivity(intent, transition_options);
                 }

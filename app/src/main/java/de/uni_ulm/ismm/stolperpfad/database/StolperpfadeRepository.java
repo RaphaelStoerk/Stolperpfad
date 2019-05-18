@@ -85,7 +85,7 @@ public class StolperpfadeRepository {
     //get a person's birth name (if existent)
 
     //get all persons who are concerned by the given historical term
-    /*public ArrayList<Person> getConcernedPersons(String histoTerm, HistoListActivity parent){
+    /*public ArrayList<Person> getConcernedPersons(String histoTerm, HistoricalListActivity parent){
         new StolperpfadeRepository.getConcernedPersonsAsyncTask(mDao){
             @Override
             protected void onPostExecute(ArrayList<Person> concernedPersons){

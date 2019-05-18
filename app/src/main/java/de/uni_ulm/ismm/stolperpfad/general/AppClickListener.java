@@ -8,7 +8,7 @@ import android.widget.Switch;
 
 import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoListActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoricalListActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ProjectAndArtistOverviewActivity;
@@ -104,7 +104,7 @@ public class AppClickListener<T extends StolperpfadeAppActivity> implements View
                 intent.putExtra("next", false);
                 break;
             case R.id.quick_access_historical_info:
-                intent = intentFromQuickAccess(HistoListActivity.class);
+                intent = intentFromQuickAccess(HistoricalListActivity.class);
                 break;
             case R.id.quick_access_project_artist:
                 intent = intentFromQuickAccess(ProjectAndArtistOverviewActivity.class);

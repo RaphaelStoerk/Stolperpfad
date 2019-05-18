@@ -1,4 +1,4 @@
-package de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model;
+package de.uni_ulm.ismm.stolperpfad.info_display.history.model;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
@@ -18,42 +18,47 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
-import de.uni_ulm.ismm.stolperpfad.database.data.Person;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneListFragment;
+import de.uni_ulm.ismm.stolperpfad.database.data.HistoricalTerm;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoricalListActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoInfoActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.fragments.HistoricalListFragment;
 
 /**
- * This class represents the ViewModel for the list of persons
+ * This class represents the ViewModel for the list of historical terms
  */
 @SuppressLint("StaticFieldLeak")
-public class StoneListViewModel extends AndroidViewModel {
+public class HistoricalListViewModel extends AndroidViewModel {
 
-    private static final float INDEX_BUTTON_SIZE = 50f;
-    private static volatile StoneListViewModel INSTANCE;
+    private static volatile HistoricalListViewModel INSTANCE;
+
     private static final float INDEX_MARGIN_SIZE = 16f;
     private static final float HALF_PIXEL = 0.5f;
+    private static final float INDEX_BUTTON_SIZE = 50f;
     private static final int DEFAULT_ID_OFFSET = 1000;
 
-    private List<Person> persons;
+    private List<HistoricalTerm> historical_terms;
     private ArrayList<Character> initials;
     private ArrayList<Button> index_buttons;
     private Button last_pressed;
-    private RotatedViewPager list_pager;
-    private StoneListActivity parent;
+    private HistoricalTermListPager list_pager;
+    private StolperpfadeRepository repo;
+    private HistoricalListActivity parent;
 
-    private StoneListViewModel(@NonNull Application application, StoneListActivity activity) {
+    private HistoricalListViewModel(@NonNull Application application, HistoricalListActivity activity){
         super(application);
         this.parent = activity;
+        repo = new StolperpfadeRepository(application);
     }
 
-    public static StoneListViewModel getInstance(StoneListActivity activity) {
+    public static HistoricalListViewModel getInstance(HistoricalListActivity activity) {
         if(INSTANCE == null || INSTANCE.parent != activity) {
-            INSTANCE = new StoneListViewModel(activity.getApplication(), activity);
+            INSTANCE = new HistoricalListViewModel(activity.getApplication(), activity);
         }
         return INSTANCE;
     }
@@ -62,18 +67,18 @@ public class StoneListViewModel extends AndroidViewModel {
 
     /**
      * This methods prepares all steps needed to initialize and display the alphabetical index
-     * and then the list of persons
+     * and then the list of terms
      */
     @SuppressLint("StaticFieldLeak")
     public void setUpIndex() {
-        list_pager = parent.findViewById(R.id.stone_list_pager);
+        list_pager = parent.findViewById(R.id.histo_list_pager);
         list_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 updateIndex(position);
             }
         });
-        new LoadPersonsTask() {
+        new LoadAllTermsTask() {
             @Override
             protected void onPostExecute(Void aVoid) {
                 readIndex();
@@ -88,7 +93,7 @@ public class StoneListViewModel extends AndroidViewModel {
      * Actually builds the elements that will be displayed in the alphabetical index
      */
     private void buildIndex() {
-        ConstraintLayout index_container = parent.findViewById(R.id.index_layout);
+        ConstraintLayout index = parent.findViewById(R.id.index_layout);
         index_buttons = new ArrayList<>();
         int count = initials.size();
         Button buff;
@@ -98,22 +103,22 @@ public class StoneListViewModel extends AndroidViewModel {
         int margin = (int) (dm.density * INDEX_MARGIN_SIZE + HALF_PIXEL);
         for(int i = 0; i < count; i++) {
             index_buttons.add(buff = makeIndexButton(i, button_size));
-            index_container.addView(buff);
+            index.addView(buff);
         }
-        index_buttons.get(0).setBackgroundResource(R.drawable.ic_index_highlight);
         Button first = index_buttons.get(0);
+        first.setBackgroundResource(R.drawable.ic_index_highlight);
         // define the constraints for all buttons to one another
         ConstraintSet cs = new ConstraintSet();
-        cs.clone(index_container);
-        cs.connect(first.getId(),ConstraintSet.TOP, index_container.getId(),ConstraintSet.TOP, margin);
-        cs.connect(first.getId(),ConstraintSet.START,index_container.getId(),ConstraintSet.START );
-        cs.connect(first.getId(),ConstraintSet.END, index_container.getId(),ConstraintSet.END);
+        cs.clone(index);
+        cs.connect(first.getId(),ConstraintSet.TOP, index.getId(),ConstraintSet.TOP,margin );
+        cs.connect(first.getId(),ConstraintSet.START,index.getId(),ConstraintSet.START );
+        cs.connect(first.getId(),ConstraintSet.END, index.getId(),ConstraintSet.END);
         for(int i = 1; i < count; i++) {
             cs.connect(index_buttons.get(i).getId(),ConstraintSet.TOP,index_buttons.get(i-1).getId(),ConstraintSet.BOTTOM,margin);
-            cs.connect(index_buttons.get(i).getId(),ConstraintSet.START,index_container.getId(),ConstraintSet.START );
-            cs.connect(index_buttons.get(i).getId(),ConstraintSet.END, index_container.getId(),ConstraintSet.END );
+            cs.connect(index_buttons.get(i).getId(),ConstraintSet.START,index.getId(),ConstraintSet.START );
+            cs.connect(index_buttons.get(i).getId(),ConstraintSet.END, index.getId(),ConstraintSet.END );
         }
-        cs.applyTo(index_container);
+        cs.applyTo(index);
     }
 
     /**
@@ -125,13 +130,13 @@ public class StoneListViewModel extends AndroidViewModel {
      */
     @SuppressLint("InflateParams")
     private Button makeIndexButton(int position, int button_size) {
-        Button but = (Button) LayoutInflater.from(parent).inflate(R.layout.button_index, null);
-        but.setOnClickListener(view -> updateIndex(position));
-        but.setText(initials.get(position).toString());
+        Button new_button = (Button) LayoutInflater.from(parent).inflate(R.layout.button_index, null);
+        new_button.setOnClickListener(view -> updateIndex(position));
+        new_button.setText(initials.get(position).toString());
         ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(button_size,button_size);
-        but.setLayoutParams(params);
-        but.setId(position + DEFAULT_ID_OFFSET);
-        return but;
+        new_button.setLayoutParams(params);
+        new_button.setId(position + DEFAULT_ID_OFFSET);
+        return new_button;
     }
 
     /**
@@ -157,18 +162,18 @@ public class StoneListViewModel extends AndroidViewModel {
     }
 
     /**
-     * Determines the occurring first letters of all last names to calculate the index size
+     * Determines the occurring first letters of all term names to calculate the index size
      */
     private void readIndex() {
         if(initials == null || initials.size() == 0) {
             char buff;
             initials = new ArrayList<>();
-            for(Person p : persons) {
-                if(p.getFamName() == null || p.getFamName().length() == 0) {
+            for (HistoricalTerm term : historical_terms) {
+                if (term.getName() == null || term.getName().length() == 0) {
                     continue;
                 }
-                buff = p.getFamName().charAt(0);
-                if(!initials.contains(buff)){
+                buff = term.getName().charAt(0);
+                if (!initials.contains(buff)) {
                     initials.add(buff);
                 }
             }
@@ -182,54 +187,51 @@ public class StoneListViewModel extends AndroidViewModel {
      *
      * @param root the container view for the person list
      */
+    @SuppressLint("StaticFieldLeak")
     public void setUpList(ViewGroup root, char initial) {
         readIndex();
         LinearLayout list_layout = root.findViewById(R.id.list_layout);
-        for(Person person : persons) {
-            if(person.getFamName().startsWith(initial + "")) {
-                list_layout.addView(makeListButtons(person));
+        for(HistoricalTerm term : historical_terms) {
+            if(term.getName().startsWith(initial + "")) {
+                list_layout.addView(makeListButton(term));
             }
         }
+
     }
 
     /**
-     * Create a single button for the person list with the specified person
+     * Create a single button for the term list with the specified term
      *
-     * @param person the person to display
+     * @param historical_term the term to display
      * @return a new button
      */
     @SuppressLint("InflateParams")
-    private Button makeListButtons(Person person) {
-        Button but = (Button) LayoutInflater.from(parent).inflate(R.layout.button_person_list, null);
-        but.setOnClickListener(view -> {
-            Intent intent = new Intent(parent, StoneInfoMainActivity.class);
-            intent.setAction("" + person.getPersId());
+    private Button makeListButton(HistoricalTerm historical_term) {
+        Button new_button = (Button) LayoutInflater.from(parent).inflate(R.layout.button_person_list, null);
+        new_button.setOnClickListener(view -> {
+            Intent intent = new Intent(parent, HistoInfoActivity.class);
+            intent.putExtra("term_name", historical_term.getName());
+            intent.setAction("" + historical_term.getName());
             parent.startActivity(intent);
         });
-        String display_name = person.getFormattedListName();
-        but.setText(Html.fromHtml(display_name));
-        return but;
+        String display_name = historical_term.getName();
+        new_button.setText(Html.fromHtml(display_name));
+        return new_button;
     }
 
-    // ++++ Helper classes ++++
-
     /**
-     * Used to grab the person information from the data base
+     * A simple helper task that retrieves all necessary data from the data base
      */
-    private class LoadPersonsTask extends AsyncTask<Void, Void, Void> {
+    private class LoadAllTermsTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            if(persons == null) {
-                StolperpfadeRepository repo = new StolperpfadeRepository(parent.getApplication());
-                persons = repo.getAllPersons();
-            }
+            historical_terms = repo.getAllTerms();
             return null;
         }
     }
 
     /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
+     * A simple pager adapter that represents the list pages of the terms
      */
     private class ListPagerAdapter extends FragmentStatePagerAdapter {
         ListPagerAdapter(FragmentManager fm) {
@@ -237,8 +239,8 @@ public class StoneListViewModel extends AndroidViewModel {
         }
 
         @Override
-        public Fragment getItem(int position) {
-            return StoneListFragment.newInstance(initials.get(position));
+        public Fragment getItem(int current_list_page) {
+            return HistoricalListFragment.newInstance(initials.get(current_list_page));
         }
 
         @Override
@@ -246,4 +248,5 @@ public class StoneListViewModel extends AndroidViewModel {
             return initials.size();
         }
     }
+
 }

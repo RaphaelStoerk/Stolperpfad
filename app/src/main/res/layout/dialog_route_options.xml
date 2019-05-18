@@ -18,7 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/route_option_pager"
         app:layout_constraintVertical_bias="0.75"
-        app:srcCompat="@drawable/ic_left" />
+        app:srcCompat="@drawable/ic_left"
+        android:contentDescription="@string/def_content_description"/>
 
     <ImageButton
         android:id="@+id/dialog_right"
@@ -32,17 +33,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/route_option_pager"
         app:layout_constraintVertical_bias="0.75"
-        app:srcCompat="@drawable/ic_right" />
+        app:srcCompat="@drawable/ic_right"
+        android:contentDescription="@string/def_content_description"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/route_option_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </android.support.v4.view.ViewPager>
 
     <View
@@ -68,7 +71,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line_one_dialog">
 
-
         <ImageButton
             android:id="@+id/dialog_one"
             style="@style/Widget.AppCompat.ImageButton"
@@ -77,8 +79,8 @@
             android:background="#0000"
             android:padding="5dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_bio_point_off" />
-
+            app:srcCompat="@drawable/ic_bio_point_off"
+            android:contentDescription="@string/def_content_description"/>
 
         <ImageButton
             android:id="@+id/dialog_two"
@@ -87,8 +89,8 @@
             android:background="#0000"
             android:padding="5dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_bio_point_off" />
-
+            app:srcCompat="@drawable/ic_bio_point_off"
+            android:contentDescription="@string/def_content_description" />
 
         <ImageButton
             android:id="@+id/dialog_three"
@@ -97,8 +99,8 @@
             android:background="#0000"
             android:padding="5dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_bio_point_off" />
-
+            app:srcCompat="@drawable/ic_bio_point_off"
+            android:contentDescription="@string/def_content_description"/>
 
         <ImageButton
             android:id="@+id/dialog_four"
@@ -107,7 +109,8 @@
             android:background="#0000"
             android:padding="5dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_bio_point_off" />
+            app:srcCompat="@drawable/ic_bio_point_off"
+            android:contentDescription="@string/def_content_description" />
 
     </LinearLayout>
 

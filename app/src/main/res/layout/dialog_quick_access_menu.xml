@@ -9,11 +9,11 @@
 
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/header_quick_access"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/fira_sans_condensed_semibold"
@@ -37,7 +37,8 @@
         android:tint="?attr/colorAppTextButtonContrast"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_close" />
+        app:srcCompat="@drawable/ic_close"
+        android:contentDescription="@string/def_content_description"/>
 
     <View
         android:id="@+id/line_zero_quick_access"
@@ -55,12 +56,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="4:5"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line_zero_quick_access"
         android:scrollbarThumbVertical="@color/colorPrimaryLightMode">
-
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -67,7 +67,7 @@
 
 
     <string name="header_content_desc">Header of the app with a small logo and the title</string>
-    <string name="def_content_description">This is a content description</string>
+    <string name="def_content_description">This is a content description for an image component</string>
 
     <string name="lorem_ipsum">
     Lorem hallo ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit amet lobortis augue. Curabitur nec elementum quam. Fusce rhoncus lobortis mi, et dictum dolor interdum vitae. Sed congue, nunc sed lobortis laoreet, diam nunc aliquet nibh, nec cursus nisl neque vel diam. Cras a pharetra ipsum, vitae scelerisque tellus. Praesent id ullamcorper nunc. Aenean tristique est diam, id convallis urna sagittis sit amet. Phasellus auctor orci at nibh pretium tempus. Nulla dictum ante sed libero ultricies pellentesque. Vivamus at imperdiet magna.
@@ -135,5 +135,7 @@
     <string name="route_dialog_end_mrk">Pfad endet bei gesetzter Markierung.</string>
     <string name="route_dialog_end_ctr">Pfad endet am Ulmer Münster.</string>
     <string name="route_dialog_end_def">Keine Angaben zum Ende des Pfades.</string>
+    <string name="def_text_concerned_persons">concerned persons</string>
+    <string name="no_title"><![CDATA[< Kein Titel gefunden >]]></string>
 
 </resources>

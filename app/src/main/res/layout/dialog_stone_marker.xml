@@ -7,30 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/route_marker"
-        app:layout_constraintDimensionRatio="7:4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_marker"
-        android:scrollbarThumbVertical="?attr/colorAppPrimaryContrast">
-
-        <LinearLayout
-            android:id="@+id/marker_list_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-        </LinearLayout>
-    </ScrollView>
-
     <TextView
         android:id="@+id/title_marker"
         android:layout_width="0dp"
@@ -46,6 +22,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/route_marker"
+        app:layout_constraintDimensionRatio="7:3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_marker"
+        android:scrollbarThumbVertical="?attr/colorAppPrimaryContrast">
+
+        <LinearLayout
+            android:id="@+id/marker_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+    </ScrollView>
+
     <ImageButton
         android:id="@+id/route_marker"
         android:layout_width="42dp"
@@ -59,7 +57,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_directions_walk_black_24dp" />
+        app:srcCompat="@drawable/ic_directions_walk_black_24dp"
+        android:contentDescription="@string/def_content_description"/>
 
     <ImageButton
         android:id="@+id/marker_info_close"
@@ -71,5 +70,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_close"
-        android:tint="?attr/colorAppPrimaryContrast"/>
+        android:tint="?attr/colorAppPrimaryContrast"
+        android:contentDescription="@string/def_content_description"/>
+
 </android.support.constraint.ConstraintLayout>

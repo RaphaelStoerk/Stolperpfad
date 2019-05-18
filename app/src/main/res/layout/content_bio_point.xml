@@ -22,7 +22,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textSize="20sp"
             android:textColor="?attr/colorAppTextPrimary"
-            android:text="TITLE"
+            android:text="@string/no_title"
             android:clickable="true"
             android:focusable="true"
             android:linksClickable="true"

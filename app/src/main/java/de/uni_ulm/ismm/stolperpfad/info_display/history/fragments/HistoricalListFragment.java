@@ -9,26 +9,29 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoListActivity;
-import de.uni_ulm.ismm.stolperpfad.info_display.history.model.HistoListViewModel;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoricalListActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.model.HistoricalListViewModel;
 
-public class HistoListFragment extends Fragment {
-    private HistoListViewModel model;
+/**
+ * This Fragment represents a page in the list of all terms corresponding to one specified
+ * initial for the term names that will be displayed
+ */
+public class HistoricalListFragment extends Fragment {
+
     private char initial;
 
-    public HistoListFragment() {
+    public HistoricalListFragment() { /*---*/ }
 
-    }
-
-    public static HistoListFragment newInstance(HistoListViewModel model, char initial) {
-        HistoListFragment frag = new HistoListFragment();
-        frag.model = model;
+    /**
+     * Creates a new HistoricalListFragment instance with the corresponding initial
+     *
+     * @param initial the initial of the term names to display
+     * @return a new HistoricalListFragment
+     */
+    public static HistoricalListFragment newInstance(char initial) {
+        HistoricalListFragment frag = new HistoricalListFragment();
         frag.initial = initial;
         return frag;
-    }
-
-    public char getInitial() {
-        return initial;
     }
 
     @Override
@@ -40,8 +43,8 @@ public class HistoListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_histo_list, container, false);
-        model = HistoListActivity.getModelInstance();
-        model.setUpList(this);
+        HistoricalListViewModel model = HistoricalListViewModel.getInstance((HistoricalListActivity) getActivity());
+        model.setUpList(root, initial);
         return root;
     }
 }

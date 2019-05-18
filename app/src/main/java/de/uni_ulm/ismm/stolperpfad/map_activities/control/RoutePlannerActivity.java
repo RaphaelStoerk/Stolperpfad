@@ -24,7 +24,7 @@ import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
 import de.uni_ulm.ismm.stolperpfad.map_activities.StolperpfadAppMapActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.model.MyRoad;
+import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stolperpfad;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.RouteOptionsDialog;
 
 /**
@@ -44,11 +44,12 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     private boolean menu_up;
     private boolean animating;
     private String current_file_name;
-    private ArrayList<MyRoad> saved_paths;
-    private RouteOptionsDialog dialog;
+    private ArrayList<Stolperpfad> saved_paths;
+    private RouteOptionsDialog route_options_dialog;
     private AlertDialog info_dialog;
     private AlertDialog save_dialog;
-    private AlertDialog buff_dialog;
+    private AlertDialog route_info_dialog;
+    private AlertDialog error_dialog;
 
     @Override
     protected void onCreate(Bundle saved_state) {
@@ -81,17 +82,19 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     }
 
     /**
-     * Create a new route option dialog
+     * Create a new route option route_options_dialog
      */
     public void routeOptionDialog() {
-        dialog = RouteOptionsDialog.newInstance();
-        dialog.show(getSupportFragmentManager(), "dialog");
+        closeDialogs();
+        route_options_dialog = RouteOptionsDialog.newInstance();
+        route_options_dialog.show(getSupportFragmentManager(), "route_options_dialog");
     }
 
     /**
-     * Display the information dialog with all necessary map informations
+     * Display the information route_options_dialog with all necessary map informations
      */
     public void informationDialog() {
+        closeDialogs();
         AlertDialog.Builder builder;
         if (StolperpfadeApplication.getInstance().isDarkMode()) {
             builder = new AlertDialog.Builder(this, R.style.DialogTheme_Dark);
@@ -107,9 +110,10 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     }
 
     /**
-     * Display the save and load dialog for routes
+     * Display the save and load route_options_dialog for routes
      */
     public void saveOrLoadRouteDialog() {
+        closeDialogs();
         AlertDialog.Builder builder;
         current_file_name = "";
         if (StolperpfadeApplication.getInstance().isDarkMode()) {
@@ -121,8 +125,8 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         View load_dialog_view = inflater.inflate(R.layout.dialog_save_load, null);
         load_dialog_view.findViewById(R.id.save_close).setOnClickListener(view -> {if(save_dialog != null)save_dialog.cancel();});
         load_dialog_view.findViewById(R.id.save_button).setOnClickListener(view -> {
-            if(save_dialog != null)save_dialog.cancel();
-            map_quest.saveRoute(current_file_name);
+            boolean saved = map_quest.saveRoute(current_file_name); // TODO: inform user
+            if(save_dialog != null && saved)save_dialog.cancel();
         });
         EditText time_input = load_dialog_view.findViewById(R.id.path_name_input);
         time_input.addTextChangedListener(new TextWatcher() {
@@ -146,9 +150,29 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     }
 
     /**
+     * Display an error dialog with specified title
+     */
+    public void errorDialog(String s) {
+        errorDialog(s, "");
+    }
+
+    /**
+     * Display an error dialog with specified title text
+     */
+    public void errorDialog(String title, String message) {
+        closeDialogs();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setNegativeButton("Okay", (dialogInterface, i) -> dialogInterface.cancel());
+        error_dialog = builder.create();
+        error_dialog.show();
+    }
+
+    /**
      * Checks the external storage if there has been changes in the saved routes
      *
-     * @param load_dialog_view the current dialog view
+     * @param load_dialog_view the current route_options_dialog view
      * @param current_user_input the currently selected file
      * @param from_storage if the routes in the external memory should be reloaded
      */
@@ -176,7 +200,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
      */
     private void showPaths(LinearLayout container, String current_user_input) {
         ArrayList<String> show_paths = new ArrayList<>();
-        for(MyRoad path : saved_paths) {
+        for(Stolperpfad path : saved_paths) {
             if(path.getName().toLowerCase().contains(current_user_input.toLowerCase())) {
                 show_paths.add(path.getName());
             }
@@ -212,8 +236,8 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
                     map_quest.loadRoute(getCurrentRoute(path_name));
                 });
                 builder.setNegativeButton("Zurück", (dialogInterface, i) -> dialogInterface.cancel());
-                buff_dialog = builder.create();
-                buff_dialog.show();
+                route_info_dialog = builder.create();
+                route_info_dialog.show();
             });
         }
         String show_text;
@@ -231,17 +255,25 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
      * Closes all currently open dialogs
      */
     public void closeDialogs() {
-        if(buff_dialog != null) {
-            buff_dialog.cancel();
-            buff_dialog = null;
+        if(route_info_dialog != null) {
+            route_info_dialog.cancel();
+            route_info_dialog = null;
         }
         if(save_dialog != null) {
             save_dialog.cancel();
             save_dialog = null;
         }
-        if(dialog != null) {
-            dialog.dismiss();
-            dialog = null;
+        if(route_options_dialog != null) {
+            route_options_dialog.dismiss();
+            route_options_dialog = null;
+        }
+        if(error_dialog != null) {
+            error_dialog.dismiss();
+            error_dialog = null;
+        }
+        if(info_dialog != null) {
+            info_dialog.dismiss();
+            info_dialog = null;
         }
     }
 
@@ -252,7 +284,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
      * @return the information of that path
      */
     private String getInfoFor(String path_name) {
-        MyRoad road = getCurrentRoute(path_name);
+        Stolperpfad road = getCurrentRoute(path_name);
         if(road == null) {
             return "Keine Informationen gefunden...";
         }
@@ -283,7 +315,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
      * @param user_input the user input
      * @return the corresponding path
      */
-    private MyRoad getCurrentRoute(String user_input) {
+    private Stolperpfad getCurrentRoute(String user_input) {
         if(saved_paths == null) {
             return null;
         }
@@ -293,7 +325,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             }
             user_input = current_file_name;
         }
-        for(MyRoad path : saved_paths) {
+        for(Stolperpfad path : saved_paths) {
             if(path.getName().equalsIgnoreCase(user_input)) {
                 return path;
             }
@@ -402,7 +434,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             ArrayList<JSONObject> paths_as_json = DataFromJSON.loadAllJSONFromExternalDirectory(RoutePlannerActivity.this, "paths");
             saved_paths = new ArrayList<>();
             for(JSONObject path : paths_as_json) {
-                saved_paths.add(MyRoad.newFromJson(path));
+                saved_paths.add(Stolperpfad.newFromJson(path));
             }
             return null;
         }

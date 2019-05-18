@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
-import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
+import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneOnMap;
 
 /**
  * A Utility class for common routing calculations
@@ -34,7 +34,7 @@ public class RoutingUtil {
      *
      * @return the distance between s1 and s2
      */
-    public static double getDist(@NonNull Stone s1, @NonNull Stone s2) {
+    public static double getDist(@NonNull StoneOnMap s1, @NonNull StoneOnMap s2) {
         return getDist(s1.getLocation(), s2.getLocation());
     }
 

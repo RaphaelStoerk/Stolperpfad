@@ -8,8 +8,8 @@ import de.uni_ulm.ismm.stolperpfad.general.MyMapActionsListener;
 import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
 import de.uni_ulm.ismm.stolperpfad.map_activities.StolperpfadAppMapActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.model.MyRoad;
-import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
+import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stolperpfad;
+import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneOnMap;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory;
 
 import android.Manifest;
@@ -51,50 +51,54 @@ import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
 
+import static de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory.SECONDS_PER_MINUTE;
+
 /**
- * A Fragment class representing all our map visualizations.
+ * A Fragment class representing all our map_view visualizations.
  * We are using the mapquest mapping and navigation sdk together with pieces
- * of the osmdroid bonus pack to create routes and show imortant places on the map
+ * of the osmdroid bonus pack to create routes and show important places on the map_view
  *
  * @author Raphael
  */
 public class MapQuestFragment extends Fragment {
 
+    private static final int DEFAULT_TILT = 45;
+    private static final float DEFAULT_ZOOM = 13.5f;
+    private static final float NEAR_ZOOM = 15;
     private static final double FOLLOW_MODE_TILT_VALUE_DEGREES = 50;
     private static final double CENTER_ON_USER_ZOOM_LEVEL = 18;
+    private static final LatLng ULM_CTR = new LatLng(48.39855, 9.99123);
 
-    // the map visual
-    private MapView map;
-    //the map controller
-    private MapboxMap mMapboxMap;
+    // the map_view visual
+    private MapView map_view;
+    //the map_view controller
+    private MapboxMap map_object;
     // activity context
-    private Context ctx;
+    private Context context;
 
     // The mapquest api key needed for transactions
     private final String API_KEY;
 
     // flag, for wether the calling Activity is the next_stone_activity
-    private boolean NEXT;
+    private boolean next;
     // the next persons id
     private int next_id;
 
     // App specific values storing preferences for the routing
+    private AQuery aq;
+    private RoutePlannerActivity parent_activity;
     private StoneFactory stone_handler;
     private Marker chosen_marker_start;
     private Marker chosen_marker_end;
-    private LatLng ulm_center;
     private Marker ulm_center_marker;
     private Marker user_position_marker;
-    private MyRoad current_path;
+    private Stolperpfad current_path;
     private Polyline current_path_polyline;
-    private MyLocationPresenter locationPresenter;
-    private LocationEngine locationEngine;
-    private Location lastLocation;
-    private Marker nearest_stone_marker;
-    private MyMapActionsListener myActionListener;
+    private MyLocationPresenter location_presenter;
+    private LocationEngine location_engine;
+    private Location last_location;
+    private MyMapActionsListener map_action_listener;
     private Icon icon_start_end_low, icon_user_low, icon_stone_low, icon_default_low;
-    private AlertDialog info_dialog;
-    private AQuery aq;
 
     public MapQuestFragment() {
         API_KEY = String.valueOf(R.string.mapquest_api_key);
@@ -108,7 +112,7 @@ public class MapQuestFragment extends Fragment {
      */
     public static MapQuestFragment newInstance(int next_person_id, boolean next, AQuery aq) {
         MapQuestFragment fragment = new MapQuestFragment();
-        fragment.NEXT = next;
+        fragment.next = next;
         fragment.next_id = next_person_id;
         fragment.aq = aq;
         return fragment;
@@ -117,55 +121,42 @@ public class MapQuestFragment extends Fragment {
     @Override
     public void onCreate(Bundle saved_state) {
         super.onCreate(saved_state);
+        parent_activity = (RoutePlannerActivity) getActivity();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saved_state) {
-
-        ctx = inflater.getContext();
+        context = inflater.getContext();
         // Important Mapquest Initialization
-        MapQuest.start(ctx);
-
-        map = new MapView(ctx, null, 0, API_KEY);
-
-        // Initialize the map visuals
-        map.onCreate(saved_state);
-        map.getMapAsync(mapboxMap -> {
-            mMapboxMap = mapboxMap;
+        MapQuest.start(context);
+        map_view = new MapView(context, null, 0, API_KEY);
+        // Initialize the map_view visuals
+        map_view.onCreate(saved_state);
+        map_view.getMapAsync(mapboxMap -> {
+            map_object = mapboxMap;
             if (StolperpfadeApplication.getInstance().isDarkMode()) {
-                map.setNightMode();
+                map_view.setNightMode();
             } else {
-                map.setStreetMode();
+                map_view.setStreetMode();
             }
             loadIconsLow();
-            stone_handler = StoneFactory.initialize(this, mMapboxMap);
-            ulm_center = new LatLng(48.39855, 9.99123);
+            stone_handler = StoneFactory.initialize(this, map_object);
             MarkerOptions ulm_center_options = new MarkerOptions();
-            ulm_center_options.setPosition(ulm_center);
+            ulm_center_options.setPosition(ULM_CTR);
             ulm_center_options.setIcon(icon_default_low);
             ulm_center_options.setTitle("Münsterplatz");
-            ulm_center_marker = mMapboxMap.addMarker(ulm_center_options);
-            if (myActionListener == null) {
-                myActionListener = new MyMapActionsListener(this);
+            ulm_center_marker = map_object.addMarker(ulm_center_options);
+            if (map_action_listener == null) {
+                map_action_listener = new MyMapActionsListener(this);
             }
-            mMapboxMap.setOnInfoWindowClickListener(myActionListener);
-            mapboxMap.addOnMapLongClickListener(myActionListener);
-            moveCameraTo(ulm_center, 13.5f, 60);
-            if (locationEngine != null && locationEngine.isConnected()) {
+            map_object.setOnInfoWindowClickListener(map_action_listener);
+            mapboxMap.addOnMapLongClickListener(map_action_listener);
+            moveCameraTo(ULM_CTR, DEFAULT_ZOOM, DEFAULT_TILT);
+            if (location_engine != null && location_engine.isConnected()) {
                 setUserMarker();
             }
         });
-
-
-        return map;
-    }
-
-    private void loadIconsLow() {
-        IconFactory icon_factory = IconFactory.getInstance(ctx);
-        icon_default_low = icon_factory.fromResource(R.drawable.marker_icon_default_round);
-        icon_start_end_low = icon_factory.fromResource(R.drawable.marker_icon_start_end);
-        icon_stone_low = icon_factory.fromResource(R.drawable.marker_icon_stone);
-        icon_user_low = icon_factory.fromResource(R.drawable.marker_icon_default);
+        return map_view;
     }
 
     @Override
@@ -176,31 +167,38 @@ public class MapQuestFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        map.onResume();
+        map_view.onResume();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        map.onPause();
+        map_view.onPause();
     }
 
     /**
-     * Displays the Stone markers on the map, that have been stored in the stone factory
+     * Load the drawables for the marker icons, TODO: maybe get scalable images
+     */
+    private void loadIconsLow() {
+        IconFactory icon_factory = IconFactory.getInstance(context);
+        icon_default_low = icon_factory.fromResource(R.drawable.marker_icon_default_round);
+        icon_start_end_low = icon_factory.fromResource(R.drawable.marker_icon_start_end);
+        icon_stone_low = icon_factory.fromResource(R.drawable.marker_icon_stone);
+        icon_user_low = icon_factory.fromResource(R.drawable.marker_icon_default);
+    }
+
+    /**
+     * Displays the stone markers on the map_view, that have been stored in the stone factory
      */
     public void setStones() {
-        Log.i("MY_DEBUG_TAG","setStones");
-        if (!stone_handler.isReady() || map == null || mMapboxMap == null) {
-            return;
-        }
         if (icon_stone_low == null) {
             loadIconsLow();
         }
         for (Marker m : stone_handler.getMarkers()) {
             m.setIcon(icon_stone_low);
         }
-        if (NEXT) {
-            Log.i("MY_DEBUG_TAG","next");
+        if (next) {
+            Marker nearest_stone_marker;
             if(next_id == -1) {
                 nearest_stone_marker = stone_handler.getNearestTo(user_position_marker);
                 if(nearest_stone_marker != null) {
@@ -213,15 +211,12 @@ public class MapQuestFragment extends Fragment {
                 nearest_stone_marker = ulm_center_marker;
                 nearest_stone_marker.setTitle("Information");
                 nearest_stone_marker.setSnippet("Sie haben bereits alle Steine gesehen");
-            } else {
-                // nearest_stone_marker.setSnippet("Bring mich zu diesem Stein");
             }
             moveCameraTo(nearest_stone_marker.getPosition(), 15, 45);
-            mMapboxMap.selectMarker(nearest_stone_marker);
+            map_object.selectMarker(nearest_stone_marker);
         }
-        Log.i("MY_DEBUG_TAG","set stones done");
         setUserMarker();
-        map.invalidate();
+        map_view.invalidate();
     }
 
     /**
@@ -234,31 +229,26 @@ public class MapQuestFragment extends Fragment {
     @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     @SuppressLint("StaticFieldLeak")
     public void createRoute(String start_choice, String end_choice, String time_in_minutes) {
-
-        // TODO: create a good route through ulm
         Marker start_route_from;
         Marker end_route_at = null;
-
         int start = Integer.parseInt(start_choice);
         int end = Integer.parseInt(end_choice);
         int time = Integer.parseInt(time_in_minutes);
 
-
         switch (start) {
-            case RoutePlannerActivity
-                    .START_CHOICE_CTR:
+            case RoutePlannerActivity.START_CHOICE_CTR:
                 start_route_from = ulm_center_marker;
                 break;
             case RoutePlannerActivity.START_CHOICE_GPS:
                 if(user_position_marker == null) {
-                    errorDialog("Keinen Standort gefunden");
+                    parent_activity.errorDialog("Keinen Standort gefunden");
                     return;
                 }
                 start_route_from = user_position_marker;
                 break;
             case RoutePlannerActivity.START_CHOICE_MAP:
                 if(chosen_marker_start == null) {
-                    errorDialog("Keinen Start-Marker gesetzt");
+                    parent_activity.errorDialog("Keinen Start-Marker gesetzt");
                     return;
                 }
                 start_route_from = chosen_marker_start;
@@ -274,7 +264,7 @@ public class MapQuestFragment extends Fragment {
                 break;
             case RoutePlannerActivity.END_CHOICE_MAP:
                 if(chosen_marker_end == null) {
-                    errorDialog("Keinen End-Marker gesetzt");
+                    parent_activity.errorDialog("Keinen End-Marker gesetzt");
                     return;
                 }
                 end_route_at = chosen_marker_end;
@@ -282,13 +272,12 @@ public class MapQuestFragment extends Fragment {
             case RoutePlannerActivity.END_CHOICE_STN:
                 break;
         }
-        MyRoad road = addStonesToRoute(start_route_from, end_route_at, time * 60);
+        Stolperpfad road = addStonesToRoute(start_route_from, end_route_at, time * SECONDS_PER_MINUTE);
         if(!road.isValid()) {
-            errorDialog("Kein Erfolg", "Mit den gegebenen Einstellungen konnte kein Pfad erstellt werden");
+            parent_activity.errorDialog("Kein Erfolg", "Mit den gegebenen Einstellungen konnte kein Pfad erstellt werden");
             return;
         }
         current_path = road;
-
         new CreateRouteTask() {
             @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
             @Override
@@ -297,69 +286,25 @@ public class MapQuestFragment extends Fragment {
                     return;
                 }
                 if(current_path_polyline != null) {
-                    mMapboxMap.removePolyline(current_path_polyline);
+                    map_object.removePolyline(current_path_polyline);
                 }
-                current_path_polyline = current_path.addPathToMap(mMapboxMap);
-                ((RoutePlannerActivity)getActivity()).activatePathGuide(true);
-                moveCameraTo(road.getStartPosition(), 15, 45);
+                current_path_polyline = current_path.addPathToMap(map_object);
+                parent_activity.activatePathGuide();
+                moveCameraTo(road.getStartPosition(), NEAR_ZOOM, DEFAULT_TILT);
                 aq.id(R.id.start_guide_button).visible();
-                // dismissAlert();
             }
         }.execute();
     }
 
-    private void alertUser(String s) {
-        if(info_dialog != null) {
-            // dismissAlert();
-            return;
-        }
-        AlertDialog.Builder builder;
-        if (StolperpfadeApplication.getInstance().isDarkMode()) {
-            builder = new AlertDialog.Builder(this.getContext(), R.style.DialogTheme_Dark);
-        } else {
-            builder = new AlertDialog.Builder(this.getContext(), R.style.DialogTheme_Light);
-        }
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setMessage(s);
-        builder.setCancelable(false);
-
-        info_dialog = builder.create();
-        info_dialog.show();
-    }
-
-    private void dismissAlert() {
-        if(info_dialog != null) {
-            info_dialog.dismiss();
-            info_dialog = null;
-        }
-    }
-    private void errorDialog(String s) {
-        errorDialog(s, "");
-    }
-
-    private AlertDialog error_dialog;
-
-    private void errorDialog(String title, String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
-        builder.setTitle(title);
-        builder.setMessage(message);
-
-        builder.setNegativeButton("Okay", (dialogInterface, i) -> {
-            dialogInterface.cancel();
-        });
-        if(error_dialog != null) {
-            error_dialog.cancel();
-            error_dialog = null;
-        }
-        error_dialog = builder.create();
-        error_dialog.show();
-    }
-
-    private MyRoad addStonesToRoute(Marker start_route_from, Marker end_route_at, int time_in_seconds) {
+    /**
+     * Prepares the route creation for the stone handler
+     *
+     * @param start_route_from the start of the next route
+     * @param end_route_at the end of the next route
+     * @param time_in_seconds the requested time for the next route
+     * @return a new route for the specified parameters
+     */
+    private Stolperpfad addStonesToRoute(Marker start_route_from, Marker end_route_at, int time_in_seconds) {
         if(time_in_seconds < 60) {
             time_in_seconds = 60 * (getRandomtPathTime());
         } else if(time_in_seconds > 24 * 60 * 60) {
@@ -368,101 +313,84 @@ public class MapQuestFragment extends Fragment {
         return stone_handler.createPathWith(start_route_from, end_route_at, time_in_seconds);
     }
 
+    /**
+     * Calculates a random path time if no time was specified
+     *
+     * @return a random time in minutes
+     */
     private int getRandomtPathTime() {
         return (int) (30 + Math.random() * 90);
     }
 
     /**
-     * Creates a route from the user location to the nearest stone
+     * Moves the camera on the map to a requested position
+     *
+     * @param new_position the new camera position
+     * @param zoom the new zoom for the camera
+     * @param tilt the new tilt
      */
-    @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
-    @SuppressLint("StaticFieldLeak")
-    public void createRouteToNext() {
-
-        if (user_position_marker == null) {
-            setUserMarker();
-        }
-        if (nearest_stone_marker == null) {
-            return;
-        }
-
-        MyRoad direct_path = MyRoad.newDirectPathInstance(user_position_marker, nearest_stone_marker);
-        if(direct_path.isValid()) {
-            current_path = direct_path;
-        }
-        new CreateRouteTask() {
-            @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
-            @Override
-            public void onPostExecute(Void voids) {
-                if (current_path == null || !current_path.isValid()) {
-                    return;
-                }
-                if(current_path_polyline != null) {
-                    mMapboxMap.removePolyline(current_path_polyline);
-                }
-                current_path_polyline = current_path.addPathToMap(mMapboxMap);
-                ((RoutePlannerActivity)getActivity()).activatePathGuide(true);
-                moveCameraTo(current_path.getStartPosition(), 15, 45);
-                aq.id(R.id.start_guide_button).visible();
-                dismissAlert();
-            }
-        }.execute();
-    }
-
-    public void moveCameraTo(LatLng newPosition, float zoom, float tilt) {
+    public void moveCameraTo(LatLng new_position, float zoom, float tilt) {
         CameraPosition position = new CameraPosition.Builder()
-                .target(newPosition) // Sets the new camera position
+                .target(new_position) // Sets the new camera position
                 .zoom(zoom) // Sets the zoom to level 14
                 .tilt(tilt) // Set the camera tilt to 45 degrees
                 .build(); // Builds the CameraPosition object from the builder
-        mMapboxMap.easeCamera(mapboxMap -> position, 1000);
+        map_object.easeCamera(mapboxMap -> position, 1000);
     }
 
-    @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
-    protected synchronized void enterFollowMode() {
-        if (user_position_marker != null) {
-            mMapboxMap.removeMarker(user_position_marker);
-        }
-        if(locationPresenter != null) {
-            ((RoutePlannerActivity)getActivity()).activatePathGuide(true);
-        } else {
-            locationPresenter = new MyLocationPresenter(map, mMapboxMap, locationEngine);
-        }
-        locationPresenter.setInitialZoomLevel(CENTER_ON_USER_ZOOM_LEVEL);
-        locationPresenter.setFollowCameraAngle(FOLLOW_MODE_TILT_VALUE_DEGREES);
-        locationPresenter.setLockNorthUp(false);
-        locationPresenter.setFollow(true);
-        locationPresenter.forceLocationChange(lastLocation);
-        locationPresenter.onStart();
-    }
-
+    /**
+     * Initializes the location engine that checks the users position in set intervals
+     */
     @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     public void initializeLocationEngine() {
-        locationEngine = (new LocationEngineProvider(Objects.requireNonNull(getActivity()).getApplicationContext())).obtainBestLocationEngineAvailable();
-        locationEngine.setInterval(1000);
-        locationEngine.setFastestInterval(800);
-        locationEngine.setSmallestDisplacement(2);
-        locationEngine.setPriority(LocationEnginePriority.HIGH_ACCURACY);
-        if (myActionListener == null) {
-            myActionListener = new MyMapActionsListener(this);
+        location_engine = (new LocationEngineProvider(Objects.requireNonNull(getActivity()).getApplicationContext())).obtainBestLocationEngineAvailable();
+        location_engine.setInterval(1000);
+        location_engine.setFastestInterval(800);
+        location_engine.setSmallestDisplacement(2);
+        location_engine.setPriority(LocationEnginePriority.HIGH_ACCURACY);
+        if (map_action_listener == null) {
+            map_action_listener = new MyMapActionsListener(this);
         }
-        locationEngine.addLocationEngineListener(myActionListener);
-        locationEngine.activate();
-        locationEngine.requestLocationUpdates();
-        lastLocation = locationEngine.getLastLocation();
+        location_engine.addLocationEngineListener(map_action_listener);
+        location_engine.activate();
+        location_engine.requestLocationUpdates();
+        last_location = location_engine.getLastLocation();
         setUserMarker();
     }
 
+    /**
+     * Starts the guide for the route planner and follows the user position while walking
+     */
+    @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
+    protected synchronized void enterFollowMode() {
+        if (user_position_marker != null) {
+            map_object.removeMarker(user_position_marker);
+        }
+        if(location_presenter != null) {
+            parent_activity.activatePathGuide();
+        } else {
+            location_presenter = new MyLocationPresenter(map_view, map_object, location_engine);
+        }
+        location_presenter.setInitialZoomLevel(CENTER_ON_USER_ZOOM_LEVEL);
+        location_presenter.setFollowCameraAngle(FOLLOW_MODE_TILT_VALUE_DEGREES);
+        location_presenter.setLockNorthUp(false);
+        location_presenter.setFollow(true);
+        location_presenter.forceLocationChange(last_location);
+        location_presenter.onStart();
+    }
+
+    /**
+     * Set the user marker if the location engine is ready
+     */
     public void setUserMarker() {
-        Log.i("MY_DEBUG_TAG","set user marker");
-        if(lastLocation == null) {
+        if(last_location == null) {
             return;
         }
         if (user_position_marker != null) {
-            user_position_marker.setPosition(RoutingUtil.convertLocationToLatLng(lastLocation));
+            user_position_marker.setPosition(RoutingUtil.convertLocationToLatLng(last_location));
         } else {
             MarkerOptions user_position_marker_options = new MarkerOptions();
-            user_position_marker_options.setPosition(RoutingUtil.convertLocationToLatLng(lastLocation));
+            user_position_marker_options.setPosition(RoutingUtil.convertLocationToLatLng(last_location));
             user_position_marker_options.setTitle("Sie sind hier");
             user_position_marker_options.setSnippet("");
             if (icon_user_low == null) {
@@ -471,83 +399,87 @@ public class MapQuestFragment extends Fragment {
 
             user_position_marker_options.setIcon(icon_user_low);
 
-            if (mMapboxMap == null) {
+            if (map_object == null) {
                 return;
             }
-            user_position_marker = mMapboxMap.addMarker(user_position_marker_options);
+            user_position_marker = map_object.addMarker(user_position_marker_options);
         }
     }
 
-    public void setUserLocation(Location location) {
-        lastLocation = location;
-        if (locationPresenter == null || !locationPresenter.isFollowing()) {
-            setUserMarker();
-        }
-    }
-
+    /**
+     * Forces the location engine to check for a new user location
+     */
     @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     public void forceUserLocationUpdate() {
-        locationEngine.requestLocationUpdates();
-        lastLocation = locationEngine.getLastLocation();
-        setUserLocation(lastLocation);
+        location_engine.requestLocationUpdates();
+        last_location = location_engine.getLastLocation();
+        setUserLocation(last_location);
     }
 
-    public void setStartOrEndMarker(LatLng point, boolean asStart) {
-        if (asStart) {
-            setStartOrEndMarker(point, chosen_marker_start, true);
+    /**
+     * Sets the Marker for the start or end position of e new route
+     *
+     * @param position the requested position
+     * @param as_start if the point corresponds to a start position
+     */
+    public void setStartOrEndMarker(LatLng position, boolean as_start) {
+        if (as_start) {
+            setStartOrEndMarker(position, chosen_marker_start, true);
         } else {
-            setStartOrEndMarker(point, chosen_marker_end, false);
+            setStartOrEndMarker(position, chosen_marker_end, false);
         }
     }
 
-    private void setStartOrEndMarker(LatLng point, Marker marker, boolean asStart) {
+    /**
+     * Sets the Marker for the start or end position of e new route
+     *
+     * @param position the requested position
+     * @param marker the marker for that position
+     * @param as_start if the point corresponds to a start position
+     */
+    private void setStartOrEndMarker(LatLng position, Marker marker, boolean as_start) {
         if (marker != null) {
-            marker.setPosition(point);
+            marker.setPosition(position);
         } else {
             MarkerOptions chosen_marker_options = new MarkerOptions();
-            chosen_marker_options.setPosition(point);
-            chosen_marker_options.setTitle((asStart ? "Beginn" : "Ende") + " der nächsten Route");
+            chosen_marker_options.setPosition(position);
+            chosen_marker_options.setTitle((as_start ? "Beginn" : "Ende") + " der nächsten Route");
             if (icon_start_end_low == null) {
                 loadIconsLow();
             }
-            if (asStart) {
+            if (as_start) {
                 chosen_marker_options.setIcon(icon_start_end_low);
-                chosen_marker_start = mMapboxMap.addMarker(chosen_marker_options);
+                chosen_marker_start = map_object.addMarker(chosen_marker_options);
             } else {
                 chosen_marker_options.setIcon(icon_start_end_low);
-                chosen_marker_end = mMapboxMap.addMarker(chosen_marker_options);
+                chosen_marker_end = map_object.addMarker(chosen_marker_options);
             }
         }
     }
 
+    /**
+     * starts the route guide
+     */
     public void startGuide() {
-        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        if(lastLocation == null) {
+        if(last_location == null) {
             return;
         }
-        if(current_path_polyline != null && (locationPresenter == null || !locationPresenter.isFollowing())) {
+        if(current_path_polyline != null && (location_presenter == null || !location_presenter.isFollowing())) {
             enterFollowMode();
         } else {
-            if(locationPresenter == null) {
+            if(location_presenter == null) {
                 return;
             }
-            locationPresenter.setFollow(false);
-            locationPresenter.onStop();
+            location_presenter.setFollow(false);
+            location_presenter.onStop();
             StolperpfadAppMapActivity a = (StolperpfadAppMapActivity) getActivity();
             if(a instanceof RoutePlannerActivity) {
                 ((RoutePlannerActivity) a).deactivateGuide();
             }
         }
-    }
-
-    public boolean isNearestMarkerToUser(Marker marker) {
-        return NEXT && marker.equals(nearest_stone_marker) && !marker.equals(ulm_center_marker);
-    }
-
-    public MapboxMap getMapboxMap() {
-        return mMapboxMap;
     }
 
     public StoneFactory getStoneHandler() {
@@ -563,34 +495,48 @@ public class MapQuestFragment extends Fragment {
     }
 
     public void removeStartMarker() {
-        mMapboxMap.removeMarker(chosen_marker_start);
+        map_object.removeMarker(chosen_marker_start);
         chosen_marker_start = null;
     }
 
     public void removeEndMarker() {
-        mMapboxMap.removeMarker(chosen_marker_end);
+        map_object.removeMarker(chosen_marker_end);
         chosen_marker_end = null;
     }
 
-    public void activatePathPlanner(boolean bool) {
-        StolperpfadAppMapActivity a = (StolperpfadAppMapActivity) getActivity();
-        if(a instanceof RoutePlannerActivity) {
-            ((RoutePlannerActivity) a).activatePathGuide(bool);
-        } else {
-
+    /**
+     * Sets the user location if the location engine has an update
+     *
+     * @param location the new user location
+     */
+    public void setUserLocation(Location location) {
+        last_location = location;
+        if (location_presenter == null || !location_presenter.isFollowing()) {
+            setUserMarker();
         }
     }
 
-    public void saveRoute(String current_file_name) {
+    /**
+     * Save the current route as a json file in the external storage
+     *
+     * @param current_file_name the current route name
+     * @return if the route could be saved
+     */
+    public boolean saveRoute(String current_file_name) {
         if(current_path != null && current_path.isValid()) {
-            current_path.saveRoad(current_file_name);
+           return current_path.saveRoad(current_file_name); // TODO: check if route has been saved
         }
+        return false;
     }
 
+    /**
+     *
+     * @param road
+     */
     @SuppressLint("StaticFieldLeak")
-    public void loadRoute(MyRoad road) {
+    public void loadRoute(Stolperpfad road) {
         current_path = road;
-        current_path.inflateFromBasic(stone_handler, mMapboxMap, icon_start_end_low);
+        current_path.inflateFromBasic(stone_handler, map_object, icon_start_end_low);
         new CreateRouteTask() {
             @Override
             protected void onPostExecute(Void aVoid) {
@@ -598,21 +544,21 @@ public class MapQuestFragment extends Fragment {
                     return;
                 }
                 if(current_path_polyline != null) {
-                    mMapboxMap.removePolyline(current_path_polyline);
+                    map_object.removePolyline(current_path_polyline);
                 }
-                current_path_polyline = current_path.addPathToMap(mMapboxMap);
-                ((RoutePlannerActivity)getActivity()).activatePathGuide(true);
+                current_path_polyline = current_path.addPathToMap(map_object);
+                parent_activity.activatePathGuide();
                 moveCameraTo(current_path.getStartPosition(), 15, 45);
             }
         }.execute();
     }
 
     @SuppressLint("StaticFieldLeak")
-    public void createRouteTo(Stone stone) {
+    public void createRouteTo(StoneOnMap stone) {
         if(user_position_marker == null){
             return;
         }
-        MyRoad direct_path = MyRoad.newDirectPathInstance(user_position_marker, stone.getMarker(mMapboxMap));
+        Stolperpfad direct_path = Stolperpfad.newDirectPathInstance(user_position_marker, stone.getMarker(map_object));
         if(direct_path.isValid()) {
             current_path = direct_path;
         }
@@ -624,13 +570,12 @@ public class MapQuestFragment extends Fragment {
                     return;
                 }
                 if(current_path_polyline != null) {
-                    mMapboxMap.removePolyline(current_path_polyline);
+                    map_object.removePolyline(current_path_polyline);
                 }
-                current_path_polyline = current_path.addPathToMap(mMapboxMap);
-                ((RoutePlannerActivity)getActivity()).activatePathGuide(true);
+                current_path_polyline = current_path.addPathToMap(map_object);
+                parent_activity.activatePathGuide();
                 moveCameraTo(current_path.getStartPosition(), 15, 45);
                 aq.id(R.id.start_guide_button).visible();
-                dismissAlert();
             }
         }.execute();
     }
@@ -640,11 +585,11 @@ public class MapQuestFragment extends Fragment {
      * for a collection of - at least - two stones
      * A MapQuest Key is needed for the call to be succesful
      */
+    @SuppressLint("StaticFieldLeak")
     private class CreateRouteTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
-
             if(current_path == null || !current_path.isValid()) {
                 return null;
             }
@@ -654,21 +599,11 @@ public class MapQuestFragment extends Fragment {
             try {
                 path = roadManager.getRoad(current_path.getWaypoints());
             }catch(IndexOutOfBoundsException ioobe) {
-                errorDialog( "Fehler", "Bei der Pfad Generierung ist ein Fehler aufgetreten");
+                parent_activity.errorDialog( "Fehler", "Bei der Pfad Generierung ist ein Fehler aufgetreten");
                 return null;
             }
             current_path.addRoadInformation(path);
             return null;
         }
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }

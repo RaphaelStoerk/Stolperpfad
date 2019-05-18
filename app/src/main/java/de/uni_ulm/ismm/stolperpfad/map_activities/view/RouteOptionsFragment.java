@@ -1,8 +1,6 @@
 package de.uni_ulm.ismm.stolperpfad.map_activities.view;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,19 +8,13 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.util.Objects;
-
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
 import de.uni_ulm.ismm.stolperpfad.map_activities.control.RoutePlannerActivity;
@@ -36,14 +28,12 @@ public class RouteOptionsFragment extends Fragment {
     public static final int START_CHOICE_GPS = 0;
     public static final int START_CHOICE_MAP = 1;
     public static final int START_CHOICE_CTR = 2;
-    public static final int START_CHOICE_NAN = -1;
     public static final int END_CHOICE_STN = 0;
     public static final int END_CHOICE_MAP = 1;
     public static final int END_CHOICE_CTR = 2;
-    public static final int END_CHOICE_NAN = -1;
+    public static final int CHOICE_NAN = -1;
 
     private int position;
-    private SharedPreferences prefs;
 
     public RouteOptionsFragment() {
         // required empty constructor
@@ -83,8 +73,14 @@ public class RouteOptionsFragment extends Fragment {
         return root;
     }
 
-    private int getPosFromId(int i, boolean start) {
-        switch(i) {
+    /**
+     * Determines what choice id corresponds to which button id
+     *
+     * @param button_id the checked radio button
+     * @return the corresponding choice value
+     */
+    private int getChoiceFromId(int button_id) {
+        switch(button_id) {
             case R.id.start_at_center:
                 return START_CHOICE_CTR;
             case R.id.start_at_marker:
@@ -98,45 +94,55 @@ public class RouteOptionsFragment extends Fragment {
             case R.id.end_at_stone:
                 return END_CHOICE_STN;
             default:
-                return start ? START_CHOICE_NAN : END_CHOICE_NAN;
+                return CHOICE_NAN;
         }
     }
 
+    /**
+     * Creates the view content for the first page on the dialog containing the start choice
+     *
+     * @param inflater the dialog layout inflater
+     * @return the view with the created content
+     */
     private View createFirstPage(LayoutInflater inflater) {
         // build the start and end position options
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_options_one, null);
-
         RadioGroup start_choice = root.findViewById(R.id.start_of_route_choice);
-        start_choice.setOnCheckedChangeListener((RadioGroup radioGroup, int i)
-                -> StolperpfadeApplication.getInstance().saveStringInPreferences("route_start", "" + getPosFromId(i, true)));
+        start_choice.setOnCheckedChangeListener((RadioGroup radioGroup, int button_id)
+                -> StolperpfadeApplication.getInstance().saveStringInPreferences("route_start", "" + getChoiceFromId(button_id)));
         return root;
     }
 
+    /**
+     * Creates the view content for the second page on the dialog containing the end choice
+     *
+     * @param inflater the dialog layout inflater
+     * @return the view with the created content
+     */
     private View createSecondPage(LayoutInflater inflater) {
         // build the start and end position options
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_options_two, null);
-
         RadioGroup end_choice = root.findViewById(R.id.end_of_route_choice);
-        end_choice.setOnCheckedChangeListener((RadioGroup radioGroup, int i)
-                -> StolperpfadeApplication.getInstance().saveStringInPreferences("route_end", "" + getPosFromId(i, false)));
+        end_choice.setOnCheckedChangeListener((RadioGroup radioGroup, int button_id)
+                -> StolperpfadeApplication.getInstance().saveStringInPreferences("route_end", "" + getChoiceFromId(button_id)));
         return root;
     }
 
+    /**
+     * Creates the view content for the third page on the dialog containing the time choice
+     *
+     * @param inflater the dialog layout inflater
+     * @return the view with the created content
+     */
     private View createThirdPage(LayoutInflater inflater) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_options_three, null);
         EditText time_input = root.findViewById(R.id.time_input);
-
         time_input.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { /*---*/}
 
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { /*---*/ }
 
             @Override
             public void afterTextChanged(Editable editable) {

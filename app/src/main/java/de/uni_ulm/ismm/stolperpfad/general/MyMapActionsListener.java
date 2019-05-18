@@ -2,21 +2,16 @@ package de.uni_ulm.ismm.stolperpfad.general;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
-import android.support.v4.app.ActivityCompat;
 
 import com.mapbox.android.core.location.LocationEngineListener;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
-import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneListActivity;
-import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
+import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneOnMap;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
 
 public class MyMapActionsListener implements MapboxMap.OnInfoWindowClickListener, MapboxMap.OnMapLongClickListener, LocationEngineListener {
@@ -39,7 +34,7 @@ public class MyMapActionsListener implements MapboxMap.OnInfoWindowClickListener
 
         // TODO: show stone info dialog
 
-        Stone check = myMapFragment.getStoneHandler().getStoneFromMarker(marker);
+        StoneOnMap check = myMapFragment.getStoneHandler().getStoneFromMarker(marker);
         if (check == null) {
             if (myMapFragment.isStartMarker(marker)) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext());

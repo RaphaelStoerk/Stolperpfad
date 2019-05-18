@@ -3,24 +3,28 @@ package de.uni_ulm.ismm.stolperpfad.map_activities.model;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
-public class Neighbour {
-    private Stone stone;
-    private double dist_to;
+/**
+ * A simple neighbour class for stones not far away from one specific stone
+ */
+public class ReachableStone {
 
-    public Neighbour(Stone stone, double dist) {
+    private double dist_to;
+    private StoneOnMap stone;
+
+    ReachableStone(StoneOnMap stone, double dist) {
         this.stone = stone;
         this.dist_to = dist;
     }
 
-    public Marker getMarker(MapboxMap mapboxMap) {
+    Marker getMarker(MapboxMap mapboxMap) {
         return stone.getMarker(mapboxMap);
     }
 
-    public double getDist() {
+    double getDist() {
         return dist_to;
     }
 
-    public Stone getStone() {
+    public StoneOnMap getStone() {
         return stone;
     }
 }

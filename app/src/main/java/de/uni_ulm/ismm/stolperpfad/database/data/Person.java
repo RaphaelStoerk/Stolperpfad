@@ -12,8 +12,6 @@ import android.support.annotation.NonNull;
  * Table 3: Stolpersteine (in Stolperstein)
  * Table 4: Historical Terms (in HistoricalTerm)
  */
-
-
 // TABLE 1:
 // the most important database table, the persons
 @Entity(tableName = "persons")
@@ -24,7 +22,6 @@ public class Person {
     // if some int-entries in a table can be null, we have to work with Integer instead of int
     // because an 'int' can't be null, but an 'Integer' can
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "pers_id")
     private int mPersId;
 
@@ -46,7 +43,7 @@ public class Person {
     private int mStolperstein;
 
     // constructor
-    public Person(@NonNull int persId, @NonNull String fstName, @NonNull String famName, String biName,
+    public Person(int persId, @NonNull String fstName, @NonNull String famName, String biName,
                   String hisTerms, int stolperstein) {
         this.mPersId = persId;
         this.mFstName = fstName;
@@ -96,7 +93,6 @@ public class Person {
         // - section 8 - section 9
 
         @PrimaryKey
-        @NonNull
         @ColumnInfo(name = "pers_id")
         private int mPersId;
 
@@ -131,7 +127,7 @@ public class Person {
         private String mSectionNine;
 
         //Constructor
-        public Vita(@NonNull int persId, String sectionZero, String sectionOne, String sectionTwo,
+        public Vita(int persId, String sectionZero, String sectionOne, String sectionTwo,
                     String sectionThree, String sectionFour, String sectionFive, String sectionSix,
                     String sectionSeven, String sectionEight, String sectionNine) {
             this.mPersId = persId;
@@ -193,6 +189,11 @@ public class Person {
             return mSectionNine;
         }
 
+        /**
+         * Calculate the actual sections that contain informations
+         *
+         * @return the actual size of the biography
+         */
         public int getSize() {
             int sum = 0;
             String[] sections = {mSectionZero, mSectionOne, mSectionTwo, mSectionThree, mSectionFour, mSectionFive, mSectionSix, mSectionSeven, mSectionEight, mSectionNine};
@@ -205,6 +206,12 @@ public class Person {
             return sum;
         }
 
+        /**
+         * Helper method to get a section from an index
+         *
+         * @param point the vita point index
+         * @return the corresponding section
+         */
         public String getSection(int point) {
             String[] sections = {mSectionZero, mSectionOne, mSectionTwo, mSectionThree, mSectionFour, mSectionFive, mSectionSix, mSectionSeven, mSectionEight, mSectionNine};
             if(point < getSize()) {

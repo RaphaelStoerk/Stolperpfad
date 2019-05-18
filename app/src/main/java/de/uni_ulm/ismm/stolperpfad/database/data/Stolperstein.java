@@ -3,7 +3,6 @@ package de.uni_ulm.ismm.stolperpfad.database.data;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 
 /**
  * Overview over the database tables:
@@ -19,23 +18,17 @@ public class Stolperstein {
     // stone id - address - latitude (Breitangrad) - longitude (Längengrad)
 
     @PrimaryKey
-    @NonNull
     @ColumnInfo(name = "stone_id")
     private int mStoneId;
 
-    @NonNull
     @ColumnInfo(name = "street_and_number")
     private String mAddress;
 
-    @NonNull
     @ColumnInfo(name = "latitude")
     private double mLatitude;
 
-    @NonNull
     @ColumnInfo(name = "longitude")
     private double mLongitude;
-
-
 
     //constructor
     public Stolperstein(int stoneId, String address, double latitude, double longitude){

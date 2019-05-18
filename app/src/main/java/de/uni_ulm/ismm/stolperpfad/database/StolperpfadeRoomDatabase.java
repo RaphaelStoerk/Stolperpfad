@@ -1,5 +1,6 @@
 package de.uni_ulm.ismm.stolperpfad.database;
 
+import android.annotation.SuppressLint;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
@@ -7,7 +8,6 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,19 +21,13 @@ import de.uni_ulm.ismm.stolperpfad.database.data.Stolperstein;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
 
 /**
- * !!! READ ME !!!
- * If you get the following exception
- * "Room cannot verify the data integrity. Looks like you've changed schema but forgot to update the version number.
- * You can simply fix this by increasing the version number."
- * (because you changed something in the data tables),
- * Do NOT change the version number but uninstall the app on your phone, clean the project and rebuild everything.
- * Then it should work again.
+ * This is the Database for this application
  */
+@SuppressLint("StaticFieldLeak")
 @Database(entities = {Person.class, Person.Vita.class, HistoricalTerm.class, Stolperstein.class}, version = 1, exportSchema = false)
 public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
 
     private static Context mContext;
-    private static int vitaLength = 10;
 
     public abstract StolperpfadeDao mDao();
 
@@ -45,7 +39,6 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (StolperpfadeRoomDatabase.class) {
                 if (INSTANCE == null) {
-
                     // Create database here
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             StolperpfadeRoomDatabase.class, "stolperpfade_database")
@@ -58,7 +51,6 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
 
     private static RoomDatabase.Callback sRoomDatabaseCallback =
             new RoomDatabase.Callback() {
-
                 @Override
                 public void onOpen(@NonNull SupportSQLiteDatabase db) {
                     super.onOpen(db);
@@ -92,36 +84,27 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
             clearDatabase(mDao);
 
             // PERSONS, VITA, STOLPERSTEINE
-            ArrayList<JSONObject> persons = DataFromJSON.loadAllJSONFromDirectory(mContext, "person_data");
-            int id;
-            String firstname;
-            String familyname;
-            String birthname;
-            String history;
+            ArrayList<JSONObject> persons_as_json = DataFromJSON.loadAllJSONFromDirectory(mContext, "person_data");
+            int id, stoneId;
+            double latitude, longitude;
+            String first_name, family_name, birth_name, history, address;
             JSONObject stone;
-            int stoneId;
-            String address;
-            double latitude;
-            double longitude;
-            ArrayList<Integer> stoneIds = new ArrayList<>();
-
-            for (JSONObject json : persons) {
+            ArrayList<Integer> stone_ids = new ArrayList<>();
+            for (JSONObject single_person : persons_as_json) {
                 try {
-
                     //insert person
-                    id = json.getInt("id");
-                    firstname = json.getString("vorname");
-                    familyname = json.getString("nachname");
-                    birthname = json.getString("geburtsname");
-                    history = json.getString("geschichte");
-                    stone = json.getJSONObject("stein");
+                    id = single_person.getInt("id");
+                    first_name = single_person.getString("vorname");
+                    family_name = single_person.getString("nachname");
+                    birth_name = single_person.getString("geburtsname");
+                    history = single_person.getString("geschichte");
+                    stone = single_person.getJSONObject("stein");
                     stoneId = stone.getInt("id");
-                    Log.i("person_found", familyname);
-                    Person person = new Person(id, firstname, familyname, birthname, history, stoneId);
+                    Person person = new Person(id, first_name, family_name, birth_name, history, stoneId);
                     mDao.insert(person);
-
                     //insert vita
-                    JSONArray biography = json.getJSONArray("bio");
+                    JSONArray biography = single_person.getJSONArray("bio");
+                    int vitaLength = 10;
                     String[] vitaSections = new String[vitaLength];
                     for (int i = 0; i < biography.length(); i++) {
                         String section = biography.getJSONObject(i).getString("content");
@@ -130,54 +113,36 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     Person.Vita vita = new Person.Vita(id, vitaSections[0], vitaSections[1], vitaSections[2],
                             vitaSections[3], vitaSections[4], vitaSections[5], vitaSections[6],
                             vitaSections[7], vitaSections[8], vitaSections[9]);
-                    Log.i("LOG_MY_PERSON", firstname +" " + familyname + " " + vitaSections[0]);
-
                     mDao.insert(vita);
-
                     //insert Stolperstein
                     address = stone.getString("addresse");
                     latitude = stone.getDouble("latitude");
                     longitude = stone.getDouble("longitude");
                     Stolperstein stostei = new Stolperstein(stoneId, address, latitude, longitude);
-                    if (stoneIds.contains(stoneId)) {
-
-                    } else {
+                    if (!stone_ids.contains(stoneId)) {
                         mDao.insert(stostei);
-                        stoneIds.add(stoneId);
+                        stone_ids.add(stoneId);
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-
             // HISTORICAL TERMS
-            ArrayList<JSONObject> histoTerms = DataFromJSON.loadAllJSONFromDirectory(mContext, "history_data");
-            String histoName;
-            String histoExplanation;
+            ArrayList<JSONObject> historical_terms_as_json = DataFromJSON.loadAllJSONFromDirectory(mContext, "history_data");
+            String historical_title, historical_content;
 
-            for (JSONObject json : histoTerms) {
+            for (JSONObject single_term : historical_terms_as_json) {
                 try {
-                    histoName = json.getString("name");
-                    histoExplanation = json.getString("explanation");
-                    HistoricalTerm histoTerm = new HistoricalTerm(histoName, histoExplanation);
-                    mDao.insert(histoTerm);
-
+                    historical_title = single_term.getString("name");
+                    historical_content = single_term.getString("explanation");
+                    HistoricalTerm historical_term = new HistoricalTerm(historical_title, historical_content);
+                    mDao.insert(historical_term);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
             return null;
         }
-
-        private boolean stoneExists(int stoneId) {
-            String address = mDao.getAddress(stoneId);
-            if (address == null || address.equals("")) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-
     }
 }

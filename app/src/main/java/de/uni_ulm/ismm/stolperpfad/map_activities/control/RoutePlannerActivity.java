@@ -436,7 +436,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     private class LoadPathsTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            ArrayList<JSONObject> paths_as_json = DataFromJSON.loadAllJSONFromExternalDirectory(RoutePlannerActivity.this, "paths");
+            ArrayList<JSONObject> paths_as_json = DataFromJSON.loadAllJSONFromExternalDirectory("paths");
             saved_paths = new ArrayList<>();
             for(JSONObject path : paths_as_json) {
                 saved_paths.add(Stolperpfad.newFromJson(path));

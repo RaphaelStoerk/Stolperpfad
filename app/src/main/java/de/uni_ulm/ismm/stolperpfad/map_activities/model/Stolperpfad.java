@@ -292,11 +292,10 @@ public class Stolperpfad extends Road {
             else {
                 to_save.put("time", NO_TIME_REQUESTED);
             }
-            DataFromJSON.saveJsonTo(to_save, filename);
+            return DataFromJSON.saveJsonTo(to_save, filename);
         } catch (JSONException e) {
             return false;
         }
-        return true;
     }
 
     /**

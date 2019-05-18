@@ -256,12 +256,11 @@ public class StoneInfoViewModel extends AndroidViewModel {
     private void createVitaButtons(StoneInfoBioFragment fragment, ViewPager bio_pager, ConstraintLayout bio_layout, int person_index) {
         new LoadVitaTask(this) {
             @Override
-            protected void onPostExecute(List<Person.Vita> vitas) {
+            protected void onPostExecute(Person.Vita current_vita) {
                 // Check if the vita has been properly loaded
-                if (vitas == null || vitas.size() == 0) {
+                if (current_vita == null ) {
                     return;
                 }
-                Person.Vita current_vita = vitas.get(0);
                 int points = current_vita.getSize();
                 if (points < VITA_POINTS_MIN) {
                     return;
@@ -367,11 +366,11 @@ public class StoneInfoViewModel extends AndroidViewModel {
     public void showVitaContent(ViewGroup root, int person_index_in_list, int vita_point) {
         new LoadVitaTask(this) {
             @Override
-            protected void onPostExecute(List<Person.Vita> found_vitas) {
-                if (found_vitas == null || found_vitas.size() == 0) {
+            protected void onPostExecute(Person.Vita found_vita) {
+                if (found_vita == null) {
                     return;
                 }
-                String content = found_vitas.get(0).getSection(vita_point);
+                String content = found_vita.getSection(vita_point);
                 AQuery aq = new AQuery(root);
                 String[] content_temp = content.split("#");
                 String title;
@@ -456,7 +455,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
     /**
      * Helper Task to load the vita for a specific person from the data base
      */
-    private static class LoadVitaTask extends AsyncTask<Integer, Void, List<Person.Vita>> {
+    private static class LoadVitaTask extends AsyncTask<Integer, Void, Person.Vita> {
 
         private StoneInfoViewModel model;
 
@@ -465,7 +464,7 @@ public class StoneInfoViewModel extends AndroidViewModel {
         }
 
         @Override
-        protected List<Person.Vita> doInBackground(Integer... indices) {
+        protected Person.Vita doInBackground(Integer... indices) {
             int person_id = indices[0];
             return model.repo.getVita(person_id);
         }

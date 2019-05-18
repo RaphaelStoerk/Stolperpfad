@@ -28,6 +28,8 @@ public class StoneFactory {
     private static final int NEIGHBOURS = 5;
     private static final int MINUTES_AT_STONE = 3;
     public static final int SECONDS_PER_MINUTE = 60;
+    public static final int MINUTES_PER_HOUR = 60;
+    public static final int HOURS_PER_DAY = 24;
 
     private MapboxMap map_object;
     private MapQuestFragment map_fragment;

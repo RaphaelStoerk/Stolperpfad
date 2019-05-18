@@ -14,61 +14,48 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneOnMap;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.MapQuestFragment;
 
-public class MyMapActionsListener implements MapboxMap.OnInfoWindowClickListener, MapboxMap.OnMapLongClickListener, LocationEngineListener {
+/**
+ * The interface class for the map listeners
+ */
+public class MapActionsListener implements MapboxMap.OnInfoWindowClickListener, MapboxMap.OnMapLongClickListener, LocationEngineListener {
 
-    private MapQuestFragment myMapFragment;
+    private MapQuestFragment map_fragment;
 
-    public MyMapActionsListener(MapQuestFragment myMapFragment) {
+    public MapActionsListener(MapQuestFragment map_fragment) {
         super();
-        this.myMapFragment = myMapFragment;
+        this.map_fragment = map_fragment;
     }
 
     /**
      * From OnInfoWindowClickListener Interface, handles click on the info window
      * of the markers
-     * @param marker The marker from which the info window has been clicked on
+     *
+     * @param marker_of_info_window The marker from which the info window has been clicked on
      * @return true, if the marker represents a stone, else return false
      */
     @Override
-    public boolean onInfoWindowClick(@NonNull Marker marker) {
-
-        // TODO: show stone info dialog
-
-        StoneOnMap check = myMapFragment.getStoneHandler().getStoneFromMarker(marker);
-        if (check == null) {
-            if (myMapFragment.isStartMarker(marker)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext());
-
+    public boolean onInfoWindowClick(@NonNull Marker marker_of_info_window) {
+        StoneOnMap possible_stone = map_fragment.getStoneHandler().getStoneFromMarker(marker_of_info_window);
+        if (possible_stone == null) {
+            if (map_fragment.isStartMarker(marker_of_info_window)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(map_fragment.getContext());
                 builder.setTitle("Start Markierung löschen?");
-
-                builder.setPositiveButton("Ja", (dialogInterface, i) -> {
-                    myMapFragment.removeStartMarker();
-                });
-                builder.setNegativeButton("Nein", (dialogInterface, i) -> {
-                });
-
+                builder.setPositiveButton("Ja", (dialogInterface, i) -> map_fragment.removeStartMarker());
+                builder.setNegativeButton("Nein", (dialogInterface, i) -> { /*---*/ });
                 // Create the AlertDialog
                 AlertDialog dialog = builder.create();
                 dialog.show();
-            } else if (myMapFragment.isEndMarker(marker)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext());
-
+            } else if (map_fragment.isEndMarker(marker_of_info_window)) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(map_fragment.getContext());
                 builder.setTitle("End Markierung löschen?");
-
-                builder.setPositiveButton("Ja", (dialogInterface, i) -> {
-                    myMapFragment.removeEndMarker();
-                });
-                builder.setNegativeButton("Nein", (dialogInterface, i) -> {
-                });
-
+                builder.setPositiveButton("Ja", (dialogInterface, i) -> map_fragment.removeEndMarker());
+                builder.setNegativeButton("Nein", (dialogInterface, i) -> { /*---*/ });
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
             return false;
         }
-
-        check.showDialog(myMapFragment);
-
+        possible_stone.showDialog(map_fragment);
         return true;
     }
 
@@ -77,41 +64,46 @@ public class MyMapActionsListener implements MapboxMap.OnInfoWindowClickListener
      * a dialog will be presented letting the user chose if a new marker should be placed
      * at this position
      *
-     * @param point the position where the user can place a marker
+     * @param clicked_location the position where the user can place a marker
      */
     @Override
-    public void onMapLongClick(@NonNull LatLng point) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(myMapFragment.getContext());
+    public void onMapLongClick(@NonNull LatLng clicked_location) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(map_fragment.getContext());
         String[] choice = new String[]{"Hier Start der Route setzen", "Hier Ende der Route setzen", "Zurück"};
         builder.setTitle("Auswahl festlegen als:")
                 .setItems(choice, (dialog, which) -> {
                     switch (which) {
                         case 0:
-                            myMapFragment.setStartOrEndMarker(point, true);
+                            map_fragment.setStartOrEndMarker(clicked_location, true);
                             break;
                         case 1:
-                            myMapFragment.setStartOrEndMarker(point, false);
+                            map_fragment.setStartOrEndMarker(clicked_location, false);
                             break;
                         default:
                     }
                 });
-
         // Create the AlertDialog
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
-
-
+    /**
+     * From the LocationEngineListener, gets called when the listener is connected and
+     * forces a user location update
+     */
     @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     @Override
     public void onConnected() {
-        myMapFragment.forceUserLocationUpdate();
+        map_fragment.forceUserLocationUpdate();
     }
 
+    /**
+     * From the LocationEngineListener, gets called when the user location changes, updates
+     * the user location on the map
+     */
     @RequiresPermission(anyOf = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION})
     @Override
     public void onLocationChanged(Location location) {
-        myMapFragment.setUserLocation(location);
+        map_fragment.setUserLocation(location);
     }
 }

@@ -5,7 +5,7 @@
   "geburtsname": "Maier",
   "stein": {
     "id": 1,
-    "addresse": "Susoweg 17",
+    "adresse": "Susoweg 17",
     "latitude": 48.389139,
     "longitude": 9.976307
   },

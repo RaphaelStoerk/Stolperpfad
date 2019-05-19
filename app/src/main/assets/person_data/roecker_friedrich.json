@@ -5,7 +5,7 @@
   "geburtsname": "",
   "stein": {
     "id": 30,
-    "addresse": "Neue Straße 42 (Hintereingang)",
+    "adresse": "Neue Straße 42 (Hintereingang)",
     "latitude": 48.3970998,
     "longitude": 9.9873800
   },
@@ -23,15 +23,14 @@
     {
       "content": "Verhaftung#1932 wurde Friedrich Röcker wegen Vorbereitung zum Hochverrat in Tateinheit mit einem Sprengstoffvergehen zu einer zweijährigen Haftstrafe verurteilt."
     },
-	{
-	  "content": "Haft#Nach Verbüßung der ersten Haftstrafe wurde Friedrich Röcker am 22. Februar 1934 als \"unbelehrbarer Überzeugungskommunist\" in das Konzentrationslager Oberer Kuhberg eingewiesen. Dort blieb er bis zu dessen Schließung im Juli 1935."
-	},
-	{
-	  "content": "Entlassung#Nach seiner Entlassung blieb Friedrich Röcker in Ulm und lernte seine spätere Frau Marthe kennen, mit der er zwei Kinder bekam. Ab 1939 konnte er in seinem ursprünglich erlernten Beruf als Schlosser arbeiten."
-	},
-	{
-	  "content": "Tod#1943 wurde Friedrich Röcker in das \"Bewährungsbataillon 999\" gezwungen. Er starb 1945 bei einem Einsatz zur Absicherung des Rückzugs der Wehrmacht in Jugoslawien."
-	}
-	
+    {
+      "content": "Haft#Nach Verbüßung der ersten Haftstrafe wurde Friedrich Röcker am 22. Februar 1934 als \"unbelehrbarer Überzeugungskommunist\" in das Konzentrationslager Oberer Kuhberg eingewiesen. Dort blieb er bis zu dessen Schließung im Juli 1935."
+    },
+    {
+      "content": "Entlassung#Nach seiner Entlassung blieb Friedrich Röcker in Ulm und lernte seine spätere Frau Marthe kennen, mit der er zwei Kinder bekam. Ab 1939 konnte er in seinem ursprünglich erlernten Beruf als Schlosser arbeiten."
+    },
+    {
+      "content": "Tod#1943 wurde Friedrich Röcker in das \"Bewährungsbataillon 999\" gezwungen. Er starb 1945 bei einem Einsatz zur Absicherung des Rückzugs der Wehrmacht in Jugoslawien."
+    }
   ]
 }	

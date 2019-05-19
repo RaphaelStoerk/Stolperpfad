@@ -5,23 +5,20 @@
   "geburtsname": "",
   "stein": {
     "id": 34,
-    "addresse": "Hafengasse 10",
+    "adresse": "Hafengasse 10",
     "latitude": 48.3990155,
     "longitude": 9.9943728
   },
   "geschichte": "Polenaktion",
   "bio": [
     {
-      "content": "Geburt#"
+      "content": "Geburt#Heinz Krippel wurde 1928 als uneheliches Kind von Frieda Krippel in Ulm geboren."
     },
     {
-      "content": "1#"
+      "content": "Leben bis 1933#Familie Krippel ging es wirtschaftlich gut und wohnte zusammen in der Hafengasse 10. Obwohl Heinz Krippel Vater kein Jude war, wurde er nach der Machtergreifung der Nationalsozialisten wie der Rest der Familie Krippel verfolgt."
     },
     {
-      "content": "2#"
-    },
-    {
-      "content": "3#"
+      "content": "Deportation und Tod#Am 28. Oktober 1938 wurden alle Mitglieder der Familie außer Max Krippel, der 1937 nach Israel emigrieren konnte, im Zuge der Polenaktion nach Polen deportiert. Mehrere Briefe an Sohn Max Krippel und Verwandte belegen, dass die Familie auseinandergerissen und in Ghettos oder Vernichtungslagern ermordet wurde. Heinz Krippel wurde mit seiner Mutter Frieda Krippel und seinen Großeltern Isidor Isak Krippel und Dorlinda Krippel in das Ghetto Rzeszow gebracht und dort am 8. Juli 1941 getötet."
     }
   ]
 }

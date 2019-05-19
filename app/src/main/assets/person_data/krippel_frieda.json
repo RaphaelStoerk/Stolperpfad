@@ -5,23 +5,23 @@
   "geburtsname": "",
   "stein": {
     "id": 34,
-    "addresse": "Hafengasse 10",
+    "adresse": "Hafengasse 10",
     "latitude": 48.3990155,
     "longitude": 9.9943728
   },
   "geschichte": "Polenaktion",
   "bio": [
     {
-      "content": "Geburt#"
+      "content": "Geburt#Frieda Krippel wurde 1905 als zweite Tochter von Isidor Isak Krippel und Dorlina Krippel in Neu-Ulm geboren."
     },
     {
-      "content": "1#"
+      "content": "Geschwister#1906 zog die Familie Krippel zurück nach Ulm, wo Frieda Krippel 1908 einen kleinen Bruder, Max Krippel, und 1910 eine kleine Schwester, Else Krippel, bekam."
     },
     {
-      "content": "2#"
+      "content": "Geburt ihres Sohnes#1928 gebar Frieda Krippel ihren unehelichen Sohn Heinz Krippel zur Welt. Frieda und Heinz Krippel lebten gemeinsam mit den Eltern und Geschwistern in der Hafengasse 10."
     },
     {
-      "content": "3#"
+      "content": "Deportation und Tod#Am 28. Oktober 1938 wurden alle Mitglieder der Familie außer Max Krippel, der 1937 nach Israel emigrieren konnte, im Zuge der Polenaktion nach Polen deportiert. Mehrere Briefe an Sohn Max Krippel und Verwandte belegen, dass die Familie auseinandergerissen und in Ghettos oder Vernichtungslagern ermordet wurde. Frieda Krippel wurde mit ihren Eltern Dorlina Krippel und Isidor Isak Krippel und ihrem Sohn Heinz Krippel in das Ghetto Rzeszow gebracht. Das genaue Todesdatum ist nicht bekannt."
     }
   ]
 }

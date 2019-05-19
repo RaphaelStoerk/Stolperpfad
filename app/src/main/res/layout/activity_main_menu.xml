@@ -104,6 +104,7 @@
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="#00000000"
         android:fontFamily="@font/fira_sans_condensed_semibold"
@@ -112,9 +113,10 @@
         android:textColor="?attr/colorAppTextButton"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_three_main_menu"/>
+        app:layout_constraintBottom_toTopOf="@+id/line_three_main_menu"
+        app:layout_constraintTop_toBottomOf="@+id/line_two_main_menu"/>
 
     <View
         android:id="@+id/line_three_main_menu"
@@ -129,14 +131,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info_button" />
+        app:layout_constraintTop_toBottomOf="@+id/menu_to_route_button" />
 
     <Button
         android:id="@+id/info_button"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="#00000000"
         android:fontFamily="@font/fira_sans_condensed_semibold"
@@ -145,9 +146,8 @@
         android:textColor="?attr/colorAppTextButton"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/line_three_main_menu"
-        app:layout_constraintTop_toBottomOf="@+id/line_two_main_menu" />
+        app:layout_constraintTop_toBottomOf="@+id/line_three_main_menu"/>
 
 </android.support.constraint.ConstraintLayout>

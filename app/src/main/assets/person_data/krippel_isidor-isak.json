@@ -5,23 +5,26 @@
   "geburtsname": "",
   "stein": {
     "id": 34,
-    "addresse": "Hafengasse 10",
+    "adresse": "Hafengasse 10",
     "latitude": 48.3990155,
     "longitude": 9.9943728
   },
   "geschichte": "Polenaktion",
   "bio": [
     {
-      "content": "Geburt#"
+      "content": "Geburt#Isidor Isak Krippel wurde 1872 in Rzeszow in Galizien/Polen geboren."
     },
     {
-      "content": "1#"
+      "content": "Umzug und Hochzeit#Irgendwann wanderte Isidor Isak Krippel aus und heiratete 1900 in Gailingen Dorlina Krippel, geborene Gut, genannt \"Lina\"."
     },
     {
-      "content": "2#"
+      "content": "Kinder#Nach der Geburt ihrer ersten Tochter Jenny Krippel 1901 zogen Isidor Isak und Dorlina Krippel mit ihr nach Ulm. Zwischen 1903 und 1906 lebte die Familie in Neu-Ulm, wo 1905 die zweite Tochter Frieda Krippel geboren wurde. Wieder wohnhaft in Ulm gebar Dorlina Krippel ihrem Mann Isidor Isak Krippel 1908 einen Sohn, Max Krippel, und 1910 eine dritte Tochter, Elisabeth(a), genannt Else Krippel."
     },
     {
-      "content": "3#"
+      "content": "Leben bis 1933#Isidor Isak Krippel arbeitete als Handelsvertreter in der Textilbranche, wodurch es der Familie wirtschaftlich gut ging. Sie lebten gemeinsam in der Hafengasse 10."
+    },
+    {
+      "content": "Deportation und Tod#Am 28. Oktober 1938 wurden alle Mitglieder der Familie außer Max Krippel, der 1937 nach Israel emigrieren konnte, im Zuge der Polenaktion nach Polen deportiert. Mehrere Briefe an Sohn Max Krippel und Verwandte belegen, dass die Familie auseinandergerissen und in Ghettos oder Vernichtungslagern ermordet wurde. Das genaue Todesdatum von Isidor Isak Krippel, der mit seiner Frau Dorlina Krippel, seiner Tochter Frieda Krippel und deren unehelichen Sohn Heinz Krippel in das Ghetto Rzeszow gebracht wurde, ist nicht bekannt."
     }
   ]
 }

@@ -34,7 +34,7 @@ public class DataFromJSON {
         ArrayList<JSONObject> ret = new ArrayList<>();
         try {
             for (String file : context.getAssets().list(dirName)) {
-                Log.i("MY_JSON_TAG", file);
+                Log.i("MY_JSON_TAG", "read file " + file);
                 JSONObject person = loadJSONFromAssets(context, dirName + "/" + file);
                 ret.add(person);
             }

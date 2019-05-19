@@ -5,23 +5,26 @@
   "geburtsname": "",
   "stein": {
     "id": 34,
-    "addresse": "Hafengasse 10",
+    "adresse": "Hafengasse 10",
     "latitude": 48.3990155,
     "longitude": 9.9943728
   },
   "geschichte": "Polenaktion",
   "bio": [
     {
-      "content": "Geburt#"
+      "content": "Geburt#Jenny Krippel wurde 1901 als erste Tochter von Isidor Isak Krippel und Dorlina Krippel in Gailingen geboren."
     },
     {
-      "content": "1#"
+      "content": "Umzug nach Ulm#Direkt nach ihrer Geburt ging die kleine Familie nach Ulm."
     },
     {
-      "content": "2#"
+      "content": "Geschwister#Zwischen 1903 und 1906 lebte Familie Krippel in Neu-Ulm, wo Jenny Krippel 1905 eine kleine Schwester, Frieda Krippel, bekam. Wieder wohnhaft in Ulm folgte 1908 ein kleiner Bruder, Max Krippel, und 1910 eine zweite kleine Schwester, Else Krippel."
     },
     {
-      "content": "3#"
+      "content": "Leben bis 1933#Jenny Krippel war bis 1933 die Privatsekretärin des Intendanten des Stadttheaters Ulm, danach arbeitete sie bei der Firma Gabriel Lebrecht. Die gesamte Zeit lebte sie gemeinsam mit ihrer Familie in der Hafengasse 10."
+    },
+    {
+      "content": "Deportation und Tod#Am 28. Oktober 1938 wurden alle Mitglieder der Familie außer Max Krippel, der 1937 nach Israel emigrieren konnte, im Zuge der Polenaktion nach Polen deportiert. Mehrere Briefe an Sohn Max Krippel und Verwandte belegen, dass die Familie auseinandergerissen und in Ghettos oder Vernichtungslagern ermordet wurde. Das genaue Todesdatum von Jenny Krippel, die in das Ghetto Ostrów Lubelski gebracht wurde, ist nicht bekannt."
     }
   ]
 }

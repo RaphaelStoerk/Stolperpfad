@@ -25,6 +25,8 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.RotatedViewPage
  */
 public class StoneInfoBioFragment extends Fragment {
 
+    private static final int DEFAULT_ERROR = -1;
+
     private int index;
     ArrayList<Button> vita_buttons;
 
@@ -39,11 +41,11 @@ public class StoneInfoBioFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(@Nullable Bundle saved_state) {
+        super.onCreate(saved_state);
         int buff;
-        if(savedInstanceState != null) {
-            if((buff = savedInstanceState.getInt("current_person")) != -1) {
+        if(saved_state != null) {
+            if((buff = saved_state.getInt("current_person")) != DEFAULT_ERROR) {
                 index = buff;
             }
         }
@@ -51,7 +53,7 @@ public class StoneInfoBioFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle svaed_state) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_stone_info_bio, container, false);
         StoneInfoViewModel model = StoneInfoViewModel.getInstance((StoneInfoMainActivity) getActivity());
         RotatedViewPager bio_pager = root.findViewById(R.id.bio_view_pager);
@@ -64,7 +66,7 @@ public class StoneInfoBioFragment extends Fragment {
             }
         });
         vita_buttons = new ArrayList<>();
-        model.buildPersonVita(this, getChildFragmentManager(), inflater, root, bio_pager, index);
+        model.buildPersonVita(this, getChildFragmentManager(), root, index);
         return root;
     }
 

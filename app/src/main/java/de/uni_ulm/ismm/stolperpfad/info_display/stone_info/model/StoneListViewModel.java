@@ -33,7 +33,11 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.fragments.StoneListFr
 @SuppressLint("StaticFieldLeak")
 public class StoneListViewModel extends AndroidViewModel {
 
+    private static final float INDEX_BUTTON_SIZE = 50f;
     private static volatile StoneListViewModel INSTANCE;
+    private static final float INDEX_MARGIN_SIZE = 16f;
+    private static final float HALF_PIXEL = 0.5f;
+    private static final int DEFAULT_ID_OFFSET = 1000;
 
     private List<Person> persons;
     private ArrayList<Character> initials;
@@ -75,6 +79,7 @@ public class StoneListViewModel extends AndroidViewModel {
                 readIndex();
                 buildIndex();
                 list_pager.setAdapter(new ListPagerAdapter(parent.getSupportFragmentManager()));
+                updateIndex(0);
             }
         }.execute();
     }
@@ -88,15 +93,15 @@ public class StoneListViewModel extends AndroidViewModel {
         int count = initials.size();
         Button buff;
         // create the buttons for the index
+        DisplayMetrics dm = parent.getResources().getDisplayMetrics();
+        int button_size = (int) (dm.density * INDEX_BUTTON_SIZE + HALF_PIXEL);
+        int margin = (int) (dm.density * INDEX_MARGIN_SIZE + HALF_PIXEL);
         for(int i = 0; i < count; i++) {
-            index_buttons.add(buff = makeIndexButton(i));
+            index_buttons.add(buff = makeIndexButton(i, button_size));
             index_container.addView(buff);
         }
-        // index_buttons.get(0).setBackgroundResource(R.drawable.ic_index_highlight);
+        index_buttons.get(0).setBackgroundResource(R.drawable.ic_index_highlight);
         Button first = index_buttons.get(0);
-        DisplayMetrics dm = parent.getResources().getDisplayMetrics();
-        int margin = (int) (dm.density * 16f + 0.5f);
-
         // define the constraints for all buttons to one another
         ConstraintSet cs = new ConstraintSet();
         cs.clone(index_container);
@@ -119,15 +124,13 @@ public class StoneListViewModel extends AndroidViewModel {
      * @return the created button
      */
     @SuppressLint("InflateParams")
-    private Button makeIndexButton(int position) {
+    private Button makeIndexButton(int position, int button_size) {
         Button but = (Button) LayoutInflater.from(parent).inflate(R.layout.button_index, null);
         but.setOnClickListener(view -> updateIndex(position));
         but.setText(initials.get(position).toString());
-        DisplayMetrics dm = parent.getResources().getDisplayMetrics();
-        int pixels = (int) (dm.density * 50f + 0.5f);
-        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(pixels,pixels);
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(button_size,button_size);
         but.setLayoutParams(params);
-        but.setId(position+1000);
+        but.setId(position + DEFAULT_ID_OFFSET);
         return but;
     }
 
@@ -181,12 +184,10 @@ public class StoneListViewModel extends AndroidViewModel {
      */
     public void setUpList(ViewGroup root, char initial) {
         readIndex();
-        Button buff;
         LinearLayout list_layout = root.findViewById(R.id.list_layout);
         for(Person person : persons) {
             if(person.getFamName().startsWith(initial + "")) {
-                buff = addButton(person);
-                list_layout.addView(buff);
+                list_layout.addView(makeListButtons(person));
             }
         }
     }
@@ -198,7 +199,7 @@ public class StoneListViewModel extends AndroidViewModel {
      * @return a new button
      */
     @SuppressLint("InflateParams")
-    private Button addButton(Person person) {
+    private Button makeListButtons(Person person) {
         Button but = (Button) LayoutInflater.from(parent).inflate(R.layout.button_person_list, null);
         but.setOnClickListener(view -> {
             Intent intent = new Intent(parent, StoneInfoMainActivity.class);
@@ -237,7 +238,7 @@ public class StoneListViewModel extends AndroidViewModel {
 
         @Override
         public Fragment getItem(int position) {
-            return StoneListFragment.newInstance(StoneListViewModel.this, initials.get(position));
+            return StoneListFragment.newInstance(initials.get(position));
         }
 
         @Override

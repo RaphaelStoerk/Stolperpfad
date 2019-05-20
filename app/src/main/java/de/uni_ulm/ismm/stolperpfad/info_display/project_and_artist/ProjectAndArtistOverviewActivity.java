@@ -18,8 +18,8 @@ import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
  */
 public class ProjectAndArtistOverviewActivity extends StolperpfadeAppActivity {
 
-    private static final int DISPLAY_PROJECT = 0;
-    private static final int DISPLAY_ARTIST = 1;
+    public static final int DISPLAY_PROJECT = 0;
+    public static final int DISPLAY_ARTIST = 1;
     private static final int TOTAL_PAGES = 2;
     private int current_display;
     private ViewPager project_and_artist_pager;

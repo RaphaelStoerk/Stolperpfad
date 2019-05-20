@@ -31,7 +31,8 @@
         app:layout_constraintTop_toTopOf="@+id/textView9"
         android:src="@drawable/ic_close"
         android:tint="?attr/colorAppPrimaryContrast"
-        android:background="#0000"/>
+        android:background="#0000"
+        android:contentDescription="@string/def_content_description"/>
 
     <View
         android:id="@+id/line_top"
@@ -76,7 +77,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/marker_icon_stone" />
+                    app:srcCompat="@drawable/marker_icon_stone"
+                    android:contentDescription="@string/def_content_description" />
 
                 <TextView
                     android:id="@+id/info_text_3"
@@ -90,7 +92,7 @@
                     android:text="@string/info_stone_marker"
                     android:textAlignment="textStart"
                     android:textColor="?attr/colorAppTextPrimary"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/info_icon_3"
@@ -117,7 +119,8 @@
                     android:scaleType="centerInside"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/marker_icon_start_end" />
+                    app:srcCompat="@drawable/marker_icon_start_end"
+                    android:contentDescription="@string/def_content_description" />
 
                 <TextView
                     android:id="@+id/info_text_5"
@@ -129,7 +132,7 @@
                     android:text="@string/info_start_end_marker"
                     android:textAlignment="textStart"
                     android:textColor="?attr/colorAppTextPrimary"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@+id/info_icon_5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/info_icon_5"
@@ -144,7 +147,7 @@
                     android:layout_marginEnd="16dp"
                     android:text="@string/info_long_click"
                     android:textColor="?attr/colorAppTextPrimary"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/info_icon_5" />
@@ -173,7 +176,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/marker_icon_default" />
+                    app:srcCompat="@drawable/marker_icon_default"
+                    android:contentDescription="@string/def_content_description" />
 
                 <TextView
                     android:id="@+id/info_text_6"
@@ -187,7 +191,7 @@
                     android:text="@string/info_user_marker"
                     android:textAlignment="textStart"
                     android:textColor="?attr/colorAppTextPrimary"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/info_icon_6"
@@ -216,7 +220,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/marker_icon_default_round" />
+                    app:srcCompat="@drawable/marker_icon_default_round"
+                    android:contentDescription="@string/def_content_description" />
 
                 <TextView
                     android:id="@+id/info_text_9"
@@ -230,7 +235,7 @@
                     android:text="@string/info_special_marker"
                     android:textAlignment="textStart"
                     android:textColor="?attr/colorAppTextPrimary"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/info_icon_9"
@@ -262,7 +267,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_plus"
-                    app:tint="?attr/colorAppPrimary" />
+                    app:tint="?attr/colorAppPrimary"
+                    android:contentDescription="@string/def_content_description" />
 
                 <TextView
                     android:id="@+id/info_text_1"
@@ -276,7 +282,7 @@
                     android:text="@string/info_for_route_creation"
                     android:textAlignment="textStart"
                     android:textColor="?attr/colorAppTextPrimary"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/info_icon_1"
@@ -307,7 +313,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_save_black_24dp"
-                    app:tint="?attr/colorAppPrimary" />
+                    app:tint="?attr/colorAppPrimary"
+                    android:contentDescription="@string/def_content_description" />
 
                 <TextView
                     android:id="@+id/info_text_2"
@@ -321,7 +328,7 @@
                     android:text="@string/info_for_route_save_load"
                     android:textAlignment="textStart"
                     android:textColor="?attr/colorAppTextPrimary"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/info_icon_2"
@@ -350,7 +357,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_directions_walk_black_24dp"
-                    app:tint="?attr/colorAppPrimary" />
+                    app:tint="?attr/colorAppPrimary"
+                    android:contentDescription="@string/def_content_description"/>
 
                 <TextView
                     android:id="@+id/info_text_4"
@@ -362,7 +370,7 @@
                     android:text="@string/info_for_guide"
                     android:textAlignment="textStart"
                     android:textColor="?attr/colorAppTextPrimary"
-                    android:textSize="24sp"
+                    android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@+id/info_icon_4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/info_icon_4"
@@ -378,7 +386,7 @@
                     android:layout_marginBottom="16dp"
                     android:text="@string/info_guide_start"
                     android:textColor="?attr/colorAppTextPrimary"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

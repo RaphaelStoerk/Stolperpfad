@@ -8,7 +8,7 @@ import android.widget.Switch;
 
 import de.uni_ulm.ismm.stolperpfad.MainMenuActivity;
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoListActivity;
+import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoricalListActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.ImpressumActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.impressum.PrivacyInfoActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist.ProjectAndArtistOverviewActivity;
@@ -61,12 +61,12 @@ public class AppClickListener<T extends StolperpfadeAppActivity> implements View
                 break;
             case R.id.menu_to_route_button:
                 intent = new Intent(parent_activity, RoutePlannerActivity.class);
-                intent.putExtra("id", -1);
+                intent.putExtra("id", RoutePlannerActivity.NO_NEXT_STONE_FLAG);
                 intent.putExtra("next", false);
                 break;
             case R.id.menu_to_next_stone_button:
                 intent = new Intent(parent_activity, RoutePlannerActivity.class);
-                intent.putExtra("id", -1);
+                intent.putExtra("id", RoutePlannerActivity.NO_NEXT_STONE_FLAG);
                 intent.putExtra("next", true);
                 break;
 
@@ -95,16 +95,16 @@ public class AppClickListener<T extends StolperpfadeAppActivity> implements View
                 break;
             case R.id.quick_access_next_stone_button:
                 intent = intentFromQuickAccess(RoutePlannerActivity.class);
-                intent.putExtra("id", -1);
+                intent.putExtra("id", RoutePlannerActivity.NO_NEXT_STONE_FLAG);
                 intent.putExtra("next", true);
                 break;
             case R.id.quick_access_route_planner:
                 intent = intentFromQuickAccess(RoutePlannerActivity.class);
-                intent.putExtra("id", -1);
+                intent.putExtra("id", RoutePlannerActivity.NO_NEXT_STONE_FLAG);
                 intent.putExtra("next", false);
                 break;
             case R.id.quick_access_historical_info:
-                intent = intentFromQuickAccess(HistoListActivity.class);
+                intent = intentFromQuickAccess(HistoricalListActivity.class);
                 break;
             case R.id.quick_access_project_artist:
                 intent = intentFromQuickAccess(ProjectAndArtistOverviewActivity.class);
@@ -119,7 +119,6 @@ public class AppClickListener<T extends StolperpfadeAppActivity> implements View
                 clicked_element = null;
             case R.id.dark_mode_switch:
                 parent_activity.toggleDarkMode(clicked_element == null ? null : (Switch) clicked_element, true);
-            case R.id.header_quick_access_cancel_button:
                 parent_activity.endQuickAccesDialog();
                 break;
 
@@ -153,22 +152,22 @@ public class AppClickListener<T extends StolperpfadeAppActivity> implements View
             // ######################## //
             case R.id.overview_to_project_info_button:
                 if (parent_activity instanceof ProjectAndArtistOverviewActivity) {
-                    ((ProjectAndArtistOverviewActivity) parent_activity).setInfoDisplay(0);
+                    ((ProjectAndArtistOverviewActivity) parent_activity).setInfoDisplay(ProjectAndArtistOverviewActivity.DISPLAY_PROJECT);
                 }
                 break;
             case R.id.overview_to_artist_info_button:
                 if (parent_activity instanceof ProjectAndArtistOverviewActivity) {
-                    ((ProjectAndArtistOverviewActivity) parent_activity).setInfoDisplay(1);
+                    ((ProjectAndArtistOverviewActivity) parent_activity).setInfoDisplay(ProjectAndArtistOverviewActivity.DISPLAY_ARTIST);
                 }
                 break;
             case R.id.impressum_to_rights_button:
                 if (parent_activity instanceof ImpressumActivity) {
-                    ((ImpressumActivity) parent_activity).setInfoDisplay(0);
+                    ((ImpressumActivity) parent_activity).setInfoDisplay(ImpressumActivity.DISPLAY_RIGHTS);
                 }
                 break;
             case R.id.impressum_to_contact_button:
                 if (parent_activity instanceof ImpressumActivity) {
-                    ((ImpressumActivity) parent_activity).setInfoDisplay(1);
+                    ((ImpressumActivity) parent_activity).setInfoDisplay(ImpressumActivity.DISPLAY_CONTACT);
                 }
                 break;
             case R.id.button_back:

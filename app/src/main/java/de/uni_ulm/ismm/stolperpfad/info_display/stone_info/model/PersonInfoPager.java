@@ -1,6 +1,7 @@
 package de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
@@ -13,6 +14,7 @@ public class PersonInfoPager extends ViewPager {
         super(context, attrs);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return false;

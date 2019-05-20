@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
-import de.uni_ulm.ismm.stolperpfad.map_activities.model.Stone;
-
 /**
  * A Utility class for common routing calculations
  */
@@ -27,18 +25,6 @@ public class RoutingUtil {
     }
 
     /**
-     * calculate the (direct) distance between two stones
-     *
-     * @param s1 the first marker
-     * @param s2 the second marker
-     *
-     * @return the distance between s1 and s2
-     */
-    public static double getDist(@NonNull Stone s1, @NonNull Stone s2) {
-        return getDist(s1.getLocation(), s2.getLocation());
-    }
-
-    /**
      * calculate the (direct) distance between two GeoPoints
      *
      * @param g1 the first marker
@@ -46,12 +32,17 @@ public class RoutingUtil {
      *
      * @return the distance between g1 and g2
      */
-    public static double getDist(@NonNull LatLng g1, @NonNull LatLng g2) {
+    private static double getDist(@NonNull LatLng g1, @NonNull LatLng g2) {
         double lat_dif = g1.getLatitude() - g2.getLatitude();
         double lng_diff = g1.getLongitude() - g2.getLongitude();
         return lat_dif * lat_dif + lng_diff * lng_diff;
     }
 
+    /**
+     * Converts a basic Loaction to a LatLng Object
+     * @param loc the location to convert
+     * @return the corresponding LatLng Object
+     */
     public static LatLng convertLocationToLatLng(Location loc) {
         if(loc == null) {
             return null;

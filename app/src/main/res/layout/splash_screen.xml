@@ -18,5 +18,7 @@
         app:srcCompat="@drawable/splash"
         android:focusable="true"
         android:clickable="true"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY"
+        android:contentDescription="@string/def_content_description"/>
+
 </android.support.constraint.ConstraintLayout>

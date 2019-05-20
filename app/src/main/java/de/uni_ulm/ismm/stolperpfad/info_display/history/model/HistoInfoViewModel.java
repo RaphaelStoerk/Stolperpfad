@@ -20,29 +20,28 @@ import de.uni_ulm.ismm.stolperpfad.database.data.Person;
 import de.uni_ulm.ismm.stolperpfad.database.data_util.StringCreator;
 import de.uni_ulm.ismm.stolperpfad.info_display.history.HistoInfoActivity;
 
+/**
+ * This class represents the ViewModel for the Historical term info page
+ */
+@SuppressLint("StaticFieldLeak")
 public class HistoInfoViewModel extends AndroidViewModel {
 
+    private static volatile HistoInfoViewModel INSTANCE;
+
+    private String term_name;
+    private String term_content;
+    private List<String> historical_term_names;
+    private List<String> concerned_person_names;
+    private String concerned_person_string;
     private StolperpfadeRepository repo;
     private HistoInfoActivity parent;
-    private static volatile HistoInfoViewModel INSTANCE;
-    private String termName;
-    private String termExplanation;
-    private List<Person> allPersons;
-    private List<HistoricalTerm> allHistoTerms;
-    private List<String> personNames;
-    private List<String> histoTermNames;
-    private List<Person> concPersList;
-    private String concernedPersonsString;
 
-    public HistoInfoViewModel(@NonNull Application application, HistoInfoActivity activity) {
+    private HistoInfoViewModel(@NonNull Application application, HistoInfoActivity activity) {
         super(application);
         this.parent = activity;
-        termName = activity.getIntent().getStringExtra("termName");
-        allPersons = new ArrayList<>();
-        allHistoTerms = new ArrayList<>();
-        personNames = new ArrayList<>();
-        histoTermNames = new ArrayList<>();
-        concPersList = new ArrayList<>();
+        term_name = activity.getIntent().getStringExtra("term_name");
+        concerned_person_names = new ArrayList<>();
+        historical_term_names = new ArrayList<>();
         repo = new StolperpfadeRepository(application);
     }
 
@@ -53,59 +52,54 @@ public class HistoInfoViewModel extends AndroidViewModel {
         return INSTANCE;
     }
 
-    //get histoInfoPage content
+    /**
+     * Sets up the background data collection and creates the info page
+     */
     @SuppressLint("StaticFieldLeak")
-    public void requestContent(HistoInfoActivity activity) {
+    public void setUpInfoPage() {
         new LoadContentTask(this) {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                setContent(activity);
+                buildInfoContent();
             }
         }.execute();
 
     }
 
-
-    //set histoInfoPage content
-    public void setContent(HistoInfoActivity activity) {
+    /**
+     * Creates the content for the info page and sets up the highlighting of clickable tags
+     */
+    private void buildInfoContent() {
         //highlight terms in text
         //list with all terms to highlight
-        ArrayList<String> allHighlightTerms = new ArrayList<>();
-        for (String person : personNames) {
-            allHighlightTerms.add(person);
-        }
-        for (String term : histoTermNames) {
-            allHighlightTerms.add(term);
-        }
+        ArrayList<String> all_highlighted_terms = new ArrayList<>();
+        all_highlighted_terms.addAll(concerned_person_names);
+        all_highlighted_terms.addAll(historical_term_names);
 
         //set explanation
-        TextView textView = activity.findViewById(R.id.title_histo_info);
-        textView.setText(termName);
-        if (termExplanation == null || termExplanation.equals("")) {
-
-        } else {
-            SpannableString newContent = StringCreator.makeSpanWith(termExplanation, activity, allHighlightTerms);
-            textView = activity.findViewById(R.id.histo_info_explanation);
-            textView.setText(newContent);
-            textView.setMovementMethod(LinkMovementMethod.getInstance());
-            textView.setHighlightColor(Color.TRANSPARENT);
+        TextView title_info_textfield = parent.findViewById(R.id.title_histo_info);
+        title_info_textfield.setText(term_name);
+        if (term_content != null && !term_content.equals("")) {
+            SpannableString newContent = StringCreator.makeSpanWith(term_content, parent, all_highlighted_terms);
+            title_info_textfield = parent.findViewById(R.id.histo_info_explanation);
+            title_info_textfield.setText(newContent);
+            title_info_textfield.setMovementMethod(LinkMovementMethod.getInstance());
+            title_info_textfield.setHighlightColor(Color.TRANSPARENT);
         }
-
         //set concerned persons
-        if (concernedPersonsString == null || concernedPersonsString.equals("")) {
-
-        } else {
-            SpannableString newContent = StringCreator.makeSpanWith(concernedPersonsString, activity, allHighlightTerms);
-            textView = activity.findViewById(R.id.histo_info_concerned_persons);
-            textView.setText(newContent);
-            textView.setMovementMethod(LinkMovementMethod.getInstance());
-            textView.setHighlightColor(Color.TRANSPARENT);
+        TextView content_info_textfield = parent.findViewById(R.id.histo_info_concerned_persons);
+        if (concerned_person_string != null && !concerned_person_string.equals("")) {
+            SpannableString newContent = StringCreator.makeSpanWith(concerned_person_string, parent, all_highlighted_terms);
+            content_info_textfield.setText(newContent);
+            content_info_textfield.setMovementMethod(LinkMovementMethod.getInstance());
+            content_info_textfield.setHighlightColor(Color.TRANSPARENT);
         }
-
     }
 
-
+    /**
+     * A helper background task that collects data from the data base and perpares it for later usage
+     */
     private static class LoadContentTask extends AsyncTask<Void, Void, Void> {
 
         private HistoInfoViewModel model;
@@ -117,32 +111,30 @@ public class HistoInfoViewModel extends AndroidViewModel {
         @Override
         protected Void doInBackground(Void... voids) {
             //get explanation
-            model.termExplanation = model.repo.getExplanation(model.termName);
+            model.term_content = model.repo.getExplanation(model.term_name);
 
             //load data for highlighting
-            model.allPersons = model.repo.getAllPersons();
-            model.allHistoTerms = model.repo.getAllTerms();
-            for (HistoricalTerm term : model.allHistoTerms) {
+            List<HistoricalTerm> all_historical_terms = model.repo.getAllTerms();
+            for (HistoricalTerm term : all_historical_terms) {
                 String current = term.getName();
-                if (term.equals(current)) {
-                } else {
-                    model.histoTermNames.add(current);
+                if (!model.term_name.equals(current)) {
+                    model.historical_term_names.add(current);
                 }
-            }
-            for (Person pers : model.allPersons) {
-                String current = pers.getEntireName();
-                model.personNames.add(current);
             }
 
             //get concerned persons
-            model.concPersList = model.repo.getAllConcernedPersons(model.termName);
-            model.concernedPersonsString = "";
-            for (Person pers : model.concPersList) {
-                String entName = pers.getEntireName();
-                if (model.concernedPersonsString == null || model.concernedPersonsString.equals("")) {
-                    model.concernedPersonsString = entName;
+            List<Person> concerned_person_list = model.repo.getAllConcernedPersons(model.term_name);
+            for (Person concerned_person : concerned_person_list) {
+                String current = concerned_person.getEntireName();
+                model.concerned_person_names.add(current);
+            }
+            model.concerned_person_string = "";
+            for (Person concerned_person : concerned_person_list) {
+                String entName = concerned_person.getEntireName();
+                if (model.concerned_person_string == null || model.concerned_person_string.equals("")) {
+                    model.concerned_person_string = entName;
                 } else {
-                    model.concernedPersonsString = model.concernedPersonsString + ", " + entName;
+                    model.concerned_person_string += ", " + entName;
                 }
             }
             return null;

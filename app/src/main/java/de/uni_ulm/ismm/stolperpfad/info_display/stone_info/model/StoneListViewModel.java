@@ -91,6 +91,9 @@ public class StoneListViewModel extends AndroidViewModel {
         ConstraintLayout index_container = parent.findViewById(R.id.index_layout);
         index_buttons = new ArrayList<>();
         int count = initials.size();
+        if(count < 1) {
+            return;
+        }
         Button buff;
         // create the buttons for the index
         DisplayMetrics dm = parent.getResources().getDisplayMetrics();

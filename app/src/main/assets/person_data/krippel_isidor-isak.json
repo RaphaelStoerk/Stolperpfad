@@ -1,16 +1,16 @@
 {
   "id": 87,
-  "vorname": "Isidor Isak",
-  "nachname": "Krippel",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Isidor Isak",
+  "familyname": "Krippel",
+  "birthname": "",
+  "stone": {
     "id": 34,
-    "adresse": "Hafengasse 10",
+    "address": "Hafengasse 10",
     "latitude": 48.3990155,
     "longitude": 9.9943728
   },
-  "geschichte": "Polenaktion",
-  "bio": [
+  "history": "Polenaktion",
+  "vita": [
     {
       "content": "Geburt#Isidor Isak Krippel wurde 1872 in Rzeszow in Galizien/Polen geboren."
     },

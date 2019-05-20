@@ -1,16 +1,16 @@
 {
   "id": 41,
-  "vorname": "Maja",
-  "nachname": "Kluger",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Maja",
+  "familyname": "Kluger",
+  "birthname": "",
+  "stone": {
     "id": 23,
-    "adresse": "Hasslerstraße 42",
+    "address": "Hasslerstraße 42",
     "latitude": 48.389749,
     "longitude": 9.980909
   },
-  "geschichte": "Kindertransporte nach Großbritannien",
-  "bio": [
+  "history": "Kindertransporte nach Großbritannien",
+  "vita": [
     {
       "content": "Geburt#"
     },

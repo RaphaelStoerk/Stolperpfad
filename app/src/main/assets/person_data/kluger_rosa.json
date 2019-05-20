@@ -1,16 +1,16 @@
 {
   "id": 42,
-  "vorname": "Rosa",
-  "nachname": "Kluger",
-  "geburtsname": "Wagowski",
-  "stein": {
+  "firstname": "Rosa",
+  "familyname": "Kluger",
+  "birthname": "Wagowski",
+  "stone": {
     "id": 23,
-    "adresse": "Hasslerstraße 42",
+    "address": "Hasslerstraße 42",
     "latitude": 48.389749,
     "longitude": 9.980909
   },
-  "geschichte": "Minsk",
-  "bio": [
+  "history": "Minsk",
+  "vita": [
     {
       "content": "Geburt#"
     },

@@ -1,16 +1,16 @@
 {
   "id": 60,
-  "vorname": "Johann",
-  "nachname": "Seibold",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Johann",
+  "familyname": "Seibold",
+  "birthname": "",
+  "stone": {
     "id": 21,
-    "adresse": "Kapellengasse 25",
+    "address": "Kapellengasse 25",
     "latitude": 48.395299,
     "longitude": 9.954563
   },
-  "geschichte": "Zeugen Jehovas",
-    "bio": [
+  "history": "Zeugen Jehovas",
+    "vita": [
     {
       "content": "Geburt#"
     },

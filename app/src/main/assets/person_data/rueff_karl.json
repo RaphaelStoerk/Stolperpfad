@@ -1,16 +1,16 @@
 {
   "id": 7,
-  "vorname": "Karl",
-  "nachname": "Rueff",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Karl",
+  "familyname": "Rueff",
+  "birthname": "",
+  "stone": {
     "id": 2,
-    "adresse": "Frauenstraße 28",
+    "address": "Frauenstraße 28",
     "latitude": 48.399455,
     "longitude": 9.996718
   },
-  "geschichte": "Heilanstalt Schussenried, Aktion T4, Grafeneck",
-  "bio": [
+  "history": "Heilanstalt Schussenried, Aktion T4, Grafeneck",
+  "vita": [
     {
       "content": "Geburt#Karl Rueff wurde am 1. Februar 1892 als einziger Sohn einer Ulmer Kaufmannsfamilie geboren. Mit seinen Eltern und drei Schwestern wohnte er im Elchinger Hof in der Frauenstraße."
     },

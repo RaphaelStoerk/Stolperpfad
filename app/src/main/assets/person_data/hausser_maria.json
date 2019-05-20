@@ -1,16 +1,16 @@
 {
   "id": 75,
-  "vorname": "Maria",
-  "nachname": "Hausser",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Maria",
+  "familyname": "Hausser",
+  "birthname": "",
+  "stone": {
     "id": 29,
-    "adresse": "Kirchstraße 3, Grimmelfingen",
+    "address": "Kirchstraße 3, Grimmelfingen",
     "latitude": 48.3716788,
     "longitude": 9.9355790
   },
-  "geschichte": "Diakonissenanstalt Schwäbisch Hall, Landesfürsorgeanstalt Oberer Riedhof, Aktion T4, Grafeneck",
-  "bio": [
+  "history": "Diakonissenanstalt Schwäbisch Hall, Landesfürsorgeanstalt Oberer Riedhof, Aktion T4, Grafeneck",
+  "vita": [
     {
       "content": "Geburt#Maria Hausser wurde am 21. Mai 1868 als dritte von vier Schwestern eines Landwirts mit Bauernhof in Grimmelfingen geboren. Schon als Kind litt sie an einer geistigen Behinderung und zwerghaftem Wuchs."
     },

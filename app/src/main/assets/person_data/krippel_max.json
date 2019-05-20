@@ -1,16 +1,16 @@
 {
   "id": 92,
-  "vorname": "Max",
-  "nachname": "Krippel",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Max",
+  "familyname": "Krippel",
+  "birthname": "",
+  "stone": {
     "id": 34,
-    "adresse": "Hafengasse 10",
+    "address": "Hafengasse 10",
     "latitude": 48.3990155,
     "longitude": 9.9943728
   },
-  "geschichte": "",
-  "bio": [
+  "history": "",
+  "vita": [
     {
       "content": "Geburt#Max Krippel wurde 1908 als drittes Kind von Isidor Isak Krippel und Dorlina Krippel in Ulm geboren"
     },

@@ -1,16 +1,16 @@
 {
   "id": 89,
-  "vorname": "Else",
-  "nachname": "Krippel",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Else",
+  "familyname": "Krippel",
+  "birthname": "",
+  "stone": {
     "id": 34,
-    "adresse": "Hafengasse 10",
+    "address": "Hafengasse 10",
     "latitude": 48.3990155,
     "longitude": 9.9943728
   },
-  "geschichte": "Polenaktion",
-  "bio": [
+  "history": "Polenaktion",
+  "vita": [
     {
       "content": "Geburt#Else Krippel, die eigentlich Elisabeth(a) heißt, wurde 1910 als viertes Kind von Isidor Isak Krippel und Dorlina Krippel in Ulm geboren."
     },

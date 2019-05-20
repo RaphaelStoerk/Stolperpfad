@@ -1,16 +1,16 @@
 {
   "id": 94,
-  "vorname": "Else",
-  "nachname": "Dölzer",
-  "geburtsname": "Löffler",
-  "stein": {
+  "firstname": "Else",
+  "familyname": "Dölzer",
+  "birthname": "Löffler",
+  "stone": {
     "id": 36,
-    "adresse": "Am Zundeltor 2",
+    "address": "Am Zundeltor 2",
     "latitude": 48.4022305,
     "longitude": 9.9995964
   },
-  "geschichte": "Privilegierte Mischehe, Theresienstadt, Auschwitz",
-  "bio": [
+  "history": "Privilegierte Mischehe, Theresienstadt, Auschwitz",
+  "vita": [
     {
       "content": "Geburt#Else Dölzer wurde am 28. Juni 1899 als Else Löffler in Ulm geboren."
     },

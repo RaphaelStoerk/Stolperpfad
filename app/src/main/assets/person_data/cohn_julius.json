@@ -1,27 +1,45 @@
 {
   "id": 8,
-  "vorname": "Julius",
-  "nachname": "Cohn",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Julius",
+  "familyname": "Cohn",
+  "birthname": "",
+  "stone": {
     "id": 3,
-    "adresse": "Neue Straße 95/97 (Lange Straße 18 stand gegenüber)",
+    "address": "Neue Straße 95/97 (Lange Straße 18 stand gegenüber)",
     "latitude": 48.397664,
     "longitude": 9.994661
   },
-  "geschichte": "Pogromnacht",
-  "bio": [
+  "history": "Pogromnacht",
+  "vita": [
     {
-      "content": "Geburt#"
+      "content": "Geburt#Dr. phil. Julius Cohn wurde am 5. Dezember 1878 in Graudenz im heutigen Polen geboren."
     },
     {
-      "content": "1#"
+      "content": "Kindheit#Seine Kindheit verbrachte Julius Cohn erst im heutigen Polen, dann in der englischen Stadt Leeds und schließlich in Mogilno und Gnesen in Deutschland."
     },
     {
-      "content": "2#"
+      "content": "Studium#Als er seine Schulausbildung abgeschlossen hatte, ging Julius Cohn nach Berlin, um Medizin zu studieren. Nach drei Semestern wechselte er zu Theologie und bestand 1913 das Rabbinerexamen."
     },
     {
-      "content": "3#"
+      "content": "Hochzeit#1915 lernte Julius Cohn während seines ersten Rabbinats im Fürstentum Birkenfeld Herta Hahn kennen, die er ein Jahr später in Düsseldorf heiratete."
+    },
+    {
+      "content": "Berufsleben#Zunächst arbeitete Julius Cohn als Rabbiner in Karlsruhe und Stuttgart, bis er 1928 die Stelle des Bezirksrabbiners in Ulm antrat."
+    },
+    {
+      "content": "Leben ab 1936#Julius Cohns Frau Herta erkrankte vermutlich 1936 an Krebs, weshalb er sie zuhause pflegte. Als sich ihr Zustand kontinuierlich verschlechterte, bekam Julius Cohn Hilfe von Dorothea Meth-Cohn, geborene Meth, die er wahrscheinlich über seine Nachbarn kennenlernte. Dorothea Meth-Cohn zog als Haushälterin mit ihrem kleinen Sohn Otto Meth-Cohn bei ihm ein und half ihm bei der Pflege bis zum Tod seiner Frau am 23. März 1938."
+    },
+    {
+      "content": "Pogromnacht#In der Nacht vom 9. November 1938 wurde Julius Cohn aus seinem Haus gezerrt und auf dem Weinhof schwer misshandelt. Die Verletzungen, die dabei entstanden, waren so stark, dass man ihn nicht wie die anderen jüdischen Männer nach Dachau, sondern in das städtische Krankenhaus brachte."
+    },
+    {
+      "content": "Genesung und Hochzeit#Julius Cohn blieb vier Wochen im Krankenhaus. Als er entlassen wurde, zog Dorothea MEth-Cohn wieder mit ihrem Sohn Otto Meth-Cohn zu ihm, um ihn weiter pflegen zu können.\nDa es Rabbinern und ihren Familien immer noch möglich war, Ausreisebewilligungen zu bekommen, heiratete Julius Cohn Dorothea Meth-Cohn und adoptierte ihren Sohn Otto Meth-Cohn."
+    },
+    {
+      "content": "Flucht#Da nicht klar war, wann genau die Familie ausreisen durfte, ging Julius Cohn im Mai 1939 voraus nach Edinburgh. Dorothea Meth-Cohn und Otto Meth-Cohn sollten so schnell wie möglich nachkommen."
+    },
+    {
+      "content": "Tod#Am 18. März 1940 erlag Julius Cohn im Londoner Vorort Golders Green den Folgen seiner Verletzungen."
     }
   ]
 }

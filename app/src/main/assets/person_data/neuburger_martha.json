@@ -1,16 +1,16 @@
 {
   "id": 86,
-  "vorname": "Martha",
-  "nachname": "Neuburger",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Martha",
+  "familyname": "Neuburger",
+  "birthname": "",
+  "stone": {
     "id": 33,
-    "adresse": "Schuhhausgasse 9",
+    "address": "Schuhhausgasse 9",
     "latitude": 48.3983037,
     "longitude": 9.9951667
   },
-  "geschichte": "Judenhäuser, Riga",
-    "bio": [
+  "history": "Judenhäuser, Riga",
+    "vita": [
     {
       "content": "Geburt#Martha Neuburger wurde 1893 vermutlich in Ulm als zweite Tochter von Ludwig Neuburger geboren."
     },

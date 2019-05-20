@@ -1,16 +1,16 @@
 {
   "id": 9,
-  "vorname": "Dorothea",
-  "nachname": "Meth-Cohn",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Dorothea",
+  "familyname": "Meth-Cohn",
+  "birthname": "Meth",
+  "stone": {
     "id": 3,
-    "adresse": "Neue Straße 95/97 (Lange Straße 18 stand gegenüber)",
+    "address": "Neue Straße 95/97 (Lange Straße 18 stand gegenüber)",
     "latitude": 48.397664,
     "longitude": 9.994661
   },
-  "geschichte": "Theresienstadt, Auschwitz",
-  "bio": [
+  "history": "Theresienstadt, Auschwitz",
+  "vita": [
     {
       "content": "Geburt#"
     },

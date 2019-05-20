@@ -1,16 +1,16 @@
 {
   "id": 3,
-  "vorname": "Martha",
-  "nachname": "Frenkel",
-  "geburtsname": "Einstein",
-  "stein": {
+  "firstname": "Martha",
+  "familyname": "Frenkel",
+  "birthname": "Einstein",
+  "stone": {
     "id": 0,
-    "adresse": "Olgastraße 114",
+    "address": "Olgastraße 114",
     "latitude": 48.402106,
     "longitude": 9.994395
   },
-  "geschichte": "Polenaktion",
-  "bio": [
+  "history": "Polenaktion",
+  "vita": [
     {
       "content": "Geburt#"
     },

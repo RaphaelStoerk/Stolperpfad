@@ -185,7 +185,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
     }
 
     /**
-     * This method handels clicks on links in the bio and history information activities, redirects
+     * This method handels clicks on links in the vita and history information activities, redirects
      * the application to the specified info page, if a known tag can be found in s
      *
      * @param tag the text that has been clicked on

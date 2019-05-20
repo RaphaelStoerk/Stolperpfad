@@ -1,16 +1,16 @@
 {
   "id": 25,
-  "vorname": "Ernst",
-  "nachname": "Dauner",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Ernst",
+  "familyname": "Dauner",
+  "birthname": "",
+  "stone": {
     "id": 15,
-    "adresse": "Säntisstraße 36",
+    "address": "Säntisstraße 36",
     "latitude": 48.411408,
     "longitude": 9.98664
   },
-  "geschichte": "Dachau",
-  "bio": [
+  "history": "Dachau",
+  "vita": [
     {
       "content": "Geburt#Ernst Dauner wurde am 4. September 1913 in Ulm geboren."
     },

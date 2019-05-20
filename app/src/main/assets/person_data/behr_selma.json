@@ -1,16 +1,16 @@
 {
   "id": 23,
-  "vorname": "Selma",
-  "nachname": "Behr",
-  "geburtsname": "Kaufmann",
-  "stein": {
+  "firstname": "Selma",
+  "familyname": "Behr",
+  "birthname": "Kaufmann",
+  "stone": {
     "id": 17,
-    "adresse": "Keplerstraße 21 (St. Anna Stift)",
+    "address": "Keplerstraße 21 (St. Anna Stift)",
     "latitude": 48.404543,
     "longitude": 9.992678
   },
-  "geschichte": "",
-  "bio": [
+  "history": "",
+  "vita": [
     {
       "content": "Geburt#Selma Behr wurde am 27. August 1920 als Selma Kaufmann in Ulm geboren."
     },

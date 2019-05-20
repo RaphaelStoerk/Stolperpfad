@@ -1,16 +1,16 @@
 {
   "id": 21,
-  "vorname": "Lotte",
-  "nachname": "Barth",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Lotte",
+  "familyname": "Barth",
+  "birthname": "",
+  "stone": {
     "id": 24,
-    "adresse": "Ensingerstraße 21",
+    "address": "Ensingerstraße 21",
     "latitude": 48.403352 ,
     "longitude": 9.988647 
   },
-  "geschichte": "Judenhäuser",
-  "bio": [
+  "history": "Judenhäuser",
+  "vita": [
     {
       "content": "Geburt#"
     },

@@ -1,16 +1,16 @@
 {
   "id": 62,
-  "vorname": "Konrad sen.",
-  "nachname": "Seibold",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Konrad sen.",
+  "familyname": "Seibold",
+  "birthname": "",
+  "stone": {
     "id": 22,
-    "adresse": "Uhrenmachergasse 23",
+    "address": "Uhrenmachergasse 23",
     "latitude": 48.394984,
     "longitude": 9.955901 
   },
-  "geschichte": "Zeugen Jehovas, Welzheim, Dachau, Mauthausen",
-  "bio": [
+  "history": "Zeugen Jehovas, Welzheim, Dachau, Mauthausen",
+  "vita": [
     {
       "content": "Geburt#"
     },

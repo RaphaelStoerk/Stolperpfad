@@ -1,16 +1,16 @@
 {
   "id": 78,
-  "vorname": "Jakob",
-  "nachname": "Klappholz",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Jakob",
+  "familyname": "Klappholz",
+  "birthname": "",
+  "stone": {
     "id": 32,
-    "adresse": "Marktplatz 9 (Museum)",
+    "address": "Marktplatz 9 (Museum)",
     "latitude": 48.3969050,
     "longitude": 9.9945641
   },
-  "geschichte": "Theresienstadt, Warschauer Ghetto, Treblinka",
-  "bio": [
+  "history": "Theresienstadt, Warschauer Ghetto, Treblinka",
+  "vita": [
     {
       "content": "Geburt#Jakob Klappholz wurde 1891 in Teschen (Cieszyn), das damals noch zu Österreich gehörte und heute in Tschechien liegt, geboren."
     },

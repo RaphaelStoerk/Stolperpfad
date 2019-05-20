@@ -1,16 +1,16 @@
 {
   "id": 81,
-  "vorname": "Wilhelmine",
-    "nachname": "Klappholz",
-  "geburtsname": "Weil",
-  "stein": {
+  "firstname": "Wilhelmine",
+    "familyname": "Klappholz",
+  "birthname": "Weil",
+  "stone": {
     "id": 32,
-    "adresse": "Marktplatz 9 (Museum)",
+    "address": "Marktplatz 9 (Museum)",
     "latitude": 48.3969050,
     "longitude": 9.9945641
   },
-  "geschichte": "Theresienstadt, Warschauer Ghetto, Treblinka",
-  "bio": [
+  "history": "Theresienstadt, Warschauer Ghetto, Treblinka",
+  "vita": [
     {
       "content": "Geburt#Wilhelmine Klappholz wurde als Wilhelmine Weil vermutlich in Freiburg geboren."
     },

@@ -1,16 +1,16 @@
 {
   "id": 73,
-  "vorname": "Walter",
-  "nachname": "Weglein",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Walter",
+  "familyname": "Weglein",
+  "birthname": "",
+  "stone": {
     "id": 28,
-    "adresse": "Hans-und-Sophie-Scholl-Platz 2 (früher Sattlergasse 19)",
+    "address": "Hans-und-Sophie-Scholl-Platz 2 (früher Sattlergasse 19)",
     "latitude": 48.3973950,
     "longitude": 9.9928779
   },
-  "geschichte": "",
-  "bio": [
+  "history": "",
+  "vita": [
     {
       "content": "Geburt#"
     },

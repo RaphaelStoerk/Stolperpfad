@@ -1,16 +1,16 @@
 {
   "id": 32,
-  "vorname": "Ludwig",
-  "nachname": "Hecht",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Ludwig",
+  "familyname": "Hecht",
+  "birthname": "",
+  "stone": {
     "id": 7,
-    "adresse": "Olgastraße 85",
+    "address": "Olgastraße 85",
     "latitude": 48.401455,
     "longitude": 9.988625
   },
-  "geschichte": "Judenhäuser, Zwangsaltersheim Oberstotzingen",
-  "bio": [
+  "history": "Judenhäuser, Zwangsaltersheim Oberstotzingen",
+  "vita": [
     {
       "content": "Geburt#Dr. med. Ludwig Hecht wurde am 14. Oktober 1866 in Bonnland bei Würzburg geboren."
     },

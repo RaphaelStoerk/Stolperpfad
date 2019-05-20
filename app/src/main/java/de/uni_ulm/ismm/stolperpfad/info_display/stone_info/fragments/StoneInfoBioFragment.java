@@ -20,7 +20,7 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.RotatedViewPage
 
 /**
  * The main fragment for the biography display of a specific person,
- * holds the information of which timestep in the bio of this person
+ * holds the information of which timestep in the vita of this person
  * is currently displayed
  */
 public class StoneInfoBioFragment extends Fragment {

@@ -110,18 +110,18 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
 
                     //insert person
                     id = json.getInt("id");
-                    firstname = json.getString("vorname");
-                    familyname = json.getString("nachname");
-                    birthname = json.getString("geburtsname");
-                    history = json.getString("geschichte");
-                    stone = json.getJSONObject("stein");
+                    firstname = json.getString("firstname");
+                    familyname = json.getString("familyname");
+                    birthname = json.getString("birthname");
+                    history = json.getString("history");
+                    stone = json.getJSONObject("stone");
                     stoneId = stone.getInt("id");
                     Log.i("person_found", familyname + ", " + firstname);
                     Person person = new Person(id, firstname, familyname, birthname, history, stoneId);
                     mDao.insert(person);
 
                     //insert vita
-                    JSONArray biography = json.getJSONArray("bio");
+                    JSONArray biography = json.getJSONArray("vita");
                     String[] vitaSections = new String[vitaLength];
                     for (int i = 0; i < biography.length(); i++) {
                         String section = biography.getJSONObject(i).getString("content");
@@ -135,7 +135,7 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
                     mDao.insert(vita);
 
                     //insert Stolperstein
-                    address = stone.getString("adresse");
+                    address = stone.getString("address");
                     latitude = stone.getDouble("latitude");
                     longitude = stone.getDouble("longitude");
                     Stolperstein stostei = new Stolperstein(stoneId, address, latitude, longitude);

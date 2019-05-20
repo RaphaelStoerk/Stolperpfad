@@ -1,16 +1,16 @@
 {
   "id": 76,
-  "vorname": "Friedrich",
-  "nachname": "Röcker",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Friedrich",
+  "familyname": "Röcker",
+  "birthname": "",
+  "stone": {
     "id": 30,
-    "adresse": "Neue Straße 42 (Hintereingang)",
+    "address": "Neue Straße 42 (Hintereingang)",
     "latitude": 48.3970998,
     "longitude": 9.9873800
   },
-  "geschichte": "Konzentrationslager Oberer Kuhberg, Strafbataillon 999",
-  "bio": [
+  "history": "Konzentrationslager Oberer Kuhberg, Strafbataillon 999",
+  "vita": [
     {
       "content": "Geburt#Friedrich Röcker wurde 1910 in Gruorn bei Münsingen als Ältester von sieben Geschwistern geboren."
     },

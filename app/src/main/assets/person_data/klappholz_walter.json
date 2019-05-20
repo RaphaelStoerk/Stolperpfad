@@ -1,16 +1,16 @@
 {
   "id": 79,
-  "vorname": "Walter",
-    "nachname": "Klappholz",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Walter",
+    "familyname": "Klappholz",
+  "birthname": "",
+  "stone": {
     "id": 32,
-    "adresse": "Marktplatz 9 (Museum)",
+    "address": "Marktplatz 9 (Museum)",
     "latitude": 48.3969050,
     "longitude": 9.9945641
   },
-  "geschichte": "Theresienstadt, Warschauer Ghetto, Treblinka",
-  "bio": [
+  "history": "Theresienstadt, Warschauer Ghetto, Treblinka",
+  "vita": [
     {
       "content": "Geburt#Walter Klappholz wurde 1924 als Ältester von drei Kindern vermutlich in Ulm geboren. Er hatte zwei kleinere Schwestern, Julia Klappholz und Ottilie Klappholz."
     },

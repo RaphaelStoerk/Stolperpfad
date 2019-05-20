@@ -1,16 +1,16 @@
 {
   "id": 83,
-  "vorname": "Bertha",
-  "nachname": "Neuburger",
-  "geburtsname": "Bernheim",
-  "stein": {
+  "firstname": "Bertha",
+  "familyname": "Neuburger",
+  "birthname": "Bernheim",
+  "stone": {
     "id": 33,
-    "adresse": "Schuhhausgasse 9",
+    "address": "Schuhhausgasse 9",
     "latitude": 48.3983037,
     "longitude": 9.9951667
   },
-  "geschichte": "Judenhäuser, Zwangsaltersheim Herrlingen, Zwangsaltersheim Oberstotzingen, Theresienstadt, Treblinka",
-    "bio": [
+  "history": "Judenhäuser, Zwangsaltersheim Herrlingen, Zwangsaltersheim Oberstotzingen, Theresienstadt, Treblinka",
+    "vita": [
     {
       "content": "Geburt#Bertha Neuburger wurde 1864 als Bertha Bernheim vermutlich in Ulm geboren."
     },

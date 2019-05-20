@@ -1,16 +1,16 @@
 {
   "id": 31,
-  "vorname": "Lina",
-  "nachname": "Girr",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Lina",
+  "familyname": "Girr",
+  "birthname": "",
+  "stone": {
     "id": 35,
-    "adresse": "Frauengraben 47 (Grabenhäuschen)",
+    "address": "Frauengraben 47 (Grabenhäuschen)",
     "latitude": 48.4015387,
     "longitude": 9.9962932
   },
-  "geschichte": "Heilanstalt Schussenried, Aktion T4, Grafeneck",
-  "bio": [
+  "history": "Heilanstalt Schussenried, Aktion T4, Grafeneck",
+  "vita": [
     {
       "content": "Geburt#Am 12. Juli 1878 wurde Lina Girr als uneheliches Kind in Ulm geboren."
     },

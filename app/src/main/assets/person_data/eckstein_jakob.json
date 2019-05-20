@@ -1,16 +1,16 @@
 {
   "id": 26,
-  "vorname": "Jakob",
-  "nachname": "Eckstein",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Jakob",
+  "familyname": "Eckstein",
+  "birthname": "",
+  "stone": {
     "id": 14,
-    "adresse": "Frauenstraße 134 (ehem. Garnisons-Arresthaus)",
+    "address": "Frauenstraße 134 (ehem. Garnisons-Arresthaus)",
     "latitude": 48.40687,
     "longitude": 9.992808
   },
-  "geschichte": "",
-  "bio": [
+  "history": "",
+  "vita": [
     {
       "content": "Geburt#"
     },

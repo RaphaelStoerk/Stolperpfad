@@ -1,16 +1,16 @@
 {
   "id": 6,
-  "vorname": "Ruth",
-  "nachname": "Waldmann",
-  "geburtsname": "Zürndorfer",
-  "stein": {
+  "firstname": "Ruth",
+  "familyname": "Waldmann",
+  "birthname": "Zürndorfer",
+  "stone": {
     "id": 1,
-    "adresse": "Susoweg 17",
+    "address": "Susoweg 17",
     "latitude": 48.389139,
     "longitude": 9.976307
   },
-  "geschichte": "Theresienstadt",
-  "bio": [
+  "history": "Theresienstadt",
+  "vita": [
     {
       "content": "Geburt#"
     },

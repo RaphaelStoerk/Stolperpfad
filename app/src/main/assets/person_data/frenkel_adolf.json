@@ -1,16 +1,16 @@
 {
   "id": 2,
-  "vorname": "Adolf",
-  "nachname": "Frenkel",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Adolf",
+  "familyname": "Frenkel",
+  "birthname": "",
+  "stone": {
     "id": 0,
-    "adresse": "Olgastraße 114",
+    "address": "Olgastraße 114",
     "latitude": 48.402106,
     "longitude": 9.994395
   },
-  "geschichte": "Polenaktion, Riga",
-  "bio": [
+  "history": "Polenaktion, Riga",
+  "vita": [
     {
       "content": "Geburt#"
     },

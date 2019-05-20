@@ -1,16 +1,16 @@
 {
   "id": 91,
-  "vorname": "Jenny",
-  "nachname": "Krippel",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Jenny",
+  "familyname": "Krippel",
+  "birthname": "",
+  "stone": {
     "id": 34,
-    "adresse": "Hafengasse 10",
+    "address": "Hafengasse 10",
     "latitude": 48.3990155,
     "longitude": 9.9943728
   },
-  "geschichte": "Polenaktion",
-  "bio": [
+  "history": "Polenaktion",
+  "vita": [
     {
       "content": "Geburt#Jenny Krippel wurde 1901 als erste Tochter von Isidor Isak Krippel und Dorlina Krippel in Gailingen geboren."
     },

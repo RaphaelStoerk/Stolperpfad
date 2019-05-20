@@ -1,16 +1,16 @@
 {
   "id": 44,
-  "vorname": "Ludwig",
-  "nachname": "Levy",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Ludwig",
+  "familyname": "Levy",
+  "birthname": "",
+  "stone": {
     "id": 10,
-    "adresse": "Herdbruckerstraße 8",
+    "address": "Herdbruckerstraße 8",
     "latitude": 48.396399,
     "longitude": 9.994352
   },
-  "geschichte": "Zwangsaltersheim Oberstotzingen, Theresienstadt, Treblinka",
-  "bio": [
+  "history": "Zwangsaltersheim Oberstotzingen, Theresienstadt, Treblinka",
+  "vita": [
     {
       "content": "Geburt#Ludwig Levy wurde 1870 in Illingen im Saarland geboren."
     },

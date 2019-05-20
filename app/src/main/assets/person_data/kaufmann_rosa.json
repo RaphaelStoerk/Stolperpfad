@@ -1,16 +1,16 @@
 {
   "id": 39,
-  "vorname": "Rosa",
-  "nachname": "Kaufmann",
-  "geburtsname": "Smus",
-  "stein": {
+  "firstname": "Rosa",
+  "familyname": "Kaufmann",
+  "birthname": "Smus",
+  "stone": {
     "id": 17,
-    "adresse": "Keplerstraße 21 (St. Anna Stift)",
+    "address": "Keplerstraße 21 (St. Anna Stift)",
     "latitude": 48.404543,
     "longitude": 9.992678
   },
-  "geschichte": "Heilanstalt Schussenried, Zwischenanstalt Weinsberg, Grafeneck",
-  "bio": [
+  "history": "Heilanstalt Schussenried, Zwischenanstalt Weinsberg, Grafeneck",
+  "vita": [
     {
       "content": "Geburt#Rosa Kaufmann wurde als Rahel Smus 1899 in Minsk im damaligen Russland geboren."
     },

@@ -1,16 +1,16 @@
 {
   "id": 56,
-  "vorname": "Curt Erich",
-  "nachname": "Riesterer",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Curt Erich",
+  "familyname": "Riesterer",
+  "birthname": "",
+  "stone": {
     "id": 14,
-    "adresse": "Frauenstraße 134 (ehem. Garnisons-Arresthaus)",
+    "address": "Frauenstraße 134 (ehem. Garnisons-Arresthaus)",
     "latitude": 48.40687,
     "longitude": 9.992808
   },
-  "geschichte": "",
-  "bio": [
+  "history": "",
+  "vita": [
     {
       "content": "Geburt#"
     },

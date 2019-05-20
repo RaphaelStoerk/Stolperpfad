@@ -1,16 +1,16 @@
 {
   "id": 51,
-  "vorname": "Luise",
-  "nachname": "Nathan",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Luise",
+  "familyname": "Nathan",
+  "birthname": "",
+  "stone": {
     "id": 26,
-    "adresse": "Heimstraße 29",
+    "address": "Heimstraße 29",
     "latitude": 48.4018974,
     "longitude": 9.9977866
   },
-  "geschichte": "",
-    "bio": [
+  "history": "",
+    "vita": [
     {
       "content": "Geburt#"
     },

@@ -1,16 +1,16 @@
 {
   "id": 77,
-  "vorname": "Max Moritz",
-  "nachname": "Strauss",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Max Moritz",
+  "familyname": "Strauss",
+  "birthname": "",
+  "stone": {
     "id": 31,
-    "adresse": "Schwörhausgasse 15 (gegenüber Nr. 18)",
+    "address": "Schwörhausgasse 15 (gegenüber Nr. 18)",
     "latitude": 48.3966005,
     "longitude": 9.9898292
   },
-  "geschichte": "Dachau",
-  "bio": [
+  "history": "Dachau",
+  "vita": [
     {
       "content": "Geburt#Max Moritz Strauss kam 1884 in Freiendiez an der Lahn als uneheliches Kind zur Welt."
     },

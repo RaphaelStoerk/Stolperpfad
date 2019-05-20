@@ -1,16 +1,16 @@
 {
   "id": 47,
-  "vorname": "Rudolf",
-  "nachname": "Moos",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Rudolf",
+  "familyname": "Moos",
+  "birthname": "",
+  "stone": {
     "id": 8,
-    "adresse": "Friedrich-Ebert-Straße 14 (vor C&A)",
+    "address": "Friedrich-Ebert-Straße 14 (vor C&A)",
     "latitude": 48.3984666,
     "longitude": 9.9845005
   },
-  "geschichte": "Dachau, Pogromnacht",
-  "bio": [
+  "history": "Dachau, Pogromnacht",
+  "vita": [
     {
       "content": "Geburt#"
     },

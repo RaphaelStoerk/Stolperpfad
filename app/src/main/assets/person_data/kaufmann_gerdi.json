@@ -1,16 +1,16 @@
 {
   "id": 38,
-  "vorname": "Gerdi",
-  "nachname": "Kaufmann",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Gerdi",
+  "familyname": "Kaufmann",
+  "birthname": "",
+  "stone": {
     "id": 17,
-    "adresse": "Keplerstraße 21 (St. Anna Stift)",
+    "address": "Keplerstraße 21 (St. Anna Stift)",
     "latitude": 48.404543,
     "longitude": 9.992678
   },
-  "geschichte": "Izbica, Pogromnacht, Zwangsaltersheim Dellmensingen",
-  "bio": [
+  "history": "Izbica, Pogromnacht, Zwangsaltersheim Dellmensingen",
+  "vita": [
     {
       "content": "Geburt#Gerdi Kaufmann wurde am 23. September 1924 als drittes Kind von Hermann und Rosa Kaufmann in Ulm geboren."
     },

@@ -1,16 +1,16 @@
 {
   "id": 45,
-  "vorname": "Sofie",
- "nachname": "Levy",
-  "geburtsname": "Gutmann",
-  "stein": {
+  "firstname": "Sofie",
+ "familyname": "Levy",
+  "birthname": "Gutmann",
+  "stone": {
     "id": 10,
-    "adresse": "Herdbruckerstraße 8",
+    "address": "Herdbruckerstraße 8",
     "latitude": 48.396399,
     "longitude": 9.994352
   },
-  "geschichte": "Zwangsaltersheim Oberstotzingen, Theresienstadt, Treblinka",
-  "bio": [
+  "history": "Zwangsaltersheim Oberstotzingen, Theresienstadt, Treblinka",
+  "vita": [
     {
       "content": "Geburt#Sofie Levy wurde 1872 als Sofie Gutmann in Philippsburg in Baden geboren."
     },

@@ -1,16 +1,16 @@
 {
   "id": 5,
-  "vorname": "Fanny",
-  "nachname": "Zürndorfer",
-  "geburtsname": "Maier",
-  "stein": {
+  "firstname": "Fanny",
+  "familyname": "Zürndorfer",
+  "birthname": "Maier",
+  "stone": {
     "id": 1,
-    "adresse": "Susoweg 17",
+    "address": "Susoweg 17",
     "latitude": 48.389139,
     "longitude": 9.976307
   },
-  "geschichte": "Zwangsaltersheim Herrlingen, Theresienstadt, Treblinka",
-  "bio": [
+  "history": "Zwangsaltersheim Herrlingen, Theresienstadt, Treblinka",
+  "vita": [
     {
       "content": "Geburt#"
     },

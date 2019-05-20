@@ -1,16 +1,16 @@
 {
   "id": 36,
-  "vorname": "Mina",
-  "nachname": "Hirsch",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Mina",
+  "familyname": "Hirsch",
+  "birthname": "",
+  "stone": {
     "id": 19,
-    "adresse": "Wagnerstraße 105",
+    "address": "Wagnerstraße 105",
     "latitude": 48.394062,
     "longitude": 9.970179 
   },
-  "geschichte": "Judenhäuser, Fabrikation, Auschwitz",
-  "bio": [
+  "history": "Judenhäuser, Fabrikation, Auschwitz",
+  "vita": [
     {
       "content": "Geburt#"
     },

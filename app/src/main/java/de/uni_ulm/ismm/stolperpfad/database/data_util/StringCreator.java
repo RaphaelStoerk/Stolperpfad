@@ -15,7 +15,7 @@ import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 public class StringCreator {
 
     /**
-     * An example method for creating the Strings for the bio
+     * An example method for creating the Strings for the vita
      * @return
      */
     public static String makeIntroText(String name, String date, String place) {
@@ -82,7 +82,7 @@ public class StringCreator {
     }*/
 
 
-    // in this method a given text (bio content) is searched for links to histoTerms / other persons
+    // in this method a given text (vita content) is searched for links to histoTerms / other persons
     // which are highlighted in the text
     public static SpannableString makeSpanWith(String text, StolperpfadeAppActivity curr_activity, ArrayList<String> links) {
         SpannableString ret = new SpannableString(text);

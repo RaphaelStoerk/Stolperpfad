@@ -1,16 +1,16 @@
 {
   "id": 67,
-  "vorname": "Sigmar",
-  "nachname": "Ury",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Sigmar",
+  "familyname": "Ury",
+  "birthname": "",
+  "stone": {
     "id": 16,
-    "adresse": "Zinglerstraße 44",
+    "address": "Zinglerstraße 44",
     "latitude": 48.394012,
     "longitude": 9.982236
   },
-  "geschichte": "Judenhäuser",
-  "bio": [
+  "history": "Judenhäuser",
+  "vita": [
     {
       "content": "Geburt#Sigmar Ury wurde 1880 in Berlin geboren."
     },

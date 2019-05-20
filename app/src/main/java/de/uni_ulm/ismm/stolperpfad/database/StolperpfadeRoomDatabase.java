@@ -94,18 +94,17 @@ public abstract class StolperpfadeRoomDatabase extends RoomDatabase {
             for (JSONObject single_person : persons_as_json) {
                 try {
                     //insert person
-                    id = json.getInt("id");
-                    firstname = json.getString("firstname");
-                    familyname = json.getString("familyname");
-                    birthname = json.getString("birthname");
-                    history = json.getString("history");
-                    stone = json.getJSONObject("stone");
+                    id = single_person.getInt("id");
+                    first_name = single_person.getString("firstname");
+                    family_name = single_person.getString("familyname");
+                    birth_name = single_person.getString("birthname");
+                    history = single_person.getString("history");
+                    stone = single_person.getJSONObject("stone");
                     stoneId = stone.getInt("id");
-                    Log.i("person_found", familyname + ", " + firstname);
-                    Person person = new Person(id, firstname, familyname, birthname, history, stoneId);
+                    Person person = new Person(id, first_name, family_name, birth_name, history, stoneId);
                     mDao.insert(person);
                     //insert vita
-                    JSONArray biography = single_person.getJSONArray("bio");
+                    JSONArray biography = single_person.getJSONArray("vita");
                     int vitaLength = 10;
                     String[] vitaSections = new String[vitaLength];
                     for (int i = 0; i < biography.length(); i++) {

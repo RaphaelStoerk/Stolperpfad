@@ -1,27 +1,27 @@
 {
   "id": 80,
-  "vorname": "Ottilie",
-    "nachname": "Klappholz",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Ottilie",
+    "familyname": "Klappholz",
+  "birthname": "",
+  "stone": {
     "id": 32,
-    "addresse": "Marktplatz 9 (Museum)",
+    "address": "Marktplatz 9 (Museum)",
     "latitude": 48.3969050,
     "longitude": 9.9945641
   },
-  "geschichte": "Theresienstadt, Warschauer Ghetto, Treblinka",
-  "bio": [
+  "history": "Theresienstadt, Warschauer Ghetto, Treblinka",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#Ottilie Klappholz wurde 1933 vermutlich in Ulm geboren. Sie hatte einen älteren Bruder, Walter Klappholz, und eine ältere Schwester, Julia Klappholz."
     },
     {
-      "content": "1#"
+      "content": "Diskriminierung und Emigration#Nach der Machtergreifung der Nationalsozialisten wurde die Familie zunehmend wegen ihrer \"nicht-arischen\" Herkunft diskriminiert. Daher emigrierten sie 1937 nach Brünn, wo Jakob Klappholz eine Strickwarenfabrik gründete."
     },
-    {
-      "content": "2#"
+	{
+      "content": "Deportation#Als Tschechien im Frühjahr 1939 von den Deutschen besetzt wurde, geriet Familie Klappholz erneut unter die nationalsozialistische Gewaltherrschaft. Im April 1942 wurde die ganze Familie zuerst nach Theresienstadt und drei Wochen später in das Warschauer Ghetto deportiert."
     },
-    {
-      "content": "3#"
+	{
+      "content": "Tod#Im Juli 1942 begannen die Besatzer das Warschauer Ghetto zu liquidieren. Hier verliert sich die dokumentierte Spur der Familie Klappholz, vermutlich brachte man sie in das neu errichtete Vernichtungslager Treblinka. Dort wurden nahezu alle Ankömmlinge direkt nach der Ankunft vergast."
     }
   ]
 }

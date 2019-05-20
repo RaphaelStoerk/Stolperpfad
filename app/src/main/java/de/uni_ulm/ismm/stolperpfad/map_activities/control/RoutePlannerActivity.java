@@ -5,42 +5,24 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.AppCompatImageButton;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.StolperpfadeApplication;
@@ -48,7 +30,6 @@ import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
 import de.uni_ulm.ismm.stolperpfad.map_activities.StolperpfadAppMapActivity;
 import de.uni_ulm.ismm.stolperpfad.map_activities.model.MyRoad;
 import de.uni_ulm.ismm.stolperpfad.map_activities.view.RouteOptionsDialog;
-import de.uni_ulm.ismm.stolperpfad.map_activities.view.RouteOptionsFragment;
 
 public class RoutePlannerActivity extends StolperpfadAppMapActivity {
 
@@ -80,8 +61,8 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(Bundle saved_state) {
+        super.onCreate(saved_state);
         Log.i("MY_DEBUG_TAG","onCreate started");
         if (instance == null) {
             instance = this;
@@ -101,12 +82,12 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
 
         // Route Planner specific setups
         //aq.id(R.id.header_route_planner).getView().setTranslationZ(HEADER_TRANSLATION_Z / 2);
-        //aq.id(R.id.route_option_button).visible().clicked(myClickListener);
-        aq.id(R.id.save_route_button).visible().clicked(myClickListener);
-        aq.id(R.id.info_map_options_button).visible().clicked(myClickListener);
-        aq.id(R.id.start_guide_button).visible().clicked(myClickListener);
-        aq.id(R.id.menu_open_button).visible().clicked(myClickListener).getView();
-        aq.id(R.id.route_option_button).visible().clicked(myClickListener).getView();
+        //aq.id(R.id.route_option_button).visible().clicked(my_click_listener);
+        aq.id(R.id.save_route_button).visible().clicked(my_click_listener);
+        aq.id(R.id.info_map_options_button).visible().clicked(my_click_listener);
+        aq.id(R.id.start_guide_button).visible().clicked(my_click_listener);
+        aq.id(R.id.menu_open_button).visible().clicked(my_click_listener).getView();
+        aq.id(R.id.route_option_button).visible().clicked(my_click_listener).getView();
         menu_up = false;
         Log.i("MY_DEBUG_TAG","setup done");
     }
@@ -261,7 +242,6 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         if(!stub) {
             but.setOnClickListener(view -> {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                save_dialog = null;
                 builder.setTitle(path_name);
                 builder.setMessage(getInfoFor(path_name));
                 builder.setPositiveButton("Auswählen", (dialogInterface, i) -> {
@@ -398,5 +378,17 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
 
     public void activatePathPlanner(boolean b1) {
         aq.id(R.id.start_guide_button).getView().getBackground().setTint(getResources().getColor(R.color.colorAccentLightMode, null));
+    }
+
+    public void deactivateGuide(){
+        if(StolperpfadeApplication.getInstance().isDarkMode()) {
+            aq.id(R.id.start_guide_button).getView().getBackground().setTint(getResources().getColor(R.color.colorPrimaryDarkMode, null));
+            ImageButton b = (ImageButton) aq.id(R.id.start_guide_button).getView();
+            b.getDrawable().setTint(getResources().getColor(R.color.colorPrimaryContrastDarkMode, null));
+        } else {
+            aq.id(R.id.start_guide_button).getView().getBackground().setTint(getResources().getColor(R.color.colorPrimaryLightMode, null));
+            ImageButton b = (ImageButton) aq.id(R.id.start_guide_button).getView();
+            b.getDrawable().setTint(getResources().getColor(R.color.colorPrimaryContrastLightMode, null));
+        }
     }
 }

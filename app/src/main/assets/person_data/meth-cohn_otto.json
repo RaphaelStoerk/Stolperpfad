@@ -1,27 +1,30 @@
 {
   "id": 10,
-  "vorname": "Otto",
-  "nachname": "Meth-Cohn",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Otto",
+  "familyname": "Meth-Cohn",
+  "birthname": "Meth",
+  "stone": {
     "id": 3,
-    "addresse": "Neue Straße 95/97 (Lange Straße 18 stand gegenüber)",
+    "address": "Neue Straße 95/97 (Lange Straße 18 stand gegenüber)",
     "latitude": 48.397664,
     "longitude": 9.994661
   },
-  "geschichte": "Kindertransporte nach Großbritannien",
-  "bio": [
+  "history": "Kindertransporte nach Großbritannien",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#Otto Meth-Cohn wurde 1935 als Ernst-Otto Meth in Schwäbisch Gmünd geboren."
     },
     {
-      "content": "1#"
+      "content": "Frühe Kindheit#Gemeinsam mit seiner Mutter Dorothea Meth-Cohn lebte er ab 1937 in Herrlingen im Kinderheim, in dem seine Mutter arbeitete. Während dieser Zeit lernte sie den Ulmer Rabbiner Julius Cohn kennen."
     },
     {
-      "content": "2#"
+      "content": "Umzug nach Ulm#Otto Meth-Cohn zog mit seiner Mutter zu Julius Cohn nach Ulm, um zuerst seine im Sterben liegende Frau und nach der Progromnacht ihn selbst zu pflegen."
     },
     {
-      "content": "3#"
+      "content": "Fluchtpläne#Im Februar 1939 heiratete Julius Cohn Ottos Mutter Dorpothea Meth-Cohn, um ihnen die Flucht aus Deutschland zu ermöglichen. Julius Cohn ging im Mai 1939 vor, Otto Meth-Cohn bekam im Juni einen Platz in einem der Kindetransporte nach Großbritannien. Der Kriegsausbruch im September verhinderte, dass seine Mutter Dorothea Meth-Cohn nachkommen konnte."
+    },
+    {
+      "content": "Weiteres Leben#Otto Meth-Cohn wuchs bei einer liebevollen Pflegefamilie auf und studierte Chemie. Er heiratete, bekam zwei Kinder und wurde Professor für Organische Chemie an der Sunderland University. Mit 80 Jahren schrieb Otto Meth-Cohn seine Lebensgeschichte, \"The nearly man\"."
     }
   ]
 }

@@ -1,18 +1,18 @@
 {
   "id": 1,
-  "vorname": "Ida",
-  "nachname": "Frenkel",
-  "geburtsname": "Chaskelowitz",
-  "stein": {
+  "firstname": "Ida",
+  "familyname": "Frenkel",
+  "birthname": "Chaskelowitz",
+  "stone": {
     "id": 0,
-    "addresse": "Olgastraße 114",
+    "address": "Olgastraße 114",
     "latitude": 48.402106,
     "longitude": 9.994395
   },
-  "geschichte": "Polenaktion, Chelmno",
-  "bio": [
+  "history": "Polenaktion, Chelmno",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

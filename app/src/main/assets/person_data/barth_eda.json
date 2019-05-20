@@ -1,18 +1,18 @@
 {
   "id": 18,
-  "vorname": "Eda",
-  "nachname": "Barth",
-  "geburtsname": "Schlesinger",
-  "stein": {
+  "firstname": "Eda",
+  "familyname": "Barth",
+  "birthname": "Schlesinger",
+  "stone": {
     "id": 24,
-    "addresse": "Ensingerstraße 21",
+    "address": "Ensingerstraße 21",
     "latitude": 48.403352 ,
     "longitude": 9.988647 
   },
-  "geschichte": "Judenhäuser, Riga",
-  "bio": [
+  "history": "Judenhäuser, Riga",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

@@ -1,18 +1,18 @@
 {
   "id": 14,
-  "vorname": "Kurt",
-  "nachname": "Hilb",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Kurt",
+  "familyname": "Hilb",
+  "birthname": "",
+  "stone": {
     "id": 5,
-    "addresse": "Neutorstraße 16",
+    "address": "Neutorstraße 16",
     "latitude": 48.402063,
     "longitude": 9.986927
   },
-  "geschichte": "",
-  "bio": [
+  "history": "",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

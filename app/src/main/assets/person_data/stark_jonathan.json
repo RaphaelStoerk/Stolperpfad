@@ -1,18 +1,18 @@
 {
   "id": 64,
-  "vorname": "Jonathan",
-  "nachname": "Stark",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Jonathan",
+  "familyname": "Stark",
+  "birthname": "",
+  "stone": {
     "id": 9,
-    "addresse": "Herdbruckerstraße 6",
+    "address": "Herdbruckerstraße 6",
     "latitude": 48.396097,
     "longitude": 9.994237
   },
-  "geschichte": "Zeugen Jehovas",
-  "bio": [
+  "history": "Zeugen Jehovas",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

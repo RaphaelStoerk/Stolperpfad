@@ -1,18 +1,18 @@
 {
   "id": 29,
-  "vorname": "Mathilde",
-  "nachname": "Fischer",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Mathilde",
+  "familyname": "Fischer",
+  "birthname": "",
+  "stone": {
     "id": 12,
-    "addresse": "Neue Straße 32",
+    "address": "Neue Straße 32",
     "latitude": 48.397105,
     "longitude": 9.986348
   },
-  "geschichte": "Diakonissenanstalt Schwäbisch Hall, Christophsbad Göppingen, Zwischenanstalt Weinsberg, Aktion T4",
-  "bio": [
+  "history": "Diakonissenanstalt Schwäbisch Hall, Christophsbad Göppingen, Zwischenanstalt Weinsberg, Aktion T4",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

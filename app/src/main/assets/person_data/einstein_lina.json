@@ -1,27 +1,27 @@
 {
   "id": 28,
-  "vorname": "Lina",
-  "nachname": "Einstein",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Lina",
+  "familyname": "Einstein",
+  "birthname": "",
+  "stone": {
     "id": 11,
-    "addresse": "Marktplatz 14 (Seite Herdbruckerstraße)",
+    "address": "Marktplatz 14 (Seite Herdbruckerstraße)",
     "latitude": 48.396495,
     "longitude": 9.9943078
   },
-  "geschichte": "Zwangsaltersheim Oberstotzingen, Theresienstadt, Treblinka",
-  "bio": [
+  "history": "Zwangsaltersheim Oberstotzingen, Theresienstadt, Treblinka",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#Lina Einstein wurde am 16. November 1875 als Cousine von Albert Einstein in Ulm geboren."
     },
     {
-      "content": "1#"
+      "content": "Beruflicher Werdegang#Ab 1897 arbeitete Lina Einstein im Warenhaus Landauer und wurde danach Filialleiterin in einer Wäscherei. 1904 wechselte sie zur Firma Wieland und arbeitete dort bis zu ihrer Pensionierung 1937 als Telefonistin."
     },
     {
-      "content": "2#"
+      "content": "Umzug und Verfolgung#1931 zog Lina Einstein in die Herdbruckerstraße 1 (heute Einfahrt Marktplatz 14) und freundete sich mit Ludwig Levy und Sofie Levy an, die gegenüber wohnten. 1942 wurden die drei gemeinsam in das Zwangsaltersheim Oberstotzingen gebracht."
     },
     {
-      "content": "3#"
+      "content": "Deportation und Tod#Am 22. August 1942 wurde Lina Einstein zusammen mit Ludwig Levy und Sofie Levy nach Theresienstadt deportiert und einen Monat später, am 26. September 1942, in Treblinka ermordet."
     }
   ]
 }

@@ -1,18 +1,18 @@
 {
   "id": 11,
-  "vorname": "Otto",
-  "nachname": "Christ",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Otto",
+  "familyname": "Christ",
+  "birthname": "",
+  "stone": {
     "id": 4,
-    "addresse": "Mathildenstraße 2",
+    "address": "Mathildenstraße 2",
     "latitude": 48.405626,
     "longitude": 10.007136
   },
-  "geschichte": "Heil- und Pflegeanstalt Kaufbeuren",
-  "bio": [
+  "history": "Heil- und Pflegeanstalt Kaufbeuren",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

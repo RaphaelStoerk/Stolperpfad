@@ -1,27 +1,27 @@
 {
   "id": 92,
-  "vorname": "Max",
-  "nachname": "Krippel",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Max",
+  "familyname": "Krippel",
+  "birthname": "",
+  "stone": {
     "id": 34,
-    "addresse": "Hafengasse 10",
+    "address": "Hafengasse 10",
     "latitude": 48.3990155,
     "longitude": 9.9943728
   },
-  "geschichte": "",
-  "bio": [
+  "history": "",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#Max Krippel wurde 1908 als drittes Kind von Isidor Isak Krippel und Dorlina Krippel in Ulm geboren"
     },
     {
-      "content": "1#"
+      "content": "Geschwister#Ab 1910 war Max Krippel nicht mehr das jüngste Kind in der Familie, denn er und seine beiden älteren Schwestern Jenny Krippel und Frieda Krippel bekamen eine weitere Schwester, Else Krippel."
     },
     {
-      "content": "2#"
+      "content": "Leben bis 1933#Max Krippels Vater Isidor Isak Krippel arbeitete als Handelsvertreter in der Textilbranche, wodurch es der Familie wirtschaftlich gut ging. Die ganze Familie lebte zusammen in der Hafengasse 10."
     },
     {
-      "content": "3#"
+      "content": "Flucht#Max gelang 1937 das, was seine Eltern und Geschwister nicht mehr schaffte: Er flüchtete nach Israel, änderte seinen Namen und gründete eine Familie. Max Krippel starb am 31. Dezember 1974 als \"Mordechai Carmi\" in ???."
     }
   ]
 }

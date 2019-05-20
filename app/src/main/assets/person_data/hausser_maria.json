@@ -1,27 +1,27 @@
 {
   "id": 75,
-  "vorname": "Maria",
-  "nachname": "Hausser",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Maria",
+  "familyname": "Hausser",
+  "birthname": "",
+  "stone": {
     "id": 29,
-    "addresse": "Kirchstraße 3, Grimmelfingen",
+    "address": "Kirchstraße 3, Grimmelfingen",
     "latitude": 48.3716788,
     "longitude": 9.9355790
   },
-  "geschichte": "Diakonissenanstalt Schwäbisch Hall, Landesfürsorgeanstalt Oberer Riedhof, Aktion T4, Grafeneck",
-  "bio": [
+  "history": "Diakonissenanstalt Schwäbisch Hall, Landesfürsorgeanstalt Oberer Riedhof, Aktion T4, Grafeneck",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#Maria Hausser wurde am 21. Mai 1868 als dritte von vier Schwestern eines Landwirts mit Bauernhof in Grimmelfingen geboren. Schon als Kind litt sie an einer geistigen Behinderung und zwerghaftem Wuchs."
     },
     {
-      "content": "1#"
+      "content": "Ausbildung#Aufgrund ihrer Behinderung konnte Maria Hausser nicht zur Schule gehen und wurde zuhause in der Familie versorgt."
     },
     {
-      "content": "2#"
+      "content": "Einweisung#1898 starb Marias Vater, weshalb der Bauernhof verkauft werden musste. Maria Hausser wurde daraufhin am 2. Juni 1902 im Alter von 34 Jahren in die Diakonissenanstalt Schwäbisch Hall eingewiesen. Kurz danach starb auch ihre Mutter."
     },
     {
-      "content": "3#"
+      "content": "Verlegung und Tod#18 Jahre später wurde Maria Hausser in die Landesfürsorgeanstalt Oberer Riedhof verlegt, vermutlich um näher bei ihren Schwestern zu sein. Am 23. August 1940 wurde sie nach Grafeneck deportiert und am selben Tag vergast."
     }
   ]
 }

@@ -1,18 +1,18 @@
 {
   "id": 16,
-  "vorname": "Albrecht",
-  "nachname": "Vogt",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Albrecht",
+  "familyname": "Vogt",
+  "birthname": "",
+  "stone": {
     "id": 6,
-    "addresse": "Heimstättenstraße 46",
+    "address": "Heimstättenstraße 46",
     "latitude": 48.391141,
     "longitude": 9.960041
   },
-  "geschichte": "Flossenbürg",
-  "bio": [
+  "history": "Flossenbürg",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

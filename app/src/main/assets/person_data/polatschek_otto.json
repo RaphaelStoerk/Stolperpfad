@@ -1,18 +1,18 @@
 {
   "id": 54,
-  "vorname": "Otto",
-  "nachname": "Polatschek",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Otto",
+  "familyname": "Polatschek",
+  "birthname": "",
+  "stone": {
     "id": 20,
-    "addresse": "Östlicher Münsterplatz 23",
+    "address": "Östlicher Münsterplatz 23",
     "latitude": 48.398696,
     "longitude": 9.993691
   },
-  "geschichte": "",
-    "bio": [
+  "history": "",
+    "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

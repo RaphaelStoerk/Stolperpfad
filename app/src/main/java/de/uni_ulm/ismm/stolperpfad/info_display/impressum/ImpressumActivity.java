@@ -13,30 +13,27 @@ import android.widget.Button;
 import de.uni_ulm.ismm.stolperpfad.R;
 import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 
-public class ImpressumViewActivity extends StolperpfadeAppActivity {
-
+/**
+ * This is the activity containing the impressum of this application
+ */
+public class ImpressumActivity extends StolperpfadeAppActivity {
 
     private final int DISPLAY_RIGHTS = 0;
     private final int DISPLAY_CONTACT = 1;
     private static final int TOTAL_PAGES = 2;
     private int current_display;
-    private ViewPager mPager;
+    private ViewPager impressum_pager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+    protected void onCreate(Bundle saved_state) {
+        super.onCreate(saved_state);
         initializeGeneralControls(R.layout.activity_impressum_view);
-
-        // add the listener to the buttons on screen and make them visible
-        aq.id(R.id.impressum_to_rights_button).visible().clicked(myClickListener);
-        aq.id(R.id.impressum_to_contact_button).visible().clicked(myClickListener);
-
-        // Instantiate a ViewPager and a PagerAdapter.
-        mPager = findViewById(R.id.impressum_pager);
+        aq.id(R.id.impressum_to_rights_button).visible().clicked(my_click_listener);
+        aq.id(R.id.impressum_to_contact_button).visible().clicked(my_click_listener);
+        impressum_pager = findViewById(R.id.impressum_pager);
         PagerAdapter pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mPager.setAdapter(pagerAdapter);
-        mPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        impressum_pager.setAdapter(pagerAdapter);
+        impressum_pager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
                 current_display = position;
@@ -47,19 +44,28 @@ public class ImpressumViewActivity extends StolperpfadeAppActivity {
         updateButtons();
     }
 
-    public void setInfoDisplay(int i) {
-        if(i == current_display) {
+    /**
+     * Change the content of the impressum information pager
+     *
+     * @param page_index the index of the display that should be displayed
+     */
+    public void setInfoDisplay(int page_index) {
+        if(page_index == current_display) {
             return;
         }
-        current_display = i;
+        current_display = page_index;
         if(current_display == DISPLAY_RIGHTS) {
-            mPager.setCurrentItem(DISPLAY_RIGHTS);
+            impressum_pager.setCurrentItem(DISPLAY_RIGHTS);
         } else if(current_display == DISPLAY_CONTACT) {
-            mPager.setCurrentItem(DISPLAY_CONTACT);
+            impressum_pager.setCurrentItem(DISPLAY_CONTACT);
         }
         updateButtons();
     }
 
+    /**
+     * Updated the design of the pager buttons if something has changed, this will highlight
+     * the active page's button
+     */
     public void updateButtons() {
         Button rights_button, contact_button;
         rights_button = aq.id(R.id.impressum_to_rights_button).getButton();
@@ -73,28 +79,32 @@ public class ImpressumViewActivity extends StolperpfadeAppActivity {
         }
     }
 
+    /**
+     * This method sets the correct design to the buttons that switch between the
+     * info pages of the impressum, so that the button corresponding to the displayed page
+     * is highlighted
+     *
+     * @param button the button to change the look of
+     * @param active if this button's page is displayed
+     */
     @SuppressLint("ResourceType")
     public void setButtonActive(Button button, boolean active) {
-        int[] attr = {R.attr.colorAppAccent, R.attr.colorAppTextButtonAccent, R.attr.colorAppPrimaryContrast, R.attr.colorAppTextButtonContrast};
+        int[] attr;
+        if(active) {
+            attr = new int[]{R.attr.colorAppAccent, R.attr.colorAppTextButtonAccent};
+        } else {
+             attr = new int[]{ R.attr.colorAppPrimaryContrast, R.attr.colorAppTextButtonContrast};
+        }
         TypedArray ta = this.obtainStyledAttributes(attr);
-
         int bg_color_active = ta.getResourceId(0, android.R.color.black);
         int text_color_active = ta.getResourceId(1, android.R.color.black);
-        int bg_color_inactive = ta.getResourceId(2, android.R.color.black);
-        int text_color_inactive = ta.getResourceId(3, android.R.color.black);
-        if(active) {
-            button.setBackgroundColor(getResources().getColor(bg_color_active, getTheme()));
-            button.setTextColor(getResources().getColor(text_color_active, getTheme()));
-        } else {
-            button.setBackgroundColor(getResources().getColor(bg_color_inactive, getTheme()));
-            button.setTextColor(getResources().getColor(text_color_inactive, getTheme()));
-        }
+        button.setBackgroundColor(getResources().getColor(bg_color_active, getTheme()));
+        button.setTextColor(getResources().getColor(text_color_active, getTheme()));
         ta.recycle();
     }
 
     /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
+     * The PagerAdapter for switching the content of the two impressum information pages
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         ScreenSlidePagerAdapter(FragmentManager fm) {

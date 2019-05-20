@@ -1,18 +1,18 @@
 {
   "id": 27,
-  "vorname": "Else",
-  "nachname": "Ehekircher",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Else",
+  "familyname": "Ehekircher",
+  "birthname": "",
+  "stone": {
     "id": 27,
-    "addresse": "Wengengasse 18",
+    "address": "Wengengasse 18",
     "latitude": 48.4000897,
     "longitude": 9.9876261
   },
-  "geschichte": "Christophsbad Göppingen, Aktion T4, Zwischenanstalt Weinsberg, Grafeneck",
-  "bio": [
+  "history": "Christophsbad Göppingen, Aktion T4, Zwischenanstalt Weinsberg, Grafeneck",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

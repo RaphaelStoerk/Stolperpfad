@@ -1,27 +1,30 @@
 {
   "id": 90,
-  "vorname": "Dorlina",
-  "nachname": "Krippel",
-  "geburtsname": "Gut",
-  "stein": {
+  "firstname": "Dorlina",
+  "familyname": "Krippel",
+  "birthname": "Gut",
+  "stone": {
     "id": 34,
-    "addresse": "Hafengasse 10",
+    "address": "Hafengasse 10",
     "latitude": 48.3990155,
     "longitude": 9.9943728
   },
-  "geschichte": "Polenaktion",
-  "bio": [
+  "history": "Polenaktion",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#Dorlina Krippel wurde 1875 vermutlich in Gailingen als Dorlina Gut geboren und später \"Lina\" genannt."
     },
     {
-      "content": "1#"
+      "content": "Hochzeit#1900 heiratete Dorlina Gut in Gailingen den aus Polen stammenden Isidor Isak Krippel."
     },
     {
-      "content": "2#"
+      "content": "Kinder#Nach der Geburt ihrer ersten Tochter Jenny Krippel 1901 zog das Ehepaar mit ihr nach Ulm. Zwischen 1903 und 1906 lebte die kleine Familie in Neu-Ulm, wo 1905 die zweite Tochter Frieda Krippel geboren wurde. Wieder wohnhaft in Ulm gebar Dorlina Krippel 1908 einen Sohn, Max Krippel, und 1910 eine dritte Tochter, Elisabeth(a), genannt Else Krippel."
     },
     {
-      "content": "3#"
+      "content": "Leben bis 1933#Dorlina Krippels Mann Isidor Isak Krippel arbeitete als Handelsvertreter in der Textilbranche, wodurch es der Familie wirtschaftlich gut ging. Die beiden lebten gemeinsam mit ihren Kindern in der Hafengasse 10."
+    },
+    {
+      "content": "Deportation und Tod#Am 28. Oktober 1938 wurden alle Mitglieder der Familie außer Max Krippel, der 1937 nach Israel emigrieren konnte, im Zuge der Polenaktion nach Polen deportiert. Mehrere Briefe an Sohn Max Krippel und Verwandte belegen, dass die Familie auseinandergerissen und in Ghettos oder Vernichtungslagern ermordet wurde. Dorlina Krippel wurde mit ihrem Mann Isidor Isak Krippel, ihrer Tochter Frieda Krippel und deren unehelichen Sohn Heinz Krippel in das Ghetto Rzeszow gebracht und dort am 29. August 1941 getötet."
     }
   ]
 }

@@ -1,18 +1,18 @@
 {
   "id": 17,
-  "vorname": "Dora",
-  "nachname": "Barth",
-  "geburtsname": "Wolf",
-  "stein": {
+  "firstname": "Dora",
+  "familyname": "Barth",
+  "birthname": "Wolf",
+  "stone": {
     "id": 25,
-    "addresse": "König-Wilhelm-Straße 35",
+    "address": "König-Wilhelm-Straße 35",
     "latitude": 48.4062656,
     "longitude": 9.9998229
   },
-  "geschichte": "",
-  "bio": [
+  "history": "",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

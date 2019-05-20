@@ -1,18 +1,18 @@
 {
   "id": 46,
-  "vorname": "Paul",
-  "nachname": "Moos",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Paul",
+  "familyname": "Moos",
+  "birthname": "",
+  "stone": {
     "id": 8,
-    "addresse": "Friedrich-Ebert-Straße 14 (vor C&A)",
+    "address": "Friedrich-Ebert-Straße 14 (vor C&A)",
     "latitude": 48.3984666,
     "longitude": 9.9845005
   },
-  "geschichte": "Grafeneck",
-  "bio": [
+  "history": "Grafeneck",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

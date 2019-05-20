@@ -78,7 +78,7 @@
         <include layout="@layout/content_list_index" />
     </ScrollView>
 
-    <de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.VerticalViewPager
+    <de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.RotatedViewPager
         android:id="@+id/stone_list_pager"
         android:layout_width="0dp"
         android:layout_height="0dp"

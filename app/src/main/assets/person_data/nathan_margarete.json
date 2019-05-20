@@ -1,18 +1,18 @@
 {
   "id": 52,
-  "vorname": "Margarete",
-  "nachname": "Nathan",
-  "geburtsname": "Gayler",
-  "stein": {
+  "firstname": "Margarete",
+  "familyname": "Nathan",
+  "birthname": "Gayler",
+  "stone": {
     "id": 26,
-    "addresse": "Heimstraße 29",
+    "address": "Heimstraße 29",
     "latitude": 48.4018974,
     "longitude": 9.9977866
   },
-  "geschichte": "",
-    "bio": [
+  "history": "",
+    "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

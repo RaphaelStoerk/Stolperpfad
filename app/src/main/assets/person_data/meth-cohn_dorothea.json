@@ -1,27 +1,36 @@
 {
   "id": 9,
-  "vorname": "Dorothea",
-  "nachname": "Meth-Cohn",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Dorothea",
+  "familyname": "Meth-Cohn",
+  "birthname": "Meth",
+  "stone": {
     "id": 3,
-    "addresse": "Neue Straße 95/97 (Lange Straße 18 stand gegenüber)",
+    "address": "Neue Straße 95/97 (Lange Straße 18 stand gegenüber)",
     "latitude": 48.397664,
     "longitude": 9.994661
   },
-  "geschichte": "Theresienstadt, Auschwitz",
-  "bio": [
+  "history": "Theresienstadt, Auschwitz",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#Dorothea Meth-Cohn, genannt Thea, wurde 1904 als Dorothea Meth in Schwäbisch Gmünd geboren."
     },
     {
-      "content": "1#"
+      "content": "Kinder#1935 brachte sie ihren Sohn Otto Meth-Cohn zur Welt, der zu ihrem Lebensmittelpunkt wurde."
     },
     {
-      "content": "2#"
+      "content": "Beruf#Ab 1937 arbeitete Dorothe Meth im Herllinger Kinderheim und lernte in dieser Zeit vermutlich über ihre Schwester den in Ulm lebenden Rabbiner Julius Cohn kennen."
     },
     {
-      "content": "3#"
+      "content": "Umzug nach Ulm#Die Frau von Julius Cohn war an Krebs erkrankt und so zog Dorothea Meth mit ihrem Sohn Otto Meth-Cohn zu ihm. Sie arbeitete dort als Haushälterin und unterstütze Julius Cohn bei der Pflege seiner Frau."
+    },
+    {
+      "content": "Leben ab 1938#Als die Frau von Julius Cohn im März 1938 starb, zog Dorothea Meth mit ihrem Sohn Otto Meth-Cohn zurück nach Herrlingen. In der Progromnacht am 9. Nobember 1938 wurde Julius Cohn so schwer verletzt, dass er zunächst ins Krankenhaus kam und Dorothea Meth nach seiner Entlassung wieder mit ihrem Sohn zu ihm nach Ulm zog, um Julius Cohn weiter zu pflegen."
+    },
+    {
+      "content": "Fluchtpläne#Da es Rabbinern und ihren Familien immer noch möglich war, Ausreisebewilligungen zu bekommen, heiratete Dorothea Meth-Cohn Julius Cohn, der auch ihren Sohn Otto Meth-Cohn adoptierte. Julius Cohn und ihr Sohn Otto Meth-Cohn gingen 1939 voraus nach Edinburgh, doch der Kriegsausbruch verhinderte, dass Dorothea Meth-Cohn ausreisen konnte. 1940 übernahm sie die Leitung eines jüdischen Altenheims in Heilbronn."
+    },
+    {
+      "content": "Deportation und Tod#Am 20. August 1942 wurde sie gemeinsam mit den Heimbewohnern nach Theresienstadt gebracht. Dort arbeitete sie möglicherweise zusammen mit Resi Weglein und Hedwig Ury zwei Jahre lang als Krankenschwester. Am 19. Oktober 1944 wurde sie nach Auschwitz deportiert und dort ermordet."
     }
   ]
 }

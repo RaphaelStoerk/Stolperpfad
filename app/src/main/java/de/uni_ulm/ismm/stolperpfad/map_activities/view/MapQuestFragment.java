@@ -282,8 +282,6 @@ public class MapQuestFragment extends Fragment {
     @SuppressLint("StaticFieldLeak")
     public void createRoute(String start_choice, String end_choice, String time_in_minutes) {
 
-       // alertUser("Pfad wird berechnet...");
-
         // TODO: create a good route through ulm
         Marker start_route_from;
         Marker end_route_at = null;
@@ -300,14 +298,14 @@ public class MapQuestFragment extends Fragment {
                 break;
             case RoutePlannerActivity.START_CHOICE_GPS:
                 if(user_position_marker == null) {
-                    //errorDialog("Keinen Standort gefunden");
+                    errorDialog("Keinen Standort gefunden");
                     return;
                 }
                 start_route_from = user_position_marker;
                 break;
             case RoutePlannerActivity.START_CHOICE_MAP:
                 if(chosen_marker_start == null) {
-                    //errorDialog("Keinen Start-Marker gesetzt");
+                    errorDialog("Keinen Start-Marker gesetzt");
                     return;
                 }
                 start_route_from = chosen_marker_start;
@@ -323,7 +321,7 @@ public class MapQuestFragment extends Fragment {
                 break;
             case RoutePlannerActivity.END_CHOICE_MAP:
                 if(chosen_marker_end == null) {
-                    //errorDialog("Keinen Start-Marker gesetzt");
+                    errorDialog("Keinen End-Marker gesetzt");
                     return;
                 }
                 end_route_at = chosen_marker_end;
@@ -387,6 +385,8 @@ public class MapQuestFragment extends Fragment {
         errorDialog(s, "");
     }
 
+    private AlertDialog error_dialog;
+
     private void errorDialog(String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
 
@@ -398,9 +398,12 @@ public class MapQuestFragment extends Fragment {
         builder.setNegativeButton("Okay", (dialogInterface, i) -> {
             dialogInterface.cancel();
         });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
+        if(error_dialog != null) {
+            error_dialog.cancel();
+            error_dialog = null;
+        }
+        error_dialog = builder.create();
+        error_dialog.show();
     }
 
     private MyRoad addStonesToRoute(Marker start_route_from, Marker end_route_at, int time_in_seconds) {
@@ -467,7 +470,11 @@ public class MapQuestFragment extends Fragment {
         if (user_position_marker != null) {
             mMapboxMap.removeMarker(user_position_marker);
         }
-        locationPresenter = new MyLocationPresenter(map, mMapboxMap, locationEngine);
+        if(locationPresenter != null) {
+            ((RoutePlannerActivity)getActivity()).activatePathPlanner(true);
+        } else {
+            locationPresenter = new MyLocationPresenter(map, mMapboxMap, locationEngine);
+        }
         locationPresenter.setInitialZoomLevel(CENTER_ON_USER_ZOOM_LEVEL);
         locationPresenter.setFollowCameraAngle(FOLLOW_MODE_TILT_VALUE_DEGREES);
         locationPresenter.setLockNorthUp(false);
@@ -490,6 +497,7 @@ public class MapQuestFragment extends Fragment {
         locationEngine.activate();
         locationEngine.requestLocationUpdates();
         lastLocation = locationEngine.getLastLocation();
+        setUserMarker();
     }
 
     public void setUserMarker() {
@@ -574,6 +582,10 @@ public class MapQuestFragment extends Fragment {
             }
             locationPresenter.setFollow(false);
             locationPresenter.onStop();
+            StolperpfadAppMapActivity a = (StolperpfadAppMapActivity) getActivity();
+            if(a instanceof RoutePlannerActivity) {
+                ((RoutePlannerActivity) a).deactivateGuide();
+            }
         }
     }
 
@@ -638,7 +650,6 @@ public class MapQuestFragment extends Fragment {
                 current_path_polyline = current_path.addPathToMap(mMapboxMap);
                 ((RoutePlannerActivity)getActivity()).activatePathPlanner(true);
                 moveCameraTo(current_path.getStartPosition(), 15, 45);
-                aq.id(R.id.start_guide_button).visible();
             }
         }.execute();
     }
@@ -686,7 +697,13 @@ public class MapQuestFragment extends Fragment {
             }
             RoadManager roadManager = new MapQuestRoadManager(getResources().getString(R.string.mapquest_api_key));
             roadManager.addRequestOption("routeType=pedestrian");
-            Road path = roadManager.getRoad(current_path.getWaypoints());
+            Road path;
+            try {
+                path = roadManager.getRoad(current_path.getWaypoints());
+            }catch(IndexOutOfBoundsException ioobe) {
+                errorDialog( "Fehler", "Bei der Pfad Generierung ist ein Fehler aufgetreten");
+                return null;
+            }
             current_path.addRoadInformation(path);
             return null;
         }

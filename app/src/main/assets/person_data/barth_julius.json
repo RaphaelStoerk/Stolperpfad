@@ -1,18 +1,18 @@
 {
   "id": 20,
-  "vorname": "Julius",
-  "nachname": "Barth",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Julius",
+  "familyname": "Barth",
+  "birthname": "",
+  "stone": {
     "id": 25,
-    "addresse": "König-Wilhelm-Straße 35",
+    "address": "König-Wilhelm-Straße 35",
     "latitude": 48.4062656,
     "longitude": 9.9998229
   },
-  "geschichte": "Dachau, Pogromnacht",
-  "bio": [
+  "history": "Dachau, Pogromnacht",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#"
     },
     {
       "content": "1#"

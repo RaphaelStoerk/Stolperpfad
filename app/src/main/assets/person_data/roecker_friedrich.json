@@ -1,27 +1,36 @@
 {
   "id": 76,
-  "vorname": "Friedrich",
-  "nachname": "Röcker",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Friedrich",
+  "familyname": "Röcker",
+  "birthname": "",
+  "stone": {
     "id": 30,
-    "addresse": "Neue Straße 42 (Hintereingang)",
+    "address": "Neue Straße 42 (Hintereingang)",
     "latitude": 48.3970998,
     "longitude": 9.9873800
   },
-  "geschichte": "Konzentrationslager Oberer Kuhberg, Strafbataillon 999",
-  "bio": [
+  "history": "Konzentrationslager Oberer Kuhberg, Strafbataillon 999",
+  "vita": [
     {
-      "content": "0#"
+      "content": "Geburt#Friedrich Röcker wurde 1910 in Gruorn bei Münsingen als Ältester von sieben Geschwistern geboren."
     },
     {
-      "content": "1#"
+      "content": "Ausbildung#Nach der Schulausbildung ging Friedrich Röcker nach Metzingen und machte dort eine Lehre zum Bauschlosser. Als die Lehre abgeschlossen war, fand er keine Arbeit und verdiente seinen Lebensunterhalt mit verschiedenen Hilfsarbeitertätigkeiten."
     },
     {
-      "content": "2#"
+      "content": "Politisches Engagement#Während der Massenarbeitslosigkeit Anfang der 1930er Jahre engagierte sich Friedrich Röcker politisch und trat der Kommunistischen Partei Deutschlands (KPD) bei."
     },
     {
-      "content": "3#"
+      "content": "Verhaftung#1932 wurde Friedrich Röcker wegen Vorbereitung zum Hochverrat in Tateinheit mit einem Sprengstoffvergehen zu einer zweijährigen Haftstrafe verurteilt."
+    },
+    {
+      "content": "Haft#Nach Verbüßung der ersten Haftstrafe wurde Friedrich Röcker am 22. Februar 1934 als \"unbelehrbarer Überzeugungskommunist\" in das Konzentrationslager Oberer Kuhberg eingewiesen. Dort blieb er bis zu dessen Schließung im Juli 1935."
+    },
+    {
+      "content": "Entlassung#Nach seiner Entlassung blieb Friedrich Röcker in Ulm und lernte seine spätere Frau Marthe kennen, mit der er zwei Kinder bekam. Ab 1939 konnte er in seinem ursprünglich erlernten Beruf als Schlosser arbeiten."
+    },
+    {
+      "content": "Tod#1943 wurde Friedrich Röcker in das \"Bewährungsbataillon 999\" gezwungen. Er starb 1945 bei einem Einsatz zur Absicherung des Rückzugs der Wehrmacht in Jugoslawien."
     }
   ]
 }	

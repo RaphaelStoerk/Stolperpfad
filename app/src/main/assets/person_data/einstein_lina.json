@@ -1,16 +1,16 @@
 {
   "id": 28,
-  "vorname": "Lina",
-  "nachname": "Einstein",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Lina",
+  "familyname": "Einstein",
+  "birthname": "",
+  "stone": {
     "id": 11,
-    "addresse": "Marktplatz 14 (Seite Herdbruckerstraße)",
+    "address": "Marktplatz 14 (Seite Herdbruckerstraße)",
     "latitude": 48.396495,
     "longitude": 9.9943078
   },
-  "geschichte": "Zwangsaltersheim Oberstotzingen, Theresienstadt, Treblinka",
-  "bio": [
+  "history": "Zwangsaltersheim Oberstotzingen, Theresienstadt, Treblinka",
+  "vita": [
     {
       "content": "Geburt#Lina Einstein wurde am 16. November 1875 als Cousine von Albert Einstein in Ulm geboren."
     },

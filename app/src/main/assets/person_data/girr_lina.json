@@ -1,27 +1,24 @@
 {
   "id": 31,
-  "vorname": "Lina",
-  "nachname": "Girr",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Lina",
+  "familyname": "Girr",
+  "birthname": "",
+  "stone": {
     "id": 35,
-    "addresse": "Frauengraben 47 (Grabenhäuschen)",
+    "address": "Frauengraben 47 (Grabenhäuschen)",
     "latitude": 48.4015387,
     "longitude": 9.9962932
   },
-  "geschichte": "Heilanstalt Schussenried, Aktion T4, Grafeneck",
-  "bio": [
+  "history": "Heilanstalt Schussenried, Aktion T4, Grafeneck",
+  "vita": [
     {
-      "content": "Geburt#"
+      "content": "Geburt#Am 12. Juli 1878 wurde Lina Girr als uneheliches Kind in Ulm geboren."
     },
     {
-      "content": "1#"
+      "content": "Leben#Lina Girr lebte zusammen mit ihrer Mutter in Ulm, bis sie 1894 aufgrund ihrer Erkrankung an Epilepsie, einer \"Seelenstörung\" und einer linksseitien Lähmung eingewiesen wurde. Es folgten mehrere Verlegungen in verschiedene Heilanstalten."
     },
     {
-      "content": "2#"
-    },
-    {
-      "content": "3#"
+      "content": "Deportation und Tod#Am 2. Juli 1940 wurde Lina Girr in die Heilanstalt Schussenried gebracht und am 29. Juli im Zuge der Aktion T4 nach Grafeneck deportiert. Dort wurde sie noch am selben Tag ermordet."
     }
   ]
 }

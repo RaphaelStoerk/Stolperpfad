@@ -1,16 +1,16 @@
 {
   "id": 34,
-  "vorname": "Kurt",
-  "nachname": "Henne",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Kurt",
+  "familyname": "Henne",
+  "birthname": "",
+  "stone": {
     "id": 14,
-    "addresse": "Frauenstraße 134 (ehem. Garnisons-Arresthaus)",
+    "address": "Frauenstraße 134 (ehem. Garnisons-Arresthaus)",
     "latitude": 48.40687,
     "longitude": 9.992808
   },
-  "geschichte": "",  
-  "bio": [
+  "history": "",
+  "vita": [
     {
       "content": "Geburt#"
     },

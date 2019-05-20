@@ -30,7 +30,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_info"
-        app:tint="?attr/colorAppPrimary" />
+        app:tint="?attr/colorAppPrimary"
+        android:contentDescription="@string/def_content_description"/>
 
     <ImageButton
         android:id="@+id/save_route_button"
@@ -49,7 +50,8 @@
         app:layout_constraintStart_toEndOf="@+id/info_map_options_button"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_save_black_24dp"
-        app:tint="?attr/colorAppPrimary" />
+        app:tint="?attr/colorAppPrimary"
+        android:contentDescription="@string/def_content_description" />
 
     <ImageButton
         android:id="@+id/start_guide_button"
@@ -70,7 +72,8 @@
         android:scaleType="fitCenter"
         android:src="@drawable/ic_directions_walk_black_24dp"
         android:tint="?attr/colorAppTextButtonContrast"
-        android:padding="16dp"/>
+        android:padding="16dp"
+        android:contentDescription="@string/def_content_description"/>
 
     <ImageButton
         android:id="@+id/route_option_button"
@@ -91,7 +94,8 @@
         android:src ="@drawable/ic_plus"
         android:scaleType="fitCenter"
         android:padding="8dp"
-        android:tint="?attr/colorAppPrimary" />
+        android:tint="?attr/colorAppPrimary"
+        android:contentDescription="@string/def_content_description" />
 
     <ImageButton
         android:id="@+id/menu_close_button_buff"
@@ -113,7 +117,7 @@
         app:layout_constraintStart_toEndOf="@+id/route_option_button"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_arrow_down"
-        app:tint="#0000" />
-
+        app:tint="#0000"
+        android:contentDescription="@string/def_content_description" />
 
 </android.support.constraint.ConstraintLayout>

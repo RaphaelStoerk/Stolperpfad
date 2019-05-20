@@ -1,16 +1,16 @@
 {
   "id": 72,
-  "vorname": "Siegmund",
-  "nachname": "Weglein",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Siegmund",
+  "familyname": "Weglein",
+  "birthname": "",
+  "stone": {
     "id": 28,
-    "addresse": "Hans-und-Sophie-Scholl-Platz 2 (früher Sattlergasse 19)",
+    "address": "Hans-und-Sophie-Scholl-Platz 2 (früher Sattlergasse 19)",
     "latitude": 48.3973950,
     "longitude": 9.9928779
   },
-  "geschichte": "Theresienstadt",
-  "bio": [
+  "history": "Theresienstadt",
+  "vita": [
     {
       "content": "Geburt#"
     },

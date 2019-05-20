@@ -1,16 +1,16 @@
 {
   "id": 19,
-  "vorname": "Heinrich",
-  "nachname": "Barth",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Heinrich",
+  "familyname": "Barth",
+  "birthname": "",
+  "stone": {
     "id": 24,
-    "addresse": "Ensingerstraße 21",
+    "address": "Ensingerstraße 21",
     "latitude": 48.403352 ,
     "longitude": 9.988647 
   },
-  "geschichte": "Judenhäuser, Pogromnacht, Dachau, Riga",
-  "bio": [
+  "history": "Judenhäuser, Pogromnacht, Dachau, Riga",
+  "vita": [
     {
       "content": "Geburt#"
     },

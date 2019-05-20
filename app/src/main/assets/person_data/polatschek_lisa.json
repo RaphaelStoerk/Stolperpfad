@@ -1,16 +1,16 @@
 {
   "id": 53,
-  "vorname": "Lisa",
-  "nachname": "Polatschek",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Lisa",
+  "familyname": "Polatschek",
+  "birthname": "",
+  "stone": {
     "id": 20,
-    "addresse": "Östlicher Münsterplatz 23",
+    "address": "Östlicher Münsterplatz 23",
     "latitude": 48.398696,
     "longitude": 9.993691
   },
-  "geschichte": "",
-  "bio": [
+  "history": "",
+  "vita": [
     {
       "content": "Geburt#"
     },

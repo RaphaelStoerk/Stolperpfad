@@ -1,27 +1,36 @@
 {
   "id": 39,
-  "vorname": "Rosa",
-  "nachname": "Kaufmann",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Rosa",
+  "familyname": "Kaufmann",
+  "birthname": "Smus",
+  "stone": {
     "id": 17,
-    "addresse": "Keplerstraße 21 (St. Anna Stift)",
+    "address": "Keplerstraße 21 (St. Anna Stift)",
     "latitude": 48.404543,
     "longitude": 9.992678
   },
-  "geschichte": "Heilanstalt Schussenried, Zwischenanstalt Weinsberg, Grafeneck",
-  "bio": [
+  "history": "Heilanstalt Schussenried, Zwischenanstalt Weinsberg, Grafeneck",
+  "vita": [
     {
-      "content": "Geburt#"
+      "content": "Geburt#Rosa Kaufmann wurde als Rahel Smus 1899 in Minsk im damaligen Russland geboren."
     },
     {
-      "content": "1#"
+      "content": "Übersiedlung nach Deutschland#Bei der Übersiedlung nach Deutschland bekam Rahel ihren deutschen Vornamen \"Rosa\". Ab 1910 lebte sie mit ihrer Familie in München."
     },
     {
-      "content": "2#"
+      "content": "Hochzeit#1919 heiratete Rosa Smus den Handelsvertreter Hermann Kaufmann aus Ulm, wohin die beiden nach der Hochzeit umzogen."
     },
     {
-      "content": "3#"
+      "content": "Kinder#Rosa Kaufmann gebar ihrem Mann Hermann Kaufmann drei Kinder: 1920 Selma Behr, geborene Kaufmann,1922 Helmut Kaufmann und 1924 Gerdi Kaufmann."
+    },
+    {
+      "content": "Schicksalsschläge#Als 1927 ihr Mann plötzlich verstarb, stand Rosa Kaufmann mittellos und alleine mit drei minderjährigen Kindern da. Rosa brachte die Kinder vorübergehend in das israelitische Waisenhaus in Esslingen, wo Helmut im Juni 1928 verstarb."
+    },
+    {
+      "content": "Erkrankung und Behandlung#Der Tod ihres Mannes und Sohnes ließen Rosa Kaufmann seelisch erkranken, weshalb sie 1931 in die Heilanstalt Schussenried gebracht wurde. Aus finanziellen Gründen musste sie ein Jahr später in ein Diakonissenheim in Schwäbisch Hall umziehen."
+    },
+    {
+      "content": "Deportation und Tod#Am 10. November 1940 beschlagnahmten die Nationalsozialisten das Diakonissenheim und brachten Rosa Kaufmann einige Tage später in die Zwischenanstalt Weinsberg. Von dort aus wurde sie am 4. Dezember 1940 nach Grafeneck deportiert und sofort nach ihrer Ankunft ermordet."
     }
   ]
 }

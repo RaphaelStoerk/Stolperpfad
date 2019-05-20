@@ -1,27 +1,33 @@
 {
   "id": 77,
-  "vorname": "Max Moritz",
-  "nachname": "Strauss",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Max Moritz",
+  "familyname": "Strauss",
+  "birthname": "",
+  "stone": {
     "id": 31,
-    "addresse": "Schwörhausgasse 15 (gegenüber Nr. 18)",
+    "address": "Schwörhausgasse 15 (gegenüber Nr. 18)",
     "latitude": 48.3966005,
     "longitude": 9.9898292
   },
-  "geschichte": "Dachau",
-  "bio": [
+  "history": "Dachau",
+  "vita": [
     {
-      "content": "Geburt#"
+      "content": "Geburt#Max Moritz Strauss kam 1884 in Freiendiez an der Lahn als uneheliches Kind zur Welt."
     },
     {
-      "content": "1#"
+      "content": "Kindheit und Ausbildung#Max Moritz Strauss wuchs bei seinen jüdischen Großeltern in Landau in der Pfalz auf. Nach einer Kaufmannslehre, Arbeit im In- und Ausland und vier Jahren als Soldat im Ersten Weltkrieg zog er nach Ulm."
     },
     {
-      "content": "2#"
+      "content": "Hochzeit und Leben#1919 heiratete Max Moritz Strauss die nicht-jüdische Kriegswitwe Else Rosa Flach und gründete in Ulm ein kleines Handelsunternehmen. Er selbst beschrieb sich als freireligiös und interessierte sich nicht für das Judentum. 1920 wurde seine Tochter Erika geboren."
     },
     {
-      "content": "3#"
+      "content": "Leben ab 1933#Nach der Machtergreifung der Nationalsozialisten gab Max Moritz Strauss das Geschäft auf und arbeitete als Handelsreisender für andere Firmen. 1937 wurde er nach einem Besuch in Radolfzell von einer dortigen Geschäftsinhaberin denunziert."
+    },
+    {
+      "content": "Verhaftung und Deportation#Am 22. April 1938 wurde Max Moritz Strauss beim Sondergericht Mannheim wegen \"heimtückischer Angriffe auf Staat und Partei\" angeklagt und zu einem Jahr Haft verurteilt. Wenige Wochen später wurde er zuerst nach Dachau und am 24. September in das KZ Buchenwald gebracht. Kurz nach seiner Deportation ließ sich seine Ehefrau von ihm scheiden, um weitere Benachteiligungen gegen sich und ihre Tochter Erika zu vermeiden."
+    },
+    {
+      "content": "Tod#Nach der Scheidung verlor Max Moritz Strauss den Schutz der privilegierten Mischehe. Er wurde am 14. Juli 1941 zur NS-Tötungsanstalt Pirna-Sonnenstein deportiert, wo er am gleichen Tag vergast wurde."
     }
   ]
 }	

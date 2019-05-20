@@ -18,7 +18,6 @@
         android:textColor="?attr/colorAppTextPrimary"
         android:textSize="18sp" />
 
-
     <RadioGroup
         android:id="@+id/start_of_route_choice"
         android:layout_width="match_parent"

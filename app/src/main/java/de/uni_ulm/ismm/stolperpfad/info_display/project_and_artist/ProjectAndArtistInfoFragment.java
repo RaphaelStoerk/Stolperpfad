@@ -2,6 +2,10 @@ package de.uni_ulm.ismm.stolperpfad.info_display.project_and_artist;
 
 import android.support.v4.app.Fragment;
 
+/**
+ * This class represents a blueprint for the fragments displayed in the pager of the
+ * project and artist information screen
+ */
 public class ProjectAndArtistInfoFragment extends Fragment {
 
     private static final int PROJECT_PAGE = 0;
@@ -15,13 +19,13 @@ public class ProjectAndArtistInfoFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment BiographyTestFragment.
+     * @return A new instance of fragment ProjectAndArtistInfoFragment.
      */
-    public static Fragment newInstance(int position) {
+    public static Fragment newInstance(int content_type) {
         ProjectAndArtistInfoFragment fragment;
-        if(position == PROJECT_PAGE) {
+        if(content_type == PROJECT_PAGE) {
             fragment = new ProjectInfoFragment();
-        } else if(position == ARTIST_PAGE){
+        } else if(content_type == ARTIST_PAGE){
             fragment = new ArtistInfoFragment();
         } else {
             return null;

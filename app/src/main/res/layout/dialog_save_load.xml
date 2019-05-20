@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorAppSecondary">
@@ -31,7 +32,8 @@
         android:clickable="true"
         app:srcCompat="@drawable/ic_close"
         android:tint="?attr/colorAppPrimaryContrast"
-        android:background="#0000"/>
+        android:background="#0000"
+        android:contentDescription="@string/def_content_description"/>
 
     <View
         android:id="@+id/line_top_save"
@@ -62,7 +64,7 @@
             android:id="@+id/container_loaded_paths"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical" />
     </ScrollView>
 
     <EditText
@@ -86,7 +88,9 @@
         app:layout_constraintBottom_toTopOf="@+id/save_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:autofillHints=""
+        tools:ignore="UnusedAttribute" />
 
     <Button
         android:id="@+id/save_button"
@@ -103,20 +107,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!--
-    <Button
-        android:id="@+id/load_button"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/fira_sans_condensed_semibold"
-        android:text="Laden"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/save_button"
-        app:layout_constraintStart_toStartOf="parent" />
-        -->
 </android.support.constraint.ConstraintLayout>

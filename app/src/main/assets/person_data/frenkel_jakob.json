@@ -1,16 +1,16 @@
 {
   "id": 0,
-  "vorname": "Jakob",
-  "nachname": "Frenkel",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Jakob",
+  "familyname": "Frenkel",
+  "birthname": "",
+  "stone": {
     "id": 0,
-    "addresse": "Olgastraße 114",
+    "address": "Olgastraße 114",
     "latitude": 48.402106,
     "longitude": 9.994395
   },
-  "geschichte": "Polenaktion, Chelmno",
-  "bio": [
+  "history": "Polenaktion, Chelmno",
+  "vita": [
     {
       "content": "Geburt#"
     },

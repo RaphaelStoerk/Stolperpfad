@@ -13,39 +13,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/header_route_planner"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="?attr/colorAppPrimary"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
-
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_route_planner"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:clickable="true"
-            android:focusable="true"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
-
-    -->
-
     <include
         layout="@layout/fragment_map_container"
         android:layout_width="0dp"
@@ -64,10 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
-
     <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map_toolbar_buff"
         android:layout_width="match_parent"
         android:layout_height="98dp"
@@ -83,18 +47,13 @@
             android:layout_height="0dp"
             android:layout_marginStart="24dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/ic_round_back"
-            android:backgroundTint="?attr/colorAppAccent"
-            android:clickable="true"
-            android:focusable="true"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/save_route_button_buff"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_info"
-            app:tint="?attr/colorAppPrimary" />
+            android:contentDescription="@string/def_content_description" />
 
         <ImageButton
             android:id="@+id/save_route_button_buff"
@@ -102,18 +61,13 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/ic_round_back"
-            android:backgroundTint="?attr/colorAppAccent"
-            android:clickable="true"
-            android:focusable="true"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/start_guide_button_buff"
             app:layout_constraintStart_toEndOf="@+id/info_map_options_button_buff"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_save_black_24dp"
-            app:tint="?attr/colorAppPrimary" />
+            android:contentDescription="@string/def_content_description"  />
 
         <ImageButton
             android:id="@+id/start_guide_button_buff"
@@ -121,20 +75,13 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/ic_round_back"
-            android:backgroundTint="?attr/colorAppPrimaryContrast"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="16dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_directions_walk_black_24dp"
-            android:tint="?attr/colorAppTextButtonContrast"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/route_option_button_buff"
             app:layout_constraintStart_toEndOf="@+id/save_route_button_buff"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/def_content_description" />
 
         <ImageButton
             android:id="@+id/route_option_button_buff"
@@ -142,20 +89,13 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/ic_round_back"
-            android:backgroundTint="?attr/colorAppAccent"
-            android:clickable="true"
-            android:focusable="true"
-            android:padding="8dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/ic_plus"
-            android:tint="?attr/colorAppPrimary"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@+id/menu_open_button"
             app:layout_constraintStart_toEndOf="@+id/start_guide_button_buff"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/def_content_description"  />
 
         <ImageButton
             android:id="@+id/menu_open_button"
@@ -178,7 +118,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/route_option_button_buff"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/def_content_description"  />
 
 
     </android.support.constraint.ConstraintLayout>

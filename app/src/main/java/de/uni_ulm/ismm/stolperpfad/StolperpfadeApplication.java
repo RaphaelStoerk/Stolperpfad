@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import de.uni_ulm.ismm.stolperpfad.database.StolperpfadeRepository;
+
 /**
  * This is the heart of the application, it contains logic for storing general information for
  * easier acces and methods for initializing application relevant background content
@@ -123,7 +125,11 @@ public class StolperpfadeApplication extends Application {
      */
     @Deprecated
     public void setUpDb() {
-        // StolperpfadeRepository repo = new StolperpfadeRepository(this);
+        StolperpfadeRepository repo = new StolperpfadeRepository(this);
+    }
+
+    public void saveStringInPreferences(String tag, String content) {
+        prefs.edit().putString("de.uni_ulm.ismm.stolperpfad" + "." + tag, content).apply();
     }
 
     /**
@@ -161,5 +167,17 @@ public class StolperpfadeApplication extends Application {
             ret[j++] = i;
         }
         return ret;
+    }
+
+    public String[] getValuesFromPreferences(String... tags) {
+        if(tags == null) {
+            return new String[0];
+        }
+        String[] contents = new String[tags.length];
+        int i = 0;
+        for(String tag : tags) {
+            contents[i++] =  prefs.getString("de.uni_ulm.ismm.stolperpfad." + tag, "");
+        }
+        return contents;
     }
 }

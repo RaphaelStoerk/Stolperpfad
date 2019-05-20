@@ -1,27 +1,30 @@
 {
   "id": 66,
-  "vorname": "Hedwig",
-  "nachname": "Ury",
-  "geburtsname": "Ullmann",
-  "stein": {
+  "firstname": "Hedwig",
+  "familyname": "Ury",
+  "birthname": "Ullmann",
+  "stone": {
     "id": 16,
-    "addresse": "Zinglerstraße 44",
+    "address": "Zinglerstraße 44",
     "latitude": 48.394012,
     "longitude": 9.982236
   },
-  "geschichte": "Judenhäuser, Theresienstadt, Auschwitz",
-  "bio": [
+  "history": "Judenhäuser, Theresienstadt, Auschwitz, Zwangsaltersheim Herllingen, Zwangsaltersheim Dellmensingen",
+  "vita": [
     {
-      "content": "Geburt#"
+      "content": "Geburt#Hedwig Ury wurde am 26. Februar 1894 als Hedwig Ullmann in Ulm geboren."
     },
     {
-      "content": "1#"
+      "content": "Hochzeit#1915 heiratete Hedwig Ullmann Sigmar Ury und gebar ihm 1920 den Sohn Peter."
     },
     {
-      "content": "2#"
+      "content": "Leben bis 1938#Ihr Mann Sigmar Ury konnte nach der Rückkehr aus dem Ersten Weltkrieg eine neue Praxis eröffnen, in der Hedwig Ury als Arzthelferin arbeitete. Die Praxis florierte und der Familie ging es wirtschaftlich gut. Nach dem Approbationsentzug von Sigmar Ury 1938 glückte ihrem Sohn Peter die Flucht nach England. Das Ehepaar Ury zog gezwungenermaßen in eines der Ulmer Judenhäuser, in die Beyerstraße 54. Dort erkrankte Sigmar Ury an Nieren-Krebs."
     },
     {
-      "content": "3#"
+      "content": "Leben ab 1941# Da Hedwig Urys Mann Sigmar Ury die ärztliche Versorgung und ein Platz im Krankenhaus verweigert wurde, pflegte sie ihn bis zu seinem Tod am 10. Mai 1941 selbst. Hedwig Ury arbeitete währenddessen im Zwangsaltersheim Herrlingen in der Küche. 1942 zog sie ins jüdische Zwangsaltersheim Dellmensingen, um dort als Altenpflegerin zu arbeiten."
+    },
+    {
+      "content": "Deportation und Tod#Am 17. August 1942 wurde Hedwig Ury gemeinsam mit den Heimbewohnern über Stuttgart nach Theresienstadt gebracht. Gemeinsam mit Resi Weglein und möglicherweise auch Dorothea Meth-Cohn arbeitete sie dort zwei Jahre lang als Krankenschwester.\nAm 20. Oktober 1944 wurde Hedwig Ury nach Auschwitz deportiert und vermutlich direkt nach der Ankunft vergast. Sie war eine der letzen, die in Auschwitz starben, denn schon im November versuchte die SS durch Sprengungen die Spuren des Vernichtungslagers zu beseitigen"
     }
   ]
 }	

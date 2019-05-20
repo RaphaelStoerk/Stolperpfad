@@ -82,24 +82,20 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
      * @param toggle true, if dark mode should be toggled or set
      * @param is_now_dark_mode true, if the app is currently in dark mode
      */
+    @SuppressLint("ResourceType")
     private void toggleDarkMode(Switch theme_switch, boolean toggle, boolean is_now_dark_mode) {
         int[] attr = {R.attr.colorAppPrimary, R.attr.colorAppAccent};
         TypedArray ta = this.obtainStyledAttributes(attr);
+        int color;
         if(is_now_dark_mode){
-            @SuppressLint("ResourceType")
-            int color = ta.getResourceId(1, android.R.color.black);
-            theme_switch.getThumbDrawable().setTint(getResources().getColor(color, getTheme()));
-            theme_switch.getTrackDrawable().setTint(getResources().getColor(color, getTheme()));
-            theme_switch.setChecked(true);
-            StolperpfadeApplication.getInstance().setDarkMode(true);
+            color = ta.getResourceId(1, android.R.color.black);
         } else {
-            int color = ta.getResourceId(0, android.R.color.black);
-            theme_switch.getThumbDrawable().setTint(getResources().getColor(color, getTheme()));
-            theme_switch.getTrackDrawable().setTint(getResources().getColor(color, getTheme()));
-            StolperpfadeApplication.getInstance().setDarkMode(false);
-            theme_switch.setChecked(false);
+            color = ta.getResourceId(0, android.R.color.black);
         }
-        currently_in_dark_mode = is_now_dark_mode;
+        theme_switch.getThumbDrawable().setTint(getResources().getColor(color, getTheme()));
+        theme_switch.getTrackDrawable().setTint(getResources().getColor(color, getTheme()));
+        theme_switch.setChecked(is_now_dark_mode);
+        StolperpfadeApplication.getInstance().setDarkMode(currently_in_dark_mode = is_now_dark_mode);
         ta.recycle();
         if(toggle) {
             recreate();
@@ -185,7 +181,7 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
     }
 
     /**
-     * This method handels clicks on links in the bio and history information activities, redirects
+     * This method handels clicks on links in the vita and history information activities, redirects
      * the application to the specified info page, if a known tag can be found in s
      *
      * @param tag the text that has been clicked on
@@ -200,15 +196,15 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
                     int id = ((Person) object).getPersId();
                     Intent intent = new Intent(StolperpfadeAppActivity.this, StoneInfoMainActivity.class);
                     intent.setAction("" + id);
-                    Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(StolperpfadeAppActivity.this).toBundle();
-                    startActivity(intent, transitionOptions);
+                    Bundle transition_options = ActivityOptions.makeSceneTransitionAnimation(StolperpfadeAppActivity.this).toBundle();
+                    startActivity(intent, transition_options);
                 } else if(object instanceof HistoricalTerm) {
                     // redirect to historical info page
                     String name = ((HistoricalTerm) object).getName();
                     Intent intent = new Intent(StolperpfadeAppActivity.this, HistoInfoActivity.class);
-                    intent.putExtra("termName", name);
-                    Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(StolperpfadeAppActivity.this).toBundle();
-                    startActivity(intent, transitionOptions);
+                    intent.putExtra("term_name", name);
+                    Bundle transition_options = ActivityOptions.makeSceneTransitionAnimation(StolperpfadeAppActivity.this).toBundle();
+                    startActivity(intent, transition_options);
                 }
             }
         }.execute(tag);
@@ -237,9 +233,9 @@ public abstract class StolperpfadeAppActivity extends AppCompatActivity {
                     int id = ((Person) object).getPersId();
                     Intent intent = new Intent(scanner_activity, StoneInfoMainActivity.class);
                     intent.setAction("" + id);
-                    Bundle transitionOptions = ActivityOptions.makeSceneTransitionAnimation(scanner_activity).toBundle();
+                    Bundle transition_options = ActivityOptions.makeSceneTransitionAnimation(scanner_activity).toBundle();
                     scanner_activity.endDialog();
-                    startActivity(intent, transitionOptions);
+                    startActivity(intent, transition_options);
                 } else {
                     scanner_activity.error();
                 }

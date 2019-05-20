@@ -1,27 +1,30 @@
 {
   "id": 67,
-  "vorname": "Sigmar",
-  "nachname": "Ury",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Sigmar",
+  "familyname": "Ury",
+  "birthname": "",
+  "stone": {
     "id": 16,
-    "addresse": "Zinglerstraße 44",
+    "address": "Zinglerstraße 44",
     "latitude": 48.394012,
     "longitude": 9.982236
   },
-  "geschichte": "Judenhäuser",
-  "bio": [
+  "history": "Judenhäuser",
+  "vita": [
     {
-      "content": "Geburt#"
+      "content": "Geburt#Sigmar Ury wurde 1880 in Berlin geboren."
     },
     {
-      "content": "1#"
+      "content": "Ausbildung und Beruf#Nach seinem abgeschlossenen Medizinstudium in Berlin, Greifswald und Rostock bekam Sigmar Ury eine Stelle als Assistenzarzt am Städtischen Krankenhaus in Ulm. Danach eröffnete er eine Praxis als Kinderarzt und arbeitete im Ersten Weltkrieg als Stabsarzt an der Front."
     },
     {
-      "content": "2#"
+      "content": "Hochzeit und Familie#Während eines Fronturlaubs heiratete Sigmar Ury 1915 Hedwig Ury, geborene Ullmann. 1920 kam ihr gemeinsamer Sohn Peter zur Welt."
     },
     {
-      "content": "3#"
+      "content": "Leben bis 1938#Da Sigmar Ury als ehemaliger Frontkämpfer voerst vom Berufsverbot und Kassenausschluss ausgenommen war, konnte er bis zum Approbationsentzug 1938 eine florierende Praxis betreiben, in der Hedwig Ury als Arzthelferin arbeitete. Als die Praxis geschlossen werden musste, konnte Sohn Peter im letzten Augenblick nach England fliehen. Das Ehepaar Ury zog gezwungenermaßen in eines der Ulmer Judenhäuser, in die Beyerstraße 54."
+    },
+    {
+      "content": "Krankheit und Tod#Sigmar Ury war an Nieren-Krebs erkrankt und sein Zustand verschlechterte sich kontinuierlich. Da er Jude war, wurde ihm trotz seinem langjährigen medizinischen Wirken und seiner Zeit als Stabsarzt ein Platz im Krankenhaus verweigert. Sigmar Ury starb nach liebevoller Pflege seiner Frau Hedwig Ury am 10. Mai 1941."
     }
   ]
 }	

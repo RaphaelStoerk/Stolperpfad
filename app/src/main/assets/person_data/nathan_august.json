@@ -1,16 +1,16 @@
 {
   "id": 49,
-  "vorname": "August",
-  "nachname": "Nathan",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "August",
+  "familyname": "Nathan",
+  "birthname": "",
+  "stone": {
     "id": 26,
-    "addresse": "Heimstraße 29",
+    "address": "Heimstraße 29",
     "latitude": 48.4018974,
     "longitude": 9.9977866
   },
-  "geschichte": "Pogromnacht, Dachau",
-    "bio": [
+  "history": "Pogromnacht, Dachau",
+    "vita": [
     {
       "content": "Geburt#"
     },

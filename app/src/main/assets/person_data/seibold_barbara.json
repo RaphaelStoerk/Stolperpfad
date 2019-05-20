@@ -1,16 +1,16 @@
 {
   "id": 59,
-  "vorname": "Barbara",
-  "nachname": "Seibold",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Barbara",
+  "familyname": "Seibold",
+  "birthname": "",
+  "stone": {
     "id": 21,
-    "addresse": "Kapellengasse 25",
+    "address": "Kapellengasse 25",
     "latitude": 48.395299,
     "longitude": 9.954563
   },
-  "geschichte": "",
-    "bio": [
+  "history": "",
+    "vita": [
     {
       "content": "0#"
     },

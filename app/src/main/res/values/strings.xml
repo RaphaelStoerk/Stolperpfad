@@ -1,54 +1,72 @@
-<!--
-    This is the file where we can store important or often used strings, usually every text
-    that can be displayed will be added here. Exceptions may be the texts we store in the
-    database, but for the beginning just use the basic syntax seen down below to add new strings.
-
-    If you want a component (i.e. a button) to display the text, just set the text value
-    of said component to @string/<string name>.
--->
-
 <resources>
-    <string name="app_name">Stolperpfade</string>
-    <string name="title">Stolperpfade</string>
-
-    <!-- button texts -->
-    <string name="next_stone_button">Nächster Stein</string>
-    <string name="scan_button">Stein-Scanner</string>
-    <string name="route_button">Pfadplaner</string>
-    <string name="info_button">Stolpersteine</string>
-    <string name="history_button">Geschichtliches</string>
-    <string name="project_and_artist_button_text">Projekt und Künstler</string>
-
-    <!-- texts for map activities -->
-    <string name="start_loc_title">Wo möchten sie den nächsten Stolperpfad beginnen?</string>
-    <string name="category_title">Wollen sie die Route nach einem Thema ausrichten?</string>
-    <string name="end_loc_title">Wo soll der nächste Stolperpfad enden?</string>
+    <string name="application_name">Stolperpfade</string>
 
     <!-- activity titles -->
-    <string name="title_activity_scrolling_info">ScrollingInfoActivity</string>
     <string name="title_activity_scanner">Stein-Scanner</string>
-    <string name="title_activity_route">Map</string>
     <string name="title_activity_route_planner">Pfadplaner</string>
-    <string name="title_activity_filter_search">FilterSearchActivity</string>
-    <string name="title_activity_show_list_item">ShowListItem</string>
-    <string name="title_activity_next_stone">Nächster Stein</string>
     <string name="title_activity_history_info">Geschichtliches</string>
     <string name="title_activity_impressum">Impressum</string>
     <string name="title_activity_privacy">Datenschutz</string>
     <string name="title_activity_artist_info">Der Künstler</string>
     <string name="title_activity_project_info">Das Projekt</string>
     <string name="title_activity_project_and_artist_overview">Projekt und Künstler</string>
-    <string name="title_biography_example">Biographie</string>
+    <string name="title_activity_stone_info">Stolpersteine A bis Z</string>
+    <string name="title_stone_list">Stolpersteine A bis Z</string>
+    <string name="title_histo_list">Geschichtliches</string>
+    <string name="title_quick_access">Hauptmenü</string>
 
-    <!-- placehodler texts -->
-    <string name="username">Username</string>
-    <string name="walk_time">Zeit in min</string>
-    <string name="walk_time_title">Wie wie viel Zeit haben Sie für den Stolperpfad?</string>
+    <!-- general button texts -->
+    <string name="next_stone_button">Nächster Stein</string>
+    <string name="route_button">Pfadplaner</string>
+    <string name="info_button">Stolpersteine A bis Z</string>
+    <string name="history_button">Geschichtliches</string>
+    <string name="project_and_artist_button_text">Projekt und Künstler</string>
+    <string name="dark_mode_switch">Nacht Modus</string>
+    <string name="quick_acces_scanner_button">Stein-Scanner</string>
+    <string name="route_option_positive">Pfad berechnen</string>
+    <string name="route_option_negative">Abbrechen</string>
+    <string name="button_back">Zurück</string>
+    <string name="button_bio">Schicksal</string>
+    <string name="button_stone_info_map">Stolperstein</string>
+
+    <!-- texts for map activities -->
+    <string name="start_loc_title">Wo möchten sie den nächsten Stolperpfad beginnen?</string>
+    <string name="end_loc_title">Wo soll der nächste Stolperpfad enden?</string>
+    <!-- map route dialog -->
+    <string name="start_choice_gps">Aktuelle Position</string>
+    <string name="start_choice_marker">Gewählte Markierung</string>
+    <string name="start_choice_center">Am Münsterplatz</string>
+    <string name="end_choice_stone">Letzter Stein der Route</string>
+    <string name="end_choice_marker">Gewählte Markierung</string>
+    <string name="end_choice_center">Am Münsterplatz</string>
+    <string name="route_dialog_start_pos">Pfad bei aktueller Position beginnen.</string>
+    <string name="route_dialog_start_mrk">Pfad bei gesetzter Markierung beginnen.</string>
+    <string name="route_dialog_start_ctr">Pfad am Ulmer Münster beginnen.</string>
+    <string name="route_dialog_start_def">Keine Angaben zum Start des Pfades.</string>
+    <string name="route_dialog_end_pos">Pfad endet bei einem Stolperstein.</string>
+    <string name="route_dialog_end_mrk">Pfad endet bei gesetzter Markierung.</string>
+    <string name="route_dialog_end_ctr">Pfad endet am Ulmer Münster.</string>
+    <string name="route_dialog_end_def">Keine Angaben zum Ende des Pfades.</string>
+    <string name="title_summary">Zusammenfassung</string>
+    <!-- map info dialog -->
+    <string name="info_for_route_creation">Neue Route erstellen</string>
+    <string name="info_for_route_save_load">Route speichern/laden</string>
+    <string name="info_long_click">Um eine Start- oder End-Markierung für Ihren Stolperpfad zu setzen drücken sie einfach lange auf der Karte auf die gewünschte Position. Sie können diese Markierung später jederzeit durch einen Klick auf die markierung wieder löschen.</string>
+    <string name="info_route_planner_title">Informationen zur Karte</string>
+    <string name="info_for_guide">Pfadführung starten</string>
+    <string name="info_stone_marker">Hier liegt ein Stolperstein</string>
+    <string name="info_start_end_marker">Start/Ende des Pfades</string>
+    <string name="info_user_marker">Ihre aktuelle Position</string>
+    <string name="info_guide_start">Sie können die Führung erst starten sobald sie einen Pfad erstellt oder geladen haben.</string>
+    <string name="info_special_marker">Besondere Orte</string>
+    <!-- map save and load dialog -->
+    <string name="title_dialog_save_load">Pfad speichern/laden</string>
+    <string name="hint_paths">Pfad suchen oder speichern</string>
+    <string name="button_save">Speichern</string>
 
     <!-- impressum, contact and privacy-->
     <string name="title_info_rights">Rechtliches</string>
     <string name="title_info_contact">Kontakt</string>
-    <string name="impressum_text_rights">Hier steht alles Rechtliche</string>
     <string name="impressum_text_contact">Feedback, Anregungen, Sonstiges\n\nHaben Sie Feedback oder Anregungen für uns? Möchten Sie uns etwas anderes mitteilen?\n\nSenden Sie einfach eine E-Mail an ulrike.kulzer@uni-ulm.de.</string>
     <string name="title_dsgvo">Erklärung DSGVO</string>
     <string name="title_impressum_herausgeber">Herausgeber</string>
@@ -65,67 +83,16 @@
     <string name="text_artist_info">Gunter Demnig wurde 1947 in Berlin geboren und sollte eigentlich Pilot werden, stattdessen studierte er Kunst-Pädogik und Design. Der heute in Köln lebende Künstler möchte mit seiner Kunst Zeichen setzen, was ihm schon 1968 mit einer gehissten amerikanischen Flagge gelang, auf die er statt Sternen Totenköpfe malte.\nBekannt wurde Gunter Demnig durch sein Großprojekt \"Stolpersteine\".</string>
     <string name="text_project_info">Die \"Stolpersteine\" sind ein Projekt des Künstlers Gunter Demnig und das größte dezentrale Mahnmal der Welt. Er begann das Projekt 1992, um an die Menschen zu erinnern, die unter Hitlers Gewaltherrschaft verfolgt, deportiert oder ermordet wurden. Meistens werden die 10 x 10 x 10 cm großen Pflastersteine vor den ehemaligen Wohnhäusern der Opfer in den Boden eingelassen. Auf den Steinen befindet sich eine Messingplatte, in die der Name und die Lebensdaten des Opfers eingraviert sind.\nMittlerweile gibt es über 70.000 Stolpersteine, die in Deutschland und weiteren 23 europäischen Ländern verlegt wurden.</string>
 
-
-    <string name="header_content_desc">Header of the app with a small logo and the title</string>
-    <string name="def_content_description">This is a content description</string>
-
-    <string name="lorem_ipsum">
-    Lorem hallo ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit amet lobortis augue. Curabitur nec elementum quam. Fusce rhoncus lobortis mi, et dictum dolor interdum vitae. Sed congue, nunc sed lobortis laoreet, diam nunc aliquet nibh, nec cursus nisl neque vel diam. Cras a pharetra ipsum, vitae scelerisque tellus. Praesent id ullamcorper nunc. Aenean tristique est diam, id convallis urna sagittis sit amet. Phasellus auctor orci at nibh pretium tempus. Nulla dictum ante sed libero ultricies pellentesque. Vivamus at imperdiet magna.
-    \n
-    In pretium leo non diam eleifend sollicitudin. Mauris maximus, urna non ullamcorper molestie, turpis orci cursus augue, sed laoreet massa eros at eros. Fusce eu blandit metus. Donec porta magna eros, eu pharetra risus pellentesque in. Aliquam erat volutpat. Sed ac leo pulvinar, aliquet massa a, rhoncus augue. Nunc sapien arcu, auctor eget porta vitae, lobortis at risus. Integer et feugiat nibh, et varius lacus. Integer luctus laoreet nibh fermentum blandit. Suspendisse lobortis malesuada tristique. In scelerisque sodales ex, ut auctor ipsum sagittis vel.
-    \n
-    Suspendisse lacinia nulla vitae turpis molestie imperdiet. Phasellus consequat eros sit amet dignissim fermentum. Nulla non efficitur urna. Curabitur laoreet, mi in ultrices varius, felis nisi rhoncus augue, et blandit quam massa blandit neque. Morbi tincidunt ipsum nec est tincidunt, mattis tempus elit pulvinar. Curabitur ut elementum lectus. Etiam egestas tellus leo, ut malesuada felis vestibulum at. Vestibulum suscipit pellentesque sapien, nec pharetra elit varius eu. Suspendisse potenti. Etiam nec porta nisl. Etiam vel nunc augue. Vivamus sed lobortis urna. Maecenas tempor blandit nunc et scelerisque.
-    \n
-    Suspendisse hendrerit nibh sit amet sollicitudin vulputate. Cras malesuada feugiat augue, a auctor nulla pharetra ut. Cras bibendum laoreet commodo. Quisque sed dui suscipit velit consectetur consequat. Morbi sed convallis nisl. Donec eget urna tortor. Cras et dignissim sem.
-    </string>
-    <string name="lorem_ipsum_short">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sit amet lobortis augue.
-    \n
-    In pretium leo non diam eleifend sollicitudin.
-    </string>
-    <string name="app_name_big">STOLPERPFADE</string>
-    <string name="todo">TODO</string>
-    <string name="dark_mode_switch">Nacht Modus</string>
-    <string name="quick_acces_scanner_button">Stein-Scanner</string>
-    <string name="welcome_text_title">Willkommen!</string>
-    <string name="welcome_text">
-        Willkommen, hier ist ein Info-Text. Hier sind sie gerade auf der Startseite unserer App. Wir hoffen sie erweist sich als informativ und gut nutzbar</string>
-    <string name="info_for_route_creation">Neue Route erstellen</string>
-    <string name="info_for_route_save_load">Route speichern/laden</string>
-    <string name="info_for_def_marker">Wichtiger Punkt auf der Karte</string>
-    <string name="info_long_click_title">Hinweis:</string>
-    <string name="info_long_click">Um eine Start- oder End-Markierung für Ihren Stolperpfad zu setzen drücken sie einfach lange auf der Karte auf die gewünschte Position. Sie können diese Markierung später jederzeit durch einen Klick auf die markierung wieder löschen.</string>
-    <string name="info_route_planner_title">Informationen zur Karte</string>
-    <string name="start_choice_gps">Aktuelle Position</string>
-    <string name="start_choice_marker">Gewählte Markierung</string>
-    <string name="start_choice_center">Am Münsterplatz</string>
-    <string name="end_choice_stone">Letzter Stein der Route</string>
-    <string name="end_choice_marker">Gewählte Markierung</string>
-    <string name="end_choice_center">Am Münsterplatz</string>
-    <string name="button_back">Zurück</string>
-
-    <string name="title_stone_info_default">Nachname, Vorname</string>
-    <string name="button_bio">Schicksal</string>
-    <string name="button_stone_info_map">Stolperstein</string>
-    <string name="sub_title_stone_info_default">geb. oder verw. Geburtsname</string>
-    <string name="title_activity_stone_info">Stolpersteine</string>
-    <string name="title_stone_list">Stolpersteine</string>
-    <string name="quest_start">Wo möchten Sie den Pfad beginnen?</string>
-    <string name="title_summary">Zusammenfassung</string>
-    <string name="route_option_positive">Pfad berechnen</string>
-    <string name="route_option_negative">Abbrechen</string>
-    <string name="info_for_guide">Pfadführung starten</string>
-    <string name="info_stone_marker">Hier liegt ein Stolperstein</string>
-    <string name="info_start_end_marker">Start/Ende des Pfades</string>
-    <string name="info_user_marker">Ihre aktuelle Position</string>
-    <string name="info_guide_start">Sie können die Führung erst starten sobald sie einen Pfad erstellt oder geladen haben.</string>
-    <string name="show_map_button_text">Auf Karte anzeigen</string>
-    <string name="buff_string_address">addresse</string>
+    <!-- stone info pages -->
     <string name="title_map_content">Der Stolperstein befindet sich hier:</string>
-    <string name="title_histo_list">Geschichtliches</string>
-    <string name="title_dialog_save_load">Pfad speichern/laden</string>
-    <string name="hint_paths">Pfad suchen oder speichern</string>
-    <string name="info_special_marker">Besondere Orte</string>
-    <string name="title_quick_access">Hauptmenü</string>
-    <string name="button_save">Speichern</string>
+
+    <!-- placehodler texts -->
+    <string name="walk_time">Zeit in min</string>
+    <string name="walk_time_title">Wie wie viel Zeit haben Sie für den Stolperpfad?</string>
+    <string name="def_content_description">This is a content description for an image component</string>
+    <string name="def_text_concerned_persons">concerned persons</string>
+    <string name="no_title"><![CDATA[< Kein Titel gefunden >]]></string>
+    <string name="buff_string_address">addresse</string>
+    <string name="null_placeholder" />
 
 </resources>

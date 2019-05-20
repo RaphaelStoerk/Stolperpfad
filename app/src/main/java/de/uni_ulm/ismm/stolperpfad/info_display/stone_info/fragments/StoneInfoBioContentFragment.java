@@ -4,19 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
-import com.androidquery.AQuery;
 
 import de.uni_ulm.ismm.stolperpfad.R;
-import de.uni_ulm.ismm.stolperpfad.database.data.Person;
-import de.uni_ulm.ismm.stolperpfad.database.data_util.StringCreator;
-import de.uni_ulm.ismm.stolperpfad.general.StolperpfadeAppActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.StoneInfoMainActivity;
 import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewModel;
 
@@ -26,49 +18,48 @@ import de.uni_ulm.ismm.stolperpfad.info_display.stone_info.model.StoneInfoViewMo
  */
 public class StoneInfoBioContentFragment extends Fragment {
 
-    private int position;
-    private int point;
-    private StoneInfoViewModel model;
+    private static final int DEFAULT_ERROR = -1;
+    private int person_index_in_list;
+    private int vita_point_index;
 
     public StoneInfoBioContentFragment() {
-
+        // required empty constructor
     }
 
-    public static StoneInfoBioContentFragment newInstance(StoneInfoViewModel model, int position, int point) {
+    public static StoneInfoBioContentFragment newInstance(int person_index_in_list, int vita_point_index) {
         StoneInfoBioContentFragment frag  = new StoneInfoBioContentFragment();
-        frag.position = position;
-        frag.point = point;
-        frag.model = model;
+        frag.person_index_in_list = person_index_in_list;
+        frag.vita_point_index = vita_point_index;
         return frag;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(@Nullable Bundle saved_state) {
+        super.onCreate(saved_state);
         int buff;
-        if(savedInstanceState != null) {
-            if((buff = savedInstanceState.getInt("current_person")) != -1) {
-                position = buff;
+        if(saved_state != null) {
+            if((buff = saved_state.getInt("current_person")) != DEFAULT_ERROR) {
+                person_index_in_list = buff;
             }
-            if((buff = savedInstanceState.getInt("current_vita_point")) != -1) {
-                point = buff;
+            if((buff = saved_state.getInt("current_vita_point")) != DEFAULT_ERROR) {
+                vita_point_index = buff;
             }
         }
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle saved_state) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.content_bio_point, container, false);
-        model = StoneInfoMainActivity.getModelInstance();
-        model.showVitaContent(root, position, point);
+        StoneInfoViewModel model = StoneInfoViewModel.getInstance((StoneInfoMainActivity) getActivity());
+        model.showVitaContent(root, person_index_in_list, vita_point_index);
         return root;
     }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt("current_person", position);
-        outState.putInt("current_vita_point", point);
-        super.onSaveInstanceState(outState);
+    public void onSaveInstanceState(@NonNull Bundle out_state) {
+        out_state.putInt("current_person", person_index_in_list);
+        out_state.putInt("current_vita_point", vita_point_index);
+        super.onSaveInstanceState(out_state);
     }
 }

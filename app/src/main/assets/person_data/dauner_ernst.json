@@ -1,16 +1,16 @@
 {
   "id": 25,
-  "vorname": "Ernst",
-  "nachname": "Dauner",
-  "geburtsname": "",
-  "stein": {
+  "firstname": "Ernst",
+  "familyname": "Dauner",
+  "birthname": "",
+  "stone": {
     "id": 15,
-    "addresse": "Säntisstraße 36",
+    "address": "Säntisstraße 36",
     "latitude": 48.411408,
     "longitude": 9.98664
   },
-  "geschichte": "Dachau",
-  "bio": [
+  "history": "Dachau",
+  "vita": [
     {
       "content": "Geburt#Ernst Dauner wurde am 4. September 1913 in Ulm geboren."
     },
@@ -23,10 +23,9 @@
     {
       "content": "Rückkehr nach Ulm#Zurück in Ulm erzählte Ernst Dauner in seiner Firma und Umgebung die Wahrheit über Auschwitz. Er brach damit ein absolutes Schweigegebot und wurde dafür am 25. Juni 1943 verhaftet."
     },
-	{
-	  "content": "Deportation und Tod#Am 15. November 1943 wurde Ernst Dauner nach Dachau gebracht. Dort starb er am 25. Januar 1944." 
-	}
-	
+    {
+      "content": "Deportation und Tod#Am 15. November 1943 wurde Ernst Dauner nach Dachau gebracht. Dort starb er am 25. Januar 1944."
+    }
   ]
 }
 		

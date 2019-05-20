@@ -53,6 +53,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             StolperpfadeApplication.getInstance().setupFileTree();
+            StolperpfadeApplication.getInstance().setUpDb();
             loaded = true;
             try {
                 Thread.sleep(TIME_ON_SPLASH_SCREEN);

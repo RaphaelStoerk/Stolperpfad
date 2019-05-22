@@ -2,7 +2,7 @@
   "id": 30,
   "firstname": "Emmy",
   "familyname": "Frankfurter",
-  "birthname": "",
+  "birthname": "Metzler",
   "stone": {
     "id": 18,
     "address": "Parkstraße 2",
@@ -12,16 +12,19 @@
   "history": "Judenhäuser, Izbica",
   "vita": [
     {
-      "content": "Geburt#"
+      "content": "Geburt#Emmy Frankfurter wurde am 31. Juli 1878 als Emmy Metzler in Sobernheim an der Nahe, heute Bad Sobernheim, geboren."
     },
     {
-      "content": "1#"
+      "content": "Familie#Irgendwann heiratete Emmy Metzler Eugen Frankfurter, dem sie am 22. Juni 1903 eine Tochter, Hilde Frankfurter, gebar."
     },
     {
-      "content": "2#"
+      "content": "Leben bis 1940#Nach dem Tod ihres Mannes 1912 führte Emmy Frankfurter zunächst sein Geschäft weiter.\n1925 bekam sie eine Enkeltochter, Hannie Baer, die mit Mina Hirsch befreundet war. Um in der Nähe ihrer Tochter und deren Familie zu sein, zog Emmy Frankfurter 1937 nach Ulm."
     },
     {
-      "content": "3#"
+      "content": "Leben ab 1940#Nachdem ihre Tochter mit ihrer Familie im September 1940 in die USA fliehen konnte, blieb Emmy Frankfurter alleine in Ulm zurück. Sie selbst konnte nicht auswandern, weil sie in den USA keinen Bürgen hatte.\nAm 1. November 1940 musste Emmy Frankfurter in eines der Judenhäuser in die Neutorstraße 15 umziehen."
+    },
+    {
+      "content": "Deportation und Tod#Am 26. April 1942 wurde Emmy Frankfurter über Stuttgart nach Izbica deportiert. Vermutlich brachte man sie von dort aus in das Vernichtungslager Belzec. Wahrscheinlich am 3. November 1942 schrieb sie von irgendwo imm Osten einen Brief an ihre Familie.\nDas genaue Todesdatum und Ort von Emmy Frankfurter sind nicht bekannt."
     }
   ]
 }

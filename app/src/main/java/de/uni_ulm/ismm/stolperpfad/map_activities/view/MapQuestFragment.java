@@ -242,7 +242,7 @@ public class MapQuestFragment extends Fragment {
             if (nearest_stone_marker == null) {
                 nearest_stone_marker = ulm_center_marker;
                 nearest_stone_marker.setTitle("Information");
-                nearest_stone_marker.setSnippet("Sie haben bereits alle Steine gesehen");
+                nearest_stone_marker.setSnippet("Sie haben entweder bereits alle Steine gesehen oder haben Ihre Ortungsfunktion deaktiviert.");
             }
             moveCameraTo(nearest_stone_marker.getPosition(), NEAR_ZOOM, DEFAULT_TILT);
             map_object.selectMarker(nearest_stone_marker);
@@ -590,6 +590,14 @@ public class MapQuestFragment extends Fragment {
                 }
                 if(current_path_polyline != null) {
                     map_object.removePolyline(current_path_polyline);
+                }
+                if(chosen_marker_start != null) {
+                    map_object.removeMarker(chosen_marker_start);
+                    chosen_marker_start = current_path.getStartMarker();
+                }
+                if(chosen_marker_end != null) {
+                    map_object.removeMarker(chosen_marker_end);
+                    chosen_marker_start = current_path.getStartMarker();
                 }
                 current_path_polyline = current_path.addPathToMap(map_object);
                 parent_activity.activatePathGuide();

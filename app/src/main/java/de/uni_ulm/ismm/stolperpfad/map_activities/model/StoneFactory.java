@@ -2,6 +2,7 @@ package de.uni_ulm.ismm.stolperpfad.map_activities.model;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -176,38 +177,48 @@ public class StoneFactory {
         double curr_dist;
         Stolperpfad created_path = Stolperpfad.newInstance();
         if(start_route_from == null) {
+            Log.i("TIME_TAG", "Time: " + time_in_seconds + ", but no start");
             return created_path;
         }
         created_path.setStart(start_route_from);
         created_path.setRequestedTime(time_in_seconds);
         ArrayList<ReachableStone> reachable_stones;
         ArrayList<ReachableStone> valid_reachable_stones;
+        Log.i("TIME_TAG", "Time: " + time_in_seconds + ", start found");
         // Check if start position is already a stone, else get the nearest one and add it to the route
         if(isNotAStonePosition(start_route_from.getPosition())){
+            Log.i("TIME_TAG", "Time: " + time_in_seconds + ", start is not a stone");
             marker_for_curr_position = getNearestTo(start_route_from);
             curr_dist = start_route_from.getPosition().distanceTo(marker_for_curr_position.getPosition());
             // check if the nearest stone can be reached in time, else no route can be created
             if(curr_dist > time_in_seconds) {
+                Log.i("TIME_TAG", "Time: " + time_in_seconds + ", distance to first stone too far");
                 return created_path;
             }
             curr_stone = getStoneFromMarker(marker_for_curr_position);
             created_path.addStone(curr_stone);
             time_in_seconds -= (curr_dist + SECONDS_PER_MINUTE * MINUTES_AT_STONE);
+            Log.i("TIME_TAG", "Time: " + time_in_seconds + ", distance to first stone subtracted");
         }
         // The main Route creation
         while(true) {
+            Log.i("TIME_TAG", "Time: " + time_in_seconds + ", look for next stone");
             curr_stone = created_path.getLastStone();
             marker_for_curr_position = curr_stone.getMarker(map_object);
             reachable_stones = curr_stone.getReachableStones();
             valid_reachable_stones = getValidReachables(reachable_stones, created_path, end_route_at, time_in_seconds);
             if(valid_reachable_stones.size() == 0) {
+                Log.i("TIME_TAG", "Time: " + time_in_seconds + ", no stone found");
                 if(end_route_at != null) {
-                    if(end_route_at.getPosition().distanceTo(marker_for_curr_position.getPosition()) < time_in_seconds) {
+                    if(end_route_at.getPosition().distanceTo(marker_for_curr_position.getPosition()) <= time_in_seconds) {
+                        Log.i("TIME_TAG", "Time: " + time_in_seconds + ", end calculation, end reached " + end_route_at);
                         created_path.addEnd(end_route_at);
                         break;
                     } else if(isNotAStonePosition(end_route_at.getPosition())) {
                         created_path.addEnd(end_route_at);
+                        Log.i("TIME_TAG", "Time: " + time_in_seconds + ", end calculation, end added " + end_route_at);
                     } else {
+                        Log.i("TIME_TAG", "Time: " + time_in_seconds + ", time not possible");
                         created_path.setTimeNotPossible();
                     }
                 }
@@ -216,6 +227,7 @@ public class StoneFactory {
                 ReachableStone next = choseNextReachable(valid_reachable_stones);
                 created_path.addStone(next.getStone());
                 time_in_seconds -= (next.getDist() + SECONDS_PER_MINUTE * MINUTES_AT_STONE);
+                Log.i("TIME_TAG", "Time: " + time_in_seconds + ", stone found, time subtracted");
             }
         }
         return created_path;
@@ -267,11 +279,11 @@ public class StoneFactory {
                 continue;
             }
             // check if the stone is reachable
-            if(n.getDist() >= time_in_seconds) {
+            if(n.getDist() > time_in_seconds) {
                 continue;
             }
             // check if the end will be reachable from that ReachableStone in the given time
-            if(end_route_at != null && n.getMarker(map_object).getPosition().distanceTo(end_route_at.getPosition()) >= time_in_seconds - n.getDist()) {
+            if(end_route_at != null && n.getMarker(map_object).getPosition().distanceTo(end_route_at.getPosition()) > time_in_seconds - n.getDist()) {
                 continue;
             }
             ret.add(n);

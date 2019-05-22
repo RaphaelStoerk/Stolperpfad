@@ -11,7 +11,6 @@ import com.mapbox.mapboxsdk.geometry.LatLng;
  */
 public class RoutingUtil {
 
-
     /**
      * calculate the (direct) distance between two markers
      *

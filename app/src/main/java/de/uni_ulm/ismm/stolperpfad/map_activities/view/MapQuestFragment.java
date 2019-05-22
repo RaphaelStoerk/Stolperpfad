@@ -628,24 +628,9 @@ public class MapQuestFragment extends Fragment {
             try {
                 path = roadManager.getRoad(current_path.getWaypoints());
             }catch(IndexOutOfBoundsException ioobe) {
-                Log.i("TIME_TAG", "Index out of bounds exception");
-                for(int i = 0; i < MAX_TRIES; i++) {
-                    try {
-                        path = roadManager.getRoad(current_path.getWaypoints());
-                        current_path.addRoadInformation(path);
-                        break;
-                    } catch(IndexOutOfBoundsException e){
-                        Log.i("TIME_TAG", "Index out of bounds exception times " + i);
-                        if(i == MAX_TRIES - 1) {
-                            parent_activity.errorDialog("Pfad konnte nicht berechnet werden.");
-                            return null;
-                        }
-                    }
-                }
                 parent_activity.errorDialog( "Fehler", "Bei der Pfad Generierung ist ein Fehler aufgetreten");
                 return null;
             }
-            Log.i("TIME_TAG", "Path finished");
             current_path.addRoadInformation(path);
             return null;
         }

@@ -363,8 +363,8 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             return;
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Route wird berechnet");
-        builder.setMessage("Angegebene Zeit: " + time_choice);
+        builder.setTitle("Stolperpfad wird berechnet");
+        builder.setMessage("Haben Sie bitten einen Moment Geduld");
         builder.setCancelable(false);
         loading_dialog = builder.create();
         loading_dialog.show();
@@ -455,5 +455,4 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             return null;
         }
     }
-
 }

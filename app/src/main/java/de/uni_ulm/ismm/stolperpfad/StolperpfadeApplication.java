@@ -24,6 +24,7 @@ public class StolperpfadeApplication extends Application {
     public static final String DATA_FILES_PATH = Environment.getExternalStorageDirectory() + "/stolperpfade/data";
     private static final int BUFFER_SIZE = 1024;
 
+    private boolean first_call;
     private boolean file_tree_ready = false;
     private boolean ocr_language_file_ready = false;
     private boolean image_buffer_ready = false;
@@ -121,11 +122,15 @@ public class StolperpfadeApplication extends Application {
     }
 
     /**
-     * This method is deprecated, it may be re-implemented in a later version
+     * Initializes the data base
      */
-    @Deprecated
     public void setUpDb() {
+        prefs.edit().putBoolean("de.uni_ulm.ismm.stolperpfad.db_ready", false).apply();
         StolperpfadeRepository repo = new StolperpfadeRepository(this);
+        repo.getAllPersons();
+        repo.getAllStones();
+        repo.getAllTerms();
+        prefs.edit().putBoolean("de.uni_ulm.ismm.stolperpfad.db_ready", true).apply();
     }
 
     public void saveStringInPreferences(String tag, String content) {

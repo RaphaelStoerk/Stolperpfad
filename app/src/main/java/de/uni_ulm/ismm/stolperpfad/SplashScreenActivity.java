@@ -33,6 +33,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppTheme_Light);
         setContentView(R.layout.splash_screen);
         if(requestPermissions()) {
             loadContent();
@@ -73,7 +74,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             return true;
         }
         AlertDialog.Builder builder;
-        builder = new AlertDialog.Builder(this, R.style.DialogTheme_Dark);
+        builder = new AlertDialog.Builder(this);
         builder.setTitle(getResources().getString(R.string.permission_info_title));
         builder.setMessage(getResources().getString(R.string.permission_info));
         builder.setPositiveButton("Weiter", (dialogInterface, i) -> {

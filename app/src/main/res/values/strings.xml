@@ -1,5 +1,5 @@
-<resources>
-    <string name="application_name">Stolperpfade</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="PrivateResource">Stolperpfade</string>
 
     <!-- activity titles -->
     <string name="title_activity_scanner">Stein-Scanner</string>
@@ -94,5 +94,7 @@
     <string name="no_title"><![CDATA[< Kein Titel gefunden >]]></string>
     <string name="buff_string_address">addresse</string>
     <string name="null_placeholder" />
+    <string name="permission_info">Sie werden gleich nach mehreren Berechtigungen gefragt. Die Stolperpfade-App kann nur dann richtig und zuverlässig funktionieren, wenn Sie allen nötigen Berechtigungen zustimmen. Wir garantieren Ihnen, dass diese App über die Berechtigungen nur auf die wichtigsten relevanten Informationen zugreift.</string>
+    <string name="permission_info_title">Hinweis zu Berechtigungen</string>
 
 </resources>

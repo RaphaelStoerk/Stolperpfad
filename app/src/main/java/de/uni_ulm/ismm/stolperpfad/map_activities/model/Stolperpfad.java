@@ -20,6 +20,7 @@ import org.osmdroid.util.GeoPoint;
 import java.util.ArrayList;
 
 import de.uni_ulm.ismm.stolperpfad.database.data_util.DataFromJSON;
+import de.uni_ulm.ismm.stolperpfad.map_activities.RoutingUtil;
 
 import static de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory.SECONDS_PER_MINUTE;
 
@@ -118,6 +119,12 @@ public class Stolperpfad extends Road {
             end_options.setPosition(end_pos);
             end_options.setIcon(icon);
             end = map.addMarker(end_options);
+        } else if(getWaypoints().size() > 0) {
+            MarkerOptions end_options = new MarkerOptions();
+            end_options.setTitle("Ende des Pfades");
+            end_options.setPosition(stones.get(stones.size() - 1).getLocation());
+            end_options.setIcon(icon);
+            end = map.addMarker(end_options);
         }
     }
 
@@ -208,6 +215,14 @@ public class Stolperpfad extends Road {
 
     public LatLng getStartPosition() {
         return start.getPosition();
+    }
+
+    public Marker getStartMarker() {
+        return start;
+    }
+
+    public Marker getEndMarker() {
+        return end;
     }
 
     public void setStart(Marker start_route_from) {

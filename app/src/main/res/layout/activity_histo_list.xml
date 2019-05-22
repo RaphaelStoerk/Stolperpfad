@@ -73,7 +73,6 @@
         app:layout_constraintEnd_toStartOf="@+id/histo_list_pager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line_two_histo_list">
-
         <include layout="@layout/content_list_index" />
     </ScrollView>
 

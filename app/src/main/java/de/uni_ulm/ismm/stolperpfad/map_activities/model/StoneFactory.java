@@ -37,6 +37,16 @@ public class StoneFactory {
     private ArrayList<Marker> all_markers;
     private StolperpfadeRepository repo;
 
+    /*
+     * For some still unknown reason, certain stones in a certain area crash the route creation,
+     * possibly because the routing api can't find a pedestrian path to this area, so for now
+     * these stones will not be reachable in the route calculation process
+     *
+     * Names: Klappholz: id 32
+     * the following seem fine for now, needs more testing: Einstein: id 11, Levy: id 10, Stark: id 9
+     */
+    private final int[] unreachable_stone_ids = new int[]{32};
+
     private StoneFactory(MapQuestFragment map_fragment, MapboxMap map_object) {
         this.map_fragment = map_fragment;
         this.map_object = map_object;
@@ -130,7 +140,7 @@ public class StoneFactory {
         double best_dist = -1;
         double curr_dist;
         for (StoneOnMap s : all_stones) {
-            if(avoid(s.getStoneId(), avoid)) {
+            if(avoid(s.getStoneId(), avoid) || contains(unreachable_stone_ids, s.getStoneId())) {
                 continue;
             }
             Marker m = s.getMarker(map_object);
@@ -142,6 +152,22 @@ public class StoneFactory {
             }
         }
         return best;
+    }
+
+    /**
+     * Checks if an array of integer-ids contains a specific id
+     *
+     * @param unreachable_stone_ids the ids to check
+     * @param stone_id the id to look for in the set of ids
+     * @return true, if the id is contained
+     */
+    private boolean contains(int[] unreachable_stone_ids, int stone_id) {
+        for(int id : unreachable_stone_ids) {
+            if(id == stone_id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

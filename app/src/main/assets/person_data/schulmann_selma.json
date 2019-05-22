@@ -2,23 +2,23 @@
   "id": 58,
   "firstname": "Selma",
   "familyname": "Schulmann",
-  "birthname": "",
+  "birthname": "Mann",
     "stone": {
     "id": 5,
     "address": "Neutorstraße 16",
     "latitude": 48.402063,
     "longitude": 9.986927
   },
-  "history": "",
+  "history": "Judenhäuser, Zwangsaltersheim Oberstotzingen, Theresienstadt, Treblinka",
   "vita": [
     {
-      "content": "Geburt#"
+      "content": "Geburt#Selma Schulmann wurde am 11. September 1875 als Selma Mann in Ulm geboren."
     },
     {
-      "content": "1#"
+      "content": "Hochzeit#Am 14. Oktober 1901 heiratete Selma Schulmann Abraham Schulmann, genannt Albert, aus Mönchsroth."
     },
     {
-      "content": "2#"
+      "content": "Kinder#1902 gebar Selma Schulmann ihre Tochter Hedwig Schulmann, die möglicherweise als Kind mit Else Ehekircher befreundet war.\n1905 kam Sohn Paul zur Welt."
     },
     {
       "content": "3#"

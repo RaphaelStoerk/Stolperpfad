@@ -43,9 +43,7 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
             finish();
             System.exit(0);
         });
-        builder.setNegativeButton("Nein", (dialogInterface, i) -> {
-            dialogInterface.cancel();
-        });
+        builder.setNegativeButton("Nein", (dialogInterface, i) -> dialogInterface.cancel());
         AlertDialog request_dialog = builder.create();
     }
 }

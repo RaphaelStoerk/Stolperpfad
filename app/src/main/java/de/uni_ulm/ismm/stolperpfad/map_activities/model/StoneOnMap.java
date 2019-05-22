@@ -81,7 +81,7 @@ public class StoneOnMap {
         return reachable_stones.size();
     }
 
-    public LatLng getLocation() {
+    LatLng getLocation() {
         return location;
     }
 
@@ -93,7 +93,7 @@ public class StoneOnMap {
         return reachable_stones;
     }
 
-    boolean canReach(StoneOnMap possible_stone) {
+    boolean markedAsReachable(StoneOnMap possible_stone) {
         for (ReachableStone n : reachable_stones) {
             if (n.getStone().equals(possible_stone)) {
                 return true;

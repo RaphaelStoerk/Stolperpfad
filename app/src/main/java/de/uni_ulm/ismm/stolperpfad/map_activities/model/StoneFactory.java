@@ -227,13 +227,20 @@ public class StoneFactory {
             reachable_stones = curr_stone.getReachableStones();
             valid_reachable_stones = getValidReachables(reachable_stones, created_path, end_route_at, time_in_seconds);
             if(valid_reachable_stones.size() == 0) {
+                // no more stones can be added
                 if(end_route_at != null) {
                     if(end_route_at.getPosition().distanceTo(marker_for_curr_position.getPosition()) < time_in_seconds) {
+                        // the end can be reached in time
                         created_path.addEnd(end_route_at);
                         break;
                     } else if(isNotAStonePosition(end_route_at.getPosition())) {
+                        // the end can not be reached in time, but since it is not a stone position,
+                        // the user does not need to go all the way there, so it will be set as the end
+                        // nonetheless
                         created_path.addEnd(end_route_at);
                     } else {
+                        // end is a stone that can not be reached in time, therefore no valid route
+                        // can be created
                         created_path.setTimeNotPossible();
                     }
                 }
@@ -379,7 +386,7 @@ public class StoneFactory {
                     for(int i = 0; i < NEIGHBOURS; i++ ) {
                         shortest_dist = -1;
                         for (StoneOnMap s_to : all_stones) {
-                            if (s.equals(s_to) || s.canReach(s_to)) {
+                            if (s.equals(s_to) || s.markedAsReachable(s_to) || contains(unreachable_stone_ids, s_to.getStoneId())) {
                                 continue;
                             }
                             dist = s.getMarker(map_object).getPosition().distanceTo(s_to.getMarker(map_object).getPosition());

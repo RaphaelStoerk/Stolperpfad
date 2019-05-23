@@ -6,13 +6,10 @@ import android.support.annotation.NonNull;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
-import org.osmdroid.util.GeoPoint;
-
 /**
  * A Utility class for common routing calculations
  */
 public class RoutingUtil {
-
 
     /**
      * calculate the (direct) distance between two markers

@@ -2,6 +2,7 @@ package de.uni_ulm.ismm.stolperpfad.map_activities.model;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.Marker;
@@ -105,7 +106,9 @@ public class Stolperpfad extends Road {
      * @param icon the marker icon for the start and end marker
      */
     public void inflateFromBasic(StoneFactory handler, MapboxMap map, Icon icon) {
-        stones = handler.getStonesFromIds(stone_ids);
+        if(stones == null || stones.size() == 0) {
+            stones = handler.getStonesFromIds(stone_ids);
+        }
         if(start_pos != null) {
             MarkerOptions start_options = new MarkerOptions();
             start_options.setTitle("Start des Pfades");
@@ -168,22 +171,26 @@ public class Stolperpfad extends Road {
      * @return a list of waypoints
      */
     public ArrayList<GeoPoint> getWaypoints() {
+        Log.i("TIME_TAG", "Time in road: " + requested_time + ", requesting waypoints, stone count: " + stones.size());
         if(!isValid()) {
             return new ArrayList<>();
         }
         ArrayList<GeoPoint> points = new ArrayList<>();
         points.add(new GeoPoint(start.getPosition().getLatitude(), start.getPosition().getLongitude()));
+        Log.i("TIME_TAG", "added start " + start);
         for(StoneOnMap s : stones) {
             points.add(new GeoPoint(s.getLocation().getLatitude(), s.getLocation().getLongitude()));
+            Log.i("TIME_TAG", "added stone with id: " + s.getStoneId() + ", position: " + s.getLocation() + "stone count: " + stones.size());
         }
         if(end != null) {
             points.add(new GeoPoint(end.getPosition().getLatitude(), end.getPosition().getLongitude()));
+            Log.i("TIME_TAG", "added end " + end);
         }
         return points;
     }
 
     /**
-     * Returns thewaypoints of this road as LatLng Objects
+     * Returns the waypoints of this road as LatLng Objects
      *
      * @return the LatLng waypoints as a list
      */
@@ -237,6 +244,7 @@ public class Stolperpfad extends Road {
         if(stones == null) {
             stones = new ArrayList<>();
         }
+        Log.i("TIME_TAG", "Added new stone in path, count now: " + stones.size());
         stones.add(next_stone);
     }
 

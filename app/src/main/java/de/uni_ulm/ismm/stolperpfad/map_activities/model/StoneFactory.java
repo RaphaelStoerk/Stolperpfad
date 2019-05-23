@@ -37,6 +37,16 @@ public class StoneFactory {
     private ArrayList<Marker> all_markers;
     private StolperpfadeRepository repo;
 
+    /*
+     * For some still unknown reason, certain stones in a certain area crash the route creation,
+     * possibly because the routing api can't find a pedestrian path to this area, so for now
+     * these stones will not be reachable in the route calculation process
+     *
+     * Names: Klappholz: id 32
+     * the following seem fine for now, needs more testing: Einstein: id 11, Levy: id 10, Stark: id 9
+     */
+    private final int[] unreachable_stone_ids = new int[]{32};
+
     private StoneFactory(MapQuestFragment map_fragment, MapboxMap map_object) {
         this.map_fragment = map_fragment;
         this.map_object = map_object;
@@ -130,7 +140,7 @@ public class StoneFactory {
         double best_dist = -1;
         double curr_dist;
         for (StoneOnMap s : all_stones) {
-            if(avoid(s.getStoneId(), avoid)) {
+            if(avoid(s.getStoneId(), avoid) || contains(unreachable_stone_ids, s.getStoneId())) {
                 continue;
             }
             Marker m = s.getMarker(map_object);
@@ -142,6 +152,22 @@ public class StoneFactory {
             }
         }
         return best;
+    }
+
+    /**
+     * Checks if an array of integer-ids contains a specific id
+     *
+     * @param unreachable_stone_ids the ids to check
+     * @param stone_id the id to look for in the set of ids
+     * @return true, if the id is contained
+     */
+    private boolean contains(int[] unreachable_stone_ids, int stone_id) {
+        for(int id : unreachable_stone_ids) {
+            if(id == stone_id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -201,13 +227,20 @@ public class StoneFactory {
             reachable_stones = curr_stone.getReachableStones();
             valid_reachable_stones = getValidReachables(reachable_stones, created_path, end_route_at, time_in_seconds);
             if(valid_reachable_stones.size() == 0) {
+                // no more stones can be added
                 if(end_route_at != null) {
-                    if(end_route_at.getPosition().distanceTo(marker_for_curr_position.getPosition()) < time_in_seconds) {
+                    if(end_route_at.getPosition().distanceTo(marker_for_curr_position.getPosition()) <= time_in_seconds) {
+                        // the end can be reached in time
                         created_path.addEnd(end_route_at);
                         break;
                     } else if(isNotAStonePosition(end_route_at.getPosition())) {
+                        // the end can not be reached in time, but since it is not a stone position,
+                        // the user does not need to go all the way there, so it will be set as the end
+                        // nonetheless
                         created_path.addEnd(end_route_at);
                     } else {
+                        // end is a stone that can not be reached in time, therefore no valid route
+                        // can be created
                         created_path.setTimeNotPossible();
                     }
                 }
@@ -267,11 +300,11 @@ public class StoneFactory {
                 continue;
             }
             // check if the stone is reachable
-            if(n.getDist() >= time_in_seconds) {
+            if(n.getDist() > time_in_seconds) {
                 continue;
             }
             // check if the end will be reachable from that ReachableStone in the given time
-            if(end_route_at != null && n.getMarker(map_object).getPosition().distanceTo(end_route_at.getPosition()) >= time_in_seconds - n.getDist()) {
+            if(end_route_at != null && n.getMarker(map_object).getPosition().distanceTo(end_route_at.getPosition()) > time_in_seconds - n.getDist()) {
                 continue;
             }
             ret.add(n);
@@ -353,7 +386,7 @@ public class StoneFactory {
                     for(int i = 0; i < NEIGHBOURS; i++ ) {
                         shortest_dist = -1;
                         for (StoneOnMap s_to : all_stones) {
-                            if (s.equals(s_to) || s.canReach(s_to)) {
+                            if (s.equals(s_to) || s.markedAsReachable(s_to) || contains(unreachable_stone_ids, s_to.getStoneId())) {
                                 continue;
                             }
                             dist = s.getMarker(map_object).getPosition().distanceTo(s_to.getMarker(map_object).getPosition());

@@ -54,6 +54,7 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     private AlertDialog info_dialog;
     private AlertDialog save_dialog;
     private AlertDialog route_info_dialog;
+    private AlertDialog loading_dialog;
     private AlertDialog error_dialog;
 
     @Override
@@ -280,6 +281,10 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             info_dialog.dismiss();
             info_dialog = null;
         }
+        if(loading_dialog != null) {
+            loading_dialog.dismiss();
+            loading_dialog = null;
+        }
     }
 
     /**
@@ -357,6 +362,12 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Stolperpfad wird berechnet");
+        builder.setMessage("Haben Sie bitten einen Moment Geduld");
+        builder.setCancelable(false);
+        loading_dialog = builder.create();
+        loading_dialog.show();
         map_quest.createRoute(start_choice.startsWith("#") ? "-1" : start_choice,
                 end_choice.startsWith("#") ? "-1" : end_choice,
                 time_choice.startsWith("#") ? "-1" : time_choice);
@@ -444,5 +455,4 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             return null;
         }
     }
-
 }

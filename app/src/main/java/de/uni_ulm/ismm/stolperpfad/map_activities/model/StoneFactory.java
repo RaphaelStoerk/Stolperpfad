@@ -43,9 +43,10 @@ public class StoneFactory {
      * these stones will not be reachable in the route calculation process
      *
      * Names: Klappholz: id 32
-     * the following seem fine for now, needs more testing: Einstein: id 11, Levy: id 10, Stark: id 9
+     * the following seemed fine, but will also be put on hold for now,
+     * TODO: needs more testing: Einstein: id 11, Levy: id 10, Stark: id 9
      */
-    private final int[] unreachable_stone_ids = new int[]{32};
+    private final int[] unreachable_stone_ids = new int[]{32, 11, 10, 9};
 
     private StoneFactory(MapQuestFragment map_fragment, MapboxMap map_object) {
         this.map_fragment = map_fragment;

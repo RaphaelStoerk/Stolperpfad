@@ -36,14 +36,16 @@ public class MainMenuActivity extends StolperpfadeAppActivity {
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder;
-        builder = new AlertDialog.Builder(this, R.style.DialogTheme_Light);
+        builder = new AlertDialog.Builder(this);
         builder.setTitle("Stolperpfade beenden?");
         builder.setPositiveButton("Ja", (dialogInterface, i) -> {
             dialogInterface.cancel();
-            finish();
+            finishAffinity();
+            // TODO: there is probably a better way to do this
             System.exit(0);
         });
         builder.setNegativeButton("Nein", (dialogInterface, i) -> dialogInterface.cancel());
         AlertDialog request_dialog = builder.create();
+        request_dialog.show();
     }
 }

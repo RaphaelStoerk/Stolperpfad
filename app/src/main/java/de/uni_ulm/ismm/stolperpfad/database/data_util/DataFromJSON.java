@@ -180,7 +180,7 @@ public class DataFromJSON {
     public static boolean deleteFileFromExternalStorage(String directory, String name) {
         try {
             File dir = new File(StolperpfadeApplication.DATA_FILES_PATH, directory);
-            File to_delete = new File(dir.getAbsolutePath(), name);
+            File to_delete = new File(dir.getAbsolutePath(), name + ".json");
             to_delete.delete();
             return true;
         } catch(Exception exc) {

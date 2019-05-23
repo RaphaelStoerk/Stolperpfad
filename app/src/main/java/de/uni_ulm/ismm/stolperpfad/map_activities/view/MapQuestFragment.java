@@ -23,6 +23,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresPermission;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,6 @@ import static de.uni_ulm.ismm.stolperpfad.map_activities.model.StoneFactory.SECO
  */
 public class MapQuestFragment extends Fragment {
 
-    private static final int DEFAULT_TILT = 45;
     private static final float DEFAULT_ZOOM = 13.5f;
     private static final float NEAR_ZOOM = 15;
     private static final double FOLLOW_MODE_TILT_VALUE_DEGREES = 50;
@@ -70,6 +70,8 @@ public class MapQuestFragment extends Fragment {
     private static final int DEFAULT_LOCATION_LISTENER_INTERVAL = 1000;
     private static final int FASTEST_LOCATION_LISTENER_INTERVAL = 800;
     private static final int SMALLEST_LOCATION_DISPLACEMENT = 2;
+    private static final int MAX_TRIES = 3;
+    private static final int DEFAULT_TILT = 45;
     private static final int CAMERA_MOVEMENT_TIME = 1000;
     private static final LatLng ULM_CTR = new LatLng(48.39855, 9.99123);
     private static final double HALF_HOUR = 30;
@@ -376,6 +378,7 @@ public class MapQuestFragment extends Fragment {
                 }
                 current_path_polyline = current_path.addPathToMap(map_object);
                 parent_activity.activatePathGuide();
+                parent_activity.closeDialogs();
                 moveCameraTo(road.getStartPosition(), NEAR_ZOOM, DEFAULT_TILT);
                 aq.id(R.id.start_guide_button).visible();
             }
@@ -392,7 +395,7 @@ public class MapQuestFragment extends Fragment {
      */
     private Stolperpfad addStonesToRoute(Marker start_route_from, Marker end_route_at, int time_in_seconds) {
         if(time_in_seconds < SECONDS_PER_MINUTE) {
-            time_in_seconds = SECONDS_PER_MINUTE * (getRandomtPathTime());
+            time_in_seconds = SECONDS_PER_MINUTE * (getRandomPathTime());
         } else if(time_in_seconds > HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE) {
             time_in_seconds = HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE;
         }
@@ -404,7 +407,7 @@ public class MapQuestFragment extends Fragment {
      *
      * @return a random time in minutes
      */
-    private int getRandomtPathTime() {
+    private int getRandomPathTime() {
         return (int) (HALF_HOUR + Math.random() * ONE_AND_A_HALF_HOURS);
     }
 

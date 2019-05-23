@@ -2,23 +2,16 @@ package de.uni_ulm.ismm.stolperpfad;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
 
 import java.util.ArrayList;
-
-import de.uni_ulm.ismm.stolperpfad.scanner.ScannerActivity;
 
 /**
  * The activity that displays the splash screen at the start of the app

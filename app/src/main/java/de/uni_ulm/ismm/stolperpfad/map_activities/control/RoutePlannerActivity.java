@@ -199,6 +199,28 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
     }
 
     /**
+     * Checks the external storage if there has been changes in the saved routes
+     *
+     * @param container the current saved path container layout
+     * @param current_user_input the currently selected file
+     * @param from_storage if the routes in the external memory should be reloaded
+     */
+    @SuppressLint("StaticFieldLeak")
+    private void reloadPaths(LinearLayout container, String current_user_input, boolean from_storage) {
+        container.removeAllViews();
+        if(from_storage) {
+            new LoadPathsTask() {
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    showPaths(container, current_user_input);
+                }
+            }.execute();
+        } else {
+            showPaths(container, current_user_input);
+        }
+    }
+
+    /**
      * Displays the saved paths that match the input from the search bar
      *
      * @param container the layout that contains the path buttons
@@ -245,6 +267,21 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
                 route_info_dialog = builder.create();
                 route_info_dialog.show();
             });
+            but.setOnLongClickListener((View view) -> {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(path_name);
+                builder.setMessage("Möchten Sie den Pfad löschen?");
+                builder.setPositiveButton("Löschen", (dialogInterface, i) -> {
+                    current_file_name = path_name;
+                    dialogInterface.cancel();
+                    boolean deleted = deleteRoad(getCurrentRoute(path_name));
+                    reloadPaths(container, search_by, deleted);
+                });
+                builder.setNegativeButton("Zurück", (dialogInterface, i) -> dialogInterface.cancel());
+                route_info_dialog = builder.create();
+                route_info_dialog.show();
+                return true;
+            });
         }
         String show_text;
         if(search_by == null || search_by.equals("") || no_pathname_found) {
@@ -255,6 +292,19 @@ public class RoutePlannerActivity extends StolperpfadAppMapActivity {
             but.setText(Html.fromHtml(show_text));
         }
         return but;
+    }
+
+    /**
+     * Deletes a chosen path from the external storage
+     *
+     * @param current_route the route to be deleted
+     * @return true, if the file has been deleted
+     */
+    private boolean deleteRoad(Stolperpfad current_route) {
+        if(current_route == null) {
+            return false;
+        }
+        return DataFromJSON.deleteFileFromExternalStorage("paths", current_route.getName());
     }
 
     /**

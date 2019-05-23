@@ -63,7 +63,8 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
 
                 <ImageView
                     android:id="@+id/info_icon_3"
@@ -72,12 +73,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
+                    android:contentDescription="@string/def_content_description"
                     android:scaleType="centerInside"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/marker_icon_stone"
-                    android:contentDescription="@string/def_content_description" />
+                    app:srcCompat="@drawable/marker_icon_stone" />
 
                 <TextView
                     android:id="@+id/info_text_3"
@@ -115,11 +116,11 @@
                     android:layout_height="42dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:contentDescription="@string/def_content_description"
                     android:scaleType="centerInside"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/marker_icon_start_end"
-                    android:contentDescription="@string/def_content_description" />
+                    app:srcCompat="@drawable/marker_icon_start_end" />
 
                 <TextView
                     android:id="@+id/info_text_5"
@@ -171,12 +172,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
+                    android:contentDescription="@string/def_content_description"
                     android:scaleType="centerInside"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/marker_icon_default"
-                    android:contentDescription="@string/def_content_description" />
+                    app:srcCompat="@drawable/marker_icon_default" />
 
                 <TextView
                     android:id="@+id/info_text_6"
@@ -215,12 +216,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
+                    android:contentDescription="@string/def_content_description"
                     android:scaleType="centerInside"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/marker_icon_default_round"
-                    android:contentDescription="@string/def_content_description" />
+                    app:srcCompat="@drawable/marker_icon_default_round" />
 
                 <TextView
                     android:id="@+id/info_text_9"
@@ -261,13 +262,13 @@
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/ic_bio_point_off_dark"
                     android:backgroundTint="?attr/colorAppPrimaryContrast"
+                    android:contentDescription="@string/def_content_description"
                     android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_plus"
-                    app:tint="?attr/colorAppPrimary"
-                    android:contentDescription="@string/def_content_description" />
+                    app:tint="?attr/colorAppPrimary" />
 
                 <TextView
                     android:id="@+id/info_text_1"
@@ -308,12 +309,12 @@
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/ic_bio_point_off_dark"
                     android:backgroundTint="?attr/colorAppPrimaryContrast"
+                    android:contentDescription="@string/def_content_description"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_save_black_24dp"
-                    app:tint="?attr/colorAppPrimary"
-                    android:contentDescription="@string/def_content_description" />
+                    app:tint="?attr/colorAppPrimary" />
 
                 <TextView
                     android:id="@+id/info_text_2"
@@ -343,7 +344,8 @@
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
 
                 <ImageButton
                     android:id="@+id/info_icon_4"
@@ -353,11 +355,11 @@
                     android:layout_marginTop="8dp"
                     android:background="@drawable/ic_bio_point_off_dark"
                     android:backgroundTint="?attr/colorAppPrimaryContrast"
+                    android:contentDescription="@string/def_content_description"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_directions_walk_black_24dp"
-                    app:tint="?attr/colorAppPrimary"
-                    android:contentDescription="@string/def_content_description"/>
+                    app:tint="?attr/colorAppPrimary" />
 
                 <TextView
                     android:id="@+id/info_text_4"

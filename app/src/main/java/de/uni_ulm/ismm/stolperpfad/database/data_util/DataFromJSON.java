@@ -169,4 +169,22 @@ public class DataFromJSON {
         String time_hex = Long.toHexString(time);
         return "Stolperpfad_" + formatted + "_" + time_hex;
     }
+
+    /**
+     * Deletes a file from a given directory
+     *
+     * @param directory the directory containing the file
+     * @param name the name of the file
+     * @return true, if the file has been found and deleted
+     */
+    public static boolean deleteFileFromExternalStorage(String directory, String name) {
+        try {
+            File dir = new File(StolperpfadeApplication.DATA_FILES_PATH, directory);
+            File to_delete = new File(dir.getAbsolutePath(), name);
+            to_delete.delete();
+            return true;
+        } catch(Exception exc) {
+            return false;
+        }
+    }
 }
